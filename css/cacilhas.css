@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Default Fancy";
+  src: url("../fonts/default-fancy.ttf") format("truetype");
+}
+
+
+.mg-title:first-letter {
+  font-family: "Default Fancy";
+}
+
+.mg-first:first-letter {
+  font-family: "Default Fancy";
+  font-size: 180%;
+  vertical-align: text-top;
+  float: left;
+  margin-right: 8px;
+}
