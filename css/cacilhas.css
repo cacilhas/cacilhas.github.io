@@ -8,10 +8,17 @@
   font-family: "Default Fancy";
 }
 
+
 .mg-first:first-letter {
   font-family: "Default Fancy";
   font-size: 180%;
   vertical-align: text-top;
   float: left;
   margin-right: 8px;
+}
+
+
+#footer {
+  position: fixed;
+  bottom: 0px;
 }
