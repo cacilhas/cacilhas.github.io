@@ -45,9 +45,9 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-						<li ng-class="{active: controller.homeActive}"><a href="/">Home</a></li>
-						<li ng-class="{active: controller.aboutActive}"><a href="?url=/about">Sobre</a></li>
-						<li id="current"></li>
+						<li ng-class="{active: homeActive}"><a href="/">Home</a></li>
+						<li ng-class="{active: aboutActive}"><a href="?url=/about">Sobre</a></li>
+						<li ng-class="{active: !(homeActive || aboutActive)}" id="current"></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
