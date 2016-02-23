@@ -18,8 +18,6 @@ angular.module('cacilhasApp', ['ngRoute'])
 
     $scope.homeActive = homeActive;
     $scope.aboutActive = aboutActive;
-
-    url = '/templates' + url + '.html';
-    $('#main').load(url);
+    $scope.page_url = '/templates' + url + '.html';
 
 });
