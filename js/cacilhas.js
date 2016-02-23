@@ -12,8 +12,11 @@ angular.module('cacilhasApp', ['ngRoute'])
         aboutActive = true;
     } else if (url !== '/home') {
         homeActive = false;
-        $('<a href="' + window.location.href + '">')
-            .text(url).appendTo($('#current'));
+        $('<a>').attr('href', window.location.href)
+                .text(url)
+                .appendTo(
+            $('#current').addClass('active')
+        );
     }
 
     $scope.homeActive = homeActive;
