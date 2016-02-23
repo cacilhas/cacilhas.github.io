@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" ng-app="cacilhasApp">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,6 +19,10 @@
         <link href="/css/cacilhas.css" rel="stylesheet" />
 		<script src="/js/ie-emulation-modes-warning.js"></script>
 		<script src="/js/jquery.min.js"></script>
+		<script src="/js/angular.min.js"></script>
+		<script src="/js/angular-resource.min.js"></script>
+		<script src="/js/angular-route.min.js"></script>
+		<script src="/js/cacilhas.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -27,7 +31,7 @@
 		<![endif]-->
     </head>
 
-    <body>
+    <body ng-controller="CacilhasController as controller">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -41,36 +45,16 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Home</a></li>
-                        <li><a href="/about.html">Sobre</a></li>
+						<li ng-class="{active: controller.homeActive}"><a href="/">Home</a></li>
+						<li ng-class="{active: controller.aboutActive}"><a href="?url=/about">Sobre</a></li>
+						<li id="current"></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
 
-        <div class="container">
-
-			<div class="col-md-4">
-				<div class="list-group">
-					<h3 class="mg-title list-group-item active">Mapa</h3>
-					<a class="list-group-item small" href="/">Home</a>
-					<a class="list-group-item small" href="/about.html">Apresentação</a>
-				</div>
-			</div>
-
-            <div class="col-md-4" role="button"
-				 onclick="javascript:window.location = '/about.html';">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="mg-title">Apresentação</h3>
-					</div>
-					<div class="panel-body">
-						<p class="lead">Sobre este <em>site</em>.</p>
-					</div>
-				</div>
-            </div>
-
-        </div><!-- /.container -->
+        <div id="main" class="container">
+        </div>
 
 		<div id="footer" class="panel-footer">
 			<p class="small">Página pessoal de ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας</p>
