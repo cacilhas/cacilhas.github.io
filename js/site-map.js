@@ -1,6 +1,6 @@
 var siteMap = [
     {
-        url: '/?url=/about',
+        url: '/?t=/about',
         title: 'Apresentação',
         content: 'Sobre este <em>site</em>.',
         highlight: true

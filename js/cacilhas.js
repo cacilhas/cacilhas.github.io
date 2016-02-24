@@ -4,7 +4,7 @@ angular.module('cacilhasApp', ['ngRoute'])
     var homeActive = true;
     var aboutActive = false;
 
-    var url = window.location.href.split('?url=')[1];
+    var url = window.location.href.split('?t=')[1];
     url = url || '/home';
 
     if (url === '/about') {
