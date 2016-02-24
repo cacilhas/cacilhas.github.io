@@ -1,19 +1,23 @@
+<script src="/js/site-map.js"></script>
+
 <div class="col-md-4">
     <div class="list-group">
         <h3 class="mg-title list-group-item active">Mapa</h3>
-        <a class="list-group-item small" href="/">Home</a>
-        <a class="list-group-item small" href="/?url=/about">Apresentação</a>
+        <a class="list-group-item small" href="/">Início</a>
+        <a ng-repeat="page in controller.getSiteMap()"
+           class="list-group-item small" href="{{page.url}}"
+           ng-bind-html="page.title | trusted"></a>
     </div>
 </div>
 
-<div class="col-md-4" role="button"
-     onclick="javascript:window.location = '/?url=/about';">
+<a ng-repeat="page in controller.getHighlight()" href="{{page.url}}"
+     class="col-md-4 mg-nou" role="button">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="mg-title">Apresentação</h3>
+            <h3 class="mg-title" ng-bind-html="page.title | trusted"></h3>
         </div>
         <div class="panel-body">
-            <p class="lead">Sobre este <em>site</em>.</p>
+            <p class="lead" ng-bind-html="page.content | trusted"></p>
         </div>
     </div>
-</div>
+</a>

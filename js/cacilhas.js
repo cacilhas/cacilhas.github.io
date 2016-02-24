@@ -25,4 +25,23 @@ angular.module('cacilhasApp', ['ngRoute'])
     $scope.aboutActive = aboutActive;
     $scope.page_url = '/templates' + url + '.html';
 
-});
+    this.getSiteMap = function() {
+        if (typeof siteMap === 'undefined')
+            return [];
+        else
+            return siteMap;
+    }
+
+    this.getHighlight = function() {
+        if (typeof siteMap === 'undefined')
+            return [];
+        else
+            return siteMap.filter(function(page) { return page.highlight; });
+    }
+
+})
+.filter('trusted', ['$sce', function($sce) {
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    }
+}]);

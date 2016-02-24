@@ -18,6 +18,11 @@
 }
 
 
+.mg-nou:hover {
+  text-decoration: none;
+}
+
+
 #footer {
   position: fixed;
   left: 0px;
