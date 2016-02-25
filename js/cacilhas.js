@@ -20,7 +20,7 @@ angular.module('cacilhasApp', ['ngRoute'])
 
     $scope.homeActive = homeActive;
     $scope.aboutActive = aboutActive;
-    $scope.page_url = '/templates' + url + '.html';
+    $scope.templateURL = '/templates' + url + '.html';
 
     this.getSiteMap = function() {
         if (typeof siteMap === 'undefined')
