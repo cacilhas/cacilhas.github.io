@@ -26,7 +26,7 @@ angular.module('cacilhasApp', ['ngRoute'])
         if (typeof siteMap === 'undefined')
             return [];
         else
-            return siteMap;
+            return siteMap.filter(function(page) { return !(page.hidden); });
     }
 
     this.getHighlight = function() {
