@@ -47,7 +47,7 @@
                     <ul class="nav navbar-nav">
 						<li ng-class="{active: homeActive}"><a href="/">Início</a></li>
 						<li ng-class="{active: aboutActive}"><a href="?t=/about">Sobre</a></li>
-						<li id="current" style="display: none;"></li>
+						<li id="current" style="display: none;"><a ng-href="{{controller.currentURL}}" ng-bind-html="controller.currentTitle | trusted"></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

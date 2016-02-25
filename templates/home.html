@@ -5,12 +5,12 @@
         <h3 class="mg-title list-group-item active">Mapa</h3>
         <a class="list-group-item small" href="/">Início</a>
         <a ng-repeat="page in controller.getSiteMap()"
-           class="list-group-item small" href="{{page.url}}"
+           class="list-group-item small" ng-href="{{page.url}}"
            ng-bind-html="page.title | trusted"></a>
     </div>
 </div>
 
-<a ng-repeat="page in controller.getHighlight()" href="{{page.url}}"
+<a ng-repeat="page in controller.getHighlight()" ng-href="{{page.url}}"
      class="col-md-4 mg-nou" role="button">
     <div class="panel panel-default">
         <div class="panel-heading">
