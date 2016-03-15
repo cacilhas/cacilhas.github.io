@@ -23,6 +23,11 @@
 }
 
 
+.mg-alert {
+    color: #bbbb55;
+}
+
+
 #footer {
   position: fixed;
   left: 0px;
