@@ -27,10 +27,12 @@
 		<h3 class="mg-title list-group-item active"><em>Tags</em></h3>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="tag in controller.getTags()">
-				<span ng-bind="tag.name"></span>
-				<a ng-repeat="page in tag.pages"
-				   class="list-group-item small" ng-href="{{page.url}}"
-				   ng-bind-html="page.title | trusted"></a>
+                <select onchange="window.location = this.value; return true;">
+                    <option ng-bind="tag.name" selected="selected"></option>
+                    <option ng-repeat="page in tag.pages"
+                            value="{{page.url}}"
+                            ng-bind-html="page.title | trusted"></option>
+                </select>
 			</li>
 		</ul>
     </div>
