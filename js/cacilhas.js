@@ -51,7 +51,7 @@ angular.module('cacilhasApp', ['ngRoute'])
 			});
 		});
 		return response;
-	};
+	}
 
 })
 .filter('trusted', ['$sce', function($sce) {
