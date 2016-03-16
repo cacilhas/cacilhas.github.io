@@ -21,3 +21,17 @@
         </div>
     </div>
 </a>
+
+<div class="col-md-4">
+    <div class="list-group">
+		<h3 class="mg-title list-group-item active"><em>Tags</em></h3>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="tag in controller.getTags()">
+				<span ng-bind="tag.name"></span>
+				<a ng-repeat="page in tag.pages"
+				   class="list-group-item small" ng-href="{{page.url}}"
+				   ng-bind-html="page.title | trusted"></a>
+			</li>
+		</ul>
+    </div>
+</div>
