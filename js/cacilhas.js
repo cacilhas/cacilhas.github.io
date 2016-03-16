@@ -3,10 +3,11 @@ angular.module('cacilhasApp', ['ngRoute'])
 
     var homeActive = true;
     var aboutActive = false;
-    this.currentURL = window.location.href;
-    var url = window.location.href.split('?t=')[1];
-    url = url || '/home';
+    var currentURL = window.location.href;
+    var url = currentURL.split('?t=')[1];
+    url = decodeURIComponent(url || '/home');
     this.currentTitle = url;
+    this.currentURL = '/?t=' + url;
 
     if (url === '/about') {
         homeActive = false;
