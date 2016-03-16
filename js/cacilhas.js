@@ -36,6 +36,23 @@ angular.module('cacilhasApp', ['ngRoute'])
             return siteMap.filter(function(page) { return page.highlight; });
     }
 
+	var self = this;
+	this.getTags = function() {
+		// TODO: make it right
+		var tags = {};
+		var response = [];
+		self.getSiteMap().forEach(function(page) {
+			page.tags.forEach(function(tag) {
+				if (typeof tags[tag] === 'undefined') {
+					tags[tag] = {name: tag, pages: [page]};
+					response.push(tags[tag]);
+				} else
+					tags[tag].pages.push(page);
+			});
+		});
+		return response;
+	};
+
 })
 .filter('trusted', ['$sce', function($sce) {
     return function(text) {
