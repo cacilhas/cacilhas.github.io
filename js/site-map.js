@@ -17,5 +17,6 @@ var siteMap = [
         title: 'Kodumaro :: Standard ML – continuação',
         content: 'Veja como podemos estender a criação de sequências.',
         tags: ['Kodumaro :: Funcional', 'Kodumaro :: ML'],
+        hidden: true
     }
 ];

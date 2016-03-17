@@ -42,7 +42,10 @@ angular.module('cacilhasApp', ['ngRoute'])
         // TODO: make it right
         var tags = {};
         var response = [];
-        self.getSiteMap().forEach(function(page) {
+        if (typeof siteMap === 'undefined')
+            return [];
+
+        siteMap.forEach(function(page) {
             page.tags.forEach(function(tag) {
                 if (typeof tags[tag] === 'undefined') {
                     tags[tag] = {name: tag, pages: [page]};
