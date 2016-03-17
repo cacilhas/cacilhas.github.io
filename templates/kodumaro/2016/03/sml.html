@@ -2,7 +2,7 @@
 <script src="/js/kodumaro.js"></script>
 <script language="javascript">
 //<@[CDATA[
-	document.title += ' :: Standard ML';
+    document.title += ' :: Standard ML';
 //]]></script>
 
 <div class="panel panel-default">
@@ -14,11 +14,11 @@
             <a href="http://sml-family.org/">Standard ML</a> é a definição
             padrão (<em>standard</em>, duh) de
             <a href="https://en.wikipedia.org/wiki/ML_(programming_language)">ML</a>,
-			uma família de linguagens de programação funcional impura. O
-			representante mais expressivo dessa família é a linguagem francesa
-			<a href="http://caml.inria.fr/">OCaml</a>, e uma linguagem prima é
-			<a href="https://www.haskell.org/">Haskell</a>, um parente funcional
-			puro.
+            uma família de linguagens de programação funcional impura. O
+            representante mais expressivo dessa família é a linguagem francesa
+            <a href="http://caml.inria.fr/">OCaml</a>, e uma linguagem prima é
+            <a href="https://www.haskell.org/">Haskell</a>, um parente funcional
+            puro.
         </p>
         <p>
             A implementação de Standard ML que recomendo é a da
@@ -29,8 +29,8 @@
             Gostaria de, antes de tudo, pedir desculpas pelos códigos que
             passarei aqui, pois Standard ML é uma linguagem que não domino,
             então alguns conceitos podem estar errados. Se quiser me enviar
-			erratas, crie um <em>issue</em> no
-			<a href="https://github.com/cacilhas/cacilhas.github.io/issues">GitHub</a>.
+            erratas, crie um <em>issue</em> no
+            <a href="https://github.com/cacilhas/cacilhas.github.io/issues">GitHub</a>.
         </p>
 
         <h3>Linguagem funcional pura vs impura</h3>
@@ -61,8 +61,8 @@
                 <span class="glyphicon glyphicon-hand-right"></span>
                 Não pode haver mudança de estado: uma vez um valor vinculado a
                 um <em>slot</em>, não pode ser mudado. Neste sentido, a palavra
-				“variável” não representa bem o <em>slot</em>. Pessoalmente
-				prefiro <strong>incógnita</strong>.
+                “variável” não representa bem o <em>slot</em>. Pessoalmente
+                prefiro <strong>incógnita</strong>.
             </li>
             <li class="list-group-item">
                 <span class="glyphicon glyphicon-hand-right"></span>
@@ -104,10 +104,10 @@ val it = 1 : int</code></pre>
             avaliação que aquela posição de memória agora guarda o valor
             <code>1</code>.
         </p>
-		<p><small>
-			As linguagens da família ML também suportam que uma variável seja
-			associada a outro valor.
-		</small></p>
+        <p><small>
+            As linguagens da família ML também suportam que uma variável seja
+            associada a outro valor.
+        </small></p>
 
         <h3>Gerador de inteiros</h3>
         <p>
@@ -140,7 +140,7 @@ val range : (int * int) -&gt; int list</code></pre>
         </p>
         <p>
             <code>range</code> recebe o mesmo tipo de parâmetro que
-			<code>xrange</code>, retornando a lista já composta.
+            <code>xrange</code>, retornando a lista já composta.
         </p>
         <p>
             <span class="glyphicon glyphicon-alert mg-alert"></span>
@@ -162,11 +162,11 @@ val it = NONE : 'a option</code></pre>
             são idempotentes). Usaremos um <code>int ref</code> para o
             <em>closure</em>.
         </p>
-        <pre class="prettyprint"><code class="language-ml">fun xrange (start, finish) =
-let
-  val i = ref start
-in
-  fn () =&gt;
+        <p><small>
+            Atualizei o código removendo a necessidade de usar <code>fn</code>.
+        </small></p>
+        <pre class="prettyprint"><code class="language-ml">local
+  fun xrange' i finish () =
     if !i &gt;= finish then
       NONE
     else
@@ -176,6 +176,8 @@ in
         i := !i + 1;
         SOME r
       end
+in
+  fun xrange (start, finish) = xrange' (ref start) finish
 end</code></pre>
         <p>
             Vamos testar nosso <code>xrange</code>:
@@ -224,18 +226,18 @@ val it = NONE : int option</code></pre>
   case gen () of NONE       =&gt; rev acc
                | SOME value =&gt; genToList' (value::acc) gen</code></pre>
         <p>
-			Perceba que, passando <code>value::acc</code>, a lista é gerada de
-			trás para frente. Portanto, ao recebermos o valor de parada
-			(<code>NONE</code>), precisamos retornar a inversão do acumulador
-			(<code>rev acc</code>).
-		</p>
-		</p>
-		Nossa <code>genToList'</code> tem assinatura
+            Perceba que, passando <code>value::acc</code>, a lista é gerada de
+            trás para frente. Portanto, ao recebermos o valor de parada
+            (<code>NONE</code>), precisamos retornar a inversão do acumulador
+            (<code>rev acc</code>).
+        </p>
+        </p>
+        Nossa <code>genToList'</code> tem assinatura
             <code>int list -&gt; (unit -&gt; t option) -&gt; t list</code>, o
             que significa que, se chamada com um único parâmetro (o acumulador),
-			retorna uma função com a assinatura
+            retorna uma função com a assinatura
             <code>(unit -&gt; t option) -&gt; t list</code>. Vamos criar o
-			variante com acumulador embutido:
+            variante com acumulador embutido:
         </p>
         <pre class="prettyprint"><code class="language-ml">val genToList = genToList' nil</code></pre>
         <p>
@@ -264,15 +266,15 @@ val it = [0,1,2,3,4,5,6,7,8,9] : int list</code></pre>
         </p>
 
         <h3>Próximo artigo</h3>
-		No <a href="/?t=/kodumaro/2016/03/sml-2">próximo artigo</a> vamos tornar
-		o gerador mais robusto e genérico com <em>structures</em> e
-		<em>functors</em>.
+        No <a href="/?t=/kodumaro/2016/03/sml-2">próximo artigo</a> vamos tornar
+        o gerador mais robusto e genérico com <em>structures</em> e
+        <em>functors</em>.
     </div>
 </div>
 
 <div class="panel panel-default">
     <div class="panel-body" align="right">
-		<small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Standard+ML" target="_blank">Criar
-				<em>issue</em></a></small>
-	</div>
+        <small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Standard+ML" target="_blank">Criar
+                <em>issue</em></a></small>
+    </div>
 </div>

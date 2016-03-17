@@ -75,21 +75,20 @@ struct
     val genToList = genToList' nil
   end
 
-  fun build (start, finish) =
-    let
-      val i = ref start
-    in
-      fn () =&gt;
-        if G.checkFinish i finish then
-          NONE
-        else
-          let
-            val r = !i
-          in
-            G.increment i;
-            SOME r
-          end
-    end
+  local
+    fun build' i finish () =
+      if G.checkFinish i finish then
+        NONE
+      else
+        let
+          val r = !i
+        in
+          G.increment i;
+          SOME r
+        end
+  in
+    fun build (start, finish) = build' (ref start) finish
+  end
 end</code></pre>
         <p>
             Repare que agora em vez de <code>int</code> estamos usando
@@ -138,7 +137,7 @@ end</code></pre>
 
 <div class="panel panel-default">
     <div class="panel-body" align="right">
-		<small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Standard+ML+2" target="_blank">Criar
-				<em>issue</em></a></small>
-	</div>
+        <small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Standard+ML+2" target="_blank">Criar
+                <em>issue</em></a></small>
+    </div>
 </div>
