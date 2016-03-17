@@ -24,16 +24,18 @@
 
 <div class="col-md-4">
     <div class="list-group">
-		<h3 class="mg-title list-group-item active"><em>Tags</em></h3>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="tag in controller.getTags()">
-                <select onchange="window.location = this.value; return true;">
+        <h3 class="mg-title list-group-item active"><em>Tags</em></h3>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="tag in controller.getTags()">
+                <select onchange="window.location = this.value; return true;"
+                        class="list-group-item"
+                        style="width: 100%;">
                     <option ng-bind="tag.name" selected="selected"></option>
                     <option ng-repeat="page in tag.pages"
                             value="{{page.url}}"
                             ng-bind-html="page.title | trusted"></option>
                 </select>
-			</li>
-		</ul>
+            </li>
+        </ul>
     </div>
 </div>
