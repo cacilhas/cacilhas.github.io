@@ -13,7 +13,7 @@ var siteMap = [
         highlight: true
     },
     {
-        url: '?t=/kodumaro/2016/03/sml',
+        url: '?t=/kodumaro/2016/03/sml-2',
         title: 'Kodumaro :: Standard ML – continuação',
         content: 'Veja como podemos estender a criação de sequências.',
         tags: ['Kodumaro :: Funcional', 'Kodumaro :: ML'],
