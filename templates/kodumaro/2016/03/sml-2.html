@@ -68,13 +68,13 @@ struct
   type t = G.t
 
   val genToList =
-  let
-    fun genToList' (acc : t list) (gen : unit -&gt; t option) : t list =
-      case gen () of NONE       =&gt; rev acc
-                   | SOME value =&gt; genToList' (value::acc) gen
-  in
-    genToList' nil
-  end
+    let
+      fun genToList' (acc : t list) (gen : unit -&gt; t option) : t list =
+        case gen () of NONE       =&gt; rev acc
+                     | SOME value =&gt; genToList' (value::acc) gen
+    in
+      genToList' nil
+    end
 
   local
     fun build' i finish () =
