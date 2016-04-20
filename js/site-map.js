@@ -1,5 +1,11 @@
 var siteMap = [
     {
+        url: '/?t=/about',
+        title: 'Apresentação',
+        content: 'Sobre este <em>site</em>.',
+        tags: []
+    },
+    {
         url: '?t=/kodumaro/2016/04/aspectos',
         title: 'Kodumaro :: Aspectos',
         content: 'Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.',
@@ -12,12 +18,6 @@ var siteMap = [
         content: 'Uso de <em>mixins</em> na orientação a aspectos.',
         tags: ['Kodumaro :: Conceitual', 'Kodumaro :: Python'],
         hidden: true
-    },
-    {
-        url: '/?t=/about',
-        title: 'Apresentação',
-        content: 'Sobre este <em>site</em>.',
-        tags: []
     },
     {
         url: '?t=/kodumaro/2016/03/sml',
