@@ -18,5 +18,12 @@ var siteMap = [
         content: 'Veja como podemos estender a criação de sequências.',
         tags: ['Kodumaro :: Funcional', 'Kodumaro :: ML'],
         hidden: true
+    },
+    {
+        url: '?t=/kodumaro/2016/04/aspectos',
+        title: 'Kodumaro :: Aspectos',
+        content: 'Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.',
+        tags: ['Kodumaro :: Conceitual', 'Kodumaro :: Python'],
+        highlight: true
     }
 ];
