@@ -1,0 +1,218 @@
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="/js/kodumaro.js"></script>
+<script language="javascript">
+//<@[CDATA[
+    document.title += ' :: Aspectos – part II';
+//]]></script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="mg-title">Kodumaro :: Aspectos – <em>Mixins</em></h2>
+    </div>
+    <div class="panel-body">
+        <p class="mg-first">
+            Na <a href="/?t=/kodumaro/2016/04/aspectos">parte I</a> demos uma
+            passada rápida no conceito de aspectos. Agora veremos os
+            <a href="http://en.wikipedia.org/wiki/Mixin"><em>mixins</em></a>.
+        </p>
+        <p>
+            <em>Mixins</em> são classes incompletas que apenas atribuem
+            determinado comportamento a suas herdeiras.
+        </p>
+        <p>
+            Vamos a um exemplo muito superficial, mas suficiente: um objeto que
+            armazena notas de alunos em um arquivo.
+        </p>
+        <pre class="prettyprint"><code class="language-python">from typing import TypeVar
+from numbers import Integral, Number
+from pickle import dumps, loads
+import dbm
+
+__all__ = ['Database', 'Grades']
+
+FileType = TypeVar('File', str, '_gdbm.gdbm')
+
+
+class Database:
+
+    def __init__(self, file: FileType=None):
+        if file is None:
+            file = 'grades.db'
+        if isinstance(file, str):
+            file = dbm.open(file, 'c')
+        self.file = file
+
+    def close(self) -&gt; None:
+        if self.file:
+            self.file.close()
+            self.file = None
+
+
+class Grades:
+
+    def __init__(self, registration: Integral, db: Database):
+        self.registration = registration
+        if not isinstance(db, Database):
+            raise TypeError('expected Database instance, got {.__name__}'
+                            .format(type(db)))
+        self.db = db
+
+        try:
+            self.values = loads(db[bytes(str(registration), 'ascii')])
+        except KeyError:
+            self.values = {}
+
+    def save(self) -&gt; None:
+        db[bytes(str(self.registration), 'ascci')] = dumps(self.values)
+
+    @property
+    def first_bimester(self) -&gt; Number:
+        return self.values.get('1bim')
+
+    @first_bimester.setter
+    def first_bimester(self, value: Number) -&gt; None:
+        self.values['1bim'] = float(value)
+
+    @property
+    def second_bimester(self) -&gt; Number:
+        return self.values.get('2bim')
+
+    @second_bimester.setter
+    def second_bimester(self, value: Number) -&gt; None:
+        self.values['2bim'] = float(value)
+
+    @property
+    def third_bimester(self) -&gt; Number:
+        return self.values.get('3bim')
+
+    @third_bimester.setter
+    def third_bimester(self, value: Number) -&gt; None:
+        self.values['3bim'] = float(value)
+
+    @property
+    def fourth_bimester(self) -&gt; Number:
+        return self.values.get('4bim')
+
+    @fourth_bimester.setter
+    def fourth_bimester(self, value: Number) -&gt; None:
+        self.values['4bim'] = float(value)
+
+    @property
+    def catch_up(self) -&gt; Number:
+        return self.values.get('rec')
+
+    @catch_up.setter
+    def catch_up(self, value: Number) -&gt; None:
+        return self.values['rec'] = float(value)
+
+    @property
+    def avg_grade(self) -&gt; None:
+        grades = (
+            self.first_bimester or 0,
+            self.second_bimester or 0,
+            self.third_bimester or 0,
+            self.fourth_bimester or 0,
+        )
+        m = sum(grades) / len(grades)
+        ca = self.catch_up
+        return m if ca is None else (m + ca) / 2</code></pre>
+
+        <p>
+            Repare que temos o mesmo problema apresentando na parte I: está tudo
+            misturado em uma única classe!
+        </p>
+        <p>
+            Podemos separar as partes de gerência de banco e serialização em
+            classes diferentes, dedicadas a seu próprio aspecto, chamadas
+            <em>mixins</em>.
+        </p>
+        <p>
+            A classe de faz serialização pode ser apenas isso:
+        </p>
+        <pre class="prettyprint"><code class="language-python">class SerialisableGradeMixin:
+
+    def load(self) -&gt; None:
+        s = self.retrieve()
+        self.values = loads(s) if s else {}
+
+    def __bytes__(self) -&gt; None:
+        return dumps(self.values)</code></pre>
+
+        <p>
+            A gerência de banco vai para outro <em>mixin</em>:
+        </p>
+        <pre class="prettyprint"><code class="language-python">class PersistenceMixin:
+
+    def retrieve(self) -&gt; bytes:
+        try:
+            return self.db[bytes(str(self.registration), 'ascii')]
+        except KeyError:
+            return None
+
+    def save(self) -&gt; None:
+        db[bytes(str(self.registration), 'ascii')] = bytes(self)
+        </code></pre>
+        <p>
+            Preferindo, é possível separar a gerência de notas em um
+            <em>mixin</em> também:
+        </p>
+        <pre class="prettyprint"><code class="language-python">class GradesMixin:
+
+    @property
+    def first_bimester(self) -&gt; Number:
+        return self.values.get('1bim')
+
+    @first_bimester.setter
+    def first_bimester(self, value: Number) -&gt; None:
+        self.values['1bim'] = float(value)
+
+    ...
+
+    @property
+    def catch_up(self) -&gt; Number:
+        return self.values.get('rec')
+
+    @catch_up.setter
+    def catch_up(self, value: Number) -&gt; None:
+        return self.values['rec'] = float(value)
+
+    @property
+    def avg_grade(self) -&gt; None:
+        grades = (
+            self.first_bimester or 0,
+            self.second_bimester or 0,
+            self.third_bimester or 0,
+            self.fourth_bimester or 0,
+        )
+        m = sum(grades) / len(grades)
+        ca = self.catch_up
+        return m if ca is None else (m + ca) / 2</code></pre>
+
+        <p>
+            Ao final, a classe principal será apenas uma cola dos
+            <em>mixins</em>:
+        </p>
+        <pre class="prettyprint"><code class="language-python">class Grades(SerialisableGradeMixin, PersistenceMixin, GradesMixin):
+
+    def __init__(self, registration: Integral, db: Database):
+        self.registration = registration
+        if not isinstance(db, Database):
+            raise TypeError('expected Database instance, got {.__name__}'
+                            .format(type(db)))
+        self.db = db
+        self.load()</code></pre>
+        <p>
+            A API da classe continua idêntica: recebe o número da matrícula e o
+            banco na instanciação, propriedades para acessar as notas e método
+            <code>save</code> para salvá-las em arquivo, porém agora cada
+            aspecto está isolado e encapsulado em seu próprio <em>mixin</em>.
+        </p>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body" align="right">
+        <small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Aspectos+–+parte+II" target="_blank">Criar
+                <em>issue</em></a></small>
+    </div>
+</div>
