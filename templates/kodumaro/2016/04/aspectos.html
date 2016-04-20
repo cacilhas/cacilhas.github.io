@@ -36,8 +36,10 @@
             Vamos começar com um exemplo: imagine uma <em>view</em> que modifica
             o estado de um objeto, retornando um <em>hash</em> do novo estado:
         </p>
-        <pre class="prettyprint"><code class="language-python">@app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
-def update_person(uuid):
+        <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+
+@app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+def update_person(uuid: str) -&gt; ResponseType:
     person = db.person.find({'_id': uuid}).first()
     if not person:
         raise Http404
@@ -52,8 +54,7 @@ def update_person(uuid):
     person.update(data)
     db.person.save(person)
 
-    r = [(str(k), repr(v)) for k, v in person.iteritems()]
-    r.sort()
+    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -101,9 +102,13 @@ def update_person(uuid):
         <p>
         Vamos então separar o primeiro aspecto: recuperação do documento.
         </p>
-        <pre class="prettyprint"><code class="language-python">def retrieve_person_aspect(view):
+        <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+ViewType = Callable[[str], ResponseType]
+ParserType = Callable[[MutableMapping], ResponseType]
+
+def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
     @wraps(view)
-    def wrapper(uuid):
+    def wrapper(uuid: str) -&gt; ResponseType:
         person = db.person.find({'_id': uuid}).first()
         if not person:
             raise Http404
@@ -112,7 +117,7 @@ def update_person(uuid):
 
 @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
 @retrieve_person_aspect
-def update_person(person):
+def update_person(person: MutableMapping) -&gt; ResponseType:
     try:
         data = json.loads(request.data)
     except ValueError:
@@ -123,8 +128,7 @@ def update_person(person):
     person.update(data)
     db.person.save(person)
 
-    r = [(str(k), repr(v)) for k, v in person.iteritems()]
-    r.sort()
+    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -145,9 +149,14 @@ def update_person(person):
         <p>
             Podemos portanto, separá-los:
         </p>
-        <pre class="prettyprint"><code class="language-python">def parse_data_aspect(view):
+        <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+ViewType = Callable[[str], ResponseType]
+ParserType = Callable[[MutableMapping], ResponseType]
+ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+
+def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
     @wraps(view)
-    def wrapper(person):
+    def wrapper(person: MutableMapping):
         try:
             data = json.loads(request.data)
         except ValueError:
@@ -157,18 +166,17 @@ def update_person(person):
         return view(person, data)
     return wrapper
 
-def retrieve_person_aspect(view):
+def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
     ...
 
 @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
 @retrieve_person_aspect
 @parse_data_aspect
-def update_person(person, data):
+def update_person(person: MutableMapping, data: Mapping) -&gt; ResponseType:
     person.update(data)
     db.person.save(person)
 
-    r = [(str(k), repr(v)) for k, v in person.iteritems()]
-    r.sort()
+    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -180,31 +188,36 @@ def update_person(person, data):
             atualiza o documento, serializa e retorna o <em>hash</em>, mas ainda
             faz coisas demais. Vamos separar o tratamento do retorno:
         </p>
-        <pre class="prettyprint"><code class="language-python">def respond_etag_aspect(view):
+        <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+ViewType = Callable[[str], ResponseType]
+ParserType = Callable[[MutableMapping], ResponseType]
+ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
+
+def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
     @wraps(view)
-    def wrapper(person, data):
+    def wrapper(person: MutableMapping, data: Mapping) -&gt; ResponseType:
         response = view(person, data)
         return json.dumps({'etag': md5(response).hexdigest()}), &#92;
                200, &#92;
                {'Content-Type': 'application/json'}
     return wrapper
 
-def parse_data_aspect(view):
+def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
     ...
 
-def retrieve_person_aspect(view):
+def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
     ...
 
 @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
 @retrieve_person_aspect
 @parse_data_aspect
 @respond_etag_aspect
-def update_person(person, data):
+def update_person(person: MutableMapping, data: Mapping) -&gt; str:
     person.update(data)
     db.person.save(person)
 
-    r = [(str(k), repr(v)) for k, v in person.iteritems()]
-    r.sort()
+    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
     return ';'.join('{}:{!r}'.format(k, v) for k, v in r)</code></pre>
 
         <p>
@@ -212,29 +225,35 @@ def update_person(person, data):
             função <code>update_person</code> ainda faz além de atualizar o
             documento é serializá-lo. Isso também pode ser isolado:
         </p>
-        <pre class="prettyprint"><code class="language-python">def serialize_person_aspect(view):
+        <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+ViewType = Callable[[str], ResponseType]
+ParserType = Callable[[MutableMapping], ResponseType]
+ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
+PersonUpdaterType = Callable[[MutableMapping, Mapping], MutableMapping]
+
+def serialise_person_aspect(view: PersonUpdaterType) -&gt; PersonSerialiserType:
     @wraps(view)
-    def wrapper(person, data):
+    def wrapper(person: MutableMapping, data: Mapping) -&gt; str:
         response = view(person, data)
-        r = [(str(k), repr(v)) for k, v in response.iteritems()]
-        r.sort()
+        r = sorted((str(k), repr(v)) for k, v in response.iteritems())
         return ';'.join('{}:{!r}'.format(k,v) for k, v in r)
 
-def respond_etag_aspect(view):
+def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
     ...
 
-def parse_data_aspect(view):
+def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
     ...
 
-def retrieve_person_aspect(view):
+def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
     ...
 
 @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
 @retrieve_person_aspect
 @parse_data_aspect
 @respond_etag_aspect
-@serialize_person_aspect
-def update_person(person, data):
+@serialise_person_aspect
+def update_person(person: MutableMapping, data: Mapping) -&gt; MutableMapping:
     person.update(data)
     db.person.save(person)
     return person</code></pre>
@@ -261,7 +280,7 @@ def update_person(person, data):
             </li>
             <li class="list-group-item">
                 <span class="glyphicon glyphicon-hand-right"></span>
-                <code>serialize_person_aspect</code> apenas serializa o
+                <code>serialise_person_aspect</code> apenas serializa o
                 documento;
             </li>
             <li class="list-group-item">
@@ -286,12 +305,16 @@ def update_person(person, data):
             </li>
             <li class="list-group-item">
                 <span class="glyphicon glyphicon-hand-right"></span>
-                A ordem dos decoradores <strong>é importante</strong>.
+                A ordem dos decoradores <strong>é importante</strong>, o retorno
+                de cada decorador <strong>precisa</strong> ser do mesmo tipo do
+                argumento do decorador seguinte.
             </li>
             <li class="list-group-item">
                 <span class="glyphicon glyphicon-hand-right"></span>
                 Os <code>import</code>s foram omitidos:
-                <pre class="prettyprint"><code class="language-python">from functools import wraps
+                <pre class="prettyprint"><code class="language-python">from typing import Callable, Mapping, MutableMapping, Tuple
+from numbers import Integral
+from functools import wraps
 from hashlib import md5
 import json</code></pre>
             </li>
