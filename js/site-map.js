@@ -25,5 +25,12 @@ var siteMap = [
         content: 'Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.',
         tags: ['Kodumaro :: Conceitual', 'Kodumaro :: Python'],
         highlight: true
+    },
+    {
+        url: '?t=/kodumaro/2016/04/aspectos-2',
+        title: 'Kodumaro :: Aspectos – continuação',
+        content: 'Uso de <em>mixins</em> na orientação a aspectos.',
+        tags: ['Kodumaro :: Conceitual', 'Kodumaro :: Python'],
+        hidden: true
     }
 ];
