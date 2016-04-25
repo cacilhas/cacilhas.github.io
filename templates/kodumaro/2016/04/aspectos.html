@@ -54,7 +54,7 @@ def update_person(uuid: str) -&gt; ResponseType:
     person.update(data)
     db.person.save(person)
 
-    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
+    r = sorted(person.items())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -128,7 +128,7 @@ def update_person(person: MutableMapping) -&gt; ResponseType:
     person.update(data)
     db.person.save(person)
 
-    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
+    r = sorted(person.items())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -176,7 +176,7 @@ def update_person(person: MutableMapping, data: Mapping) -&gt; ResponseType:
     person.update(data)
     db.person.save(person)
 
-    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
+    r = sorted(person.items())
     s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
     return json.dumps({'etag': md5(s).hexdigest()}), &#92;
@@ -217,7 +217,7 @@ def update_person(person: MutableMapping, data: Mapping) -&gt; str:
     person.update(data)
     db.person.save(person)
 
-    r = sorted((str(k), repr(v)) for k, v in person.iteritems())
+    r = sorted((str(k), repr(v)) for k, v in person.items())
     return ';'.join('{}:{!r}'.format(k, v) for k, v in r)</code></pre>
 
         <p>
@@ -236,7 +236,7 @@ def serialise_person_aspect(view: PersonUpdaterType) -&gt; PersonSerialiserType:
     @wraps(view)
     def wrapper(person: MutableMapping, data: Mapping) -&gt; str:
         response = view(person, data)
-        r = sorted((str(k), repr(v)) for k, v in response.iteritems())
+        r = sorted((str(k), repr(v)) for k, v in response.items())
         return ';'.join('{}:{!r}'.format(k,v) for k, v in r)
 
 def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
