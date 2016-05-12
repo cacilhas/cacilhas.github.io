@@ -58,3 +58,21 @@ A estrutura do documento é:
 Qualquer dúvida, veja um
 [arquivo pronto](https://github.com/cacilhas/cacilhas.github.io/blob/master/templates/kodumaro/2016/04/aspectos.html)
 como exemplo.
+
+
+### *Site map*
+
+Finalmente, após criar um artigo, é preciso acrescentá-lo ao *site map*, que
+está em `/js/site-map.js`.
+
+É só adicionar um novo elemento na segunda posição contendo:
+
+- `url`: a URL do artigo, seguindo o exemplo dos registros já existentes;
+- `title`: o título do artigo;
+- `content`: um resumo do conteúdo;
+- `tags`: os *tags* – sendo do Kodumaro, cada *tag* deve sempre começar com
+  `Kodumaro :: `;
+- `highlight`: *booleano* dizendo se o artigo deve aparecer em uma caixa na
+  página inicial;
+- `hidden`: *booleano* dizendo se o artigo deve ser escondido do mapa que na
+  página inicial.
