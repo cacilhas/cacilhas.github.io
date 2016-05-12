@@ -71,7 +71,7 @@ está em `/js/site-map.js`.
 - `title`: o título do artigo;
 - `content`: um resumo do conteúdo;
 - `tags`: os *tags* – sendo do Kodumaro, cada *tag* deve sempre começar com
-  `Kodumaro :: `;
+  `Kodumaro :: `, veja a lista de *tags* na [pǻgina](http://cacilhas.info/).
 - `highlight`: *booleano* dizendo se o artigo deve aparecer em uma caixa na
   página inicial;
 - `hidden`: *booleano* dizendo se o artigo deve ser escondido do mapa que na
