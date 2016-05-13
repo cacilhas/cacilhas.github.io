@@ -6,6 +6,13 @@ var siteMap = [
         tags: []
     },
     {
+        url: '?t=/kodumaro/2016/05/moonscript',
+        title: 'Kodumaro :: MoonScript sobre LuaJIT',
+        content: 'Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos hacks pra funcionar.',
+        tags: ['Kodumaro :: Lua'],
+        highlight: true
+    },
+    {
         url: '?t=/kodumaro/2016/04/aspectos',
         title: 'Kodumaro :: Aspectos – parte Ⅰ',
         content: 'Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.',
