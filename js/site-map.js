@@ -8,7 +8,7 @@ var siteMap = [
     {
         url: '?t=/kodumaro/2016/05/moonscript',
         title: 'Kodumaro :: MoonScript sobre LuaJIT',
-        content: 'Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos hacks pra funcionar.',
+        content: 'Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.',
         tags: ['Kodumaro :: Lua'],
         highlight: true
     },
