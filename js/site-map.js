@@ -6,6 +6,13 @@ var siteMap = [
         tags: []
     },
     {
+        url: '?t=/kodumaro/2016/05/quebra-de-contrato',
+        title: 'Kodumaro :: Quebra de Contrato',
+        content: 'É muito comum programadores inexperientes desrespeitarem regras estabelecidas…',
+        tags: ['Kodumaro :: Python', 'Kodumaro :: TDD'],
+        highlight: true
+    },
+    {
         url: '?t=/kodumaro/2016/05/moonscript',
         title: 'Kodumaro :: MoonScript sobre LuaJIT',
         content: 'Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.',
