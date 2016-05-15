@@ -9,3 +9,4 @@ $('.panel-heading').css('color', 'white')
                    .css('-moz-background-size', 'cover')
                    .css('-o-background-size', 'cover')
                    .css('background-size', 'cover');
+$('.panel-heading > h2') .css('text-shadow', '#788fa0 2px 2px 2px');
