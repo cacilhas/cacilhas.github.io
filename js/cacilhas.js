@@ -37,7 +37,6 @@ angular.module('cacilhasApp', ['ngRoute'])
             return siteMap.filter(function(page) { return page.highlight; });
     }
 
-    var self = this;
     this.getTags = function() {
         // TODO: make it right
         var tags = {};
@@ -54,7 +53,12 @@ angular.module('cacilhasApp', ['ngRoute'])
                     tags[tag].pages.push(page);
             });
         });
-        return response;
+
+        return response.sort(function(a, b) {
+            if (a.tag < b.tag) return -1;
+            if (a.tag > b.tag) return 1;
+            return 0;
+        });
     }
 
 })
