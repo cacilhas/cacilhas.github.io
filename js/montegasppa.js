@@ -1,6 +1,6 @@
-document.title = 'Reflexões de Montegasppa';
+document.title = 'Reflexões de ℳontegasppα e Giulia C.';
 $('body').css('background-color', '#97b3c9');
-$('#footer > p').text('Reflexões de ℳontegasppα e Giulia C.');
+$('#footer > p').text(document.title);
 $('.panel-heading').css('color', 'white')
                    .css('background-image', 'url(/img/montegasppa-bg.jpg)')
                    .css('background-repeat', 'no-repeat')
