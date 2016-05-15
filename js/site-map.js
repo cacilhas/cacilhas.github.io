@@ -5,13 +5,13 @@ var siteMap = [
         content: 'Sobre este <em>site</em>.',
         tags: []
     },
-	{
-		url: '?t=/montegasppa/2016/05/song-can-write-itself',
-		title: 'Reflexões… :: O’Keefe Music Foundation',
-		content: 'A song can write itself if you just dig deep…',
-		tags: ['ℳontegasppα :: Música'],
-		highlight: true
-	},
+    {
+        url: '?t=/montegasppa/2016/05/song-can-write-itself',
+        title: 'Reflexões… :: O’Keefe Music Foundation',
+        content: 'A song can write itself if you just dig deep…',
+        tags: ['ℳontegasppα :: Música'],
+        highlight: true
+    },
     {
         url: '?t=/kodumaro/2016/05/quebra-de-contrato',
         title: 'Kodumaro :: Quebra de Contrato',
