@@ -7,9 +7,9 @@ var siteMap = [
     },
 	{
 		url: '?t=/montegasppa/2016/05/song-can-write-itself',
-		title: 'Montegasppa :: O’Keefe Music Foundation',
+		title: 'ℳontegasppα :: O’Keefe Music Foundation',
 		content: 'A song can write itself if you just dig deep…',
-		tags: ['Montegasppa :: Música'],
+		tags: ['ℳontegasppα :: Música'],
 		highlight: true
 	},
     {
