@@ -4,6 +4,12 @@
 }
 
 
+blockquote {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-size: small;
+}
+
+
 .mg-title:first-letter {
   font-family: "Default Fancy";
 }
