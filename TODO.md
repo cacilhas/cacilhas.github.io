@@ -1,2 +1,3 @@
 - Add CC-BY to the first page.
 - Remove Angular (it’s underused), use [Harp](http://harpjs.com/docs/quick-start)
+- Use [Pug](http://jade-lang.com/reference/)
