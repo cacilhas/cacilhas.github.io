@@ -1,0 +1,2 @@
+- Remove Angular (it’s underused).
+- Add CC-BY to the first page.
