@@ -1,2 +1,2 @@
-- Remove Angular (it’s underused).
 - Add CC-BY to the first page.
+- Remove Angular (it’s underused), use [Harp](http://harpjs.com/docs/quick-start)
