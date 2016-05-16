@@ -8,6 +8,7 @@ angular.module('cacilhasApp', ['ngRoute'])
     url = decodeURIComponent(url || '/home');
     this.currentTitle = url;
     this.currentURL = '/?t=' + url;
+    favicon = '/img/favicon.ico';
 
     if (url === '/about') {
         homeActive = false;
@@ -17,7 +18,16 @@ angular.module('cacilhasApp', ['ngRoute'])
         homeActive = false;
         current.addClass('active');
         current.show();
+
+        if (url.search('/kodumaro/') == 0)
+            favicon = '/img/kodumaro.ico';
+        else if (url.search('/montegasppa/') == 0)
+            favicon = '/img/montegasppa.ico';
     }
+
+    icon = document.evaluate('//link[@rel="icon"]', document, null,
+                             XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    icon.setAttribute('href', favicon);
 
     $scope.homeActive = homeActive;
     $scope.aboutActive = aboutActive;
