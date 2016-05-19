@@ -2,13 +2,12 @@ doctype html
 html(lang="pt")
   head
     include ./_includes/head.jade
-    block icon
-      link(rel="icon" href="/img/favicon.ico")
 
   body
     include ./_includes/nav.jade
 
     .container
-      != yield
+      block main-container
+        != yield
 
     include ./_includes/foot.jade

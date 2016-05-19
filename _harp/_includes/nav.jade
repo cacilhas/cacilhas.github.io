@@ -12,5 +12,6 @@ nav(class=["navbar", "navbar-inverse", "navbar-fixed-top"])
 
     #navbar(class=["collapse", "navbar-collapse"])
       ul(class=["nav", "navbar-nav"])
-        li: a(href="/" class={activate: homeActive}) Início
-        li: a(href="/about.html" class={active: aboutActive}) Sobre
+        block nav-bar
+          li(class={active: homeActive}): a(href="/") Início
+          li(class={active: aboutActive}): a(href="/about.html") Sobre
