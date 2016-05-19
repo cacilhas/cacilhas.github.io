@@ -1,1 +1,2 @@
 - Add CC-BY to the first page.
+- Remove jQuery.
