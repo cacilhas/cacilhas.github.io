@@ -6,7 +6,7 @@ block blog-head
   link(rel="icon" href="/img/montegasppa.ico")/
 
 block append nav-bar
-  li.active: a(href=".")!= "Reflexões… :: " + title
+  li.active: a(href=".") Reflexões… :: #{title}
 
 block main-container
   div(class=["panel", "panel-default"])

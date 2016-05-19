@@ -7,7 +7,7 @@ block blog-head
   script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")
 
 block append nav-bar
-  li.active: a(href=".")!= "Kodumaro :: " + title
+  li.active: a(href=".") Kodumaro :: #{title}
 
 block main-container
   div(class=["panel", "panel-default"])
