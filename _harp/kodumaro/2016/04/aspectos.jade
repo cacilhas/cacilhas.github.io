@@ -1,24 +1,36 @@
-p.mg-first.
-  Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no
-  <a href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html">
-  <em>blog</em> original</a>. Resolvemos trazê-lo de volta nesta nova encarnação.
+p.mg-first
+  | Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
+  a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
+    em blog
+    |  original.
+  |  Resolvemos trazê-lo de volta nesta nova encarnação.
 
-p.
-  Um paradigma muito útil é a
-  <a href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto">Programação Orientada a Aspectos</a>.
+p
+  | Um paradigma muito útil é a 
+  a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
+    | Programação Orientada a Aspectos
+  | .
 
-p.
-  Consiste em separar e encapsular as funcionalidades de um código conforme sua
-  <strong>importância</strong>.
+p
+  | Consiste em separar e encapsular as funcionalidades de um código conforme
+  | sua 
+  strong importância
+  | .
 
-p.
-  Nesta primeira parte, abordaremos essa separação de forma simples, deixando o
-  conceito de <a href="http://en.wikipedia.org/wiki/Mixin"><em>mixins</em></a>
-  para a <a href="/kodumaro/2016/04/aspectos-2">parte II</a>.
+p
+  | Nesta primeira parte, abordaremos essa separação de forma simples, deixando
+  | o conceito de 
+  a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
+  |  para a 
+  a(href="/kodumaro/2016/04/aspectos-2.html") parte II
+  | .
 
-p.
-  Vamos começar com um exemplo: imagine uma <em>view</em> que modifica o estado
-  de um objeto, retornando um <em>hash</em> do novo estado:
+p
+  | Vamos começar com um exemplo: imagine uma 
+  em view
+  |  que modifica o estado de um objeto, retornando um 
+  em hash
+  |  do novo estado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -46,10 +58,10 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p.
-  A solução atende, mas é de difícil manutenção. Perceba que a função chamada
-  <code>update_person</code> (atualiza pessoa) faz muito mais do que
-  simplesmente atualizar os dados:
+p
+  | A solução atende, mas é de difícil manutenção. Perceba que a função chamada 
+  code update_person
+  |  (atualiza pessoa) faz muito mais do que simplesmente atualizar os dados:
 
 ul.list-group
   li.list-group-item
@@ -76,9 +88,10 @@ ul.list-group
     span(class=["glyphicon", "glyphicon-hand-right"])
     |  Responde a requisição com formato conveniente.
 
-p.
-  Cada um desses passos é um <strong>aspecto</strong> do processo e pode ser
-  isolado do restante.
+p
+  | Cada um desses passos é um 
+  strong aspecto
+  |  do processo e pode ser isolado do restante.
 
 p Vamos então separar o primeiro aspecto: recuperação do documento.
 
@@ -116,15 +129,20 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p.
-  Agora a recuperação do documento está isolada, podendo inclusive ser usada em
-  outras <em>views</em>. Nossa <em>view</em> já recebe o documento recuperado e
-  não precisa lidar com o fato dele existir ou não.
+p
+  | Agora a recuperação do documento está isolada, podendo inclusive ser usada
+  | em outras 
+  em views
+  |. Nossa 
+  em view
+  |  já recebe o documento recuperado e não precisa lidar com o fato dele
+  | existir ou não.
 
-p.
-  Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
-  <em>parsing</em> dos dados recebidos: isso caracteriza outro aspecto do
-  código, que não a atualização do documento.
+p
+  | Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e 
+  em parsing
+  |  dos dados recebidos: isso caracteriza outro aspecto do código, que não a
+  | atualização do documento.
 
 p Podemos portanto, separá-los:
 
@@ -163,10 +181,12 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p.
-  A função <code>update_person</code> já está muito mais limpa: atualiza o
-  documento, serializa e retorna o <em>hash</em>, mas ainda faz coisas demais.
-  Vamos separar o tratamento do retorno:
+p
+  | A função 
+  code update_person
+  |  já está muito mais limpa: atualiza o documento, serializa e retorna o 
+  em hash
+  | , mas ainda faz coisas demais. Vamos separar o tratamento do retorno:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -201,10 +221,11 @@ pre.prettyprint: code.language-python.
       r = sorted((str(k), repr(v)) for k, v in person.items())
       return ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
-p.
-  As coisas estão ficando cada vez mais separadas. A única coisa que a função
-  <code>update_person</code> ainda faz além de atualizar o documento é
-  serializá-lo. Isso também pode ser isolado:
+p
+  | As coisas estão ficando cada vez mais separadas. A única coisa que a função 
+  code update_person
+  |  ainda faz além de atualizar o documento é serializá-lo. Isso também pode
+  | ser isolado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -240,45 +261,57 @@ pre.prettyprint: code.language-python.
       db.person.save(person)
       return person
 
-p.
-  Perceba que, com a separação dos aspectos em funções distintas, o código ficou
-  muito mais semântico:
+p
+  | Perceba que, com a separação dos aspectos em funções distintas, o código
+  | ficou muito mais semântico:
 
 ul.list-group
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  <code>retrive_person_aspect</code> apenas recupera o documento do banco;
+    |  
+    code retrive_person_aspect
+    |  apenas recupera o documento do banco;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  <code>parse_data_aspect</code> apenas faz o <em>parsing</em> dos dados
-    | recebidos;
+    |  
+    code parse_data_aspect
+    |  apenas faz o <em>parsing</em> dos dados recebidos;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  <code>respond_etag_aspect</code> apenas gera o formato correto da
-    | resposta;
+    |  
+    code respond_etag_aspect
+    |  apenas gera o formato correto da resposta;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  <code>serialise_person_aspect</code> apenas serializa o documento;
+    |  
+    code serialise_person_aspect
+    |  apenas serializa o documento;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  finalmente, <code>update_person</code> apenas atualiza o documento.
+    |  finalmente, 
+    code update_person
+    |  apenas atualiza o documento.
 
 h3 Observação
 
 ul.list-group
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  <code>db</code> é um objeto de banco de dados MongoDB, apenas para fim de
-    | exemplo.
+    |  
+    code db
+    |  é um objeto de banco de dados MongoDB, apenas para fim de exemplo.
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    | <code>app</code> é uma aplicação
-    | <a href="http://flask.pocoo.org/">Flask</a>, apenas para fim de exemplo.
+    |  
+    code app
+    |  é uma aplicação 
+    a(href="http://flask.pocoo.org/") Flask
+    | , apenas para fim de exemplo.
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
@@ -296,6 +329,9 @@ ul.list-group
         from hashlib import md5
         import json
 
-p.
-  Na <a href="/kodumaro/2016/04/aspectos-2">parte II</a> abordaremos
-  <em>mixins</em>.
+p
+  | Na 
+  a(href="/kodumaro/2016/04/aspectos-2.html") parte II
+  |  abordaremos 
+  em mixins
+  | .
