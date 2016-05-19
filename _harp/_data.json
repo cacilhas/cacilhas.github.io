@@ -1,4 +1,8 @@
 {
+  "404": {
+	"title": ":: NOT FOUND"
+  },
+
   "about": {
     "aboutActive": true,
 	"title": ":: Sobre"
