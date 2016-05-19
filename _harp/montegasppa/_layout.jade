@@ -1,0 +1,21 @@
+extends ../_layout.jade
+
+block blog-head
+  title Reflexões… :: #{title}
+  link(rel="stylesheet" href="/css/montegasppa.css")/
+  link(rel="icon" href="/img/montegasppa.ico")/
+
+block append nav-bar
+  li.active: a(href=".")!= "Reflexões… :: " + title
+
+block main-container
+  div(class=["panel", "panel-default"])
+    .panel-heading
+      h2.mg-title Reflexões… :: #{title}
+      h6 Como um hipopótamo lida com um campo de flores.
+
+    .panel-body
+      != yield
+
+block footer
+  p.small Reflexões de Montegasppa e Giulia C.

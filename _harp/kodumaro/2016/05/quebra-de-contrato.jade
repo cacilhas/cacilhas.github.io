@@ -1,0 +1,229 @@
+img.pull-right(src="/img/python.png")
+
+p.mg-first
+  | É muito comum programadores inexperientes desrespeitarem regras
+  | estabelecidas, algumas vezes por não saberem como resolver uma situação de
+  | outra forma, outras por 
+  a(href="https://pt.wikipedia.org/wiki/Efeito_Dunning-Kruger")
+    efeito Dunning-Kruger
+  | .
+
+p
+  | Um dos erros mais comuns que tenho visto no mundo 
+  a(href="http://python.org/") Python
+  | é a quebra do contrato da classe 
+  a(href="https://docs.python.org/3/library/unittest.html#unittest.TestCase")
+    code TestCase
+  | .
+
+h3
+  | Métodos 
+  em hook
+
+p
+  | Geralmente a quebra de contrato ocorre porque o programador não entende o
+  | conceito de <em>hook</em> ou não sabe como evitar chamar 
+  code super
+  |  na herança.
+
+p
+  em Hook
+  |  é aquele método preenchido pelo código principal para ser chamado por um 
+  em framework
+  | . Por definição, o 
+  em hook
+  |  não deve ser chamado no código de aplicação, ou deve ser evitado. Em seu
+  | lugar é feita chamada para alguma rotina do 
+  em framework
+  |  que, por sua fez, usa o 
+  em hook
+  |  dentro da conveniência do mesmo.
+
+p
+  | Na biblioteca de 
+  em unit test
+  | de Python, os métodos de 
+  code TestCase
+  |  
+  code setUp
+  |  e 
+  code tearDown
+  |  (de instância), e 
+  code setUpClass
+  |  e 
+  code tearDownClass
+  |  são métodos 
+  em hook
+  | , evocados pelo 
+  em framework
+  |  de teste unitário.
+
+h3 O problema
+
+p
+  | O programador júnior, muito satisfeito com seu entendimento sobre herança,
+  | quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
+  | abordagem em que a herança se encaixa como uma luva: nos testes unitários,
+  | ele precisa iniciar uma sessão com o banco (um 
+  a(href="https://www.sqlite.org/") SQLite
+  | ) antes de cada teste, e encerrá-lo ao final de cada um.
+
+p
+  | Ele sabe que o método 
+  code setUp
+  |  é executado antes de cada teste, enquanto o método 
+  code tearDown
+  |  é executado ao final, havendo erro, falha ou sucesso. Perfeito!
+
+p
+  | Mas ele precisa que todas as classes de teste usem esses métodos, então ele
+  | pensa numa solução que parece perfeita: implementar os métodos 
+  em hook
+  |  numa classe pai, que será herdada pelas demais classes de teste.
+
+p A coisa fica mais ou menos assim:
+
+pre.prettyprint: code.language-python.
+  import unittest
+  import sqlite3
+  import my_app
+
+  __all__ = ['TestCase']
+
+
+  class TestCase(unittest.TestCase):
+
+      def setUp(self):
+          conn = my_app.conn = sqlite3.connect(':memory:')
+          conn.execute("""CREATE TABLE t_user (
+                              id INTEGER PRIMARY KEY AUTOINCREMENT,
+                              name TEXT,
+                              birth DATE,
+                              register INTEGER
+                          )""")
+          conn.commit()
+
+      def tearDown(self):
+          my_app.conn.close()
+
+h3 O novo problema
+
+p
+  | Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de
+  | seus testes, ele precisa simular o comportamento de um acesso a um servidor 
+  a(href="http://redis.io/") Redis
+  | , o que sobrescreve sua perfeita solução de banco de dados!
+
+p
+  | Qual a nova solução? O que se faz em herança: evocar 
+  code super
+  | !
+
+pre.prettyprint: code.language-python.
+  from unittest.mock import patch
+  from my_test_case import TestCase
+  from my_app import CacheManager
+
+  __all__ = ['TestCacheManager']
+
+
+  class TestCacheManager(TestCase):
+
+      def setUp(self):
+          <strong>super().setUp()</strong>
+          redis_patch = self.redis_patch = patch('my_app.Redis')
+          self.redis = redis_patch.start()
+
+      def tearDown(self):
+          self.redis_patch.stop()
+          <strong>super().tearDown()</strong>
+
+      """Seguem os testes..."""
+
+p
+  | O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não
+  | sacou como resolver – é que o 
+  strong
+    | contrato do 
+    code unittest
+    |  foi quebrado
+  | .
+
+h3 A abordagem correta
+
+p
+  | A regra de ouro do 
+  code unittest
+  |  é: 
+  strong jamais
+  |  implemente métodos 
+  em hook
+  |  em classes que não sejam testes de fato, que sejam abstrações de
+  | comportamento para casos de teste de fato.
+
+p — Mas como resolver então? 😯
+
+p
+  | Como sua classe pai tem o objetivo de alterar o comportamento do 
+  em framework
+  | , sobrescreva rotinas internas do 
+  em framework
+  | .
+
+p
+  | No caso, o método cujo comportamento você quer mudar é 
+  code run
+  | . A alteração será parecida com a criação de um contexto usando 
+  code contextlib.contextmanager
+  | , apenas trocando o 
+  code yield
+  |  por 
+  code super
+  | :
+
+pre.prettyprint: code.language-python.
+  class TestCase(unittest.TestCase):
+
+      def run(self, result=None):
+          conn = my_app.conn = sqlite3.connect(':memory:')
+          conn.execute("""CREATE TABLE t_user (
+                              id INTEGER PRIMARY KEY AUTOINCREMENT,
+                              name TEXT,
+                              birth DATE,
+                              register INTEGER
+                          )""")
+          conn.commit()
+
+          try:
+              return super().run(result=result)
+          finally:
+              conn.close()
+
+p
+  | Pronto! O problema já está resolvido! Agora nossa classe 
+  code TestCase
+  |  já possui comportamento de 
+  em framework
+  | , e os 
+  em hooks
+  |  podem ser usados corretamente:
+
+pre.prettyprint: code.language-python.
+  class TestCacheManager(TestCase):
+
+      def setUp(self):
+          redis_patch = self.redis_patch = patch('my_app.Redis')
+          self.redis = redis_patch.start()
+
+      def tearDown(self):
+          self.redis_patch.stop()
+
+            """Seguem os testes..."""
+
+h3 Conclusão
+
+p
+  | Esses problemas são causados por desentendimento dos contratos e
+  | desconhecimento da linguagem, mas são facilmente resolvidos com um pouco de
+  | pesquisa e leitura dos códigos das bibliotecas padrão, que são muito bem
+  | documentadas.

@@ -1,0 +1,30 @@
+include ./_includes/tags.jade
+
+div.col-md-4
+  div.list-groupt
+    h3(class=["mg-title", "list-group-item", "active"]) Mapa
+    a(class=["list-group-item", "small"] href="/") Início
+    - each page in siteMap
+      - if (!page.hidden)
+        a(class=["list-group-item", "small"] href!=page.url)!= page.title
+
+- each page in siteMap
+  - if (page.highlight)
+    a(class=["col-md-4", "mg-nou"] href!=page.url role="button")
+      div(class=["panel", "panel-default"])
+        div.panel-heading
+          h3.mg-title!= page.title
+        div.panel-body
+          p.lead!= page.content
+
+div.col-md-4
+  div.list-group
+    h3(class=["mg-title", "list-group-item", "active"]): em Tags
+    ul.list-group
+      - each tag in getTags(siteMap)
+        li.list-group-item
+          select.list-group-item(onchange="window.location = this.value; return true;"
+                                 style={width: "100%"})
+            option(selected=true)!= tag.name
+            - each page in tag.pages
+              option(value=page.url)!= page.title

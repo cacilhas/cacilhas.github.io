@@ -1,0 +1,8 @@
+body {
+    background-image: url(/img/kodumaro-bg.jpg) !important;
+    background-repeat: repeat !important;
+    background-attachment: fixed !important;
+    background-position: initial !important;
+    background-origin: initial !important;
+    background-clip: initial !important;
+}
