@@ -1,63 +1,64 @@
 {
   "about": {
-    "aboutActive": true,
+    "aboutActive": true
   },
+
   "index": {
     "homeActive": true,
     "siteMap": [
       {
-        url: "/about.html",
-        title: "Apresentação",
-        content: "Sobre este <em>site</em>.",
-        tags: []
+        "url": "/about.html",
+        "title": "Apresentação",
+        "content": "Sobre este <em>site</em>.",
+        "tags": []
       },
       {
-        url: "/montegasppa/2016/05/song-can-write-itself.html",
-        title: "Reflexões… :: O’Keefe Music Foundation",
-        content: "A song can write itself if you just dig deep…",
-        tags: ["Música"],
-        highlight: true
+        "url": "/montegasppa/2016/05/song-can-write-itself.html",
+        "title": "Reflexões… :: O’Keefe Music Foundation",
+        "content": "A song can write itself if you just dig deep…",
+        "tags": ["Música"],
+        "highlight": true
       },
       {
-        url: "/kodumaro/2016/05/quebra-de-contrato.html",
-        title: "Kodumaro :: Quebra de Contrato",
-        content: "É muito comum programadores inexperientes desrespeitarem regras estabelecidas…",
-        tags: ["Python", "TDD"],
-        highlight: true
+        "url": "/kodumaro/2016/05/quebra-de-contrato.html",
+        "title": "Kodumaro :: Quebra de Contrato",
+        "content": "É muito comum programadores inexperientes desrespeitarem regras estabelecidas…",
+        "tags": ["Python", "TDD"],
+        "highlight": true
       },
       {
-        url: "/kodumaro/2016/05/moonscript.html",
-        title: "Kodumaro :: MoonScript sobre LuaJIT",
-        content: "Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.",
-        tags: ["Lua"],
-        highlight: true
+        "url": "/kodumaro/2016/05/moonscript.html",
+        "title": "Kodumaro :: MoonScript sobre LuaJIT",
+        "content": "Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.",
+        "tags": ["Lua"],
+        "highlight": true
       },
       {
-        url: "/kodumaro/2016/04/aspectos.html",
-        title: "Kodumaro :: Aspectos – parte Ⅰ",
-        content: "Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.",
-        tags: ["Conceitual", "Python"],
-        highlight: true
+        "url": "/kodumaro/2016/04/aspectos.html",
+        "title": "Kodumaro :: Aspectos – parte Ⅰ",
+        "content": "Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.",
+        "tags": ["Conceitual", "Python"],
+        "highlight": true
       },
       {
-        url: "/kodumaro/2016/04/aspectos-2.html",
-        title: "Kodumaro :: Aspectos – parte Ⅱ",
-        content: "Uso de <em>mixins</em> na orientação a aspectos.",
-        tags: ["Conceitual", "Python"],
-        hidden: true
+        "url": "/kodumaro/2016/04/aspectos-2.html",
+        "title": "Kodumaro :: Aspectos – parte Ⅱ",
+        "content": "Uso de <em>mixins</em> na orientação a aspectos.",
+        "tags": ["Conceitual", "Python"],
+        "hidden": true
       },
       {
-        url: "/kodumaro/2016/03/sml.html",
-        title: "Kodumaro :: Standard ML",
-        content: "Standard ML é a definição padrão da família de linguagens ML.",
-        tags: ["Funcional", "ML"]
+        "url": "/kodumaro/2016/03/sml.html",
+        "title": "Kodumaro :: Standard ML",
+        "content": "Standard ML é a definição padrão da família de linguagens ML.",
+        "tags": ["Funcional", "ML"]
       },
       {
-        url: "/kodumaro/2016/03/sml-2.html",
-        title: "Kodumaro :: Standard ML – continuação",
-        content: "Veja como podemos estender a criação de sequências.",
-        tags: ["Funcional", "ML"],
-        hidden: true
+        "url": "/kodumaro/2016/03/sml-2.html",
+        "title": "Kodumaro :: Standard ML – continuação",
+        "content": "Veja como podemos estender a criação de sequências.",
+        "tags": ["Funcional", "ML"],
+        "hidden": true
       }
     ]
   }
