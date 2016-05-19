@@ -1,9 +1,8 @@
 p.mg-first
   | Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
   a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
-    em blog
-    |  original.
-  |  Resolvemos trazê-lo de volta nesta nova encarnação.
+    | #[em blog] original
+  | . Resolvemos trazê-lo de volta nesta nova encarnação.
 
 p
   | Um paradigma muito útil é a 
@@ -13,9 +12,7 @@ p
 
 p
   | Consiste em separar e encapsular as funcionalidades de um código conforme
-  | sua 
-  strong importância
-  | .
+  | sua #[strong importância].
 
 p
   | Nesta primeira parte, abordaremos essa separação de forma simples, deixando
@@ -26,11 +23,8 @@ p
   | .
 
 p
-  | Vamos começar com um exemplo: imagine uma 
-  em view
-  |  que modifica o estado de um objeto, retornando um 
-  em hash
-  |  do novo estado:
+  | Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado
+  | de um objeto, retornando um #[em hash] do novo estado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -59,9 +53,9 @@ pre.prettyprint: code.language-python.
              {'Content-Type': 'application/json'}
 
 p
-  | A solução atende, mas é de difícil manutenção. Perceba que a função chamada 
-  code update_person
-  |  (atualiza pessoa) faz muito mais do que simplesmente atualizar os dados:
+  | A solução atende, mas é de difícil manutenção. Perceba que a função chamada
+  | #[code update_person] (atualiza pessoa) faz muito mais do que simplesmente
+  | atualizar os dados:
 
 ul.list-group
   li.list-group-item
@@ -70,7 +64,7 @@ ul.list-group
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Faz <em>parsing</em> dos dados recebidos, retornando 400 em caso de erro;
+    |  Faz #[em parsing] dos dados recebidos, retornando 400 em caso de erro;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
@@ -89,9 +83,8 @@ ul.list-group
     |  Responde a requisição com formato conveniente.
 
 p
-  | Cada um desses passos é um 
-  strong aspecto
-  |  do processo e pode ser isolado do restante.
+  | Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado
+  | do restante.
 
 p Vamos então separar o primeiro aspecto: recuperação do documento.
 
@@ -131,18 +124,13 @@ pre.prettyprint: code.language-python.
 
 p
   | Agora a recuperação do documento está isolada, podendo inclusive ser usada
-  | em outras 
-  em views
-  |. Nossa 
-  em view
-  |  já recebe o documento recuperado e não precisa lidar com o fato dele
-  | existir ou não.
+  | em outras #[em views]. Nossa #[em view] já recebe o documento recuperado e
+  | não precisa lidar com o fato dele existir ou não.
 
 p
-  | Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e 
-  em parsing
-  |  dos dados recebidos: isso caracteriza outro aspecto do código, que não a
-  | atualização do documento.
+  | Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
+  | #[em parsing] dos dados recebidos: isso caracteriza outro aspecto do código,
+  | que não a atualização do documento.
 
 p Podemos portanto, separá-los:
 
@@ -182,11 +170,9 @@ pre.prettyprint: code.language-python.
              {'Content-Type': 'application/json'}
 
 p
-  | A função 
-  code update_person
-  |  já está muito mais limpa: atualiza o documento, serializa e retorna o 
-  em hash
-  | , mas ainda faz coisas demais. Vamos separar o tratamento do retorno:
+  | A função #[code update_person] já está muito mais limpa: atualiza o
+  | documento, serializa e retorna o #[em hash], mas ainda faz coisas demais.
+  | Vamos separar o tratamento do retorno:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -222,10 +208,9 @@ pre.prettyprint: code.language-python.
       return ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
 p
-  | As coisas estão ficando cada vez mais separadas. A única coisa que a função 
-  code update_person
-  |  ainda faz além de atualizar o documento é serializá-lo. Isso também pode
-  | ser isolado:
+  | As coisas estão ficando cada vez mais separadas. A única coisa que a função
+  | #[code update_person] ainda faz além de atualizar o documento é
+  | serializá-lo. Isso também pode ser isolado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -268,48 +253,36 @@ p
 ul.list-group
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code retrive_person_aspect
-    |  apenas recupera o documento do banco;
+    |  #[code retrive_person_aspect] apenas recupera o documento do banco;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code parse_data_aspect
-    |  apenas faz o <em>parsing</em> dos dados recebidos;
+    |  #[code parse_data_aspect] apenas faz o <em>parsing</em> dos dados
+    | recebidos;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code respond_etag_aspect
-    |  apenas gera o formato correto da resposta;
+    |  #[code respond_etag_aspect] apenas gera o formato correto da resposta;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code serialise_person_aspect
-    |  apenas serializa o documento;
+    |  #[code serialise_person_aspect] apenas serializa o documento;
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  finalmente, 
-    code update_person
-    |  apenas atualiza o documento.
+    |  finalmente, #[code update_person] apenas atualiza o documento.
 
 h3 Observação
 
 ul.list-group
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code db
-    |  é um objeto de banco de dados MongoDB, apenas para fim de exemplo.
+    |  #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
+    | exemplo.
 
   li.list-group-item
     span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
-    code app
-    |  é uma aplicação 
+    |  #[code app] é uma aplicação 
     a(href="http://flask.pocoo.org/") Flask
     | , apenas para fim de exemplo.
 
@@ -332,6 +305,4 @@ ul.list-group
 p
   | Na 
   a(href="/kodumaro/2016/04/aspectos-2.html") parte II
-  |  abordaremos 
-  em mixins
-  | .
+  |  abordaremos #[em mixins].
