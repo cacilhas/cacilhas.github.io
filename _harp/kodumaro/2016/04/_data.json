@@ -1,10 +1,15 @@
 {
   "aspectos": {
 	"title": "Aspectos – parte Ⅰ",
-	"author": "Arĥimedeς ℳontegasppα ℭacilhας"
+	"author": "Arĥimedeς ℳontegasppα ℭacilhας",
+	"content": "Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.",
+	"tags": ["Conceitual", "Python"]
   },
   "aspectos-2": {
 	"title": "Aspectos – parte Ⅱ",
-	"author": "Arĥimedeς ℳontegasppα ℭacilhας"
+	"author": "Arĥimedeς ℳontegasppα ℭacilhας",
+	"content": "Uso de <em>mixins</em> na orientação a aspectos.",
+	"tags": ["Conceitual", "Python"],
+	"hidden": true
   }
 }

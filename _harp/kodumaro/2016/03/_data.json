@@ -1,10 +1,15 @@
 {
   "sml": {
     "title": "Standard ML",
-    "author": "Arĥimedeς ℳontegasppα ℭacilhας"
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+	"content": "Standard ML é a definição padrão da família de linguagens ML.",
+	"tags": ["Funcional", "ML"]
   },
   "sml-2": {
     "title": "Standard ML – continuação",
-    "author": "Arĥimedeς ℳontegasppα ℭacilhας"
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+	"content": "Veja como podemos estender a criação de sequências.",
+	"tags": ["Funcional", "ML"],
+	"hidden": true
   }
 }
