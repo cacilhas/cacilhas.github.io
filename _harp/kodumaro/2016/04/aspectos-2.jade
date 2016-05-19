@@ -9,9 +9,8 @@ p.mg-first
   | .
 
 p
-  em Mixins
-  |  são classes incompletas que apenas atribuem determinado comportamento a
-  |  suas herdeiras.
+  | #[em Mixins] são classes incompletas que apenas atribuem determinado
+  | comportamento a suas herdeiras.
 
 p
   | Vamos a um exemplo muito superficial, mas suficiente: um objeto que armazena
@@ -118,9 +117,7 @@ p
 
 p
   | Podemos separar as partes de gerência de banco e serialização em classes
-  | diferentes, dedicadas a seu próprio aspecto, chamadas 
-  em mixins
-  | .
+  | diferentes, dedicadas a seu próprio aspecto, chamadas #[em mixins].
 
 p A classe de faz serialização pode ser apenas isso:
 
@@ -134,10 +131,7 @@ pre.prettyprint: code.language-python.
       def __bytes__(self) -&gt; None:
         return dumps(self.values)
 
-p
-  | A gerência de banco vai para outro 
-  em mixin
-  | :
+p A gerência de banco vai para outro #[em mixin]:
 
 pre.prettyprint: code.language-python.
   class PersistenceMixin:
@@ -151,10 +145,7 @@ pre.prettyprint: code.language-python.
       def save(self) -&gt; None:
           db[bytes(str(self.registration), 'ascii')] = bytes(self)
 
-p
-  | Preferindo, é possível separar a gerência de notas em um 
-  em mixin
-  |  também:
+p Preferindo, é possível separar a gerência de notas em um #[em mixin] também:
 
 pre.prettyprint: code.language-python.
   class GradesMixin:
@@ -189,10 +180,7 @@ pre.prettyprint: code.language-python.
           ca = self.catch_up
           return m if ca is None else (m + ca) / 2
 
-p
-  | Ao final, a classe principal será apenas uma cola dos 
-  em mixins
-  | :
+p Ao final, a classe principal será apenas uma cola dos #[em mixins]:
 
 pre.prettyprint: code.language-python.
   class Grades(SerialisableGradeMixin, PersistenceMixin, GradesMixin):
@@ -207,9 +195,6 @@ pre.prettyprint: code.language-python.
 
 p
   | A API da classe continua idêntica: recebe o número da matrícula e o banco na
-  | instanciação, propriedades para acessar as notas e método 
-  code save
-  |  para salvá-las em arquivo, porém agora cada aspecto está isolado e
-  | encapsulado em seu próprio 
-  em mixin
-  | .
+  | instanciação, propriedades para acessar as notas e método #[code save] para
+  | salvá-las em arquivo, porém agora cada aspecto está isolado e encapsulado em
+  | seu próprio #[em mixin].

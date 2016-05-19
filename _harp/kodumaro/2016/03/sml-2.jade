@@ -7,27 +7,17 @@ p.mg-first
 
 p
   | Neste artigo mudaremos o código para torná-lo estensível a outros tipos
-  | usando um 
-  em functor
-  | .
+  | usando um #[em functor].
 
 p
-  | Módulos em Standard ML são chamados 
-  em structures
-  |  e podem ser instanciados sob demanda com o uso de 
-  em functors
-  | . A primeira coisa que precisamos é da assinatura dos módulos gerados pelo 
-  em functor
-  | .
+  | Módulos em Standard ML são chamados #[em structures] e podem ser
+  | instanciados sob demanda com o uso de #[em functors]. A primeira coisa que
+  | precisamos é da assinatura dos módulos gerados pelo #[em functor].
 
 p
-  | Os módulos gerados precisam ter o tipo de dado (
-  code t
-  | ), uma função para construir o gerador (
-  code build
-  | ) e outra para converter o gerador em lista (
-  code genToList
-  | ). A assinatura fica assim então:
+  | Os módulos gerados precisam ter o tipo de dado (#[code t]), uma função para
+  | construir o gerador (#[code build]) e outra para converter o gerador em
+  | lista (#[code genToList]). A assinatura fica assim então:
 
 pre.prettyprint: code.language-ml.
   signature GENERATOR =
@@ -38,20 +28,11 @@ pre.prettyprint: code.language-ml.
   end
 
 p
-  | Também precisamos da assinatura da 
-  em structure
-  |  usada como parâmetro do 
-  em functor
-  | . Essa 
-  em structure
-  |  deve gerenciar a reiteração dos dados. Para tanto, deve conhecer o tipo de
-  | dado (
-  code t
-  | ), ter uma função para fazer o passo, ou seja, incrementar o dado (
-  code increment
-  | ), e outra para testar a condição de parada (
-  code checkFinish
-  | ).
+  | Também precisamos da assinatura da #[em structure] usada como parâmetro do
+  | #[em functor]. Essa #[em structure] deve gerenciar a reiteração dos dados.
+  | Para tanto, deve conhecer o tipo de dado (#[code t]), ter uma função para
+  | fazer o passo, ou seja, incrementar o dado (#[code increment]), e outra para
+  | testar a condição de parada (#[code checkFinish]).
 
 p A assinatura fica assim então:
 
@@ -64,15 +45,10 @@ pre.prettyprint: code.language-ml.
   end
 
 p
-  | O 
-  em functor
-  |  terá praticamente o mesmo código de nossas funções originais, mas agora
-  | será extensível.
+  | O #[em functor] terá praticamente o mesmo código de nossas funções
+  | originais, mas agora será extensível.
 
-p
-  Vamos então trazer o código para o 
-  em functor
-  | :
+p Vamos então trazer o código para o #[em functor]:
 
 pre.prettyprint: code.language-ml.
   functor Generator (G : GENERATOR') : GENERATOR =
@@ -105,27 +81,14 @@ pre.prettyprint: code.language-ml.
   end
 
 p
-  | Repare que agora em vez de 
-  code int
-  |  estamos usando 
-  code t
-  |  (que é igual a 
-  code G.t
-  | ), e delegamos a verificação do fim da reiteração e o incremento da
-  | referência para 
-  code G
-  | .
+  | Repare que agora em vez de #[code int] estamos usando #[code t] (que é igual
+  | a #[code G.t]), e delegamos a verificação do fim da reiteração e o
+  | incremento da referência para #[code G].
 
 p
-  | Resta agora recriar nossas funções originais. Como só nos interessam 
-  code xrange
-  |  e 
-  code range
-  | , podemos criar a 
-  code structure
-  |  como 
-  code local
-  | :
+  | Resta agora recriar nossas funções originais. Como só nos interessam
+  | #[code xrange] e #[code range], podemos criar a #[code structure] como
+  | #[code local]:
 
 pre.prettyprint: code.language-ml.
   local
@@ -157,6 +120,4 @@ pre.prettyprint: code.language-ml.
 
 p
   | Veja que agora podemos com facilidade estender o lógica de criação de
-  | geradores para virtualmente qualquer tipo, com a ajuda do 
-  em functor
-  | .
+  | geradores para virtualmente qualquer tipo, com a ajuda do #[em functor].

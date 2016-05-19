@@ -31,9 +31,7 @@ p
 
 p
   | Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
-  | série de pequenos 
-  em hacks
-  |  pra funcionar.
+  | série de pequenos #[em hacks] pra funcionar.
 
 p Vamos começar pelas dependências.
 
@@ -57,13 +55,8 @@ ul.list-group
     |  LPeg
 
 p
-  | Instale 
-  code alt-getopt
-  |  normalmente no 
-  code LUA_PATH
-  |  de seu LuaJIT. Aqui para mim é 
-  code /usr/share/lua/jit
-  | .
+  | Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT.
+  Aqui para mim é #[code /usr/share/lua/jit].
 
 p
   | Para instalar LuaFileSystem, clone o repositório do 
@@ -77,23 +70,20 @@ pre.prettyprint: code.language-sh.
   LUA_INC=$(PREFIX)/include/luajit-2.0
 
 p
-  | Isso considerando que seu <code>LUA_CPATH</code> esteja em 
-  code /usr/lib/lua/jit
-  | .
+  | Isso considerando que seu <code>LUA_CPATH</code> esteja em
+  | #[code /usr/lib/lua/jit].
 
 p Compile e instale normalmente.
 
 p
-  | Já LPeg merece uma atenção extra, já que ele 
-  strong não
-  |  funciona com LuaJIT. No lugar, use 
+  | Já LPeg merece uma atenção extra, já que ele #[strong não] funciona com
+  | LuaJIT. No lugar, use 
   a(href="https://github.com/sacek/LPegLJ") LPegLJ
   | .
 
 p
-  | Clone e instale LPegLJ no seu 
-  code LUA_PATH
-  | , depois execute o seguinte comando:
+  | Clone e instale LPegLJ no seu #[code LUA_PATH], depois execute o seguinte
+  | comando:
 
 pre.prettyprint: code.language-sh.
   cd $LUA_PATH
@@ -106,60 +96,25 @@ h3 Instalando MoonScript
 p
   | Com as três dependências instaladas, clone o projeto do 
   a(href="https://github.com/leafo/moonscript") GitHUB
-  | . Edite o 
-  code Makefile
-  | , substituindo as ocorrências de 
-  code lua5.1
-  |  e 
-  code lua
-  |  por 
-  code luajit
-  | .
+  | . Edite o #[code Makefile], substituindo as ocorrências de #[code lua5.1] e
+  | #[code lua] por #[code luajit].
+
+p Remova as entradas #[code local] e #[code global] do #[code Makefile].
 
 p
-  | Remova as entradas 
-  code local
-  |  e 
-  code global
-  |  do 
-  code Makefile
-  | .
+  | Edite o #[em hashbang] dos arquivos #[code bin/moon] e #[code bin/moonc],
+  | trocando #[code lua] por #[code luajit].
+
+p Execute #[code make compile]
 
 p
-  | Edite o 
-  em hashbang
-  |  dos arquivos 
-  code bin/moon
-  |  e 
-  code bin/moonc
-  | , trocando 
-  code lua
-  |  por 
-  code luajit
-  | .
+  | Copie os diretórios #[code moon/] e #[code moonscript/] para seu
+  | #[code LUA_PATH].
 
 p
-  | Execute 
-  code make compile
+  | Copie os arquivos #[code bin/moon] e #[code bin/moonc] para o diretório
+  | #[code /usr/bin/] do sistema.
 
 p
-  | Copie os diretórios 
-  code moon/
-  |  e 
-  code moonscript/
-  |  para seu 
-  code LUA_PATH
-  | .
-
-p
-  | Copie os arquivos 
-  code bin/moon
-  |  e 
-  code bin/moonc
-  |  para o diretório 
-  code /usr/bin/
-  |  do sistema.
-
-p
-  | E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu 
+  | E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu
   | revisar o texto.
