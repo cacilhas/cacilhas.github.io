@@ -1,1 +1,24 @@
-- function getTags(siteMap) {var tags = {}; var response = []; siteMap.forEach(function(page) {page.tags.forEach(function(tag) {if (typeof tags[tag] === 'undefined') {tags[tag] = {name: tag, pages: [page]}; response.push(tags[tag]); } else tags[tag].pages.push(page);});}); return response.sort(function(a, b) {if (a.tag < b.tag) return -1; if (a.tag > b.tag) return 1; return 0;});}
+- var tags = {}
+- var response = []
+
+each yearDir, yearSlug in public.montegasppa
+  each monthDir, monthSlug in yearDir
+    each page, slug in monthDir._data
+      - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+      each tag in page.tags
+        if (typeof tags[tag] === "undefined")
+          - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
+          - response.push(tags[tag])
+        else
+          - tags[tag].pages.push({url: url, title: "Reflexões… :: " + page.title})
+
+each yearDir, yearSlug in public.kodumaro
+  each monthDir, monthSlug in yearDir
+    each page, slug in monthDir._data
+      - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+      each tag in page.tags
+        if (typeof tags[tag] === "undefined")
+          - tags[tag] = {name: tag, pages: [{url: url, title: "Kodumaro :: " + page.title}]}
+          - response.push(tags[tag])
+        else
+          - tags[tag].pages.push({url: url, title: "Kodumaro :: " + page.title})
