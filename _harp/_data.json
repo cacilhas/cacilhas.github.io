@@ -1,6 +1,7 @@
 {
   "about": {
-    "aboutActive": true
+    "aboutActive": true,
+	"title": ":: Sobre"
   },
 
   "index": {
