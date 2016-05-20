@@ -1,3 +1,5 @@
+include ../../../_includes/list-group-item.jade
+
 img.pull-right(src="/img/moonscript.jpg")
 
 p.mg-first
@@ -39,20 +41,15 @@ h3 Dependências
 
 p MoonScript depende de quatro outros módulos para funcionar:
 
-ul.list-group
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
++ul
+  +li
     a(href="http://luaforge.net/projects/alt-getopt/"): code alt-getopt
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  
+  +li
     a(href="http://keplerproject.github.io/luafilesystem/") LuaFileSystem
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  LPeg
+  +li
+    | LPeg
 
 p
   | Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT.

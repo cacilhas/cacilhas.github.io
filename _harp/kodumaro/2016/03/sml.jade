@@ -1,3 +1,5 @@
+include ../../../_includes/list-group-item.jade
+
 p.mg-first
   a(href="http://sml-family.org/") Standard ML
   |  é a definição padrão (#[em standard], duh) de 
@@ -29,32 +31,27 @@ p
   | Para uma linguagem ser considerada funcional pura, ela precisa respeitar
   | algumas #[em constraints]:
 
-ul.list-group
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  O algoritmo deve ser baseado em chamadas de função, que recebem
++ul
+  +li
+    | O algoritmo deve ser baseado em chamadas de função, que recebem
     | parâmetros e retornam valores. O estado do programa não muda, apenas os
     | dados são reconstruídos através do encadeamento de funções.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  As funções devem ser “avaliadas” (não achei palavra melhor) sob demanda,
+  +li
+    | As funções devem ser “avaliadas” (não achei palavra melhor) sob demanda,
     | de modo não-estrito.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  As funções devem ser idempotentes, seja, dado determinado(s)
+  +li
+    | As funções devem ser idempotentes, seja, dado determinado(s)
     | parâmetro(s), ela deve invariavelmente retornar sempre o mesmo resultado.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Não pode haver mudança de estado: uma vez um valor vinculado a um
+  +li
+    | Não pode haver mudança de estado: uma vez um valor vinculado a um
     | #[em slot], não pode ser mudado. Neste sentido, a palavra “variável” não
     | representa bem o #[em slot]. Pessoalmente prefiro #[strong incógnita].
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Assim, #[em loops] são resolvidos com recursão. Para que a recursão não
+  +li
+    | Assim, #[em loops] são resolvidos com recursão. Para que a recursão não
     | estoure a pilha de instâncias de função, como ocorre em algumas linguagens
     | imperativas, a máquina virtual ou interpretador precisa implementar 
     a(href="https://en.wikipedia.org/wiki/Tail_call") Tail-call optimisation
