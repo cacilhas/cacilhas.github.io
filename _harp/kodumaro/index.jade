@@ -33,8 +33,9 @@ p: small
 
 +ul
   each yearDir, yearSlug in public.kodumaro
-    each monthDir, monthSlug in yearDir
-      if monthDir._data
-        each page, slug in monthDir._data
-          - var url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-          +li: a(href=url) [#{yearSlug}/#{monthSlug}] !{page.title}
+    if yearDir
+      each monthDir, monthSlug in yearDir
+        if monthDir._data
+          each page, slug in monthDir._data
+            - var url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            +li: a(href=url) [#{yearSlug}/#{monthSlug}] !{page.title}
