@@ -9,7 +9,7 @@ block blog-head
 block append nav-bar
   li(class={active: home}): a(href="/kodumaro/") Kodumaro
   if (!home)
-    li.active: a(href=".") Kodumaro :: !{title}
+    li.active: a(href=".") !{title}
 
 block main-container
   div(class=["panel", "panel-default"])
