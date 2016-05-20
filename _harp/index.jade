@@ -26,7 +26,7 @@ div.col-md-4
 each yearDir, yearSlug in public.montegasppa
   each monthDir, monthSlug in yearDir
     each page, slug in monthDir._data
-      if count < 4
+      if count < 3
         if (!page.hidden)
           - count++
           - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
@@ -41,10 +41,12 @@ each yearDir, yearSlug in public.montegasppa
       else
         - break
 
+- count = 0
+
 each yearDir, yearSlug in public.kodumaro
   each monthDir, monthSlug in yearDir
     each page, slug in monthDir._data
-      if count < 4
+      if count < 3
         if (!page.hidden)
           - count++
           - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
