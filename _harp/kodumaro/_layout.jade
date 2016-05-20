@@ -7,12 +7,14 @@ block blog-head
   script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")
 
 block append nav-bar
-  li.active: a(href=".") Kodumaro :: #{title}
+  li(class={active: home}): a(href="/kodumaro/") Kodumaro
+  if (!home)
+    li.active: a(href=".") Kodumaro :: !{title}
 
 block main-container
   div(class=["panel", "panel-default"])
     .panel-heading
-      h2.mg-title Kodumaro :: #{title}
+      h2.mg-title Kodumaro :: !{title}
       h6 As sombras da programação.
 
     .panel-body
@@ -21,8 +23,7 @@ block main-container
   div(class=["panel", "panel-default"])
     .panel-body(align="right")
       small: a(href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+"+title target="_blank")
-        | Criar 
-        em issue
+        | Criar #[em issue]
 
 block footer
     p.small Autor: #{author}

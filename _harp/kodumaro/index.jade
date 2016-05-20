@@ -1,0 +1,41 @@
+include ../_includes/list-group-item.jade
+
+img.pull-right(src="/img/kodumaro.png")
+
+p.mg-first Olá gente!
+
+p
+  | Kodumaro é um trabalho em conjunto de três amigos programadores: 
+  a(href="https://claudiotorcato.wordpress.com/") Cláudio Torcato
+  | , 
+  a(href="http://cacilhas.info/montegasppa/") Rodrigo Cacilhas
+  |  e 
+  a(href="http://waltercruz.com/") Walter Cruz
+  | , num esforço para trazer algumas dicas interessantes sobre programação.
+
+p
+  | Os temas irão de iniciante a avançado, desde conceitos de programação até
+  | códigos em diversas linguagens, com uma redação leve e acessível.
+
+p
+  | Esperamos que os artigos sejam úteis e elucidativos, e aguardamos retorno de
+  | nossos leitores para que Kodumaro se aperfeiçoe dia a dia.
+
+p
+  | Sem mais delongas, está apresentada nossa nova mídia: 
+  a(href="http://cacilhas.info/kodumaro/") Kodumaro
+  | !
+
+p: small
+  | Publicação original 
+  a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
+  | .
+
++ul
+  each yearDir, yearSlug in public.kodumaro
+    if yearDir
+      each monthDir, monthSlug in yearDir
+        if monthDir._data
+          each page, slug in monthDir._data
+            - var url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            +li: a(href=url) [#{yearSlug}/#{monthSlug}] !{page.title}
