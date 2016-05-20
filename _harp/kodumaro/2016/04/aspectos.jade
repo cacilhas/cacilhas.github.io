@@ -1,3 +1,5 @@
+include ../../../_includes/list-group-item.jade
+
 p.mg-first
   | Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
   a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
@@ -57,30 +59,24 @@ p
   | #[code update_person] (atualiza pessoa) faz muito mais do que simplesmente
   | atualizar os dados:
 
-ul.list-group
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Recupera o documento do banco, retornando 404 se não existir;
++ul
+  +li
+    | Recupera o documento do banco, retornando 404 se não existir;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Faz #[em parsing] dos dados recebidos, retornando 400 em caso de erro;
+  +li
+    | Faz #[em parsing] dos dados recebidos, retornando 400 em caso de erro;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Efetivamente atualiza o documento;
+  +li
+    | Efetivamente atualiza o documento;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Serializa o objeto para a resposta;
+  +li
+    | Serializa o objeto para a resposta;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Gera um hash da serialização;
+  +li
+    | Gera um hash da serialização;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Responde a requisição com formato conveniente.
+  +li
+    | Responde a requisição com formato conveniente.
 
 p
   | Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado
@@ -250,51 +246,42 @@ p
   | Perceba que, com a separação dos aspectos em funções distintas, o código
   | ficou muito mais semântico:
 
-ul.list-group
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code retrive_person_aspect] apenas recupera o documento do banco;
++ul
+  +li
+    | #[code retrive_person_aspect] apenas recupera o documento do banco;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code parse_data_aspect] apenas faz o <em>parsing</em> dos dados
+  +li
+    | #[code parse_data_aspect] apenas faz o <em>parsing</em> dos dados
     | recebidos;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code respond_etag_aspect] apenas gera o formato correto da resposta;
+  +li
+    | #[code respond_etag_aspect] apenas gera o formato correto da resposta;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code serialise_person_aspect] apenas serializa o documento;
+  +li
+    | #[code serialise_person_aspect] apenas serializa o documento;
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  finalmente, #[code update_person] apenas atualiza o documento.
+  +li
+    | finalmente, #[code update_person] apenas atualiza o documento.
 
 h3 Observação
 
-ul.list-group
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
++ul
+  +li
+    | #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
     | exemplo.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  #[code app] é uma aplicação 
+  +li
+    | #[code app] é uma aplicação 
     a(href="http://flask.pocoo.org/") Flask
     | , apenas para fim de exemplo.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  A ordem dos decoradores <strong>é importante</strong>, o retorno de cada
+  +li
+    | A ordem dos decoradores <strong>é importante</strong>, o retorno de cada
     | decorador <strong>precisa</strong> ser do mesmo tipo do argumento do
     | decorador seguinte.
 
-  li.list-group-item
-    span(class=["glyphicon", "glyphicon-hand-right"])
-    |  Os <code>import</code>s foram omitidos:
+  +li
+    | Os <code>import</code>s foram omitidos:
     pre.prettyprint: code.language-python.
         from typing import Callable, Mapping, MutableMapping, Tuple
         from numbers import Integral
