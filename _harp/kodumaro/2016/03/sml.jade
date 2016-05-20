@@ -21,7 +21,7 @@ p
 p
   | Gostaria de, antes de tudo, pedir desculpas pelos códigos que passarei aqui,
   | pois Standard ML é uma linguagem que não domino, então alguns conceitos
-  | podem estar errados. Se quiser me enviar erratas, crie um #[em issue] no 
+  |  podem estar errados. Se quiser me enviar erratas, crie um #[em issue] no 
   a(href="https://github.com/cacilhas/cacilhas.github.io/issues") GitHub
   | .
 
@@ -29,7 +29,7 @@ h3 Linguagem funcional pura vs impura
 
 p
   | Para uma linguagem ser considerada funcional pura, ela precisa respeitar
-  | algumas #[em constraints]:
+  |  algumas #[em constraints]:
 
 +ul
   +li
@@ -47,8 +47,8 @@ p
 
   +li
     | Não pode haver mudança de estado: uma vez um valor vinculado a um
-    | #[em slot], não pode ser mudado. Neste sentido, a palavra “variável” não
-    | representa bem o #[em slot]. Pessoalmente prefiro #[strong incógnita].
+    |  #[em slot], não pode ser mudado. Neste sentido, a palavra “variável” não
+    |  representa bem o #[em slot]. Pessoalmente prefiro #[strong incógnita].
 
   +li
     | Assim, #[em loops] são resolvidos com recursão. Para que a recursão não
@@ -80,12 +80,12 @@ pre.prettyprint: code.language-ml.
 
 p
   | A variável #[code x] foi criada como uma referência a uma posição de memória
-  | que guarda um inteiro, onde foi colocado o valor zero (#[code 0]).
+  |  que guarda um inteiro, onde foi colocado o valor zero (#[code 0]).
 
 p
   | Na avaliação seguinte, o conteúdo da posição de memória referenciada por
-  | #[code x] foi incrementado. É possível ver na última avaliação que aquela
-  | posição de memória agora guarda o valor #[code 1].
+  |  #[code x] foi incrementado. É possível ver na última avaliação que aquela
+  |  posição de memória agora guarda o valor #[code 1].
 
 p: small
   | As linguagens da família ML também suportam que uma variável seja associada
@@ -109,7 +109,7 @@ p
   | Tomei os nomes emprestados de 
   a(href="https://docs.python.org/2.7/library/functions.html") Python 2.7
   | . #[code xrange] recebe como parâmetro uma tupla de dois inteiros
-  | (#[code (int * int)]) e retorna uma função que recebe uma 
+  |  (#[code (int * int)]) e retorna uma função que recebe uma 
   a(href="https://en.wikipedia.org/wiki/Unit_type") unidade
   | , retornando uma “opção” de inteiro.
 
@@ -119,11 +119,11 @@ p
 
 p
   | Então o parâmetro #[code (a, b)] representa matematicamente reiteração sobre
-  | o conjunto #[tt [a, b)].
+  |  o conjunto #[tt [a, b)].
 
 p
-  | #[code range] recebe o mesmo tipo de parâmetro que <code>xrange</code>,
-  | retornando a lista já composta.
+  | #[code range] recebe o mesmo tipo de parâmetro que #[code xrange],
+  |  retornando a lista já composta.
 
 p
   span(class=["glyphicon", "glyphicon-alert mg-alert"])
@@ -131,7 +131,7 @@ p
 
 p
   | É um valor que #[strong pode ser] “algum” (#[code SOME]) inteiro ou “nenhum”
-  | (#[code NONE]).
+  |  (#[code NONE]).
 
 pre.prettyprint: code.language-ml.
   - SOME 42;
@@ -145,7 +145,7 @@ p
   a(href="https://en.wikipedia.org/wiki/Closure_(computer_programming)")
     em closure
   |  para armazenar o próximo retorno do gerador (já que geradores não são
-  | idempotentes). Usaremos um #[code int ref] para o #[em closure].
+  |  idempotentes). Usaremos um #[code int ref] para o #[em closure].
 
 p: small Atualizei o código removendo a necessidade de usar #[code fn].
 
@@ -195,19 +195,19 @@ pre.prettyprint: code.language-ml.
 
 p
   | OK! Nossa função se comporta como esperado! Agora precisamos criar a função 
-  | #[code range].
+  |  #[code range].
 
 h3 Gerador para lista
 
 p
   | Para criar a função #[code range], criaremos uma função que receba um
-  | gerador e retorne uma lista de todos os valores gerados.
+  |  gerador e retorne uma lista de todos os valores gerados.
 
 p
   | Esta função precisa de um acumulador: uma lista que começa vazia
-  | (#[code nil]) e vai sendo preenchida conforme o gerador é reiterado. Então
-  | ela precisa validar o gerador (passando a unidade como parâmetro) e tratar o
-  | resultado:
+  |  (#[code nil]) e vai sendo preenchida conforme o gerador é reiterado. Então
+  |  ela precisa validar o gerador (passando a unidade como parâmetro) e tratar
+  | o resultado:
 
 pre.prettyprint: code.language-ml.
   fun genToList' (acc : int list) (gen : unit -&gt; int option) : int list =
@@ -216,8 +216,8 @@ pre.prettyprint: code.language-ml.
 
 p
   | Perceba que, passando #[code value::acc], a lista é gerada de trás para
-  | frente. Portanto, ao recebermos o valor de parada (#[code NONE]), precisamos
-  | retornar a inversão do acumulador (#[code rev acc]).
+  |  frente. Portanto, ao recebermos o valor de parada (#[code NONE]),
+  |  precisamos retornar a inversão do acumulador (#[code rev acc]).
 
 p
   | Nossa 
@@ -234,7 +234,7 @@ pre.prettyprint: code.language-ml.
 
 p
   | Podemos usar essa segunda função para construir a função #[code range].
-  | Colocando tudo junto:
+  |  Colocando tudo junto:
 
 pre.prettyprint: code.language-ml.
   local
@@ -248,7 +248,7 @@ pre.prettyprint: code.language-ml.
 
 p
   | A construção #[code o] funciona como #[tt o] de matemática, por exemplo,
-  | #[tt fog(x)] é o mesmo que #[tt f(g(x))].
+  |  #[tt fog(x)] é o mesmo que #[tt f(g(x))].
 
 p Vamos testar:
 
@@ -264,4 +264,4 @@ p
   | No 
   a(href="/kodumaro/2016/03/sml-2.html") próximo artigo
   |  vamos tornar o gerador mais robusto e genérico com #[em structures] e
-  | #[em functors].
+  |  #[em functors].

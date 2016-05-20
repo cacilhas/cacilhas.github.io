@@ -33,7 +33,7 @@ p
 
 p
   | Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
-  | série de pequenos #[em hacks] pra funcionar.
+  |  série de pequenos #[em hacks] pra funcionar.
 
 p Vamos começar pelas dependências.
 
@@ -53,7 +53,7 @@ p MoonScript depende de quatro outros módulos para funcionar:
 
 p
   | Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT.
-  Aqui para mim é #[code /usr/share/lua/jit].
+  |  Aqui para mim é #[code /usr/share/lua/jit].
 
 p
   | Para instalar LuaFileSystem, clone o repositório do 
@@ -68,7 +68,7 @@ pre.prettyprint: code.language-sh.
 
 p
   | Isso considerando que seu <code>LUA_CPATH</code> esteja em
-  | #[code /usr/lib/lua/jit].
+  |  #[code /usr/lib/lua/jit].
 
 p Compile e instale normalmente.
 
@@ -80,7 +80,7 @@ p
 
 p
   | Clone e instale LPegLJ no seu #[code LUA_PATH], depois execute o seguinte
-  | comando:
+  |  comando:
 
 pre.prettyprint: code.language-sh.
   cd $LUA_PATH
@@ -94,23 +94,23 @@ p
   | Com as três dependências instaladas, clone o projeto do 
   a(href="https://github.com/leafo/moonscript") GitHUB
   | . Edite o #[code Makefile], substituindo as ocorrências de #[code lua5.1] e
-  | #[code lua] por #[code luajit].
+  |  #[code lua] por #[code luajit].
 
 p Remova as entradas #[code local] e #[code global] do #[code Makefile].
 
 p
   | Edite o #[em hashbang] dos arquivos #[code bin/moon] e #[code bin/moonc],
-  | trocando #[code lua] por #[code luajit].
+  |  trocando #[code lua] por #[code luajit].
 
 p Execute #[code make compile]
 
 p
   | Copie os diretórios #[code moon/] e #[code moonscript/] para seu
-  | #[code LUA_PATH].
+  |  #[code LUA_PATH].
 
 p
   | Copie os arquivos #[code bin/moon] e #[code bin/moonc] para o diretório
-  | #[code /usr/bin/] do sistema.
+  |  #[code /usr/bin/] do sistema.
 
 p
   | E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu

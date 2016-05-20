@@ -11,7 +11,7 @@ p.mg-first
 p
   | Um dos erros mais comuns que tenho visto no mundo 
   a(href="http://python.org/") Python
-  | é a quebra do contrato da classe 
+  |  é a quebra do contrato da classe 
   a(href="https://docs.python.org/3/library/unittest.html#unittest.TestCase")
     code TestCase
   | .
@@ -20,21 +20,21 @@ h3 Métodos #[em hook]
 
 p
   | Geralmente a quebra de contrato ocorre porque o programador não entende o
-  | conceito de <em>hook</em> ou não sabe como evitar chamar #[code super] na
-  | herança.
+  |  conceito de <em>hook</em> ou não sabe como evitar chamar #[code super] na
+  |  herança.
 
 p
   | #[em Hook] é aquele método preenchido pelo código principal para ser chamado
-  | por um #[em framework]. Por definição, o #[em hook] não deve ser chamado no
-  | código de aplicação, ou deve ser evitado. Em seu lugar é feita chamada para
-  | alguma rotina do #[em framework] que, por sua fez, usa o #[em hook] dentro
-  | da conveniência do mesmo.
+  |  por um #[em framework]. Por definição, o #[em hook] não deve ser chamado no
+  |  código de aplicação, ou deve ser evitado. Em seu lugar é feita chamada para
+  |  alguma rotina do #[em framework] que, por sua fez, usa o #[em hook] dentro
+  |  da conveniência do mesmo.
 
 p
   | Na biblioteca de #[em unit test] de Python, os métodos de #[code TestCase]
-  | #[code setUp] e #[code tearDown] (de instância), e #[code setUpClass] e
-  | #[code tearDownClass] são métodos #[em hook], evocados pelo #[em framework]
-  | de teste unitário.
+  |  #[code setUp] e #[code tearDown] (de instância), e #[code setUpClass] e
+  |  #[code tearDownClass] são métodos #[em hook], evocados pelo #[em framework]
+  |  de teste unitário.
 
 h3 O problema
 
@@ -48,13 +48,13 @@ p
 
 p
   | Ele sabe que o método #[code setUp] é executado antes de cada teste,
-  | enquanto o método #[code tearDown] é executado ao final, havendo erro, falha
-  | ou sucesso. Perfeito!
+  |  enquanto o método #[code tearDown] é executado ao final, havendo erro,
+  |  falha ou sucesso. Perfeito!
 
 p
   | Mas ele precisa que todas as classes de teste usem esses métodos, então ele
-  | pensa numa solução que parece perfeita: implementar os métodos #[em hook]
-  | numa classe pai, que será herdada pelas demais classes de teste.
+  |  pensa numa solução que parece perfeita: implementar os métodos #[em hook]
+  |  numa classe pai, que será herdada pelas demais classes de teste.
 
 p A coisa fica mais ou menos assim:
 
@@ -122,20 +122,20 @@ h3 A abordagem correta
 
 p
   | A regra de ouro do #[code unittest] é: #[strong jamais] implemente métodos
-  | #[em hook] em classes que não sejam testes de fato, que sejam abstrações de
-  | comportamento para casos de teste de fato.
+  |  #[em hook] em classes que não sejam testes de fato, que sejam abstrações de
+  |  comportamento para casos de teste de fato.
 
 p — Mas como resolver então? 😯
 
 p
   | Como sua classe pai tem o objetivo de alterar o comportamento do
-  | #[em framework], sobrescreva rotinas internas do #[em framework].
+  |  #[em framework], sobrescreva rotinas internas do #[em framework].
 
 p
   | No caso, o método cujo comportamento você quer mudar é #[code run]. A
-  | alteração será parecida com a criação de um contexto usando
-  | #[code contextlib.contextmanager], apenas trocando o #[code yield] por
-  | #[code super]:
+  |  alteração será parecida com a criação de um contexto usando
+  |  #[code contextlib.contextmanager], apenas trocando o #[code yield] por
+  |  #[code super]:
 
 pre.prettyprint: code.language-python.
   class TestCase(unittest.TestCase):
@@ -157,8 +157,8 @@ pre.prettyprint: code.language-python.
 
 p
   | Pronto! O problema já está resolvido! Agora nossa classe #[code TestCase]
-  | já possui comportamento de #[em framework], e os #[em hooks] podem ser
-  | usados corretamente:
+  |  já possui comportamento de #[em framework], e os #[em hooks] podem ser
+  |  usados corretamente:
 
 pre.prettyprint: code.language-python.
   class TestCacheManager(TestCase):
