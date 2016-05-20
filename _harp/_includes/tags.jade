@@ -2,23 +2,27 @@
 - var response = []
 
 each yearDir, yearSlug in public.montegasppa
-  each monthDir, monthSlug in yearDir
-    each page, slug in monthDir._data
-      - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-      each tag in page.tags
-        if (typeof tags[tag] === "undefined")
-          - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
-          - response.push(tags[tag])
-        else
-          - tags[tag].pages.push({url: url, title: "Reflexões… :: " + page.title})
+  if yearDir
+    each monthDir, monthSlug in yearDir
+      if monthDir._data
+        each page, slug in monthDir._data
+          - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          each tag in page.tags
+            if tags[tag]
+              - tags[tag].pages.push({url: url, title: "Reflexões… :: " + page.title})
+            else
+              - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
+              - response.push(tags[tag])
 
 each yearDir, yearSlug in public.kodumaro
-  each monthDir, monthSlug in yearDir
-    each page, slug in monthDir._data
-      - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-      each tag in page.tags
-        if (typeof tags[tag] === "undefined")
-          - tags[tag] = {name: tag, pages: [{url: url, title: "Kodumaro :: " + page.title}]}
-          - response.push(tags[tag])
-        else
-          - tags[tag].pages.push({url: url, title: "Kodumaro :: " + page.title})
+  if yearDir
+    each monthDir, monthSlug in yearDir
+      if monthDir._data
+        each page, slug in monthDir._data
+          - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          each tag in page.tags
+            if tags[tag]
+              - tags[tag].pages.push({url: url, title: "Kodumaro :: " + page.title})
+            else
+              - tags[tag] = {name: tag, pages: [{url: url, title: "Kodumaro :: " + page.title}]}
+              - response.push(tags[tag])
