@@ -1,16 +1,16 @@
 {
-  "corrupto": {
-    "title": "Todo político é corrupto",
-    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
-    "content": "Verdades absolutas são burras por desconsiderar a realidade factual…",
-    "release": "2016-05-20",
-    "tags": ["Política"]
-  },
     "song-can-write-itself": {
     "title": "O’Keefe Music Foundation",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "A song can write itself if you just dig deep…",
     "release": "2016-05-15",
     "tags": ["Música"]
+  },
+  "corrupto": {
+    "title": "Todo político é corrupto",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Verdades absolutas são burras por desconsiderar a realidade factual…",
+    "release": "2016-05-20",
+    "tags": ["Política"]
   }
 }
