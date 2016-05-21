@@ -1,43 +1,43 @@
-- var count = 0
+- var articles = new Array
 
 each yearDir, yearSlug in public.montegasppa
   if yearDir
     each monthDir, monthSlug in yearDir
       if monthDir._data
         each page, slug in monthDir._data
-          if count < 3
-            if (!page.hidden)
-              - count++
-              - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          if (!page.hidden)
+            - var article = {}
+            - article.url = "/montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.title = "Reflexões… :: " + page.title
+            - article.content = page.content
+            - articles.unshift(article)
 
-              a(class=["col-md-4", "mg-nou"] href=url role="button")
-                div(class=["panel", "panel-default"])
-                  div.panel-heading
-                    h3.mg-title Reflexões… :: !{page.title}
-                  div.panel-body
-                    p.lead!= page.content
+each article in articles.slice(0, 3)
+  a(class=["col-md-4", "mg-nou"] href=article.url role="button")
+    div(class=["panel", "panel-default"])
+      div.panel-heading
+        h3.mg-title!= article.title
+      div.panel-body
+        p.lead!= article.content
 
-          else
-            - break
-
-- count = 0
+- articles = new Array
 
 each yearDir, yearSlug in public.kodumaro
   if yearDir
     each monthDir, monthSlug in yearDir
       if monthDir._data
         each page, slug in monthDir._data
-          if count < 3
-            if (!page.hidden)
-              - count++
-              - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          if (!page.hidden)
+            - var article = {}
+            - article.url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.title = "Kodumaro :: " + page.title
+            - article.content = page.content
+            - articles.unshift(article)
 
-              a(class=["col-md-4", "mg-nou"] href=url role="button")
-                div(class=["panel", "panel-default"])
-                  div.panel-heading
-                    h3.mg-title Kodumaro :: !{page.title}
-                  div.panel-body
-                    p.lead!= page.content
-
-          else
-            - break
+each article in articles.slice(0, 3)
+  a(class=["col-md-4", "mg-nou"] href=article.url role="button")
+    div(class=["panel", "panel-default"])
+      div.panel-heading
+        h3.mg-title!= article.title
+      div.panel-body
+        p.lead!= article.content
