@@ -15,6 +15,8 @@ block main-container
   div(class=["panel", "panel-default"])
     .panel-heading
       h2.mg-title Kodumaro :: !{title}
+      if release
+        h6.pull-right Publicado em #{release}
       h6 As sombras da programação.
 
     .panel-body
