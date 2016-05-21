@@ -1,5 +1,4 @@
 - var tags = {}
-- var response = []
 
 each yearDir, yearSlug in public.montegasppa
   if yearDir
@@ -12,7 +11,6 @@ each yearDir, yearSlug in public.montegasppa
               - tags[tag].pages.push({url: url, title: "Reflexões… :: " + page.title})
             else
               - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
-              - response.push(tags[tag])
 
 each yearDir, yearSlug in public.kodumaro
   if yearDir
@@ -25,4 +23,3 @@ each yearDir, yearSlug in public.kodumaro
               - tags[tag].pages.push({url: url, title: "Kodumaro :: " + page.title})
             else
               - tags[tag] = {name: tag, pages: [{url: url, title: "Kodumaro :: " + page.title}]}
-              - response.push(tags[tag])
