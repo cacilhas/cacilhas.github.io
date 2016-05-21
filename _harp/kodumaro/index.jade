@@ -29,15 +29,24 @@ p: small
   a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
   | .
 
+
+- var months = new Array
+each yearDir, yearSlug in public.kodumaro
+  if yearDir
+    each monthDir, monthSlug in yearDir
+      if monthDir._data
+        - var month = {}
+        - month.slug = "/kodumaro/" + yearSlug + "/" + monthSlug
+        - month.title = public._data.months[monthSlug] + " de " + yearSlug
+        - month.dir = monthDir._data
+        - months.unshift(month)
+
 ul.list-group
-  each yearDir, yearSlug in public.kodumaro
-    if yearDir
-      each monthDir, monthSlug in yearDir
-        if monthDir._data
-          li.list-group-item
-            select.list-group-item(onchange="window.location = this.value; return true;"
-                                   style={width: "100%"})
-              option(selected=true) #{public._data.months[monthSlug]} de #{yearSlug}
-              each page, slug in monthDir._data
-                option(value="/kodumaro/#{yearSlug}/#{monthSlug}/#{slug}.html")
-                  != page.title
+  each month in months
+    li.list-group-item
+      select.list-group-item(onchange="window.location = this.value; return true;"
+                             style={width: "100%"})
+        option(selected=true)= month.title
+        each page, slug in month.dir
+          option(value="#{month.slug}/#{slug}.html")
+            != page.title
