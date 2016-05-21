@@ -16,7 +16,7 @@
     "quebra-de-contrato": {
     "title": "Quebra de Contrato",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
-    "content": "É muito comum programadores inexperientes desrespeitarem regras estabelecidas…",
+    "content": "É muito comum programadores inexperientes desrespeitarem contratos estabelecidos…",
     "release": "2016-05-13",
     "tags": ["Python", "TDD"]
   }
