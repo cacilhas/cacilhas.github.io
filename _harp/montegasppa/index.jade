@@ -31,7 +31,7 @@ each yearDir, yearSlug in public.montegasppa
     each monthDir, monthSlug in yearDir
       if monthDir._data
         - var month = {}
-        - month.slug = "/kodumaro/" + yearSlug + "/" + monthSlug
+        - month.slug = "/montegasppa/" + yearSlug + "/" + monthSlug
         - month.title = public._data.months[monthSlug] + " de " + yearSlug
         - month.dir = monthDir._data
         - months.unshift(month)
