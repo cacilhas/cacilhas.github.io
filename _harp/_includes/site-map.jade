@@ -1,0 +1,27 @@
+div.col-md-4
+  div.list-group
+    h3(class=["mg-title", "list-group-item", "active"]) Mapa
+    a(class=["list-group-item", "small"] href="/") Início
+    a(class=["list-group-item", "small"] href="/montegasppa/") Reflexões de ℳontegasppα e Giulia C.
+
+    each yearDir, yearSlug in public.montegasppa
+      if yearDir
+        each monthDir, monthSlug in yearDir
+          if monthDir._data
+            each page, slug in monthDir._data
+              if (!page.hidden)
+                - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+                a(class=["list-group-item", "small"] href=url)
+                  | Reflexões… :: !{page.title}
+
+    a(class=["list-group-item", "small"] href="/kodumaro/") Kodumaro
+
+    each yearDir, yearSlug in public.kodumaro
+      if yearDir
+        each monthDir, monthSlug in yearDir
+          if monthDir._data
+            each page, slug in monthDir._data
+              if (!page.hidden)
+                - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+                a(class=["list-group-item", "small"] href=url)
+                  | Kodumaro :: !{page.title}
