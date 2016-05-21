@@ -1,14 +1,16 @@
 {
   "moonscript": {
-	"title": "MoonScript sobre LuaJIT",
-	"author": "Arĥimedeς ℳontegasppα ℭacilhας",
-	"content": "Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.",
-	"tags": ["Lua"]
+    "title": "MoonScript sobre LuaJIT",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.",
+    "release": "2016-05-12",
+    "tags": ["Lua"]
   },
-  "quebra-de-contrato": {
-	"title": "Quebra de Contrato",
-	"author": "Arĥimedeς ℳontegasppα ℭacilhας",
-	"content": "É muito comum programadores inexperientes desrespeitarem regras estabelecidas…",
-	"tags": ["Python", "TDD"]
+    "quebra-de-contrato": {
+    "title": "Quebra de Contrato",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "É muito comum programadores inexperientes desrespeitarem regras estabelecidas…",
+    "release": "2016-05-13",
+    "tags": ["Python", "TDD"]
   }
 }
