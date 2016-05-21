@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatibile" content="IE=edge"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Cache-Control" content="no-cache"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content=""><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"><link rel="stylesheet" href="/css/bootstrap-theme.min.css"><link rel="stylesheet" href="/css/theme.css"><link rel="stylesheet" href="/css/cacilhas.css"><title>Kodumaro :: Código ASCII para iniciantes</title><link rel="stylesheet" href="/css/kodumaro.css"><link rel="icon" href="/img/kodumaro.ico"><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">ℭacilhας.INFO</a></div><div id="navbar" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Código ASCII para iniciantes</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Código ASCII para iniciantes</h2><h6 class="pull-right">Publicado em 2016-05-21</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img src="/img/glider.png" class="pull-right"><p class="mg-first">Este artigo foi publicado originalmente em <a href="http://kodumaro.blogspot.com.br/2013/09/introducao-ao-codigo-ascii-para.html">27 de setembro de 2013</a>.</p><p>Código <a href="http://www.unicode.org/charts/PDF/U0000.pdf">ASCII</a> é a codificação de caracteres para valores numéricos de 7 <em>bits</em> mais aceita mundialmente e significa <em>American Standard Code for Information Interchange</em> – portanto, nada de ASC-2, por favor.</p><p>O ASCII não permite acentos ou diacríticos, apenas os caracteres mais comuns
+e uma série de 33 caracteres de controle. Porém, como a menor palavra
+ binária (sequência de <a href="http://pt.wikipedia.org/wiki/Bit"><em>bits</em></a>) usada é o <a href="http://pt.wikipedia.org/wiki/Byte"><em>byte</em> ou octeto</a>, que usa 8 <em>bits</em>, um a mais que o ASCII, é possível criar <em>supersets</em> com o dobro<sup><a href="#footnote-1">1</a></sup> da capacidade como, por exemplo, o <a href="http://pt.wikipedia.org/wiki/ISO_8859-1">Latin-1</a> e o <a href="http://en.wikipedia.org/wiki/Windows-1252">CP-1252</a>.</p><p>Para quem está começando a tentar entender o código ASCII, é preciso saber
+que ele é composto de grupos. O primeiro grupo é o que possui sequência binária <code>00xxxxx</code>, ou seja, zeros nas duas casas da esquerda e qualquer combinação nas 5 demais. Isso dá uma combinação de 32 caracteres, com código de 0 (<code>0000000</code>) a 31 (<code>0011111</code>), e consiste nos caracteres de controle, como nulo (0), os caracteres de mudança de linha (10 e 13), o <em>backspace</em> (8), o <em>escape</em> (27) e o <em>tab</em> (9).</p><p>A única exceção de carácter de controle fora dessa sequência é o <em>delete</em> (127 – <code>1111111</code>).</p><p>O grupo seguinte, <code>010xxxx</code> (32 a 47) é uma sequência de caracteres de pontuação e símbolos matemáticos, a começar pelo espaço (32).</p><p>Então começam os números, dentro do grupo <code>011xxxx</code>. Os números começam em <code>0110000</code> (48) e seguem até <code>0111001</code> (57). Uma forma fácil de pensar qual o código de um dígito numérico é somar 48 ao
+valor do número. Por exemplo, o código de 7 é (48+7=) 55.</p><p>O grupo <code>011xxxx</code> segue com mais pontuações e símbolos matemáticos.</p><p>O grupo seguinte é o das letras maiúsculas: <code>10xxxxx</code>. O primeiro elemento, 64 (<code>1000000</code>), é o arroba (<code>@</code>), seguido das letras. Para saber o código de uma letra é só somar 64 ao índice da letra no alfabeto. Por exemplo, a letra <code>F</code> é 6ª letra do alfabeto, portanto seu código é (64+6=) 70.</p><p>Depois do <code>Z</code> (90), continuam mais pontuações e símbolos matemáticos, terminando com underscore (<code>_</code>, 95 – <code>1011111</code>).</p><p>A próxima sequência, começando pela crase, são as letras minúsculas. A sequência é idêntica à anterior, apenas trocando o 6º <em>bit</em> (da direita pra esquerda) por 1: <code>11xxxxx</code>, o que soma 32 ao número, e as letras coincidem o mesmo código das maiúsculas.</p><p>Ou seja, se o código de <code>F</code> é 70, o código de <code>f</code> é (70+32=) 102.</p><p> Como esperado, a sequência após o <code>z</code> (122) continua com pontuações e símbolos matemáticos.</p><h3>Exemplo</h3><p>Como exemplo, vamos codificar a palavra <code>Kodumaro</code>:</p><pre><code>K = 64 + 11      =  75
+o = 64 + 15 + 32 = 111
+d = 64 +  4 + 32 = 100
+u = 64 + 21 + 32 = 117
+m = 64 + 13 + 32 = 109
+a = 64 +  1 + 32 =  97
+r = 64 + 18 + 32 = 114
+o = 64 + 15 + 32 = 111
+
+Kodumaro ≡ 75, 111, 100, 117, 109, 97, 114, 111
+</code></pre><p> Se você preferir, pode pensar em <em>bits</em> (incrívelmente mais simples): o 7º <em>bit</em> (1º da esquerda) é sempre <code>1</code> (letra), o 6º (2º da esquerda) é <code>0</code> para maiúsculas e <code>1</code> para minúsculas, os 5 seguintes são a ordem da letra no alfabeto:</p><pre><code>A =  1 = 00001
+B =  2 = 00010
+C =  3 = 00011
+D =  4 = 00100
+E =  5 = 00101
+F =  6 = 00110
+G =  7 = 00111
+H =  8 = 01000
+I =  9 = 01001
+J = 10 = 01010
+K = 11 = 01011
+L = 12 = 01100
+M = 13 = 01101
+N = 14 = 01110
+O = 15 = 01111
+P = 16 = 10000
+Q = 17 = 10001
+R = 18 = 10010
+S = 19 = 10011
+T = 20 = 10100
+U = 21 = 10101
+V = 22 = 10110
+W = 23 = 10111
+X = 24 = 11000
+Y = 25 = 11001
+Z = 26 = 11010
+</code></pre><p>Voltando ao <code>Kodumaro</code>:</p><pre><code>K = (letra)(maiúscula)11ª – 1.0.01011 – 1001011
+o = (letra)(minúscula)15ª – 1.1.01111 – 1101111
+d = (letra)(minúscula) 4ª – 1.1.00100 – 1100100
+u = (letra)(minúscula)21ª – 1.1.10101 – 1110101
+m = (letra)(minúscula)13ª – 1.1.01101 – 1101101
+a = (letra)(minúscula) 1ª – 1.1.00001 – 1100001
+r = (letra)(minúscula)18ª – 1.1.10010 – 1110010
+o = (letra)(minúscula)15ª – 1.1.01111 – 1101111
+</code></pre><p>E de fato é assim que é codificado e armazenado:</p><pre><code>1001011.1101111.1100100.1110101.1101101.1100001.1110010.1101111
+</code></pre><p>Convertendo em <em>bytes</em> (palavras de 8 <em>bits</em>):</p><pre><code>0100101101101111011001000111010101101101011000010111001001101111
+</code></pre><br><br><p class="small"><sup id="footnote-1">1</sup>A cada bit que se acrescenta a uma palavra binária, sua quantidade de
+combinações dobra.</p></div></div><div class="panel panel-default"><div align="right" class="panel-body"><small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Código ASCII para iniciantes" target="_blank">Criar <em>issue</em></a></small></div></div></div><div id="footer" class="panel-footer"><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας</p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script></body></html>

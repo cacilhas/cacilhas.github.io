@@ -1,4 +1,11 @@
 {
+  "ascii": {
+    "title": "Código ASCII para iniciantes",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Código ASCII é a codificação de caracteres para valores numéricos de 7 bits mais aceita mundialmente.",
+    "release": "2016-05-21",
+    "tags": ["Conceitual"]
+  },
   "moonscript": {
     "title": "MoonScript sobre LuaJIT",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
