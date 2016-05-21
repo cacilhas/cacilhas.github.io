@@ -1,5 +1,3 @@
-include ../_includes/list-group-item.jade
-
 img.pull-right(src="/img/kodumaro.png")
 
 p.mg-first Olá gente!
@@ -31,11 +29,15 @@ p: small
   a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
   | .
 
-+ul
+ul.list-group
   each yearDir, yearSlug in public.kodumaro
     if yearDir
       each monthDir, monthSlug in yearDir
         if monthDir._data
-          each page, slug in monthDir._data
-            - var url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-            +li: a(href=url) [#{yearSlug}/#{monthSlug}] !{page.title}
+          li.list-group-item
+            select.list-group-item(onchange="window.location = this.value; return true;"
+                                   style={width: "100%"})
+              option(selected=true) #{public._data.months[monthSlug]} de #{yearSlug}
+              each page, slug in monthDir._data
+                option(value="/kodumaro/#{yearSlug}/#{monthSlug}/#{slug}.html")
+                  != page.title
