@@ -12,7 +12,7 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
           if monthDir._data
             each page, slug in monthDir._data
               - var article = {}
-              - article.url = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug
+              - article.url = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
               - article.title = page.title
               - article.release = page.release
               - article.content = page.content
