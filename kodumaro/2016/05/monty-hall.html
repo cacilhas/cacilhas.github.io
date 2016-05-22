@@ -71,7 +71,7 @@ Para obter o prêmio atrás de um porta, precisamos configurar o método de comp
 
 ...
 
--spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _Reason}.
+-spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _}.
 </code></pre><p>Podemos implementar a função <code>get_prize/1</code>, que apenas faz a chamada para OTP:</p><pre class="prettyprint"><code class="language-erlang">get_prize(Door) -&gt;
     case gen_server:call(?MODULE, {door, Door}) of
         {prize, Prize} -&gt; {ok, Prize};
@@ -97,7 +97,7 @@ abrir a outra com bode.</li></ol><p>Imediatamente acima da implementação de fa
 
 ...
 
--spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _Reason}.
+-spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
 
 ...
 

@@ -226,7 +226,7 @@ pre.prettyprint: code.language-erlang.
 
   ...
 
-  -spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _Reason}.
+  -spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _}.
 
 p Podemos implementar a função #[code get_prize/1], que apenas faz a chamada para
   |  OTP:
@@ -274,7 +274,7 @@ pre.prettyprint: code.language-erlang.
 
   ...
 
-  -spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _Reason}.
+  -spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
 
   ...
 
