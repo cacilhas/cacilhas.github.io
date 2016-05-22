@@ -10,7 +10,7 @@ p
   | O #[em blog] era sobre Informática, Software Livre e programação, mas acabou
   |  se tornando um #[em blog] político, muito em função da parte de programação
   |  ter se tornado responsabilidade do 
-  a(href="/kodumaro/")!= public.kodumaro._data.blog.title
+  a(href=public.kodumaro._data.blog.url)!= public.kodumaro._data.blog.title
   | .
 
 p
@@ -31,7 +31,7 @@ each yearDir, yearSlug in public.montegasppa
     each monthDir, monthSlug in yearDir
       if monthDir._data
         - var month = {}
-        - month.slug = "/montegasppa/" + yearSlug + "/" + monthSlug
+        - month.slug = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug
         - month.title = public._data.months[monthSlug] + " de " + yearSlug
         - month.dir = monthDir._data
         - months.unshift(month)

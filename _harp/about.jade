@@ -15,7 +15,7 @@ div(class=["panel", "panel-default"])
       a(href="http://montegasppa.blogspot.com.br/")
         | Reflexões de Monte Gasppa e Giulia C.
       |  para 
-      a(href="/montegasppa/") cá
+      a(href=public.montegasppa._data.blog.url) cá
       | .
 
     p
@@ -25,7 +25,7 @@ div(class=["panel", "panel-default"])
       |  do 
       a(href="https://www.blogger.com/") Blogger.com
       |  me obrigaram a transferir este #[em blog] também pra 
-      a(href="/kodumaro/") cá
+      a(href=public.kodumaro._data.blog.url) cá
       | .
 
     p
@@ -35,7 +35,7 @@ div(class=["panel", "panel-default"])
     p Até o momento, os espaços disponíveis são:
 
     +ul
-      a(href="/montegasppa/")
+      a(href=public.montegasppa._data.blog.url)
         +li!= public.montegasppa._data.blog.title
-      a(href="/kodumaro/")
+      a(href=public.kodumaro._data.blog.url)
         +li!= public.kodumaro._data.blog.title

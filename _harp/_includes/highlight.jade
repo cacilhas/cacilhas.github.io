@@ -7,7 +7,7 @@ each yearDir, yearSlug in public.montegasppa
         each page, slug in monthDir._data
           if (!page.hidden)
             - var article = {}
-            - article.url = "/montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.url = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
             - article.content = page.content
             - articles.unshift(article)
@@ -29,7 +29,7 @@ each yearDir, yearSlug in public.kodumaro
         each page, slug in monthDir._data
           if (!page.hidden)
             - var article = {}
-            - article.url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.url = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = public.kodumaro._data.blog.title + " :: " + page.title
             - article.content = page.content
             - articles.unshift(article)

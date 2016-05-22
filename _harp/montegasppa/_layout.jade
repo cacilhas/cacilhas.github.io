@@ -3,12 +3,12 @@ extends ../_layout.jade
 block blog-head
   title Reflexões… :: #{title}
   link(rel="alternate" type="application/atom+xml" title=public.montegasppa._data.blog.title
-       href="/montegasppa/feed.xml")/
+       href=public.montegasppa._data.blog.url+"feed.xml")/
   link(rel="stylesheet" href="/css/montegasppa.css")/
   link(rel="icon" href="/img/montegasppa.ico")/
 
 block append nav-bar
-  li(class={active: home}): a(href="/montegasppa/") Prólogo
+  li(class={active: home}): a(href=public.montegasppa._data.blog.url) Prólogo
   if (!home)
     li.active: a(href=".") Reflexões… :: !{title}
 

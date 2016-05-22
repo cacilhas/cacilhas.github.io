@@ -1,7 +1,8 @@
 {
   "blog": {
     "title": "Kodumaro",
-    "subtitle": "As sombras da programação."
+    "subtitle": "As sombras da programação.",
+    "url": "http://cacilhas.info/kodumaro/"
   },
   "feed": {
     "layout": false

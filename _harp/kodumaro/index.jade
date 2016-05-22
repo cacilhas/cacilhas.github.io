@@ -8,7 +8,7 @@ p
   | !{blogtitle} é um trabalho em conjunto de três amigos programadores: 
   a(href="https://claudiotorcato.wordpress.com/") Cláudio Torcato
   | , 
-  a(href="http://cacilhas.info/montegasppa/") Rodrigo Cacilhas
+  a(href=public.montegasppa._data.blog.url) Rodrigo Cacilhas
   |  e 
   a(href="http://waltercruz.com/") Walter Cruz
   | , num esforço para trazer algumas dicas interessantes sobre programação.
@@ -23,7 +23,7 @@ p
 
 p
   | Sem mais delongas, está apresentada nossa mídia: 
-  a(href="http://cacilhas.info/kodumaro/")!= blogtitle
+  a(href=public.kodumaro._data.blog.url)!= blogtitle
   | !
 
 p: small
@@ -38,7 +38,7 @@ each yearDir, yearSlug in public.kodumaro
     each monthDir, monthSlug in yearDir
       if monthDir._data
         - var month = {}
-        - month.slug = "/kodumaro/" + yearSlug + "/" + monthSlug
+        - month.slug = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug
         - month.title = public._data.months[monthSlug] + " de " + yearSlug
         - month.dir = monthDir._data
         - months.unshift(month)

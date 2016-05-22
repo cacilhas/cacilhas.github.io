@@ -2,7 +2,7 @@ doctype xml
 rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
   channel
     title= public.kodumaro._data.blog.title
-    link http://cacilhas.info/kodumaro/
+    link= public.kodumaro._data.blog.url
     description= public.kodumaro._data.blog.subtitle
 
     - var articles = new Array
@@ -12,7 +12,7 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
           if monthDir._data
             each page, slug in monthDir._data
               - var article = {}
-              - article.url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug
+              - article.url = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug
               - article.title = page.title
               - article.release = page.release
               - article.content = page.content
