@@ -1,6 +1,10 @@
 {
+  "blog": {
+    "title": "Reflexões de ℳontegasppα e Giulia C.",
+    "subtitle": "Como um hipopótamo lida com um campo de flores."
+  },
   "index": {
-	"title": "Prólogo",
-	"home": true
+    "title": "Prólogo",
+    "home": true
   }
 }

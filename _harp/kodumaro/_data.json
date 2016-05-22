@@ -1,6 +1,10 @@
 {
+  "blog": {
+    "title": "Kodumaro",
+    "subtitle": "As sombras da programação."
+  },
   "index": {
-	"title": "<em>Saluton!</em>",
-	"home": true
+    "title": "<em>Saluton!</em>",
+    "home": true
   }
 }

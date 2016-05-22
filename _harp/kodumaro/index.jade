@@ -1,9 +1,11 @@
+- var blogtitle = public.kodumaro._data.blog.title
+
 img.pull-right(src="/img/kodumaro.jpg")
 
 p.mg-first Olá gente!
 
 p
-  | Kodumaro é um trabalho em conjunto de três amigos programadores: 
+  | !{blogtitle} é um trabalho em conjunto de três amigos programadores: 
   a(href="https://claudiotorcato.wordpress.com/") Cláudio Torcato
   | , 
   a(href="http://cacilhas.info/montegasppa/") Rodrigo Cacilhas
@@ -17,11 +19,11 @@ p
 
 p
   | Esperamos que os artigos sejam úteis e elucidativos, e aguardamos retorno de
-  | nossos leitores para que Kodumaro se aperfeiçoe dia a dia.
+  | nossos leitores para que !{blogtitle} se aperfeiçoe dia a dia.
 
 p
   | Sem mais delongas, está apresentada nossa mídia: 
-  a(href="http://cacilhas.info/kodumaro/") Kodumaro
+  a(href="http://cacilhas.info/kodumaro/")!= blogtitle
   | !
 
 p: small
