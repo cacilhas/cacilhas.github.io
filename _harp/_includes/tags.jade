@@ -25,8 +25,8 @@ each yearDir, yearSlug in public.kodumaro
             else
               - tags[tag] = {name: tag, pages: [{url: url, title: kodumaro + " :: " + page.title}]}
 
-div.col-md-4
-  div.list-group
+.col-md-4
+  .list-group
     h3(class=["mg-title", "list-group-item", "active"]): em Tags
     ul.list-group
       each tagName in Object.keys(tags).sort()

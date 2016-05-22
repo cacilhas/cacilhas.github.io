@@ -15,9 +15,9 @@ each yearDir, yearSlug in public.montegasppa
 each article in articles.slice(0, 3)
   a(class=["col-md-4", "mg-nou"] href=article.url role="button")
     div(class=["panel", "panel-default"])
-      div.panel-heading
+      .panel-heading
         h3.mg-title!= article.title
-      div.panel-body
+      .panel-body
         p.lead!= article.content
 
 - articles = new Array
@@ -37,7 +37,7 @@ each yearDir, yearSlug in public.kodumaro
 each article in articles.slice(0, 3)
   a(class=["col-md-4", "mg-nou"] href=article.url role="button")
     div(class=["panel", "panel-default"])
-      div.panel-heading
+      .panel-heading
         h3.mg-title!= article.title
-      div.panel-body
+      .panel-body
         p.lead!= article.content
