@@ -2,6 +2,8 @@ extends ../_layout.jade
 
 block blog-head
   title #{public.kodumaro._data.blog.title} :: #{title}
+  link(rel="alternate" type="application/atom+xml" title=public.kodumaro._data.blog.title
+       href="/kodumaro/feeds.xml")/
   link(rel="stylesheet" href="/css/kodumaro.css")/
   link(rel="icon" href="/img/kodumaro.ico")/
   script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")

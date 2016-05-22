@@ -1,0 +1,27 @@
+doctype xml
+rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
+  channel
+    title= public.kodumaro._data.blog.title
+    link http://cacilhas.info/kodumaro/
+    description= public.kodumaro._data.blog.subtitle
+
+    - var articles = new Array
+    each yearDir, yearSlug in public.kodumaro
+      if yearDir
+        each monthDir, monthSlug in yearDir
+          if monthDir._data
+            each page, slug in monthDir._data
+              - var article = {}
+              - article.url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug
+              - article.title = page.title
+              - article.release = page.release
+              - article.content = page.content
+              - articles.unshift(article)
+
+    each article in articles
+      item
+        title!= article.title
+        description <![CDATA[!{article.content}]]>
+        pubDate= new Date(article.release)
+        link #{article.url}
+        guid(isPermaLink="true") #{article.url}
