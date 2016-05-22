@@ -1,6 +1,13 @@
 {
+  "blog": {
+    "title": "Kodumaro",
+    "subtitle": "As sombras da programação."
+  },
+  "feed": {
+    "layout": false
+  },
   "index": {
-	"title": "<em>Saluton!</em>",
-	"home": true
+    "title": "<em>Saluton!</em>",
+    "home": true
   }
 }

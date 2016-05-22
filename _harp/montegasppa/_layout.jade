@@ -2,6 +2,8 @@ extends ../_layout.jade
 
 block blog-head
   title Reflexões… :: #{title}
+  link(rel="alternate" type="application/atom+xml" title=public.montegasppa._data.blog.title
+       href="/montegasppa/feeds.xml")/
   link(rel="stylesheet" href="/css/montegasppa.css")/
   link(rel="icon" href="/img/montegasppa.ico")/
 
@@ -16,10 +18,10 @@ block main-container
       h2.mg-title Reflexões… :: !{title}
       if release
         h6#release.pull-right= release
-      h6 Como um hipopótamo lida com um campo de flores.
+      h6!= public.montegasppa._data.blog.subtitle
 
     .panel-body
       != yield
 
 block footer
-  p.small Reflexões de ℳontegasppα e Giulia C.
+  p.small!= public.montegasppa._data.blog.title

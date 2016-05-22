@@ -30,7 +30,7 @@ each yearDir, yearSlug in public.kodumaro
           if (!page.hidden)
             - var article = {}
             - article.url = "/kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-            - article.title = "Kodumaro :: " + page.title
+            - article.title = public.kodumaro._data.blog.title + " :: " + page.title
             - article.content = page.content
             - articles.unshift(article)
 

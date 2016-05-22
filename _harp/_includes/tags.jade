@@ -1,4 +1,5 @@
 - var tags = {}
+- var kodumaro = public.kodumaro._data.blog.title
 
 each yearDir, yearSlug in public.montegasppa
   if yearDir
@@ -20,9 +21,9 @@ each yearDir, yearSlug in public.kodumaro
           - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
           each tag in page.tags
             if tags[tag]
-              - tags[tag].pages.push({url: url, title: "Kodumaro :: " + page.title})
+              - tags[tag].pages.push({url: url, title: kodumaro + " :: " + page.title})
             else
-              - tags[tag] = {name: tag, pages: [{url: url, title: "Kodumaro :: " + page.title}]}
+              - tags[tag] = {name: tag, pages: [{url: url, title: kodumaro + " :: " + page.title}]}
 
 div.col-md-4
   div.list-group

@@ -20,7 +20,7 @@ div(class=["panel", "panel-default"])
 
     p
       | Também pretendia #[em reblogar] as publicações do 
-      a(href="http://kodumaro.blogspot.com.br/") Kodumaro
+      a(href="http://kodumaro.blogspot.com.br/")!= public.kodumaro._data.blog.title
       |  aqui, sem desativar o #[em blog] original, mas limitações na interface
       |  do 
       a(href="https://www.blogger.com/") Blogger.com
@@ -36,6 +36,6 @@ div(class=["panel", "panel-default"])
 
     +ul
       a(href="/montegasppa/")
-        +li Reflexões de ℳontegasppα e Giulia C.
+        +li!= public.montegasppa._data.blog.title
       a(href="/kodumaro/")
-        +li Kodumaro
+        +li!= public.kodumaro._data.blog.title

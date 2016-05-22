@@ -1,30 +1,32 @@
 extends ../_layout.jade
 
 block blog-head
-  title Kodumaro :: #{title}
+  title #{public.kodumaro._data.blog.title} :: #{title}
+  link(rel="alternate" type="application/atom+xml" title=public.kodumaro._data.blog.title
+       href="/kodumaro/feeds.xml")/
   link(rel="stylesheet" href="/css/kodumaro.css")/
   link(rel="icon" href="/img/kodumaro.ico")/
   script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")
 
 block append nav-bar
-  li(class={active: home}): a(href="/kodumaro/") Kodumaro
+  li(class={active: home}): a(href="/kodumaro/")!= public.kodumaro._data.blog.title
   if (!home)
     li.active: a(href=".") !{title}
 
 block main-container
   div(class=["panel", "panel-default"])
     .panel-heading
-      h2.mg-title Kodumaro :: !{title}
+      h2.mg-title !{public.kodumaro._data.blog.title} :: !{title}
       if release
         h6.pull-right Publicado em #{release}
-      h6 As sombras da programação.
+      h6!= public.kodumaro._data.blog.subtitle
 
     .panel-body
       != yield
 
   div(class=["panel", "panel-default"])
     .panel-body(align="right")
-      small: a(href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+"+title target="_blank")
+      small: a(href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title="+public.kodumaro._data.blog.title+"+::+"+title target="_blank")
         | Criar #[em issue]
 
 block footer
