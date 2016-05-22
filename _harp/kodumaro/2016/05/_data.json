@@ -19,5 +19,12 @@
     "content": "Código ASCII é a codificação de caracteres para valores numéricos de 7 bits mais aceita mundialmente.",
     "release": "2016-05-21",
     "tags": ["Conceitual"]
+  },
+  "monty-hall": {
+    "title": "Paradoxo de Monty Hall, parte Ⅰ",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Em se descartando algumas escolhas erradas, as desconhecidas restantes combinam as probabilidades das descartadas.",
+    "release": "2016-05-22",
+    "tags": ["Erlang", "Funcional", "Lógica"]
   }
 }
