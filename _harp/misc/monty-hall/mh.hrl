@@ -1,6 +1,6 @@
 %%%=============================================================================
 %%% @author Rodrigo Cacilhας <batalema@cacilhas.info>
-%%%         [http://kodumaro.blogspot.com/]
+%%%         [http://cacilhas.info/kodumaro/]
 %%% @copyright ©2016, Rodrigo Cacilhας
 %%% @end
 %%%=============================================================================
