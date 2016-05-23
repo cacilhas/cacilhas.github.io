@@ -1,0 +1,55 @@
+include ../../../_includes/list-group-item.jade
+
+img.pull-right(src="/img/erlang.png")
+
+p.mg-first Já temos o 
+  a(href="/misc/monty-hall/mh_mc.erl") mestre de cerimônias
+  | , que fizemos no 
+  a(href=public.kodumaro._data.blog.url+"2016/05/monty-hall.html")
+    | artigo anterior
+  | , agora precisamos de um convidado para escolher qual porta abrir.
+
+p Vamos começar com um cabeçalho bastante simples:
+
+pre.prettyprint: code.language-erlang.
+  -module(mh_guest).
+  -export([choose/0, change/2]).
+
+  -include("mh.hrl").
+
+  -spec choose() -&gt; door().
+  -spec change(Original :: door(), Alternative :: door()) -&gt; door().
+
+p A função para escolher a porta:
+
+pre.prettyprint: code.language-erlang.
+  choose() -&gt; lists:nth(random:uniform(3), [a, b, c]).
+
+p E a função para mudar de porta:
+
+pre.prettyprint: code.language-erlang.
+  change(Original, Alternative) -&gt;
+    case ?CHANGE of
+      yes -&gt; Alternative;
+      _ -&gt; Original
+    end.
+
+p Com isso, teremos de mudar nosso arquivo #[code mh.hrl] adicionando o valor da
+  |  constante #[code CHANGE]. Para começar, vamos colocar para não mudar:
+
+pre.prettyprint: code.language-erlang.
+  -define(CHANGE, no).
+
+p Esse foi fácil! Já temos como simular o convidado!
+
+
+h3 Arquivos para baixar
+
++ul
+  +li: a(href="/misc/monty-hall/mh.hrl"): code mh.hrl
+  +li: a(href="/misc/monty-hall/mh_guest.erl"): code mh_guest.erl
+
+h3 Próximos passos
+
+p No último artigo colocaremos tudo junto, executando diversas vezes para
+  | calcular quantas vezes o convidado ganha o carro.
