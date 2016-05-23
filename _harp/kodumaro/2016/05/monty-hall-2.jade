@@ -31,7 +31,7 @@ pre.prettyprint: code.language-erlang.
   -ifdef(change).
   change(_Original, Alternative) -&gt; Alternative.
   -else.
-  change(Original,_ Alternative) -&gt; Original.
+  change(Original, _Alternative) -&gt; Original.
   -endif.
 
 p Com isso, a função #[code change/2] sempre retornará a porta originalmente
