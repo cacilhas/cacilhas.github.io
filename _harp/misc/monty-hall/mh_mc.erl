@@ -16,8 +16,8 @@
 
 -spec start_link() -> {ok, Pid} when Pid :: pid().
 -spec stop() -> ok.
--spec get_prize(Door :: door()) -> {ok, Prize} when Prize :: prize() | {error, _Reason}.
--spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _Reason}.
+-spec get_prize(Door :: door()) -> {ok, Prize} when Prize :: prize() | {error, _}.
+-spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
 
 
 %%%=============================================================================
