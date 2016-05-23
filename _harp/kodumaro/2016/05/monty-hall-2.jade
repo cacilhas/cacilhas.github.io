@@ -28,19 +28,17 @@ pre.prettyprint: code.language-erlang.
 p E a função para mudar de porta:
 
 pre.prettyprint: code.language-erlang.
-  change(Original, Alternative) -&gt;
-    case ?CHANGE of
-      yes -&gt; Alternative;
-      _ -&gt; Original
-    end.
+  -ifdef(change).
+  change(_Original, Alternative) -&gt; Alternative.
+  -else.
+  change(Original,_ Alternative) -&gt; Original.
+  -endif.
 
-p Com isso, teremos de mudar nosso arquivo #[code mh.hrl] adicionando o valor da
-  |  constante #[code CHANGE]. Para começar, vamos colocar para não mudar:
+p Com isso, a função #[code change/2] sempre retornará a porta originalmente
+  |  escolhida, a menos que o arquivo #[code mh_guest.erl] seja compilado com a
+  |  #[em flag] #[code -Dchange].
 
-pre.prettyprint: code.language-erlang.
-  -define(CHANGE, no).
-
-p Esse foi fácil! Já temos como simular o convidado!
+p E já temos como simular o convidado!
 
 
 h3 Arquivos para baixar

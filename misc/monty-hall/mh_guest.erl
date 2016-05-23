@@ -18,8 +18,8 @@
 choose() -> lists:nth(random:uniform(3), [a, b, c]).
 
 
-change(Original, Alternative) ->
-	case ?CHANGE of
-		yes -> Alternative;
-		_ -> Original
-	end.
+-ifdef(change).
+change(_Original, Alternative) -> Alternative.
+-else.
+change(Original, _Alternative) -> Original.
+-endif.

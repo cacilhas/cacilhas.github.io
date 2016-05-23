@@ -6,11 +6,10 @@
 -spec choose() -&gt; door().
 -spec change(Original :: door(), Alternative :: door()) -&gt; door().
 </code></pre><p>A função para escolher a porta:</p><pre class="prettyprint"><code class="language-erlang">choose() -&gt; lists:nth(random:uniform(3), [a, b, c]).
-</code></pre><p>E a função para mudar de porta:</p><pre class="prettyprint"><code class="language-erlang">change(Original, Alternative) -&gt;
-  case ?CHANGE of
-    yes -&gt; Alternative;
-    _ -&gt; Original
-  end.
-</code></pre><p>Com isso, teremos de mudar nosso arquivo <code>mh.hrl</code> adicionando o valor da constante <code>CHANGE</code>. Para começar, vamos colocar para não mudar:</p><pre class="prettyprint"><code class="language-erlang">-define(CHANGE, no).
-</code></pre><p>Esse foi fácil! Já temos como simular o convidado!</p><h3>Arquivos para baixar</h3><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a></li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a></li></ul><h3>Próximos passos</h3><p>No último artigo colocaremos tudo junto, executando diversas vezes para
+</code></pre><p>E a função para mudar de porta:</p><pre class="prettyprint"><code class="language-erlang">-ifdef(change).
+change(_Original, Alternative) -&gt; Alternative.
+-else.
+change(Original,_ Alternative) -&gt; Original.
+-endif.
+</code></pre><p>Com isso, a função <code>change/2</code> sempre retornará a porta originalmente escolhida, a menos que o arquivo <code>mh_guest.erl</code> seja compilado com a <em>flag</em> <code>-Dchange</code>.</p><p>E já temos como simular o convidado!</p><h3>Arquivos para baixar</h3><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a></li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a></li></ul><h3>Próximos passos</h3><p>No último artigo colocaremos tudo junto, executando diversas vezes para
 calcular quantas vezes o convidado ganha o carro.</p></div></div><div class="panel panel-default"><div align="right" class="panel-body"><small><a href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title=Kodumaro+::+Paradoxo de Monty Hall, parte Ⅱ" target="_blank">Criar <em>issue</em></a></small></div></div></div><div id="footer" class="panel-footer"><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script></body></html>
