@@ -270,15 +270,15 @@ pre.prettyprint: code.language-erlang.
 p Também precisamos aqui criar uma interface, da mesma forma:
 
 pre.prettyprint: code.language-erlang.
-  -export([start_link/0, stop/0, get_prize/1, suggest_other_door/1]).
+  -export([start_link/0, stop/0, get_prize/1, suggest_another_door/1]).
 
   ...
 
-  -spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
+  -spec suggest_another_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
 
   ...
 
-  suggest_other_door(Door) -&gt;
+  suggest_another_door(Door) -&gt;
       case gen_server:call(?MODULE, {other, Door}) of
           null -&gt; {error, null};
           OtherDoor -&gt; {ok, OtherDoor}
@@ -304,17 +304,17 @@ pre: code
   em {ok,goat}#[br/]
   | 4&gt; #[strong mh_mc:get_prize(c).]#[br/]
   em {ok,car}#[br/]
-  | 5&gt; #[strong mh_mc:suggest_other_door(a).]#[br/]
+  | 5&gt; #[strong mh_mc:suggest_another_door(a).]#[br/]
   em {ok,c}#[br/]
-  | 6&gt; #[strong mh_mc:suggest_other_door(b).]#[br/]
+  | 6&gt; #[strong mh_mc:suggest_another_door(b).]#[br/]
   em {ok,c}#[br/]
-  | 7&gt; #[strong mh_mc:suggest_other_door(c).]#[br/]
+  | 7&gt; #[strong mh_mc:suggest_another_door(c).]#[br/]
   em {ok,b}#[br/]
-  | 8&gt; #[strong mh_mc:suggest_other_door(a).]#[br/]
+  | 8&gt; #[strong mh_mc:suggest_another_door(a).]#[br/]
   em {ok,c}#[br/]
-  | 9&gt; #[strong mh_mc:suggest_other_door(b).]#[br/]
+  | 9&gt; #[strong mh_mc:suggest_another_door(b).]#[br/]
   em {ok,c}#[br/]
-  | 10&gt; #[strong mh_mc:suggest_other_door(c).]#[br/]
+  | 10&gt; #[strong mh_mc:suggest_another_door(c).]#[br/]
   em {ok,a}#[br/]
   | 11&gt; #[strong mh_mc:stop()]#[br/]
   em ok#[br/]

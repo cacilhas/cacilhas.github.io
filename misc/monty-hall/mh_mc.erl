@@ -8,7 +8,7 @@
 -author('batalema@cacilhas.info').
 -behavior(gen_server).
 
--export([start_link/0, stop/0, get_prize/1, suggest_other_door/1]).
+-export([start_link/0, stop/0, get_prize/1, suggest_another_door/1]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2,
          code_change/3]).
 
@@ -17,7 +17,7 @@
 -spec start_link() -> {ok, Pid} when Pid :: pid().
 -spec stop() -> ok.
 -spec get_prize(Door :: door()) -> {ok, Prize} when Prize :: prize() | {error, _}.
--spec suggest_other_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
+-spec suggest_another_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
 
 
 %%%=============================================================================
@@ -39,7 +39,7 @@ get_prize(Door) ->
     end.
 
 
-suggest_other_door(Door) ->
+suggest_another_door(Door) ->
     case gen_server:call(?MODULE, {other, Door}) of
         null -> {error, null};
         OtherDoor -> {ok, OtherDoor}
