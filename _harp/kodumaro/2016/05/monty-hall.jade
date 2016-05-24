@@ -151,6 +151,14 @@ p Podemos também definir que as portas são #[code a], #[code b] e #[code c]:
 pre.prettyprint: code.language-erlang.
   -type door() :: a | b | c.
 
+blockquote
+  tt [update 2016-05-23]
+  p Colocamos as declarações de tipo no arquivo #[code mh.hrl], que deve ser
+    |  importando usando:
+  pre.prettyprint: code.language-erlang.
+    -include("mh.hrl").
+  tt [/update]
+
 p A primeira coisa que precisamos fazer é #[em resetar] o sistema de
   |  aleatoriedade:
 
@@ -266,6 +274,34 @@ pre.prettyprint: code.language-erlang.
           false -&gt; OtherDoor = null
       end,
       {reply, OtherDoor, State};
+
+blockquote
+  tt [update 2016-05-23]
+  p A linha que encontra a porta com o carro merece uma explicação mais
+    | profunda.
+
+  pre.prettyprint: code.language-erlang.
+    {OtherDoor, _} = lists:keyfind(car, 2,
+                                   lists:keydelete(Door, 1, State));
+
+  p A primeira função avaliada é:
+
+  pre.prettyprint: code.language-erlang.
+    lists:keydelete(Door, 1, State)
+
+  p Ela retorna uma nova lista a partir de #[code State], removendo a tupla
+    |  cujo primeiro elemento é #[code Door], ou seja, a porta escolhida pelo
+    |  convidado. Assim, restam duas portas, uma com um bode, outra com o carro.
+    | É preciso retornar a porta com o carro.
+
+  p Então entra o outro #[code lists:keyfind/3], cujo primeiro parâmetro é
+    |  #[code car] e o segundo #[code 2]. Ele retorna a tupla cujo
+    |  #[strong segundo] elemento é #[code car].
+
+  p Finalmente o #[em partern matching] seleciona apenas a letra da porta,
+    |  armazenando-a em #[code OtherDoor].
+
+  tt [/update]
 
 p Também precisamos aqui criar uma interface, da mesma forma:
 
