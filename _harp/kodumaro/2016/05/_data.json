@@ -34,5 +34,13 @@
     "release": "2016-05-22",
     "tags": ["Erlang", "Funcional", "Lógica"],
     "hidden": true
+  },
+  "monty-hall-3": {
+    "title": "Paradoxo de Monty Hall, final",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Com o mestre de cerimônias e o convidado criados, agora podemos rodar o jogo!",
+    "release": "2016-05-26",
+    "tags": ["Erlang", "Funcional", "Lógica"],
+    "hidden": true
   }
 }
