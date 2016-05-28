@@ -37,7 +37,8 @@ block main-container
           var d = document
           var s = d.createElement('script')
           s.src = '//kodumaro.disqus.com/embed.js'
-          s.setAttribute('data-timestamp', +new Date())
+          debugger
+          s['data-timestamp'] = +new Date()
           (d.head || d.body).appendChild(s)
         }
         load_disqus()
