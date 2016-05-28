@@ -33,12 +33,13 @@ block main-container
           this.page.identifier = '#{current.path.slice(1).join(".")}'
         }
 
-        (function() { // DON'T EDIT BELOW THIS LINE
+        function load_disqus() { // DON'T EDIT BELOW THIS LINE
           var d = document, s = d.createElement('script')
           s.src = '//kodumaro.disqus.com/embed.js'
           s.setAttribute('data-timestamp', +new Date())
           (d.head || d.body).appendChild(s)
-        })()
+        }
+        load_disqus()
 
       noscript Por favor habilite o JavaScript para ver os 
         a(href="https://disqus.com/?ref_noscript")
