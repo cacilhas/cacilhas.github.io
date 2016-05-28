@@ -25,9 +25,25 @@ block main-container
       != yield
 
   div(class=["panel", "panel-default"])
-    .panel-body(align="right")
-      small: a(href="https://github.com/cacilhas/cacilhas.github.io/issues/new?title="+public.kodumaro._data.blog.title+"+::+"+title target="_blank")
-        | Criar #[em issue]
+    .panel-body(font-size="small")
+      div#disqus_thread
+      script(language="javascript").
+        var disqus_config = function() {
+          this.page.url = 'http://cacilhas.info/#{current.path.join("/")}.html'
+          this.page.identifier = '#{current.path.slice(1).join(".")}'
+        }
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script')
+          s.src = '//kodumaro.disqus.com/embed.js'
+          s.setAttribute('data-timestamp', +new Date())
+          (d.head || d.body).appendChild(s)
+        })()
+
+      noscript Por favor habilite o JavaScript para ver os 
+        a(href="https://disqus.com/?ref_noscript")
+          | comentários do Disqus
+        | .
 
 block footer
   p.small
@@ -38,3 +54,6 @@ block footer
     a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt")
       img(alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png"
           style={"border-width" :"0"})
+
+block append final-scripts
+  script#dsq-count-scr(src="//kodumaro.disqus.com/count.js" async=true)
