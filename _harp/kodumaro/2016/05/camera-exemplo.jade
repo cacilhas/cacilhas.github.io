@@ -261,7 +261,7 @@ pre.prettyprint: code.
   start: =&gt;
       guard = -&gt;
           color = if @color &lt; 0x80 then 0xff else 0x00
-          Timer.tween 1.9375, @, {color: color}, "in-sine"
+          Timer.tween 1.9375, @, {:color}, "in-sine"
           Timer.after 2, guard
       guard!
 
