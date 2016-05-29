@@ -32,16 +32,6 @@ block main-container
           this.page.url = 'http://cacilhas.info/#{current.path.join("/")}.html'
           this.page.identifier = '#{current.path.slice(1).join(".")}'
         }
-
-        function load_disqus() { // DON'T EDIT BELOW THIS LINE
-          var d = document
-          var s = d.createElement('script')
-          s.src = '//kodumaro.disqus.com/embed.js'
-          s['data-timestamp'] = +new Date()
-          (d.head || d.body).appendChild(s)
-        }
-        load_disqus()
-
       noscript Por favor habilite o JavaScript para ver os 
         a(href="https://disqus.com/?ref_noscript")
           | comentários do Disqus
@@ -58,4 +48,5 @@ block footer
           style={"border-width" :"0"})
 
 block append final-scripts
+  script(src="/js/kodumaro.disqus.js")
   script#dsq-count-scr(src="//kodumaro.disqus.com/count.js" async=true)
