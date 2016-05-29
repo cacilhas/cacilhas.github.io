@@ -32,7 +32,7 @@ as formas. Acrescente à classe o método:</p><pre class="prettyprint"><code>dra
 
 love.draw = -&gt;
     app\draw!
-</code></pre><p>Isso já deve funcionar! Compile e rode:</p><pre><code>sh$ <strong>moonc main.moon</strong><br><em>Built main.moon<br></em>sh$ <love>.</love></code></pre><p>O resultado esperado é abrir uma janela azul com um círculo preto no canto.
+</code></pre><p>Isso já deve funcionar! Compile e rode:</p><pre><code>sh$ <strong>moonc main.moon</strong><br><em>Built main.moon<br></em>sh$ <strong>love .</strong></code></pre><p>O resultado esperado é abrir uma janela azul com um círculo preto no canto.
 Pode fechá-la, ela ainda não faz mais nada.</p><p style="text-align:center"><img src="/img/camera-example/shot-1.jpg" alt=""></p><h3>Ativando a câmera</h3><p>Vamos usar a câmera visualizar o “mundo” exibido. Altere o método <code>draw</code> da classe para usar a câmera:</p><pre class="prettyprint"><code>draw: =&gt;
     love.graphics.setColor 0x00, 0x00, 0x00
     @camera\draw -&gt;
