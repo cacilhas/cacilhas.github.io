@@ -26,8 +26,8 @@ block main-container
 
   if current.source !== 'index'
     div(class=["panel", "panel-default"])
-      .panel-body(font-size="small")
-        div#disqus_thread
+      .panel-body
+        #disqus_thread
         script(language="javascript").
           var disqus_config = function() {
             this.page.url = 'http://cacilhas.info/#{current.path.join("/")}.html'
