@@ -32,6 +32,7 @@ block main-container
           var disqus_config = function() {
             this.page.url = 'http://cacilhas.info/#{current.path.join("/")}.html'
             this.page.identifier = '#{current.path.slice(1).join(".")}'
+            this.page.title = '!{title}'
           }
         noscript Por favor habilite o JavaScript para ver os 
           a(href="https://disqus.com/?ref_noscript")
