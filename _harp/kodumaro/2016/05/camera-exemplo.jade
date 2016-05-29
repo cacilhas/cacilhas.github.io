@@ -123,10 +123,10 @@ p No construtor da classe, instanciamos uma câmera olhando para a posição
 p Nossa classe ainda precisa de um método para chamar as funções que desenham
   | as formas. Acrescente à classe o método:
 
-pre.prettyprint: code.
-  draw: =&gt;
-      love.graphics.setColor 0x00, 0x00, 0x00
-      shape! for shape in *@shapes
+pre.prettyprint: code
+  |     draw: =&gt;
+  |         love.graphics.setColor 0x00, 0x00, 0x00
+  |         shape! for shape in *@shapes
 
 p Agora precisamos registrar a instanciação da #[em callback] no carregamento de
   |  LÖVE (#[code love.load]) e o desenho na de desenho (#[code love.draw]).
@@ -158,11 +158,11 @@ h3 Ativando a câmera
 p Vamos usar a câmera visualizar o “mundo” exibido. Altere o método #[code draw]
   |  da classe para usar a câmera:
 
-pre.prettyprint: code.
-  draw: =&gt;
-      love.graphics.setColor 0x00, 0x00, 0x00
-      @camera\draw -&gt;
-          shape! for shape in *@shapes
+pre.prettyprint: code
+  |     draw: =&gt;
+  |         love.graphics.setColor 0x00, 0x00, 0x00
+  |         @camera\draw -&gt;
+  |             shape! for shape in *@shapes
 
 p Com o contexto gerado pela chamada do método #[code @camera\draw] agora, ao
   |  ao rodar a aplicação (não se esqueça de recompilar #[code main.moon]!),
@@ -188,16 +188,16 @@ p Precisaremos de um método para atualizar o estado da câmera. Tradicionalment
   |  teclas forem pressionadas. Depois passamos os #[em deltas] separados para a
   |  função que move a câmera:
 
-pre.prettyprint: code.
-  update: (dt) =&gt;
-      ds = dt * 200  -- fator 200 funcionou bem pra mim
-      dx, dy = 0, 0
-      with love.keyboard
-          dx -= ds if .isDown"left"
-          dx += ds if .isDown"right"
-          dy -= ds if .isDown"left"
-          dy += ds if .isDown"left"
-      @camera\move dx, dy
+pre.prettyprint: code
+  |     update: (dt) =&gt;
+  |         ds = dt * 200  -- fator 200 funcionou bem pra mim
+  |         dx, dy = 0, 0
+  |         with love.keyboard
+  |             dx -= ds if .isDown"left"
+  |             dx += ds if .isDown"right"
+  |             dy -= ds if .isDown"left"
+  |             dy += ds if .isDown"left"
+  |         @camera\move dx, dy
 
 p Agora precisamos avisar LÖVE para chamar esse método a cada vez que o sistema
   |  atualizar seu estado. Isso é feito através do #[em callback]
@@ -219,10 +219,10 @@ p Isso porque o que está sendo movido é a câmera. Para deixar mais claro, bas
 
 p Altere o construtor da classe para receber a lista de formas:
 
-pre.prettyprint: code.
-  new: (...) =&gt;
-      @camera = Camera 0, 0
-      @shapes = {...}
+pre.prettyprint: code
+  |    new: (...) =&gt;
+  |        @camera = Camera 0, 0
+  |        @shapes = {...}
 
 p E na instanciação coloque mais formas:
 
@@ -248,22 +248,22 @@ pre.prettyprint: code.
 
 p Mude agora o construtor da classe para reter a cor dos objetos:
 
-pre.prettyprint: code.
-  new: (...) =&gt;
-      @color = 0x00
-      @camera = Camera 0, 0
-      @shapes = {...}
+pre.prettyprint: code
+  |     new: (...) =&gt;
+  |         @color = 0x00
+  |         @camera = Camera 0, 0
+  |         @shapes = {...}
 
 p Adicione um método #[code start] para iniciar o #[em tweening], que mudará a
   |  cor entre branco e preto a cada 2s:
 
-pre.prettyprint: code.
-  start: =&gt;
-      guard = -&gt;
-          color = if @color &lt; 0x80 then 0xff else 0x00
-          Timer.tween 1.9375, @, {:color}, "in-sine"
-          Timer.after 2, guard
-      guard!
+pre.prettyprint: code
+  |     start: =&gt;
+  |         guard = -&gt;
+  |             color = if @color &lt; 0x80 then 0xff else 0x00
+  |             Timer.tween 1.9375, @, {:color}, "in-sine"
+  |             Timer.after 2, guard
+  |         guard!
 
 p Esse método precisa ser chamado no carregamento de LÖVE:
 

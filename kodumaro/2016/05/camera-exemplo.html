@@ -23,54 +23,48 @@ class CamersExample
         }
 </code></pre><p>Importamos <code>hump.camera</code> – padronizado como <code>Camera</code> –, reservamos uma variável para a instância de aplicação e criamos a classe, apenas com o
 construtor.</p><p>No construtor da classe, instanciamos uma câmera olhando para a posição (0, 0), e criamos uma lista de formas (<code>shapes</code>) contendo uma função anônima que desenha um círculo de 50 <em>pixels</em> na posição (0, 0).</p><p>Nossa classe ainda precisa de um método para chamar as funções que desenham
-as formas. Acrescente à classe o método:</p><pre class="prettyprint"><code>draw: =&gt;
-    love.graphics.setColor 0x00, 0x00, 0x00
-    shape! for shape in *@shapes
-</code></pre><p>Agora precisamos registrar a instanciação da <em>callback</em> no carregamento de LÖVE (<code>love.load</code>) e o desenho na de desenho (<code>love.draw</code>). Abaixo, fora da classe, crie as seguintes funções:</p><pre class="prettyprint"><code>love.load = -&gt;
+as formas. Acrescente à classe o método:</p><pre class="prettyprint"><code>    draw: =&gt;
+        love.graphics.setColor 0x00, 0x00, 0x00
+        shape! for shape in *@shapes</code></pre><p>Agora precisamos registrar a instanciação da <em>callback</em> no carregamento de LÖVE (<code>love.load</code>) e o desenho na de desenho (<code>love.draw</code>). Abaixo, fora da classe, crie as seguintes funções:</p><pre class="prettyprint"><code>love.load = -&gt;
     app = CameraExample!
     love.graphics.setBackgroundColor 0x00, 0x50, 0x90
 
 love.draw = -&gt;
     app\draw!
 </code></pre><p>Isso já deve funcionar! Compile e rode:</p><pre><code>sh$ <strong>moonc main.moon</strong><br><em>Built main.moon<br></em>sh$ <strong>love .</strong></code></pre><p>O resultado esperado é abrir uma janela azul com um círculo preto no canto.
-Pode fechá-la, ela ainda não faz mais nada.</p><p style="text-align:center"><img src="/img/camera-example/shot-1.jpg" alt=""></p><h3>Ativando a câmera</h3><p>Vamos usar a câmera visualizar o “mundo” exibido. Altere o método <code>draw</code> da classe para usar a câmera:</p><pre class="prettyprint"><code>draw: =&gt;
-    love.graphics.setColor 0x00, 0x00, 0x00
-    @camera\draw -&gt;
-        shape! for shape in *@shapes
-</code></pre><p>Com o contexto gerado pela chamada do método <code>@camera\draw</code> agora, ao ao rodar a aplicação (não se esqueça de recompilar <code>main.moon</code>!), o círculo aparecerá no centro da janela.</p><p style="text-align:center"><img src="/img/camera-example/shot-2.jpg" alt=""></p><p>Entenda o que aconteceu: agora a câmera está olhando para a posição onde está
-o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.</p><h3>Movendo a câmera</h3><p>Há diversos métodos para mover a câmera – veja a <a href="http://hump.readthedocs.io/en/latest/camera.html#function-reference">documentação</a>. Vamos usar o método que movimenta a câmera de acordo com um <em>delta</em>.</p><p>Precisaremos de um método para atualizar o estado da câmera. Tradicionalmente esse método é chamado <code>update</code> e recebe um <em>delta</em> de tempo. Vamos criar um <em>delta</em> de movimento a partir do <em>delta</em> de tempo e adicioná-lo a <em>deltas</em> separados para os eixos x e y de acordo com que teclas forem pressionadas. Depois passamos os <em>deltas</em> separados para a função que move a câmera:</p><pre class="prettyprint"><code>update: (dt) =&gt;
-    ds = dt * 200  -- fator 200 funcionou bem pra mim
-    dx, dy = 0, 0
-    with love.keyboard
-        dx -= ds if .isDown"left"
-        dx += ds if .isDown"right"
-        dy -= ds if .isDown"left"
-        dy += ds if .isDown"left"
-    @camera\move dx, dy
-</code></pre><p>Agora precisamos avisar LÖVE para chamar esse método a cada vez que o sistema atualizar seu estado. Isso é feito através do <em>callback</em> <love class="update"></love>:</p><pre class="prettyprint"><code>love.update = (dt) -&gt;
+Pode fechá-la, ela ainda não faz mais nada.</p><p style="text-align:center"><img src="/img/camera-example/shot-1.jpg" alt=""></p><h3>Ativando a câmera</h3><p>Vamos usar a câmera visualizar o “mundo” exibido. Altere o método <code>draw</code> da classe para usar a câmera:</p><pre class="prettyprint"><code>    draw: =&gt;
+        love.graphics.setColor 0x00, 0x00, 0x00
+        @camera\draw -&gt;
+            shape! for shape in *@shapes</code></pre><p>Com o contexto gerado pela chamada do método <code>@camera\draw</code> agora, ao ao rodar a aplicação (não se esqueça de recompilar <code>main.moon</code>!), o círculo aparecerá no centro da janela.</p><p style="text-align:center"><img src="/img/camera-example/shot-2.jpg" alt=""></p><p>Entenda o que aconteceu: agora a câmera está olhando para a posição onde está
+o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.</p><h3>Movendo a câmera</h3><p>Há diversos métodos para mover a câmera – veja a <a href="http://hump.readthedocs.io/en/latest/camera.html#function-reference">documentação</a>. Vamos usar o método que movimenta a câmera de acordo com um <em>delta</em>.</p><p>Precisaremos de um método para atualizar o estado da câmera. Tradicionalmente esse método é chamado <code>update</code> e recebe um <em>delta</em> de tempo. Vamos criar um <em>delta</em> de movimento a partir do <em>delta</em> de tempo e adicioná-lo a <em>deltas</em> separados para os eixos x e y de acordo com que teclas forem pressionadas. Depois passamos os <em>deltas</em> separados para a função que move a câmera:</p><pre class="prettyprint"><code>    update: (dt) =&gt;
+        ds = dt * 200  -- fator 200 funcionou bem pra mim
+        dx, dy = 0, 0
+        with love.keyboard
+            dx -= ds if .isDown"left"
+            dx += ds if .isDown"right"
+            dy -= ds if .isDown"left"
+            dy += ds if .isDown"left"
+        @camera\move dx, dy</code></pre><p>Agora precisamos avisar LÖVE para chamar esse método a cada vez que o sistema atualizar seu estado. Isso é feito através do <em>callback</em> <love class="update"></love>:</p><pre class="prettyprint"><code>love.update = (dt) -&gt;
     app\update dt
 </code></pre><p>Então é possível mover a câmera usando as setas do teclado.</p><h3>Adicionando mais objetos</h3><p>Parece estranho… aperta para a esquerda, o círculo vai para a direita, aperta
 para baixo, vai para cima…</p><p>Isso porque o que está sendo movido é a câmera. Para deixar mais claro, basta
-acrescentar mais formas.</p><p>Altere o construtor da classe para receber a lista de formas:</p><pre class="prettyprint"><code>new: (...) =&gt;
-    @camera = Camera 0, 0
-    @shapes = {...}
-</code></pre><p>E na instanciação coloque mais formas:</p><pre class="prettyprint"><code>love.load = -&gt;
+acrescentar mais formas.</p><p>Altere o construtor da classe para receber a lista de formas:</p><pre class="prettyprint"><code>   new: (...) =&gt;
+       @camera = Camera 0, 0
+       @shapes = {...}</code></pre><p>E na instanciação coloque mais formas:</p><pre class="prettyprint"><code>love.load = -&gt;
     app = CameraExample (-&gt; love.graphics.circle "fill", 0, 0, 50),
                         (-&gt; love.graphics.rectangle "fill", 100, 80, 10, 10),
                         (-&gt; love.graphics.circle "fill", -80, 150, 20)
     love.graphics.setBackgroundColor 0x00, 0x50, 0x90
 </code></pre><p>Compile e rode novamente.</p><h3>Brincando com <em>tweening</em></h3><p>Para ficar mais interessante, vamos acrescentar um <a href="https://en.wikipedia.org/wiki/Inbetweening"><em>tweening</em></a>.</p><p>No cabeçalho, logo abaixo da imporação do módulo de câmera acrescente:</p><pre class="prettyprint"><code>Timer = assert require "hump.timer"
-</code></pre><p>Mude agora o construtor da classe para reter a cor dos objetos:</p><pre class="prettyprint"><code>new: (...) =&gt;
-    @color = 0x00
-    @camera = Camera 0, 0
-    @shapes = {...}
-</code></pre><p>Adicione um método <code>start</code> para iniciar o <em>tweening</em>, que mudará a cor entre branco e preto a cada 2s:</p><pre class="prettyprint"><code>start: =&gt;
-    guard = -&gt;
-        color = if @color &lt; 0x80 then 0xff else 0x00
-        Timer.tween 1.9375, @, {:color}, "in-sine"
-        Timer.after 2, guard
-    guard!
-</code></pre><p>Esse método precisa ser chamado no carregamento de LÖVE:</p><pre class="prettyprint"><code>love.load = -&gt;
+</code></pre><p>Mude agora o construtor da classe para reter a cor dos objetos:</p><pre class="prettyprint"><code>    new: (...) =&gt;
+        @color = 0x00
+        @camera = Camera 0, 0
+        @shapes = {...}</code></pre><p>Adicione um método <code>start</code> para iniciar o <em>tweening</em>, que mudará a cor entre branco e preto a cada 2s:</p><pre class="prettyprint"><code>    start: =&gt;
+        guard = -&gt;
+            color = if @color &lt; 0x80 then 0xff else 0x00
+            Timer.tween 1.9375, @, {:color}, "in-sine"
+            Timer.after 2, guard
+        guard!</code></pre><p>Esse método precisa ser chamado no carregamento de LÖVE:</p><pre class="prettyprint"><code>love.load = -&gt;
     app = CameraExample (-&gt; love.graphics.circle "fill", 0, 0, 50),
                         (-&gt; love.graphics.rectangle "fill", 100, 80, 10, 10),
                         (-&gt; love.graphics.circle "fill", -80, 150, 20)
