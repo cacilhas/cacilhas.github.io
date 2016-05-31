@@ -42,5 +42,7 @@ ul.list-group
         each page, slug in month.dir
           option(value="#{month.slug}/#{slug}.html")
             != page.title
-  li.list-group-item
-    a(href="http://montegasppa.blogspot.in/") Publicações anteriores
+  a(href="http://montegasppa.blogspot.in/")
+    li.list-group-item
+      img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
+      |  Publicações anteriores

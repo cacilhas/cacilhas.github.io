@@ -52,7 +52,11 @@ ul.list-group
         each page, slug in month.dir
           option(value="#{month.slug}/#{slug}.html")
             != page.title
-  li.list-group-item
-    a(href="http://kodumaro.blogspot.com.br/") Publicações anteriores
-  li.list-group-item
-    a(href="https://twitter.com/kodumaro") Kodumaro no Twitter
+  a(href="http://kodumaro.blogspot.com.br/")
+    li.list-group-item
+      img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
+      |  Publicações anteriores
+  a(href="https://twitter.com/kodumaro")
+    li.list-group-item
+      img(src="/img/twitter.png" alt="" style={width: "24px", height: "24px"})
+      |  Kodumaro no Twitter

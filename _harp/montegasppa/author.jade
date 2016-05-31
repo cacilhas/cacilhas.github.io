@@ -1,5 +1,3 @@
-include ../_includes/list-group-item.jade
-
 img.pull-right(src="/img/cacilhas.jpg"
                alt="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας")
 
@@ -90,10 +88,16 @@ p Meu trisavô se chamava Gasppar Montini em
 
 h3 Contatos
 
-+ul
-  +li Twitter: 
-    a(href="https://twitter.com/Montegasppa") Arĥimedeς ℳontegasppα
-  +li Facebook: 
-    a(href="https://www.facebook.com/rodrigo.cacilhas") Archimedes Montegasppa
-  +li LinkedIn: 
-    a(href="https://br.linkedin.com/in/rodrigocacilhas") Rodrigo Cacilhas
+ul.list-group
+  a(href="https://twitter.com/Montegasppa")
+    li.list-group-item
+      img(src="/img/twitter.png" alt="Twitter:" style={width: "24px", height: "24px"})
+      |  Arĥimedeς ℳontegasppα
+  a(href="https://www.facebook.com/rodrigo.cacilhas") 
+    li.list-group-item
+      img(src="/img/facebook.png" alt="Facebook:" style={width: "24px", height: "24px"})
+      |  Archimedes Montegasppa
+  a(href="https://br.linkedin.com/in/rodrigocacilhas")
+    li.list-group-item
+      img(src="/img/linkedin.png" alt="LinkedIn:" style={width: "24px", height: "24px"})
+      |  Rodrigo Cacilhas
