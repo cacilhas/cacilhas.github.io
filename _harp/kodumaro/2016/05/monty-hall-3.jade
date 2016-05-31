@@ -54,7 +54,7 @@ p Sendo uma função recursiva, podemos escrever primeiro a condição de parada
   | que é quando não há mais rodadas, retornando o acumulador:
 
 pre.prettyprint: code.language-erlang.
-  play(0, Acc) -&gt; Acc;
+  play(0, Score) -&gt; Score;
 
 p O passo deve executar o seguinte procedimento:
 
@@ -74,13 +74,13 @@ p Segue então o código que executa este procedimento, acrescentando apenas um
   |  para levantar um exceção caso ocorra um erro:
 
 pre.prettyprint: code.language-erlang.
-  play(Rounds, Acc) when Rounds &gt; 0 -&gt;
+  play(Rounds, Score) when Rounds &gt; 0 -&gt;
       FirstChoice = mh_guest:choose(),
       {ok, Other} = mh_mc:suggest_another_door(FirstChoice),
       Door = mh_guest:change(FirstChoice, Other),
       case mh_mc:get_prize(Door) of
-          {ok, goat} -&gt; play(Rounds - 1, Acc);
-          {ok, car} -&gt; play(Rounds - 1, Acc + 1);
+          {ok, goat} -&gt; play(Rounds - 1, Score);
+          {ok, car} -&gt; play(Rounds - 1, Score + 1);
           Other -&gt; throw(Other)
       end.
 

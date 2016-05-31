@@ -13,15 +13,15 @@ simplesmente executar a chamada da rodada, ele precisa ignorar os erros para que
     mh_mc:stop(),
     Response.
 </code></pre><p>Agora precisamos da função <code>play/2</code>, que executará cada rodada.</p><p>Sendo uma função recursiva, podemos escrever primeiro a condição de parada,
-que é quando não há mais rodadas, retornando o acumulador:</p><pre class="prettyprint"><code class="language-erlang">play(0, Acc) -&gt; Acc;
+que é quando não há mais rodadas, retornando o acumulador:</p><pre class="prettyprint"><code class="language-erlang">play(0, Score) -&gt; Score;
 </code></pre><p>O passo deve executar o seguinte procedimento:</p><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Perguntar ao convidado que porta ele deseja escolher (<code>mh_guest:choose/0</code>);</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Perguntar ao mestre de cerimônias qual outra ficou disponível (<code>mh_mc:suggest_another_door/1</code>);</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Perguntar ao convidado se ele quer mudar de porta(<code>mh_guest:change/2</code>);</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Perguntar ao mestre de cerimônias qual o prêmio por trás da porta
-escolhida;</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Somar 1 ao acumulador se o convidado ganhou um carro.</li></ul><p>Segue então o código que executa este procedimento, acrescentando apenas um <code>throw/1</code> para levantar um exceção caso ocorra um erro:</p><pre class="prettyprint"><code class="language-erlang">play(Rounds, Acc) when Rounds &gt; 0 -&gt;
+escolhida;</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Somar 1 ao acumulador se o convidado ganhou um carro.</li></ul><p>Segue então o código que executa este procedimento, acrescentando apenas um <code>throw/1</code> para levantar um exceção caso ocorra um erro:</p><pre class="prettyprint"><code class="language-erlang">play(Rounds, Score) when Rounds &gt; 0 -&gt;
     FirstChoice = mh_guest:choose(),
     {ok, Other} = mh_mc:suggest_another_door(FirstChoice),
     Door = mh_guest:change(FirstChoice, Other),
     case mh_mc:get_prize(Door) of
-        {ok, goat} -&gt; play(Rounds - 1, Acc);
-        {ok, car} -&gt; play(Rounds - 1, Acc + 1);
+        {ok, goat} -&gt; play(Rounds - 1, Score);
+        {ok, car} -&gt; play(Rounds - 1, Score + 1);
         Other -&gt; throw(Other)
     end.
 </code></pre><p>Compile e rode. Meu resultado foi:</p><pre><code>sh$ <strong>erlc mh_game.erl</strong><br>sh$ <strong>erl</strong><br><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]<br></em><br><em>Eshell V7.3  (abort with ^G)<br></em>1&gt; <strong>mh_game:play().</strong><br><em>325<br></em>2&gt; <strong>mh_game:play().</strong><br><em>320<br></em>3&gt; <strong>mh_game:play().</strong><br><em>348<br></em>4&gt; <strong>mh_game:play().</strong><br><em>336<br></em>5gt;</code></pre><p>Não importa quantas vezes rode, fica sempre próximo de 333 acertos em mil,
