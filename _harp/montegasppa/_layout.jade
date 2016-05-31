@@ -17,7 +17,9 @@ block main-container
     .panel-heading
       h2.mg-title Reflexões… :: !{title}
       if release
-        h6#release.pull-right= release
+        - var release_ = new Date(release + 'T12:00')
+        - var month = ('0' + release_.getMonth()).slice(-2)
+        h6#release.pull-right #{release_.getDate()} de #{public._data.months[month]}, #{1900 + release_.getYear()}
       h6!= public.montegasppa._data.blog.subtitle
 
     .panel-body

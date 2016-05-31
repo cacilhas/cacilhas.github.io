@@ -18,7 +18,9 @@ block main-container
     .panel-heading
       h2.mg-title !{public.kodumaro._data.blog.title} :: !{title}
       if release
-        h6.pull-right Publicado em #{release}
+        - var release_ = new Date(release + 'T12:00')
+        - var month = ('0' + release_.getMonth()).slice(-2)
+        h6.pull-right Publicado em #{release_.getDate()} de #{public._data.months[month]}, #{1900 + release_.getYear()}
       h6!= public.kodumaro._data.blog.subtitle
 
     .panel-body
