@@ -20,7 +20,7 @@ block main-container
       if release
         - var release_ = new Date(release + 'T12:00')
         - var month = ('0' + release_.getMonth()).slice(-2)
-        h6.pull-right Publicado em #{release_.getDate()} de #{public._data.months[month]}, #{1900 + release_.getYear()}
+        h6.pull-right Publicado em #{release_.getDate()} de #{monthSet[month]}, #{1900 + release_.getYear()}
       h6!= public.kodumaro._data.blog.subtitle
 
     .panel-body
@@ -32,7 +32,7 @@ block main-container
         #disqus_thread
         script(language="javascript").
           var disqus_config = function() {
-            this.page.url = 'http://cacilhas.info/#{current.path.join("/")}.html'
+            this.page.url = '#{mainHost}/#{current.path.join("/")}.html'
             this.page.identifier = '#{current.path.slice(1).join(".")}'
             this.page.title = '!{title}'
           }
