@@ -39,7 +39,7 @@ each yearDir, yearSlug in public.kodumaro
       if monthDir._data
         - var month = {}
         - month.slug = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug
-        - month.title = public._data.months[monthSlug] + " de " + yearSlug
+        - month.title = monthSet[monthSlug] + " de " + yearSlug
         - month.dir = monthDir._data
         - months.unshift(month)
 

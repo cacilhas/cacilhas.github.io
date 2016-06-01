@@ -16,7 +16,7 @@ p Mais tarde Reflexões acabou virando de fato meu #[em blog] pessoal, onde
   | a política.
 
 p Renasce então sob minha 
-  a(href="http://cacilhas.info/") página pessoal
+  a(href=mainHost+"/") página pessoal
   | , com um nome ligeiramente diferente, já que resolvi mudar “Monte Gasppa”
   |  para “ℳontegasppα”, mas cada vez mais meu #[em blog] #[strong pessoal].
 
@@ -28,7 +28,7 @@ each yearDir, yearSlug in public.montegasppa
       if monthDir._data
         - var month = {}
         - month.slug = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug
-        - month.title = public._data.months[monthSlug] + " de " + yearSlug
+        - month.title = monthSet[monthSlug] + " de " + yearSlug
         - month.dir = monthDir._data
         - months.unshift(month)
 
