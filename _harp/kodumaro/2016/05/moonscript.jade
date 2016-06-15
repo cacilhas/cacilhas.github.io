@@ -3,19 +3,19 @@ include ../../../_includes/list-group-item.jade
 img.pull-right(src="/img/moonscript.jpg" alt="MoonScript")
 
 p.mg-first Há muito pouco tempo atrás um amigo meu me sugeriu dar atenção a
-  | &#32;
+  =" "
   a(href="http://moonscript.org/") MoonScript
   | . Admito que eu via a linguagem com preconceito, mesmo assim resolvi dar uma
   | olhada.
 
-p Resultado: todos os meus códigos em &#32;
+p Resultado: todos os meus códigos em#[=" "]
   a(href="http://www.lua.org/") Lua
   |  acabaram migrados para MoonScript. 😋
 
 p A linguagem é extremamente enxuta, limpa e poderosa. Para lidar com o
   | paradigma funcional, a sintaxe de MoonScript é bem mais concisa e que a de
   | Lua. O mesmo vale para orientação a objetos. Não vou entrar em detalhes, se
-  | estiver curioso, leia o &#32;
+  | estiver curioso, leia o#[=" "]
   a(href="http://moonscript.org/reference/") guia da linguagem
   | .
 
@@ -23,9 +23,9 @@ h3 LuaJIT
 
 p
   a(href="http://luajit.org/") LuaJIT
-  |  é uma implementação alternativa &#32;
+  |  é uma implementação alternativa#[=" "]
   a(href="https://pt.wikipedia.org/wiki/JIT") JIT
-  |  de Lua, com suporte a &#32;
+  |  de Lua, com suporte a#[=" "]
   a(href="https://pt.wikipedia.org/wiki/Interface_de_função_externa") FFI
   |  nativo.
 
@@ -51,7 +51,7 @@ p MoonScript depende de quatro outros módulos para funcionar:
 p Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT. Aqui
   |  para mim é #[code /usr/share/lua/jit].
 
-p Para instalar LuaFileSystem, clone o repositório do &#32;
+p Para instalar LuaFileSystem, clone o repositório do#[=" "]
   a(href="https://github.com/keplerproject/luafilesystem") GitHUB
   |  e não se esqueça de editar o arquivo <code>config</code>. As mudanças
   | principais são:
@@ -67,7 +67,7 @@ p Isso considerando que seu <code>LUA_CPATH</code> esteja em
 p Compile e instale normalmente.
 
 p Já LPeg merece uma atenção extra, já que ele #[strong não] funciona com
-  | LuaJIT. No lugar, use &#32;
+  | LuaJIT. No lugar, use#[=" "]
   a(href="https://github.com/sacek/LPegLJ") LPegLJ
   | .
 
@@ -82,7 +82,7 @@ p Isso fará com que MoonScript pense tratar-se do LPeg original.
 
 h3 Instalando MoonScript
 
-p Com as três dependências instaladas, clone o projeto do &#32;
+p Com as três dependências instaladas, clone o projeto do#[=" "]
   a(href="https://github.com/leafo/moonscript") GitHUB
   | . Edite o #[code Makefile], substituindo as ocorrências de #[code lua5.1] e
   |  #[code lua] por #[code luajit].

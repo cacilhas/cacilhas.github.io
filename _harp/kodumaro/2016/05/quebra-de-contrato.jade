@@ -2,14 +2,14 @@ img.pull-right(src="/img/python.png" alt="Python")
 
 p.mg-first É muito comum programadores inexperientes desrespeitarem contratos
   | estabelecidos, algumas vezes por não saberem como resolver uma situação de
-  | outra forma, outras por &#32;
+  | outra forma, outras por#[=" "]
   a(href="https://pt.wikipedia.org/wiki/Efeito_Dunning-Kruger")
     efeito Dunning-Kruger
   | .
 
-p Um dos erros mais comuns que tenho visto no mundo &#32;
+p Um dos erros mais comuns que tenho visto no mundo#[=" "]
   a(href="http://python.org/") Python
-  |  é a quebra do contrato da classe &#32;
+  |  é a quebra do contrato da classe#[=" "]
   a(href="https://docs.python.org/3/library/unittest.html#unittest.TestCase")
     code TestCase
   | .
@@ -36,7 +36,7 @@ h3 O problema
 p O programador júnior, muito satisfeito com seu entendimento sobre herança,
   | quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
   | abordagem em que a herança se encaixa como uma luva: nos testes unitários,
-  | ele precisa iniciar uma sessão com o banco (um &#32;
+  | ele precisa iniciar uma sessão com o banco (um#[=" "]
   a(href="https://www.sqlite.org/") SQLite
   | ) antes de cada teste, e encerrá-lo ao final de cada um.
 
@@ -76,7 +76,7 @@ pre.prettyprint: code.language-python.
 h3 O novo problema
 
 p Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de seus
-  | testes, ele precisa simular o comportamento de um acesso a um servidor &#32;
+  | testes, ele precisa simular o comportamento de um acesso a um servidor#[=" "]
   a(href="http://redis.io/") Redis
   | , o que sobrescreve sua perfeita solução de banco de dados!
 
@@ -104,7 +104,7 @@ pre.prettyprint: code.language-python.
       """Seguem os testes..."""
 
 p O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não
-  | sacou como resolver – é que o &#32;
+  | sacou como resolver – é que o#[=" "]
   strong contrato do #[code unittest] foi quebrado
   | .
 

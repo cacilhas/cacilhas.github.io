@@ -2,18 +2,18 @@ include ../../../_includes/list-group-item.jade
 
 p.mg-first
   a(href="http://sml-family.org/") Standard ML
-  |  é a definição padrão (#[em standard], duh) de &#32;
+  |  é a definição padrão (#[em standard], duh) de#[=" "]
   a(href="https://en.wikipedia.org/wiki/ML_(programming_language)") ML
   | , uma família de linguagens de programação funcional impura. O representante
-  | mais expressivo dessa família é a linguagem francesa &#32;
+  | mais expressivo dessa família é a linguagem francesa#[=" "]
   a(href="http://caml.inria.fr/") OCaml
-  | , e uma linguagem prima é &#32;
+  | , e uma linguagem prima é#[=" "]
   a(href="https://www.haskell.org/") Haskell
   | , um parente funcional puro.
 
-p A implementação de Standard ML que recomendo é a da &#32;
+p A implementação de Standard ML que recomendo é a da#[=" "]
   a(href="http://www.cs.princeton.edu/") Princeton University
-  | , &#32;
+  | ,#[=" "]
   a(href="http://www.smlnj.org/") SML/NJ
   | .
 
@@ -48,7 +48,7 @@ p Para uma linguagem ser considerada funcional pura, ela precisa respeitar
   +li
     | Assim, #[em loops] são resolvidos com recursão. Para que a recursão não
     | estoure a pilha de instâncias de função, como ocorre em algumas linguagens
-    | imperativas, a máquina virtual ou interpretador precisa implementar &#32;
+    | imperativas, a máquina virtual ou interpretador precisa implementar#[=" "]
     a(href="https://en.wikipedia.org/wiki/Tail_call") Tail-call optimisation
     | .
 
@@ -94,10 +94,10 @@ pre.prettyprint: code.language-ml.
   val xrange : (int * int) -&gt; unit -&gt; int option
   val range : (int * int) -&gt; int list
 
-p Tomei os nomes emprestados de &#32;
+p Tomei os nomes emprestados de#[=" "]
   a(href="https://docs.python.org/2.7/library/functions.html") Python 2.7
   | . #[code xrange] recebe como parâmetro uma tupla de dois inteiros
-  |  (#[code (int * int)]) e retorna uma função que recebe uma &#32;
+  |  (#[code (int * int)]) e retorna uma função que recebe uma#[=" "]
   a(href="https://en.wikipedia.org/wiki/Unit_type") unidade
   | , retornando uma “opção” de inteiro.
 
@@ -123,7 +123,7 @@ pre.prettyprint: code.language-ml.
   val it = NONE : 'a option
 
 p Usaremos #[code NONE] para marcar o fim da reiteração. Precisamos também de
-  | um &#32;
+  | um#[=" "]
   a(href="https://en.wikipedia.org/wiki/Closure_(computer_programming)")
     em closure
   |  para armazenar o próximo retorno do gerador (já que geradores não são
@@ -196,12 +196,12 @@ p Perceba que, passando #[code value::acc], a lista é gerada de trás para
   |  frente. Portanto, ao recebermos o valor de parada (#[code NONE]),
   |  precisamos retornar a inversão do acumulador (#[code rev acc]).
 
-p Nossa &#32;
+p Nossa#[=" "]
   code genToList'
-  |  tem assinatura &#32;
+  |  tem assinatura#[=" "]
   code int list -&gt; (unit -&gt; t option) -&gt; t list
   | , o que significa que, se chamada com um único parâmetro (o acumulador),
-  | retorna uma função com a assinatura &#32;
+  | retorna uma função com a assinatura#[=" "]
   code (unit -&gt; t option) -&gt; t list
   | . Vamos criar o variante com acumulador embutido:
 
@@ -234,7 +234,7 @@ p <em>It works!!!</em> 😋
 
 h3 Próximo artigo
 
-p No &#32;
+p No#[=" "]
   a(href=public.kodumaro._data.blog.url+"2016/03/sml-2.html") próximo artigo
   |  vamos tornar o gerador mais robusto e genérico com #[em structures] e
   |  #[em functors].
