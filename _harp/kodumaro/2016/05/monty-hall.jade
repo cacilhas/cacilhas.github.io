@@ -2,7 +2,7 @@ include ../../../_includes/list-group-item.jade
 
 img.pull-right(src="/img/monty-hall.jpg" alt="Monty Hall")
 
-p.mg-first O 
+p.mg-first O &#32;
   a(href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall")
     | Paradoxo de Monty Hall
   |  diz que, em se descartando algumas escolhas erradas, as desconhecidas
@@ -24,9 +24,9 @@ p Segundo o Paradoxo de Monty Hall, o convidado tem 33% (uma chance em três)
   | outras duas portas – agora apenas uma – é de 67%.
 
 p Nesta sequência de artigos escreveremos um código para colocar à prova esse
-  | paradoxo. No processo aprenderemos um pouco sobre 
+  | paradoxo. No processo aprenderemos um pouco sobre &#32;
   a(href="https://github.com/erlang/otp") OTP
-  | , o #[em framework] de serviços de 
+  | , o #[em framework] de serviços de &#32;
   a(href="http://erlang.org/") Erlang
   | . Neste primeiro artigo, faremos funcionar o primeiro ator: o mestre de
   | cerimônias.
@@ -34,7 +34,7 @@ p Nesta sequência de artigos escreveremos um código para colocar à prova esse
 h3: em Boilerplate
 
 p Vamos começar com um #[em boilerplate] OTP para o mestre de cerimônia. Será
-  |  um arquivo chamado #[code mh_mc.erl]. Usaremos o 
+  |  um arquivo chamado #[code mh_mc.erl]. Usaremos o &#32;
   a(href="http://erlang.org/doc/man/gen_server.html"): code gen_server
   | :
 
@@ -133,7 +133,7 @@ p As funções de comportamento são:
 h3 Iniciando o sistema
 
 p A primeira coisa a se fazer é inicializar o sistema criando as portas e
-  | colocando os bodes e o carro atrás de cada uma 
+  | colocando os bodes e o carro atrás de cada uma &#32;
   a(href="http://erlang.org/doc/man/random.html") aleatoriamente.
 
 p O método que inicializa o processo é #[code init/1]. Ele pode continuar
@@ -364,7 +364,7 @@ h3 Arquivos para baixar
 
 h3 Próximos passos
 
-p No 
+p No &#32;
   a(href=public.kodumaro._data.blog.url+"2016/05/monty-hall-2.html")
     | próximo artigo
   |  criaremos o segundo ator, o convidado, que deve escolher uma das três

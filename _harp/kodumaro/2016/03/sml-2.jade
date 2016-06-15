@@ -1,21 +1,17 @@
-p.mg-first
-  | No 
+p.mg-first No &#32;
   a(href=public.kodumaro._data.blog.url+"2016/03/sml.html") artigo anterior
   |  vimos como criar funções que retornem uma sequência de inteiros. Porém,
   | para estendê-las para gerarem uma sequência de caracteres, por exemplo,
   | teríamos de reescrever o código.
 
-p
-  | Neste artigo mudaremos o código para torná-lo estensível a outros tipos
-  |  usando um #[em functor].
+p Neste artigo mudaremos o código para torná-lo estensível a outros tipos usando
+  |  um #[em functor].
 
-p
-  | Módulos em Standard ML são chamados #[em structures] e podem ser
-  |  instanciados sob demanda com o uso de #[em functors]. A primeira coisa que
-  |  precisamos é da assinatura dos módulos gerados pelo #[em functor].
+p Módulos em Standard ML são chamados #[em structures] e podem ser instanciados
+  |  sob demanda com o uso de #[em functors]. A primeira coisa que precisamos é
+  |  da assinatura dos módulos gerados pelo #[em functor].
 
-p
-  | Os módulos gerados precisam ter o tipo de dado (#[code t]), uma função para
+p Os módulos gerados precisam ter o tipo de dado (#[code t]), uma função para
   |  construir o gerador (#[code build]) e outra para converter o gerador em
   |  lista (#[code genToList]). A assinatura fica assim então:
 
@@ -27,8 +23,7 @@ pre.prettyprint: code.language-ml.
     val build : (t * t) -&gt; unit -&gt; t option
   end
 
-p
-  | Também precisamos da assinatura da #[em structure] usada como parâmetro do
+p Também precisamos da assinatura da #[em structure] usada como parâmetro do
   |  #[em functor]. Essa #[em structure] deve gerenciar a reiteração dos dados.
   |  Para tanto, deve conhecer o tipo de dado (#[code t]), ter uma função para
   |  fazer o passo, ou seja, incrementar o dado (#[code increment]), e outra
@@ -44,9 +39,8 @@ pre.prettyprint: code.language-ml.
     val checkFinish : t ref -&gt; t -&gt; bool
   end
 
-p
-  | O #[em functor] terá praticamente o mesmo código de nossas funções
-  |  originais, mas agora será extensível.
+p O #[em functor] terá praticamente o mesmo código de nossas funções originais,
+  |  mas agora será extensível.
 
 p Vamos então trazer o código para o #[em functor]:
 
@@ -80,13 +74,11 @@ pre.prettyprint: code.language-ml.
     end
   end
 
-p
-  | Repare que agora em vez de #[code int] estamos usando #[code t] (que é igual
+p Repare que agora em vez de #[code int] estamos usando #[code t] (que é igual
   |  a #[code G.t]), e delegamos a verificação do fim da reiteração e o
   |  incremento da referência para #[code G].
 
-p
-  | Resta agora recriar nossas funções originais. Como só nos interessam
+p Resta agora recriar nossas funções originais. Como só nos interessam
   |  #[code xrange] e #[code range], podemos criar a #[code structure] como
   |  #[code local]:
 
@@ -118,6 +110,5 @@ pre.prettyprint: code.language-ml.
     val strseq = implode o StringGenerator.genToList o StringGenerator.build
   end
 
-p
-  | Veja que agora podemos com facilidade estender o lógica de criação de
+p Veja que agora podemos com facilidade estender o lógica de criação de
   |  geradores para virtualmente qualquer tipo, com a ajuda do #[em functor].

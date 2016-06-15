@@ -1,37 +1,33 @@
 img.pull-right(src="/img/glider.png" alt="")
 
-p.mg-first
-  | Este artigo foi publicado originalmente em 
+p.mg-first Este artigo foi publicado originalmente em &#32;
   a(href="http://kodumaro.blogspot.com.br/2013/09/introducao-ao-codigo-ascii-para.html")
     | 27 de setembro de 2013
   | .
 
-p
-  | Código 
+p Código &#32;
   a(href="http://www.unicode.org/charts/PDF/U0000.pdf") ASCII
   |  é a codificação de caracteres para valores numéricos de 7 #[em bits] mais
-  |  aceita mundialmente e significa 
+  |  aceita mundialmente e significa &#32;
   em American Standard Code for Information Interchange
   |  – portanto, nada de ASC-2, por favor.
 
-p
-  | O ASCII não permite acentos ou diacríticos, apenas os caracteres mais comuns
+p O ASCII não permite acentos ou diacríticos, apenas os caracteres mais comuns
   | e uma série de 33 caracteres de controle. Porém, como a menor palavra
-  |  binária (sequência de 
+  |  binária (sequência de &#32;
   a(href="http://pt.wikipedia.org/wiki/Bit"): em bits
-  | ) usada é o 
+  | ) usada é o &#32;
   a(href="http://pt.wikipedia.org/wiki/Byte") #[em byte] ou octeto
   | , que usa 8 #[em bits], um a mais que o ASCII, é possível criar
   |  #[em supersets] com o dobro
   sup: a(href="#footnote-1") 1
-  |  da capacidade como, por exemplo, o 
+  |  da capacidade como, por exemplo, o &#32;
   a(href="http://pt.wikipedia.org/wiki/ISO_8859-1") Latin-1
-  |  e o 
+  |  e o &#32;
   a(href="http://en.wikipedia.org/wiki/Windows-1252") CP-1252
   | .
 
-p
-  | Para quem está começando a tentar entender o código ASCII, é preciso saber
+p Para quem está começando a tentar entender o código ASCII, é preciso saber
   | que ele é composto de grupos. O primeiro grupo é o que possui sequência
   |  binária #[code 00xxxxx], ou seja, zeros nas duas casas da esquerda e
   |  qualquer combinação nas 5 demais. Isso dá uma combinação de 32 caracteres,
@@ -39,43 +35,36 @@ p
   |  caracteres de controle, como nulo (0), os caracteres de mudança de linha
   |  (10 e 13), o #[em backspace] (8), o #[em escape] (27) e o #[em tab] (9).
 
-p
-  | A única exceção de carácter de controle fora dessa sequência é o
-  |  #[em delete] (127 – #[code 1111111]).
+p A única exceção de carácter de controle fora dessa sequência é o #[em delete]
+  |  (127 – #[code 1111111]).
 
-p
-  | O grupo seguinte, #[code 010xxxx] (32 a 47) é uma sequência de caracteres de
+p O grupo seguinte, #[code 010xxxx] (32 a 47) é uma sequência de caracteres de
   |  pontuação e símbolos matemáticos, a começar pelo espaço (32).
 
-p
-  | Então começam os números, dentro do grupo #[code 011xxxx]. Os números
-  |  começam em #[code 0110000] (48) e seguem até #[code 0111001] (57). Uma
-  |  forma fácil de pensar qual o código de um dígito numérico é somar 48 ao
-  | valor do número. Por exemplo, o código de 7 é (48+7=) 55.
+p Então começam os números, dentro do grupo #[code 011xxxx]. Os números começam
+  |  em #[code 0110000] (48) e seguem até #[code 0111001] (57). Uma forma fácil
+  |  de pensar qual o código de um dígito numérico é somar 48 ao valor do
+  | número. Por exemplo, o código de 7 é (48+7=) 55.
 
 p O grupo #[code 011xxxx] segue com mais pontuações e símbolos matemáticos.
 
-p
-  | O grupo seguinte é o das letras maiúsculas: #[code 10xxxxx]. O primeiro
+p O grupo seguinte é o das letras maiúsculas: #[code 10xxxxx]. O primeiro
   |  elemento, 64 (#[code 1000000]), é o arroba (#[code @]), seguido das letras.
   |  Para saber o código de uma letra é só somar 64 ao índice da letra no
   |  alfabeto. Por exemplo, a letra #[code F] é 6ª letra do alfabeto, portanto
   |  seu código é (64+6=) 70.
 
-p
-  | Depois do #[code Z] (90), continuam mais pontuações e símbolos matemáticos,
+p Depois do #[code Z] (90), continuam mais pontuações e símbolos matemáticos,
   |  terminando com underscore (#[code _], 95 – #[code 1011111]).
 
-p
-  | A próxima sequência, começando pela crase, são as letras minúsculas. A
+p A próxima sequência, começando pela crase, são as letras minúsculas. A
   |  sequência é idêntica à anterior, apenas trocando o 6º #[em bit] (da direita
   |  pra esquerda) por 1: #[code 11xxxxx], o que soma 32 ao número, e as letras
   |  coincidem o mesmo código das maiúsculas.
 
 p Ou seja, se o código de #[code F] é 70, o código de #[code f] é (70+32=) 102.
 
-p 
-  | Como esperado, a sequência após o #[code z] (122) continua com pontuações e
+p Como esperado, a sequência após o #[code z] (122) continua com pontuações e
   |  símbolos matemáticos.
 
 h3 Exemplo
@@ -94,9 +83,8 @@ pre: code.
 
   Kodumaro ≡ 75, 111, 100, 117, 109, 97, 114, 111
 
-p 
-  | Se você preferir, pode pensar em #[em bits] (incrívelmente mais simples): o
-  |  7º #[em bit] (mais à esquerda) é sempre #[code 1] (letra), o 6º é #[code 0]
+p Se você preferir, pode pensar em #[em bits] (incrívelmente mais simples): o 7º
+  |  #[em bit] (mais à esquerda) é sempre #[code 1] (letra), o 6º é #[code 0]
   |  para maiúsculas e #[code 1] para minúsculas, os 5 seguintes são a ordem da
   | letra no alfabeto:
 

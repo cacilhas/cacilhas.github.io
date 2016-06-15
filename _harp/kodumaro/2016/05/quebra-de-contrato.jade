@@ -1,58 +1,50 @@
 img.pull-right(src="/img/python.png" alt="Python")
 
-p.mg-first
-  | É muito comum programadores inexperientes desrespeitarem contratos
+p.mg-first É muito comum programadores inexperientes desrespeitarem contratos
   | estabelecidos, algumas vezes por não saberem como resolver uma situação de
-  | outra forma, outras por 
+  | outra forma, outras por &#32;
   a(href="https://pt.wikipedia.org/wiki/Efeito_Dunning-Kruger")
     efeito Dunning-Kruger
   | .
 
-p
-  | Um dos erros mais comuns que tenho visto no mundo 
+p Um dos erros mais comuns que tenho visto no mundo &#32;
   a(href="http://python.org/") Python
-  |  é a quebra do contrato da classe 
+  |  é a quebra do contrato da classe &#32;
   a(href="https://docs.python.org/3/library/unittest.html#unittest.TestCase")
     code TestCase
   | .
 
 h3 Métodos #[em hook]
 
-p
-  | Geralmente a quebra de contrato ocorre porque o programador não entende o
+p Geralmente a quebra de contrato ocorre porque o programador não entende o
   |  conceito de <em>hook</em> ou não sabe como evitar chamar #[code super] na
   |  herança.
 
-p
-  | #[em Hook] é aquele método preenchido pelo código principal para ser chamado
+p #[em Hook] é aquele método preenchido pelo código principal para ser chamado
   |  por um #[em framework]. Por definição, o #[em hook] não deve ser chamado no
   |  código de aplicação, ou deve ser evitado. Em seu lugar é feita chamada para
   |  alguma rotina do #[em framework] que, por sua fez, usa o #[em hook] dentro
   |  da conveniência do mesmo.
 
-p
-  | Na biblioteca de #[em unit test] de Python, os métodos de #[code TestCase]
+p Na biblioteca de #[em unit test] de Python, os métodos de #[code TestCase]
   |  #[code setUp] e #[code tearDown] (de instância), e #[code setUpClass] e
   |  #[code tearDownClass] são métodos #[em hook], evocados pelo #[em framework]
   |  de teste unitário.
 
 h3 O problema
 
-p
-  | O programador júnior, muito satisfeito com seu entendimento sobre herança,
+p O programador júnior, muito satisfeito com seu entendimento sobre herança,
   | quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
   | abordagem em que a herança se encaixa como uma luva: nos testes unitários,
-  | ele precisa iniciar uma sessão com o banco (um 
+  | ele precisa iniciar uma sessão com o banco (um &#32;
   a(href="https://www.sqlite.org/") SQLite
   | ) antes de cada teste, e encerrá-lo ao final de cada um.
 
-p
-  | Ele sabe que o método #[code setUp] é executado antes de cada teste,
+p Ele sabe que o método #[code setUp] é executado antes de cada teste,
   |  enquanto o método #[code tearDown] é executado ao final, havendo erro,
   |  falha ou sucesso. Perfeito!
 
-p
-  | Mas ele precisa que todas as classes de teste usem esses métodos, então ele
+p Mas ele precisa que todas as classes de teste usem esses métodos, então ele
   |  pensa numa solução que parece perfeita: implementar os métodos #[em hook]
   |  numa classe pai, que será herdada pelas demais classes de teste.
 
@@ -83,9 +75,8 @@ pre.prettyprint: code.language-python.
 
 h3 O novo problema
 
-p
-  | Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de
-  | seus testes, ele precisa simular o comportamento de um acesso a um servidor 
+p Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de seus
+  | testes, ele precisa simular o comportamento de um acesso a um servidor &#32;
   a(href="http://redis.io/") Redis
   | , o que sobrescreve sua perfeita solução de banco de dados!
 
@@ -112,27 +103,23 @@ pre.prettyprint: code.language-python.
 
       """Seguem os testes..."""
 
-p
-  | O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não
-  | sacou como resolver – é que o 
+p O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não
+  | sacou como resolver – é que o &#32;
   strong contrato do #[code unittest] foi quebrado
   | .
 
 h3 A abordagem correta
 
-p
-  | A regra de ouro do #[code unittest] é: #[strong jamais] implemente métodos
+p A regra de ouro do #[code unittest] é: #[strong jamais] implemente métodos
   |  #[em hook] em classes que não sejam testes de fato, que sejam abstrações de
   |  comportamento para casos de teste de fato.
 
 p — Mas como resolver então? 😯
 
-p
-  | Como sua classe pai tem o objetivo de alterar o comportamento do
+p Como sua classe pai tem o objetivo de alterar o comportamento do
   |  #[em framework], sobrescreva rotinas internas do #[em framework].
 
-p
-  | No caso, o método cujo comportamento você quer mudar é #[code run]. A
+p No caso, o método cujo comportamento você quer mudar é #[code run]. A
   |  alteração será parecida com a criação de um contexto usando
   |  #[code contextlib.contextmanager], apenas trocando o #[code yield] por
   |  #[code super]:
@@ -155,10 +142,9 @@ pre.prettyprint: code.language-python.
           finally:
               conn.close()
 
-p
-  | Pronto! O problema já está resolvido! Agora nossa classe #[code TestCase]
-  |  já possui comportamento de #[em framework], e os #[em hooks] podem ser
-  |  usados corretamente:
+p Pronto! O problema já está resolvido! Agora nossa classe #[code TestCase] já
+  |  possui comportamento de #[em framework], e os #[em hooks] podem ser usados
+  |  corretamente:
 
 pre.prettyprint: code.language-python.
   class TestCacheManager(TestCase):
@@ -174,8 +160,7 @@ pre.prettyprint: code.language-python.
 
 h3 Conclusão
 
-p
-  | Esses problemas são causados por desentendimento dos contratos e
+p Esses problemas são causados por desentendimento dos contratos e
   | desconhecimento da linguagem, mas são facilmente resolvidos com um pouco de
   | pesquisa e leitura dos códigos das bibliotecas padrão, que são muito bem
   | documentadas.

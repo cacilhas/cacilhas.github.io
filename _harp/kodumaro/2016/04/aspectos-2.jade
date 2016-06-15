@@ -1,21 +1,18 @@
 img.pull-right(src="/img/python.png" alt="Python")
 
-p.mg-first
-  | Na 
+p.mg-first Na &#32;
   a(href=public.kodumaro._data.blog.url+"2016/04/aspectos.html") parte I
-  |  demos uma passada rápida no conceito de 
+  |  demos uma passada rápida no conceito de &#32;
   a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
     aspectos
-  | . Agora versmos os 
+  | . Agora versmos os &#32;
   a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
   | .
 
-p
-  | #[em Mixins] são classes incompletas que apenas atribuem determinado
+p #[em Mixins] são classes incompletas que apenas atribuem determinado
   |  comportamento a suas herdeiras.
 
-p
-  | Vamos a um exemplo muito superficial, mas suficiente: um objeto que armazena
+p Vamos a um exemplo muito superficial, mas suficiente: um objeto que armazena
   | notas de alunos em um arquivo.
 
 pre.prettyprint: code.language-python.
@@ -113,12 +110,10 @@ pre.prettyprint: code.language-python.
           ca = self.catch_up
           return m if ca is None else (m + ca) / 2
 
-p
-  | Repare que temos o mesmo problema apresentando na parte I: está tudo
-  | misturado em uma única classe!
+p Repare que temos o mesmo problema apresentando na parte I: está tudo misturado
+  | em uma única classe!
 
-p
-  | Podemos separar as partes de gerência de banco e serialização em classes
+p Podemos separar as partes de gerência de banco e serialização em classes
   |  diferentes, dedicadas a seu próprio aspecto, chamadas #[em mixins].
 
 p A classe de faz serialização pode ser apenas isso:
@@ -195,8 +190,7 @@ pre.prettyprint: code.language-python.
           self.db = db
           self.load()
 
-p
-  | A API da classe continua idêntica: recebe o número da matrícula e o banco na
+p A API da classe continua idêntica: recebe o número da matrícula e o banco na
   |  instanciação, propriedades para acessar as notas e método #[code save] para
   |  salvá-las em arquivo, porém agora cada aspecto está isolado e encapsulado
   |  em seu próprio #[em mixin].
