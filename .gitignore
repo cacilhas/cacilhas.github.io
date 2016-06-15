@@ -1,5 +1,6 @@
 *.swo
 *.swp
+*.komodoproject
 *~
 
 .DS_Store
