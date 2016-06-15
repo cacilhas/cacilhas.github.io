@@ -22,6 +22,6 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
       item
         title!= article.title
         description <![CDATA[!{article.content}]]>
-        pubDate= new Date(article.release)
+        pubDate= new Date(article.release + "T12:00")
         link #{article.url}
         guid(isPermaLink="true") #{article.url}
