@@ -2,22 +2,20 @@ include ../../../_includes/list-group-item.jade
 
 img.pull-right(src="/img/moonscript.jpg" alt="MoonScript")
 
-p.mg-first
-  | Há muito pouco tempo atrás um amigo meu me sugeriu dar atenção a 
+p.mg-first Há muito pouco tempo atrás um amigo meu me sugeriu dar atenção a
+  =" "
   a(href="http://moonscript.org/") MoonScript
   | . Admito que eu via a linguagem com preconceito, mesmo assim resolvi dar uma
   | olhada.
 
-p
-  | Resultado: todos os meus códigos em 
+p Resultado: todos os meus códigos em#[=" "]
   a(href="http://www.lua.org/") Lua
   |  acabaram migrados para MoonScript. 😋
 
-p
-  | A linguagem é extremamente enxuta, limpa e poderosa. Para lidar com o
+p A linguagem é extremamente enxuta, limpa e poderosa. Para lidar com o
   | paradigma funcional, a sintaxe de MoonScript é bem mais concisa e que a de
   | Lua. O mesmo vale para orientação a objetos. Não vou entrar em detalhes, se
-  | estiver curioso, leia o 
+  |  estiver curioso, leia o#[=" "]
   a(href="http://moonscript.org/reference/") guia da linguagem
   | .
 
@@ -25,14 +23,13 @@ h3 LuaJIT
 
 p
   a(href="http://luajit.org/") LuaJIT
-  |  é uma implementação alternativa 
+  |  é uma implementação alternativa#[=" "]
   a(href="https://pt.wikipedia.org/wiki/JIT") JIT
-  |  de Lua, com suporte a 
+  |  de Lua, com suporte a#[=" "]
   a(href="https://pt.wikipedia.org/wiki/Interface_de_função_externa") FFI
   |  nativo.
 
-p
-  | Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
+p Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
   |  série de pequenos #[em hacks] pra funcionar.
 
 p Vamos começar pelas dependências.
@@ -51,12 +48,10 @@ p MoonScript depende de quatro outros módulos para funcionar:
   +li
     | LPeg
 
-p
-  | Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT.
-  |  Aqui para mim é #[code /usr/share/lua/jit].
+p Instale #[code alt-getopt] normalmente no #[code LUA_PATH] de seu LuaJIT. Aqui
+  |  para mim é #[code /usr/share/lua/jit].
 
-p
-  | Para instalar LuaFileSystem, clone o repositório do 
+p Para instalar LuaFileSystem, clone o repositório do#[=" "]
   a(href="https://github.com/keplerproject/luafilesystem") GitHUB
   |  e não se esqueça de editar o arquivo <code>config</code>. As mudanças
   | principais são:
@@ -66,20 +61,17 @@ pre.prettyprint: code.language-sh.
   LUA_LIBDIR=$(PREFIX)/lib/lua/jit
   LUA_INC=$(PREFIX)/include/luajit-2.0
 
-p
-  | Isso considerando que seu <code>LUA_CPATH</code> esteja em
+p Isso considerando que seu <code>LUA_CPATH</code> esteja em
   |  #[code /usr/lib/lua/jit].
 
 p Compile e instale normalmente.
 
-p
-  | Já LPeg merece uma atenção extra, já que ele #[strong não] funciona com
-  | LuaJIT. No lugar, use 
+p Já LPeg merece uma atenção extra, já que ele #[strong não] funciona com
+  |  LuaJIT. No lugar, use#[=" "]
   a(href="https://github.com/sacek/LPegLJ") LPegLJ
   | .
 
-p
-  | Clone e instale LPegLJ no seu #[code LUA_PATH], depois execute o seguinte
+p Clone e instale LPegLJ no seu #[code LUA_PATH], depois execute o seguinte
   |  comando:
 
 pre.prettyprint: code.language-sh.
@@ -90,28 +82,23 @@ p Isso fará com que MoonScript pense tratar-se do LPeg original.
 
 h3 Instalando MoonScript
 
-p
-  | Com as três dependências instaladas, clone o projeto do 
+p Com as três dependências instaladas, clone o projeto do#[=" "]
   a(href="https://github.com/leafo/moonscript") GitHUB
   | . Edite o #[code Makefile], substituindo as ocorrências de #[code lua5.1] e
   |  #[code lua] por #[code luajit].
 
 p Remova as entradas #[code local] e #[code global] do #[code Makefile].
 
-p
-  | Edite o #[em hashbang] dos arquivos #[code bin/moon] e #[code bin/moonc],
+p Edite o #[em hashbang] dos arquivos #[code bin/moon] e #[code bin/moonc],
   |  trocando #[code lua] por #[code luajit].
 
 p Execute #[code make compile]
 
-p
-  | Copie os diretórios #[code moon/] e #[code moonscript/] para seu
+p Copie os diretórios #[code moon/] e #[code moonscript/] para seu
   |  #[code LUA_PATH].
 
-p
-  | Copie os arquivos #[code bin/moon] e #[code bin/moonc] para o diretório
+p Copie os arquivos #[code bin/moon] e #[code bin/moonc] para o diretório
   |  #[code /usr/bin/] do sistema.
 
-p
-  | E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu
+p E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu
   | revisar o texto.

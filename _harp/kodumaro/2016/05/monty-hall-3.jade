@@ -2,13 +2,13 @@ include ../../../_includes/list-group-item.jade
 
 img.pull-right(src="/img/erlang.png" alt="Erlang")
 
-p.mg-first Com o 
+p.mg-first Com o#[=" "]
   a(href="/misc/monty-hall/mh_mc.erl") mestre de cerimônias
-  |  criado no 
+  |  criado no#[=" "]
   a(href="/kodumaro/2016/05/monty-hall.html") primeiro artigo
-  | , e o 
+  | , e o#[=" "]
   a(href="/misc/monty-hall/mh_guest.erl") convidado
-  |  criado no 
+  |  criado no#[=" "]
   a(href="/kodumaro/2016/05/monty-hall-2.html") segundo artigo
   | , podemos rodar o jogo!
 
@@ -59,17 +59,18 @@ pre.prettyprint: code.language-erlang.
 p O passo deve executar o seguinte procedimento:
 
 +ul
-  +li Perguntar ao convidado que porta ele deseja escolher 
-    | (#[code mh_guest:choose/0]);
-  +li Perguntar ao mestre de cerimônias qual outra ficou disponível 
-    | (#[code mh_mc:suggest_another_door/1]);
+  +li Perguntar ao convidado que porta ele deseja escolher
+    |  (#[code mh_guest:choose/0]);
+  +li Perguntar ao mestre de cerimônias qual outra ficou disponível
+    |  (#[code mh_mc:suggest_another_door/1]);
   +li Perguntar ao convidado se ele quer mudar de porta
-    | (#[code mh_guest:change/2]);
+    |  (#[code mh_guest:change/2]);
   +li Perguntar ao mestre de cerimônias qual o prêmio por trás da porta
     | escolhida;
   +li Somar 1 ao acumulador se o convidado ganhou um carro.
 
-p Segue então o código que executa este procedimento, acrescentando apenas um 
+p Segue então o código que executa este procedimento, acrescentando apenas um
+  =" "
   code throw/1
   |  para levantar um exceção caso ocorra um erro:
 
@@ -131,7 +132,7 @@ pre: code
 p Novamente o resultado está sempre por volta do complementar, que são 667
   | acertos em mil, 667‰, 66,7%, duas em três.
 
-p Com isso, está #[strong provado] o 
+p Com isso, está #[strong provado] o#[=" "]
   a(href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall")
     | Paradoxo de Monty Hall
   | !

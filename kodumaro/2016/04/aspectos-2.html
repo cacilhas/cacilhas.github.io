@@ -92,8 +92,8 @@ class Grades:
         m = sum(grades) / len(grades)
         ca = self.catch_up
         return m if ca is None else (m + ca) / 2
-</code></pre><p>Repare que temos o mesmo problema apresentando na parte I: está tudo
-misturado em uma única classe!</p><p>Podemos separar as partes de gerência de banco e serialização em classes diferentes, dedicadas a seu próprio aspecto, chamadas <em>mixins</em>.</p><p>A classe de faz serialização pode ser apenas isso:</p><pre class="prettyprint"><code class="language-python">class SerialisableGradeMixin:
+</code></pre><p>Repare que temos o mesmo problema apresentando na parte I: está tudo misturado
+em uma única classe!</p><p>Podemos separar as partes de gerência de banco e serialização em classes diferentes, dedicadas a seu próprio aspecto, chamadas <em>mixins</em>.</p><p>A classe de faz serialização pode ser apenas isso:</p><pre class="prettyprint"><code class="language-python">class SerialisableGradeMixin:
 
     def load(self) -&gt; None:
         s = self.retrieve()

@@ -2,35 +2,31 @@ include ../../../_includes/list-group-item.jade
 
 img.pull-right(src="/img/python.png" alt="Python")
 
-p.mg-first
-  | Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
+p.mg-first Este artigo havia sido publicado originalmente em 18 de fevereiro de
+  |  2014 no#[=" "]
   // a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
-  | #[em blog] original. Infelizmente o 
+  | #[em blog] original. Infelizmente o#[=" "]
   a(href="https://blogger.com/") Blogger.com
   |  resolveu apagá-lo durante um #[em bug] da interface, mas o trouxemos de
   |  volta nesta nova encarnação do !{public.kodumaro._data.blog.title}.
 
-p
-  | Um paradigma muito útil é a 
+p Um paradigma muito útil é a#[=" "]
   a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
     | Programação Orientada a Aspectos
   | .
 
-p
-  | Consiste em separar e encapsular as funcionalidades de um código conforme
-  |  sua #[strong importância].
+p Consiste em separar e encapsular as funcionalidades de um código conforme sua
+  | #[strong importância].
 
-p
-  | Nesta primeira parte, abordaremos essa separação de forma simples, deixando
-  | o conceito de 
+p Nesta primeira parte, abordaremos essa separação de forma simples, deixando o
+  |  conceito de#[=" "]
   a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
-  |  para a 
+  |  para a#[=" "]
   a(href=public.kodumaro._data.blog.url+"2016/04/aspectos-2.html") parte II
   | .
 
-p
-  | Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado
-  |  de um objeto, retornando um #[em hash] do novo estado:
+p Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado de
+  | um objeto, retornando um #[em hash] do novo estado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -58,8 +54,7 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p
-  | A solução atende, mas é de difícil manutenção. Perceba que a função chamada
+p A solução atende, mas é de difícil manutenção. Perceba que a função chamada
   |  #[code update_person] (atualiza pessoa) faz muito mais do que simplesmente
   |  atualizar os dados:
 
@@ -71,9 +66,8 @@ p
   +li Gera um hash da serialização;
   +li Responde a requisição com formato conveniente.
 
-p
-  | Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado
-  |  do restante.
+p Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado do
+  | restante.
 
 p Vamos então separar o primeiro aspecto: recuperação do documento.
 
@@ -111,13 +105,11 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p
-  | Agora a recuperação do documento está isolada, podendo inclusive ser usada
-  |  em outras #[em views]. Nossa #[em view] já recebe o documento recuperado e
-  |  não precisa lidar com o fato dele existir ou não.
+p Agora a recuperação do documento está isolada, podendo inclusive ser usada em
+  | outras #[em views]. Nossa #[em view] já recebe o documento recuperado e não
+  | precisa lidar com o fato dele existir ou não.
 
-p
-  | Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
+p Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
   |  #[em parsing] dos dados recebidos: isso caracteriza outro aspecto do
   |  código, que não a atualização do documento.
 
@@ -158,10 +150,9 @@ pre.prettyprint: code.language-python.
              200, &#92;
              {'Content-Type': 'application/json'}
 
-p
-  | A função #[code update_person] já está muito mais limpa: atualiza o
-  |  documento, serializa e retorna o #[em hash], mas ainda faz coisas demais.
-  |  Vamos separar o tratamento do retorno:
+p A função #[code update_person] já está muito mais limpa: atualiza o documento,
+  |  serializa e retorna o #[em hash], mas ainda faz coisas demais. Vamos
+  |  separar o tratamento do retorno:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -196,8 +187,7 @@ pre.prettyprint: code.language-python.
       r = sorted((str(k), repr(v)) for k, v in person.items())
       return ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 
-p
-  | As coisas estão ficando cada vez mais separadas. A única coisa que a função
+p As coisas estão ficando cada vez mais separadas. A única coisa que a função
   |  #[code update_person] ainda faz além de atualizar o documento é
   |  serializá-lo. Isso também pode ser isolado:
 
@@ -235,9 +225,8 @@ pre.prettyprint: code.language-python.
       db.person.save(person)
       return person
 
-p
-  | Perceba que, com a separação dos aspectos em funções distintas, o código
-  | ficou muito mais semântico:
+p Perceba que, com a separação dos aspectos em funções distintas, o código ficou
+  | muito mais semântico:
 
 +ul
   +li #[code retrive_person_aspect] apenas recupera o documento do banco;
@@ -255,22 +244,18 @@ p
 h3 Observação
 
 +ul
-  +li
-    | #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
+  +li #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
     |  exemplo.
 
-  +li
-    | #[code app] é uma aplicação 
+  +li #[code app] é uma aplicação#[=" "]
     a(href="http://flask.pocoo.org/") Flask
     | , apenas para fim de exemplo.
 
-  +li
-    | A ordem dos decoradores #[strong é importante], o retorno de cada
+  +li A ordem dos decoradores #[strong é importante], o retorno de cada
     |  decorador #[strong precisa] ser do mesmo tipo do argumento do
     |  decorador seguinte.
 
-  +li
-    | Os #[code import]s foram omitidos:
+  +li Os #[code import]s foram omitidos:
     pre.prettyprint: code.language-python.
         from typing import Callable, Mapping, MutableMapping, Tuple
         from numbers import Integral
@@ -278,7 +263,6 @@ h3 Observação
         from hashlib import md5
         import json
 
-p
-  | Na 
+p Na#[=" "]
   a(href=public.kodumaro._data.blog.url+"2016/04/aspectos-2.html") parte II
   |  abordaremos #[em mixins].
