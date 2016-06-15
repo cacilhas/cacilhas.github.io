@@ -2,28 +2,29 @@ include ../../../_includes/list-group-item.jade
 
 img.pull-right(src="/img/fish.jpg" alt="")
 
-p.mg-first Há há mais de um ano não uso mais 
+p.mg-first Há há mais de um ano não uso mais #[=" "]
   a(href="https://pt.wikipedia.org/wiki/Bash") Bash
-  |  – tenho usado 
+  |  – tenho usado #[=" "]
   a(href="http://zshwiki.org/home/") Zsh
-  | . Agora resolvi dar uma change ao 
+  | . Agora resolvi dar uma change ao #[=" "]
   a(href="http://fishshell.com/") Fish Shell
   | .
 
-p Fish Shell – Friendly Interactive Shell – é um #[em shell] para sistemas 
+p Fish Shell – Friendly Interactive Shell – é um #[em shell] para sistemas
+  =" "
   a(href="https://pt.wikipedia.org/wiki/POSIX") Posix
   |  com uma pegada mais amigável (#[user friendly]) que os demais #[em shells].
 
-p É considerado um 
+p É considerado um #[=" "]
   a(href="https://en.wikipedia.org/wiki/Unix_shell#Exotic_shells")
     | #[em shell] exótico
-  |  por sua sintaxe não derivar nem do 
+  |  por sua sintaxe não derivar nem do #[=" "]
   a(href="https://pt.wikipedia.org/wiki/Bourne_shell") Bourne Shell
-  | , nem do 
+  | , nem do #[=" "]
   a(href="http://docs.freebsd.org/44doc/usd/04.csh/paper.html") CShell
   | .
 
-p Você pode encontrar a documentação 
+p Você pode encontrar a documentação #[=" "]
   a(href="http://fishshell.com/docs/current/") aqui
   | .
 
@@ -41,14 +42,14 @@ p A princípio, usando Fish, parece ser apenas um #[em shell] cheio de firulas,
   | mas as diferenças vão surgindo com o tempo.
 
 p Ao contrário de outros #[em shells], o arquivo de carga inicial de
-  |  #[em login shell] não segue o padrão 
+  |  #[em login shell] #[strong não] segue o padrão #[=" "]
   code ~/.#[em nomedosh]rc
   | , mas se encontra em #[code ~/.config/fish/config.fish].
 
 p Outra característica muito importante é que, sempre que você executa um
-  | comando, o Fish procura um arquivo 
+  | comando, o Fish procura um arquivo
   code ~/.config/fish/functions/#[em comando].fish
-  |  e, encontrando, o executa. O objetivo é carregar sob demanda funções de
+  |  e, encontrando, o executa. O objetivo é carregar sob demanda funções
   | definidas pelo usuário.
 
 p Duas funções que são chamadas recorrentemente – e podem ser definidas em
@@ -56,15 +57,16 @@ p Duas funções que são chamadas recorrentemente – e podem ser definidas em
   |  #[code fish_title]:
 
 p #[code fish_prompt] é chamada sempre imediatamente antes do #[em prompt] ser
-  | oferecido ao usuário e tem a função de construir a mensagem do #[em prompt].
+  |  oferecido ao usuário e tem a função de construir a mensagem do
+  |  #[em prompt].
 
 p #[code fish_title] é chamada a cada vez que algum outro #[em software] – como
-  | #[code xterm] – solicita o título.
+  |  #[code xterm] – solicita o título.
 
 h3: em Scripting
 
 p Vamos a um #[em script] de exemplo: criaremos uma função #[code rmpyc] que
-  | limpa os arquivos #[code .pyc] do diretório informado. Crie um arquivo
+  |  limpa os arquivos #[code .pyc] do diretório informado. Crie um arquivo
   |  #[code ~/config/fish/functions.rmpyc.fish]:
 
 pre.prettyprint: code.language-sh.
@@ -78,7 +80,7 @@ pre.prettyprint: code.language-sh.
 
     for dir in $pathes
       find "$dir" -type d -name __pycache__ -exec -rf {} &#92;;
-      find "$dir" -name "*.py.co]" -delete
+      find "$dir" -name "*.pyc" -delete
     end
   end
 
@@ -87,12 +89,12 @@ p O programa verifica se há mais de um argumento, em não havendo, usa o
 
 p Para cada diretório passado, são executados dois comando de #[code find]: um
   |  para arquivos de Python 3.x, outro para Python 2.7. Repare na clareza dos
-  |  comandos #[code if] e #[code code], no uso da palavra chave #[code end].
+  |  comandos #[code if] e #[code for], no uso da palavra chave #[code end].
 
 h3 Lidando com listas
 
-p Fish Shell tem um suporte muito poderoso e intuitivo a listas. Por exemplo,
-  | para adicionar um novo #[em path] à variável 
+p Fish Shell tem um suporte muito bom e intuitivo a listas. Por exemplo, para
+  |  adicionar um novo #[em path] à variável #[=" "]
   a(href="https://en.wikipedia.org/wiki/PATH_(variable)"): code PATH
   | :
 
@@ -131,9 +133,33 @@ pre.prettyprint: code.language-sh.
 
 h3 Lidando com #[em strings]
 
-p Outro recurso poderoso de Fish é a ferramenta #[code string]: basicamente ela
-  |  traz suporte a contar o tamanho de uma #[em string], pegar
-  |  #[em substrings], quebrar em listas, juntar uma lista em uma #[em string],
-  |  etc.
+p Outro recurso de Fish é a ferramenta #[code string]: basicamente ela traz
+  |  suporte a contar o tamanho de uma #[em string], pegar #[em substrings],
+  |  quebrar em listas, juntar uma lista em uma #[em string], etc.
 
-TODO
+p Por exemplo, para converter o #[em path] para o formato Mac OS:
+
+pre.prettyprint: code.language-sh.
+  function to-mac-os-path
+    set -l path (string split / -- "$argv")
+    string join : -- $path[2..(count $path)]
+  end
+
+p Outra alternativa para fazer a mesma coisa:
+
+pre.prettyprint: code.language-sh.
+  function to-mac-os-path
+    string replace -a / : -- (string trim -l -c/ -- "$argv")
+  end
+
+h3 Buscando ajuda
+
+p Os manuais de ajuda podem ser obtidos #[=" "]
+  a(href="http://fishshell.com/docs/current/commands.html"): em on-line
+  | , ou digitando o comando #[code help], que direcionará o usuário para o
+  |  navegador, apontando para o arquivo de ajuda que vem junto com a instalação
+  | de Fish.
+
+pre: code
+  | fish&gt; #[strong help string]#[br/]
+  | fish&gt;
