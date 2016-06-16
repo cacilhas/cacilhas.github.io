@@ -1,9 +1,16 @@
 {
-    "dad-gad": {
+  "dad-gad": {
     "title": "Afinação celta em 8 cordas",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Há algumas semanas tomei uma decisão muito séria quanto a meu crescimento musical.",
     "release": "2016-06-12",
+    "tags": ["Música"]
+  },
+  "modos-gregos": {
+    "title": "Modos gregos",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Ouve-se muito falar em escalas <em>Ionian</em>, <em>Dorian</em>, <em>Phrygian</em>…",
+    "release": "2016-06-16",
     "tags": ["Música"]
   }
 }
