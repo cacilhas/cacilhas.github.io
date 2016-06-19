@@ -14,7 +14,7 @@ p Um dos erros mais comuns que tenho visto no mundo#[=" "]
     code TestCase
   | .
 
-h3 Métodos #[em hook]
+h3#metodos-hook Métodos #[em hook]
 
 p Geralmente a quebra de contrato ocorre porque o programador não entende o
   |  conceito de <em>hook</em> ou não sabe como evitar chamar #[code super] na
@@ -31,7 +31,7 @@ p Na biblioteca de #[em unit test] de Python, os métodos de #[code TestCase]
   |  #[code tearDownClass] são métodos #[em hook], evocados pelo #[em framework]
   |  de teste unitário.
 
-h3 O problema
+h3#problema O problema
 
 p O programador júnior, muito satisfeito com seu entendimento sobre herança,
   | quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
@@ -73,7 +73,7 @@ pre.prettyprint: code.language-python.
       def tearDown(self):
           my_app.conn.close()
 
-h3 O novo problema
+h3#novo-problema O novo problema
 
 p Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de seus
   | testes, ele precisa simular o comportamento de um acesso a um servidor
@@ -109,7 +109,7 @@ p O que nosso resoluto programador júnior não percebeu – ou percebeu, mas n�
   strong contrato do #[code unittest] foi quebrado
   | .
 
-h3 A abordagem correta
+h3#abordagem-correta A abordagem correta
 
 p A regra de ouro do #[code unittest] é: #[strong jamais] implemente métodos
   |  #[em hook] em classes que não sejam testes de fato, que sejam abstrações de
@@ -159,7 +159,7 @@ pre.prettyprint: code.language-python.
 
             """Seguem os testes..."""
 
-h3 Conclusão
+h3#conclusao Conclusão
 
 p Esses problemas são causados por desentendimento dos contratos e
   | desconhecimento da linguagem, mas são facilmente resolvidos com um pouco de

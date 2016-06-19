@@ -44,7 +44,7 @@ p Vamos escrever um exemplo muito trivial de gerência de câmera usando HUMP em
   | . #[strong Esteja atento], pois será necessário compilar os arquivo
   |  #[code .moon] para #[code .lua] com #[code moonc] a cada alteração.
 
-h3 Baixando HUMP
+h3#baixando-hump Baixando HUMP
 
 p No diretório onde o código ficará execute (você precisa do#[=" "]
   a(href="https://git-scm.com/"): code git
@@ -52,7 +52,7 @@ p No diretório onde o código ficará execute (você precisa do#[=" "]
 
 pre: code sh$ #[strong git clone git@github.com:vrld/hump.git]
 
-h3 Arquivo de configuração
+h3#arquivo-de0configuracao Arquivo de configuração
 
 p LÖVE usa um#[=" "]
   a(href="https://www.love2d.org/wiki/Config_Files")
@@ -89,7 +89,7 @@ pre: code
 
 p Isso gera o arquivo #[code conf.lua], que é o que LÖVE usará.
 
-h3 Cabeçalho do arquivo principal
+h3#cabelho-arquivo-principal Cabeçalho do arquivo principal
 
 p LÖVE lê os #[em callbacks] do arquivo #[code main.lua]. Criaremos então um
   |  arquivo #[code main.moon] para nosso teste. Esse arquivo deve conter a
@@ -153,7 +153,7 @@ p O resultado esperado é abrir uma janela azul com um círculo preto no canto.
 p(style={"text-align": "center"})
   img(src="/img/camera-example/shot-1.jpg" alt="")
 
-h3 Ativando a câmera
+h3#ativando-camera Ativando a câmera
 
 p Vamos usar a câmera visualizar o “mundo” exibido. Altere o método #[code draw]
   |  da classe para usar a câmera:
@@ -174,7 +174,7 @@ p(style={"text-align": "center"})
 p Entenda o que aconteceu: agora a câmera está olhando para a posição onde está
   | o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.
 
-h3 Movendo a câmera
+h3#movendo-camera Movendo a câmera
 
 p Há diversos métodos para mover a câmera – veja a#[=" "]
   a(href="http://hump.readthedocs.io/en/latest/camera.html#function-reference")
@@ -209,7 +209,7 @@ pre.prettyprint: code.
 
 p Então é possível mover a câmera usando as setas do teclado.
 
-h3 Adicionando mais objetos
+h3#mais-objectos Adicionando mais objetos
 
 p Parece estranho… aperta para a esquerda, o círculo vai para a direita, aperta
   | para baixo, vai para cima…
@@ -235,7 +235,7 @@ pre.prettyprint: code.
 
 p Compile e rode novamente.
 
-h3 Brincando com #[em tweening]
+h3#tweening Brincando com #[em tweening]
 
 p Para ficar mais interessante, vamos acrescentar um#[=" "]
   a(href="https://en.wikipedia.org/wiki/Inbetweening"): em tweening

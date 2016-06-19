@@ -66,7 +66,7 @@ p #[code fish_prompt] é chamada sempre imediatamente antes do #[em prompt] ser
 p #[code fish_title] é chamada a cada vez que algum outro #[em software] – como
   |  #[code xterm] – solicita o título.
 
-h3: em Scripting
+h3#scripting: em Scripting
 
 p Vamos a um #[em script] de exemplo: criaremos uma função #[code rmpyc] que
   |  limpa os arquivos #[code .pyc] do diretório informado. Crie um arquivo
@@ -94,7 +94,7 @@ p Para cada diretório passado, são executados dois comando de #[code find]: um
   |  para arquivos de Python 3.x, outro para Python 2.7. Repare na clareza dos
   |  comandos #[code if] e #[code for], no uso da palavra chave #[code end].
 
-h3 Lidando com listas
+h3#lidando-com-listas Lidando com listas
 
 p Fish Shell tem um suporte muito bom e intuitivo a listas. Por exemplo, para
   |  adicionar um novo #[em path] à variável#[=" "]
@@ -134,7 +134,7 @@ pre.prettyprint: code.language-sh.
   set -l lua_path $directories/$suffixes
   set -x LUA_PATH (string join ';' -- $lua_path)
 
-h3 Lidando com #[em strings]
+h3#lidando-com-strings Lidando com #[em strings]
 
 p Outro recurso de Fish é a ferramenta #[code string]: basicamente ela traz
   |  suporte a contar o tamanho de uma #[em string], pegar #[em substrings],
@@ -155,7 +155,7 @@ pre.prettyprint: code.language-sh.
     string replace -a / : -- (string trim -l -c/ -- "$argv")
   end
 
-h3 Buscando ajuda
+h3#ajuda Buscando ajuda
 
 p Os manuais de ajuda podem ser obtidos#[=" "]
   a(href="http://fishshell.com/docs/current/commands.html"): em on-line
