@@ -2,6 +2,7 @@
 
 
 $alert_color = #bbbb55
+$link_color = #337ab7
 
 
 blockquote
@@ -32,11 +33,18 @@ blockquote
     text-decoration none
 
   p.lead
-    min-height: 5em !important
+    min-height 5em !important
 
 
 .mg-alert
   color $alert_color
+
+
+.mg-hidden-link
+  color white
+
+  :hover
+    color $link_color
 
 
 #footer
