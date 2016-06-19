@@ -3,6 +3,7 @@
 
 $alert_color = #bbbb55
 $link_color = #337ab7
+$grid_color = #dddddd
 
 
 blockquote
@@ -38,6 +39,19 @@ blockquote
 
 .mg-alert
   color $alert_color
+
+
+.mg-box-grid
+  td
+    border-right 1px solid $grid_color !important
+
+
+.mg-grid
+  td
+    border-right 1px solid $grid_color !important
+
+    :last-child
+      border-right none !important
 
 
 .mg-hidden-link
