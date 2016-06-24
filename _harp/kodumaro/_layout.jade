@@ -42,6 +42,10 @@ block main-container
           | .
 
 block footer
+  p.pull-left
+    a(href=public.kodumaro._data.blog.url+"feed.xml" target="_blank" type="application/atom+xml")
+     img(src="/img/rss.png" alt="feed")
+
   p.small
     if author
       | Autor: #{author} &nbsp;
