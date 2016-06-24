@@ -16,8 +16,16 @@
   "escalas-exoticas": {
     "title": "Escalas exóticas",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
-    "content": "No último artigo falei sobre os modos gregos. Dando continuidade, falarei de algumas escalas exóticas.",
+    "content": "Versão original do artigo sobre escalas exóticas.",
     "release": "2016-06-16",
+    "tags": ["Música"],
+    "hidden": true
+  },
+  "escalas-exoticas-c": {
+    "title": "Escalas exóticas (versão em C)",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "No último artigo falei sobre os modos gregos. Dando continuidade, falarei de algumas escalas exóticas.",
+    "release": "2016-06-24",
     "tags": ["Música"]
   }
 }
