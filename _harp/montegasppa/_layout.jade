@@ -26,6 +26,10 @@ block main-container
       != yield
 
 block footer
+  p.pull-left
+    a(href=public.montegasppa._data.blog.url+"feed.xml" target="_blank" type="application/atom+xml")
+     img(src="/img/rss.png" alt="feed")
+
   p.small
     a(href="/montegasppa/author.html")
       | !{public.montegasppa._data.blog.title} &nbsp;
