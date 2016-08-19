@@ -19,7 +19,7 @@ block main-container
       h2.mg-title !{public.kodumaro._data.blog.title} :: !{title}
       if release
         - var release_ = new Date(release + 'T12:00')
-        - var month = ('0' + release_.getMonth()).slice(-2)
+        - var month = release_.getMonth()
         h6.pull-right Publicado em #{release_.getDate()} de #{monthSet[month]}, #{1900 + release_.getYear()}
       h6!= public.kodumaro._data.blog.subtitle
 
