@@ -5,36 +5,36 @@ p.mg-first Em muitos jogos, o movimento de câmera é um recurso essencial.
 
 p
   a(href="https://love2d.org/") LÖVE ou Love2D
-  |  é a plataforma de desenvolvimento de jogos em#[=" "]
+  |  é a plataforma de desenvolvimento de jogos em #[]
   a(href="http://www.lua.org/") Lua
-  | , com suporte a#[=" "]
+  | , com suporte a #[]
   a(href="https://pt.wikipedia.org/wiki/Interface_de_função_externa") FFI
-  |  e#[=" "]
+  |  e #[]
   a(href="http://blogs.love2d.org/content/beginners-guide-shaders")
     em shaders
   |   nativo, porém exige um pouco de verborragia para lidar com outros recursos
   | básicos, como câmera e temporização.
 
 p Mas não ficamos órfãos de recursos ao programar em LÖVE. A comunidade tem
-  |  desenvolvido#[=" "]
+  |  desenvolvido #[]
   a(href="https://love2d.org/wiki/Category:Libraries") inúmeras bibliotecas
   | , resolvendo os recursos faltantes.
 
-p De todas, um biblioteca da qual não se pode abrir mão é#[=" "]
+p De todas, um biblioteca da qual não se pode abrir mão é #[]
   a(href="http://hump.readthedocs.io/en/latest/") HUMP
-  | , que agrega recursos de#[=" "]
+  | , que agrega recursos de #[]
   a(href="http://hump.readthedocs.io/en/latest/gamestate.html")
     | controle de estado
-  | ,#[=" "]
+  | , #[]
   a(href="http://hump.readthedocs.io/en/latest/timer.html") temporização
-  | ,#[=" "]
+  | , #[]
   a(href="http://hump.readthedocs.io/en/latest/vector-light.html")
     | gerência de vetores
-  | ,#[=" "]
+  | , #[]
   a(href="http://hump.readthedocs.io/en/latest/signal.html") sinais
-  | ,#[=" "]
+  | , #[]
   a(href="http://hump.readthedocs.io/en/latest/camera.html") câmera
-  |  e até mesmo adiciona#[=" "]
+  |  e até mesmo adiciona #[]
   a(href="http://hump.readthedocs.io/en/latest/class.html") suporte a classes
   |  a Lua.
 
@@ -46,7 +46,7 @@ p Vamos escrever um exemplo muito trivial de gerência de câmera usando HUMP em
 
 h3#baixando-hump Baixando HUMP
 
-p No diretório onde o código ficará execute (você precisa do#[=" "]
+p No diretório onde o código ficará execute (você precisa do #[]
   a(href="https://git-scm.com/"): code git
   | ):
 
@@ -54,7 +54,7 @@ pre: code sh$ #[strong git clone git@github.com:vrld/hump.git]
 
 h3#arquivo-de0configuracao Arquivo de configuração
 
-p LÖVE usa um#[=" "]
+p LÖVE usa um #[]
   a(href="https://www.love2d.org/wiki/Config_Files")
     | arquivo de configuração inicial
   | , #[code conf.lua], com informações sobre tamanho e tipo da janela, e quais
@@ -176,7 +176,7 @@ p Entenda o que aconteceu: agora a câmera está olhando para a posição onde e
 
 h3#movendo-camera Movendo a câmera
 
-p Há diversos métodos para mover a câmera – veja a#[=" "]
+p Há diversos métodos para mover a câmera – veja a #[]
   a(href="http://hump.readthedocs.io/en/latest/camera.html#function-reference")
     | documentação
   | . Vamos usar o método que movimenta a câmera de acordo com um #[em delta].
@@ -237,7 +237,7 @@ p Compile e rode novamente.
 
 h3#tweening Brincando com #[em tweening]
 
-p Para ficar mais interessante, vamos acrescentar um#[=" "]
+p Para ficar mais interessante, vamos acrescentar um #[]
   a(href="https://en.wikipedia.org/wiki/Inbetweening"): em tweening
   | .
 
