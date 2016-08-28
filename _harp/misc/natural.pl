@@ -22,7 +22,7 @@ odd(N) :- \+ even(N).
 go :- current_prolog_flag(argv, [X]),
       atom_to_term(X, I, []),
       from_int(I, N),
-      write(N), nl, !.
+      writeln(N), !.
 go :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
       file_base_name(Path, Script),
       format('use: ~w <zero_or_positive_value>~n', [Script]).
