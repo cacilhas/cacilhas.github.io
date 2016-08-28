@@ -14,7 +14,7 @@ nat(s(N)) :- nat(N).
 </code></pre><p>Resolvido!</p><h3>Conversão para inteiro</h3><p>Precisamos agora de um predicado que faça a conversão para números inteiros.</p><p>A forma mais simples seria:</p><pre class="prettyprint"><code class="language-prolog">to_int(z, 0).
 to_int(s(N), R) :- to_int(N, R1), R is R1 + 1.
 </code></pre><p>Estaria resolvido, não fosse um problema: esta implementação pode gerar um estouro de pilha, já que cada instância de <code>to_int/2</code> precisa aguardar que todas suas filhas de recursão terminem para liberar memória.</p><p>A forma de resolver isso é usando um acumulador para aproveitar o recurso de <em>tail-call optimisation</em>.</p><p>Então o predicado <code>to_int/2</code> vai apenas verificar se o valor verificado é natural, e delegar a resolução para o predicado <code>to_int/3</code>.</p><p>Esse outro predicado lida com os seguintes parâmetros: o número natural, o
-acumulador (que deve ser iniciado como zero) e a resposta.</p><p>Então o <em>to_int/2</em> vira:</p><pre class="prettyprint"><code class="language-prolog">to_int(N, R) :- nat(N), to_int(N, 0, R).
+acumulador (que deve ser iniciado como zero) e a resposta.</p><p>Então <code>to_int/2</code> vira:</p><pre class="prettyprint"><code class="language-prolog">to_int(N, R) :- nat(N), to_int(N, 0, R).
 </code></pre><p>Já <code>to_int/3</code> responde o acumulador quando <code>N</code> for <code>z</code>, caso contrário incrementa o acumulador e delega para a próxima instância da
 recursão resolver:</p><pre class="prettyprint"><code class="language-prolog">to_int(z, A, A).
 to_int(s(N), A, R) :- succ(A, A1), to_int(N, A1, R).

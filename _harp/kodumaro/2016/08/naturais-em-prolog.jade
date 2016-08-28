@@ -83,7 +83,7 @@ p Então o predicado #[code to_int/2] vai apenas verificar se o valor verificado
 p Esse outro predicado lida com os seguintes parâmetros: o número natural, o
   | acumulador (que deve ser iniciado como zero) e a resposta.
 
-p Então o #[em to_int/2] vira:
+p Então #[code to_int/2] vira:
 
 pre.prettyprint: code.language-prolog.
   to_int(N, R) :- nat(N), to_int(N, 0, R).
