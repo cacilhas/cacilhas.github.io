@@ -29,7 +29,7 @@ princípio é muito similar. Precisamos apenas de um predicado equivalente ao <c
 from_int(0) --&gt; { ! }, '='.
 from_int(I) --&gt; { I1 is I - 1 }, nsucc, from_int(I1).
 
-</code></pre><h3>Tornando isso utilizável</h3><p>Já podemos usar nosso <code>natural.pro</code>:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong>natural:to_int(z, X).</strong><br><em>X = 0.<br><br></em>:- <strong>natural:to_int(s(s(s(z))), X).</strong><br><em>X = 3.<br><br></em>:- <strong>natural:from_int(8, X).</strong><br><em>X = s(s(s(s(s(s(s(s(z)))))))).<br><br></em>:-</code></pre><p>Mas podemos gerar um executável. Primeiro precisamos de um predicado pra
+</code></pre><h3>Tornando isso utilizável</h3><p>Já podemos usar nosso <code>natural.pl</code>:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong>natural:to_int(z, X).</strong><br><em>X = 0.<br><br></em>:- <strong>natural:to_int(s(s(s(z))), X).</strong><br><em>X = 3.<br><br></em>:- <strong>natural:from_int(8, X).</strong><br><em>X = s(s(s(s(s(s(s(s(z)))))))).<br><br></em>:-</code></pre><p>Mas podemos gerar um executável. Primeiro precisamos de um predicado pra
 servir de meta:</p><pre class="prettyprint"><code class="language-prolog">go :- current_prolog_flag(argv, [Argv]),
       atom_to_term(Argv, I, []),
       from_int(I, N),
@@ -37,11 +37,11 @@ servir de meta:</p><pre class="prettyprint"><code class="language-prolog">go :- 
 go :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
       file_base_name(Path, Script),
       format('use: ~w &lt;zero_or_positive_integer&gt;~n', [Script]).
-</code></pre><p>Agora precisamos converter o <em>script</em> em executável:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[library(qsave)].</strong><br><em>true.<br><br></em>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong>qsave_program(natural, [init_file('natural.pro'), goal(natural:go), toplevel(halt)])</strong>.<br><em>true.<br><br></em>:-</code></pre><p>Finalmente é só executar:</p><pre><code>sh$ <strong>.&#x2f;natural 12</strong><br><em>s(s(s(s(s(s(s(s(s(s(s(s(z))))))))))))<br></em>sh$</code></pre><h3>Bônus: par ou ímpar</h3><p>Como bônus, seguem dois predicados para calcular se o número natural é par ou
+</code></pre><p>Agora precisamos converter o <em>script</em> em executável:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[library(qsave)].</strong><br><em>true.<br><br></em>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong>qsave_program(natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)])</strong>.<br><em>true.<br><br></em>:-</code></pre><p>Finalmente é só executar:</p><pre><code>sh$ <strong>.&#x2f;natural 12</strong><br><em>s(s(s(s(s(s(s(s(s(s(s(s(z))))))))))))<br></em>sh$</code></pre><h3>Bônus: par ou ímpar</h3><p>Como bônus, seguem dois predicados para calcular se o número natural é par ou
 ímpar:</p><pre class="prettyprint"><code class="language-prolog">even(z).
 even(s(N)) :- odd(N).
 odd(N) :- &#x5c;+ even(N).
-</code></pre><p>Observação: <code>&#x5c;+</code> é negação lógica em Prolog; a parada tanto de <code>even/1</code> quanto de <code>odd/1</code> é <code>even(z)</code>, que informa que zero é par.</p><hr><p>Código para baixar: <a href="/misc/natural.pro">natural.pro</a>.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+</code></pre><p>Observação: <code>&#x5c;+</code> é negação lógica em Prolog; a parada tanto de <code>even/1</code> quanto de <code>odd/1</code> é <code>even(z)</code>, que informa que zero é par.</p><hr><p>Código para baixar: <a href="/misc/natural.pl">natural.pl</a>.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = 'http://cacilhas.info/kodumaro/2016/08/naturais-em-prolog.html'
   this.page.identifier = '2016.08.naturais-em-prolog'
   this.page.title = 'Números naturais em Prolog'

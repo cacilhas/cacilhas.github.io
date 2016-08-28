@@ -127,7 +127,7 @@ pre.prettyprint: code.language-prolog.
 
 h3 Tornando isso utilizável
 
-p Já podemos usar nosso #[code natural.pro]:
+p Já podemos usar nosso #[code natural.pl]:
 
 pre: code
   | sh$ #[strong swipl -q]#[br/]
@@ -161,7 +161,7 @@ pre: code
   em true.#[br/]#[br/]
   | :- #[strong: ="[natural]."]#[br/]
   em true.#[br/]#[br/]
-  | :- #[strong qsave_program(natural, [init_file('natural.pro'), goal(natural:go), toplevel(halt)])].#[br/]
+  | :- #[strong qsave_program(natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)])].#[br/]
   em true.#[br/]#[br/]
   | :-
 
@@ -191,5 +191,5 @@ p Observação: #[code &#x5c;+] é negação lógica em Prolog; a parada tanto d
 hr/
 
 p Código para baixar:#[=" "]
-  a(href="/misc/natural.pro") natural.pro
+  a(href="/misc/natural.pl") natural.pl
   | .
