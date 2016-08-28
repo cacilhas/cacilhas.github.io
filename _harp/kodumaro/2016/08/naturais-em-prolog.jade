@@ -21,10 +21,10 @@ p A lógica é a seguinte: são funções que recebem dois argumentos. O primeir
   |  “sucessor”, enquanto o segundo uma função que represente o zero
   |  (#[code z]).
 
-p Então para o zero, o sucessor não é aplicado (#[code z]); para o um é aplicado
-  |  apenas uma vez (#[code sz]); para o dois são feitos dois passos de
-  |  sucessão (#[code s(sz)]); para o três, três passos (#[code s(s(sz))]); e
-  |  assim por diante.
+p Para o zero, o sucessor não é aplicado (#[code z]); para o um é aplicado
+  |  apenas uma vez (#[code sz], sucessor de zero); para o dois são feitos dois
+  |  passos de sucessão (#[code s(sz)], sucessor do sucessor de zero); para o
+  |  três, três passos (#[code s(s(sz))]); e assim por diante.
 
 p Algumas linguagens de programação já incorporaram esse conceito para a
   | representação de números. Por exemplo, #[]
@@ -83,7 +83,7 @@ p Então o predicado #[code to_int/2] vai apenas verificar se o valor verificado
 p Esse outro predicado lida com os seguintes parâmetros: o número natural, o
   | acumulador (que deve ser iniciado como zero) e a resposta.
 
-p Então #[code to_int/2] vira:
+p Daí #[code to_int/2] vira:
 
 pre.prettyprint: code.language-prolog.
   to_int(N, R) :- nat(N), to_int(N, 0, R).
