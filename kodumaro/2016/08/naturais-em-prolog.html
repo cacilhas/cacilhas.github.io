@@ -41,7 +41,7 @@ go :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
 ímpar:</p><pre class="prettyprint"><code class="language-prolog">even(z).
 even(s(N)) :- odd(N).
 odd(N) :- &#x5c;+ even(N).
-</code></pre><p>Observação: <code>&#x5c;+</code> é negação lógica em Prolog; a parada tanto de <code>even/1</code> quanto de <code>odd/1</code> é <code>even(z)</code>, que informa que zero é par.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+</code></pre><p>Observação: <code>&#x5c;+</code> é negação lógica em Prolog; a parada tanto de <code>even/1</code> quanto de <code>odd/1</code> é <code>even(z)</code>, que informa que zero é par.</p><hr><p>Código para baixar: <a href="/misc/natural.pro">natural.pro</a>.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = 'http://cacilhas.info/kodumaro/2016/08/naturais-em-prolog.html'
   this.page.identifier = '2016.08.naturais-em-prolog'
   this.page.title = 'Números naturais em Prolog'
