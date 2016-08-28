@@ -5,11 +5,11 @@ nat(z).
 nat(s(N)) :- nat(N).
 
 to_int(N, R) :- nat(N), to_int(N, 0, R).
-to_int(z) --> '='.
+to_int(z, A, A).
 to_int(s(N)) --> succ, to_int(N).
 
 from_int(I, R) :- integer(I), I >= 0, from_int(I, z, R).
-from_int(0) --> { ! }, '='.
+from_int(0, A, A).
 from_int(I) --> { I1 is I - 1 }, nsucc, from_int(I1).
 nsucc(N, s(N)) :- nat(N).
 
