@@ -29,7 +29,7 @@ go :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
 
 
 %------------------------------------------------------------------------
-:- begin_tests(factorial).
+:- begin_tests(natural).
 
 test(nat,
      [forall(member(N, [z,
@@ -80,6 +80,6 @@ test(not_odd,
 test(failure_from_int, [fail]) :- from_int(-1, _).
 test(no_nat, [fail]) :- nat(z(s)).
 
-:- end_tests(factorial).
+:- end_tests(natural).
 
 % vim:set filetype=prolog
