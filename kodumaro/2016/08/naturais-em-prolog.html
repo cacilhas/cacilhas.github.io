@@ -37,7 +37,7 @@ servir de meta:</p><pre class="prettyprint"><code class="language-prolog">go :- 
 go :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
       file_base_name(Path, Script),
       format('use: ~w &lt;zero_or_positive_integer&gt;~n', [Script]).
-</code></pre><p>Agora precisamos converter o <em>script</em> em executável:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[library(qsave)].</strong><br><em>true.<br><br></em>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong>qsave_program(natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)])</strong>.<br><em>true.<br><br></em>:-</code></pre><p>Finalmente é só executar:</p><pre><code>sh$ <strong>.&#x2f;natural 12</strong><br><em>s(s(s(s(s(s(s(s(s(s(s(s(z))))))))))))<br></em>sh$</code></pre><h3>Bônus: par ou ímpar</h3><p>Como bônus, seguem dois predicados para calcular se o número natural é par ou
+</code></pre><p>Agora precisamos converter o <em>script</em> em executável:</p><pre><code>sh$ <strong>swipl -q</strong><br>:- <strong>[library(qsave)].</strong><br><em>true.<br><br></em>:- <strong>[natural].</strong><br><em>true.<br><br></em>:- <strong><a href="http://www.swi-prolog.org/pldoc/man?predicate=qsave_program%2f2">qsave_program</a>(natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)]).<br></strong><em>true.<br><br></em>:-</code></pre><p>Finalmente é só executar:</p><pre><code>sh$ <strong>.&#x2f;natural 12</strong><br><em>s(s(s(s(s(s(s(s(s(s(s(s(z))))))))))))<br></em>sh$</code></pre><h3>Bônus: par ou ímpar</h3><p>Como bônus, seguem dois predicados para calcular se o número natural é par ou
 ímpar:</p><pre class="prettyprint"><code class="language-prolog">even(z).
 even(s(N)) :- odd(N).
 odd(N) :- &#x5c;+ even(N).

@@ -163,7 +163,10 @@ pre: code
   em true.#[br/]#[br/]
   | :- #[strong: ="[natural]."]#[br/]
   em true.#[br/]#[br/]
-  | :- #[strong qsave_program(natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)])].#[br/]
+  | :- #[]
+  strong
+    a(href="http://www.swi-prolog.org/pldoc/man?predicate=qsave_program%2f2") qsave_program
+    | (natural, [init_file('natural.pl'), goal(natural:go), toplevel(halt)]).#[br/]
   em true.#[br/]#[br/]
   | :-
 
