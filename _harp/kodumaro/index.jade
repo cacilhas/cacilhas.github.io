@@ -37,7 +37,9 @@ each yearDir, yearSlug in public.kodumaro
         - month.slug = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug
         - month.title = monthSet[parseInt(monthSlug) - 1] + " de " + yearSlug
         - month.dir = monthDir._data
-        - months.unshift(month)
+        - month.date = new Date(yearSlug + "-" + monthSlug + "-01")
+        - months.push(month)
+- months.sort((a, b) => b.date - a.date)
 
 ul.list-group
   each month in months
