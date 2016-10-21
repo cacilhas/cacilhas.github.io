@@ -7,4 +7,5 @@
 .env
 .idea
 
+/node_modules
 /tmp
