@@ -12,7 +12,9 @@ each yearDir, yearSlug in public.montegasppa
             - article.url = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
             - article.content = page.content
-            - montegasppaArticles.unshift(article)
+            - article.release = page.release
+            - montegasppaArticles.push(article)
+- montegasppaArticles.sort((a, b) => new Date(b.release) - new Date(a.release))
 
 each yearDir, yearSlug in public.kodumaro
   if yearDir
@@ -24,7 +26,9 @@ each yearDir, yearSlug in public.kodumaro
             - article.url = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = public.kodumaro._data.blog.title + " :: " + page.title
             - article.content = page.content
-            - kodumaroArticles.unshift(article)
+            - article.release = page.release
+            - kodumaroArticles.push(article)
+- kodumaroArticles.sort((a, b) => new Date(b.release) - new Date(a.release))
 
 - for(var i = 0; i < 5; i++)
   if montegasppaArticles[i]
