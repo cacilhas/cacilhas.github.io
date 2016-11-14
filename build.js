@@ -11,10 +11,18 @@ const stylus = require("stylus")
 let globalContext = {}
 
 
-const getCounterpart = name =>
-  name.replace(/^.\/_source/, ".")
-      .replace(/.pug$/, ".html")
-      .replace(/.styl$/, ".css")
+function getCounterpart(name) {
+  let counterpart = name.replace(/^.\/_source/, ".")
+
+  if (counterpart.endsWith(".pug")) {
+    counterpart = counterpart.replace(/\.pug$/, "")
+    if (!/\.\w{3,4}/.test(counterpart))
+      counterpart += ".html"
+  } else if (counterpart.endsWith(".styl"))
+    counterpart = counterpart.replace(/\.styl$/, ".css")
+
+  return counterpart
+}
 
 
 const processDirectory = co.wrap(function*({ directory, context, layout }) {
@@ -85,8 +93,23 @@ const processFile = co.wrap(function*({ file, context, layout }) {
 
 
 const processPugFile = co.wrap(function*({ file, counterpart, context, layout }) {
-  // TODO
-  console.log(`${file} and ${layout} to ${counterpart}`)
+  let useLayout = context[layout]
+  useLayout = useLayout === undefined ? true : !!useLayout
+  let template
+
+  if (useLayout)
+    template = fs.readFileSync(layout, "utf-8")
+                 .replace(/^\s*!=\s*yield\s*$/, `include "${file}"`)
+
+  else
+    tempate = fs.readFileSync(file, "utf-8")
+
+  context = _.clone(context)
+  context.public = globalContext
+
+  let renderer = pug.compile(template, { filename: file, globals: globalContext })
+
+  fs.writeFileSync(counterpart, "utf-8", renderer(context))
 })
 
 
