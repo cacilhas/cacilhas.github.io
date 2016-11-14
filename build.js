@@ -70,10 +70,36 @@ const processFile = co.wrap(function*({ file, context, layout }) {
     fs.unlinkSync(counterpart)
 
   // TODO: pug / stylus
-  console.log(counterpart, layout)
+  if (file.endsWith(".pug"))
+    processPugFile({ file, counterpart, context, layout })
+    .catch(console.error)
+
+  else if (file.endsWith(".styl"))
+    processStylusFile({ file, counterpart })
+    .catch(console.error)
+
+  else
+    copyFile({ from: file, to: counterpart })
+    .catch(console.error)
+})
+
+
+const processPugFile = co.wrap(function*({ file, counterpart, context, layout }) {
+  // TODO
+  console.log(`${file} and ${layout} to ${counterpart}`)
+})
+
+
+const processStylusFile = co.wrap(function*({ file, counterpart }) {
+  // TODO
+  console.log(`${file} to ${counterpart}`)
+})
+
+
+const copyFile = co.wrap(function*({ from, to }) {
+  spawnSync("cp", [ from, to ]) // TODO: perform it without system
 })
 
 
 processDirectory({ directory: "./_source", context: globalContext })
-.then(() => console.dir(globalContext))
 .catch(console.error)
