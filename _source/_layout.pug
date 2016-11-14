@@ -1,13 +1,13 @@
 doctype html
 html(lang="pt")
   head
-    include ./_includes/head.jade
+    include ./_includes/head.pug
 
   body
-    include ./_includes/nav.jade
+    include ./_includes/nav.pug
 
     .container
       block main-container
         != yield
 
-    include ./_includes/foot.jade
+    include ./_includes/foot.pug
