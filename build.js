@@ -2,6 +2,7 @@
 
 const _ = require("underscore")
 const fs = require("fs")
+const path = require("path")
 const { spawnSync } = require("child_process")
 const co = require("co")
 const moment = require("moment")
@@ -109,13 +110,21 @@ const processPugFile = co.wrap(function*({ file, counterpart, context, layout })
 
   let renderer = pug.compile(template, { filename: file, globals: globalContext })
 
-  fs.writeFileSync(counterpart, "utf-8", renderer(context))
+  fs.writeFileSync(counterpart, renderer(context), "utf-8")
 })
 
 
 const processStylusFile = co.wrap(function*({ file, counterpart }) {
-  // TODO
-  console.log(`${file} to ${counterpart}`)
+  let template = fs.readFileSync(file, "utf-8")
+  stylus(template)
+  .set("filename", counterpart)
+  .set("paths", [ path.dirname(file) ])
+  .render((err, css) => {
+    if (err)
+      console.error(err)
+    else
+      fs.writeFileSync(counterpart, css, "utf-8")
+  })
 })
 
 
