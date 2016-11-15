@@ -5,38 +5,34 @@ div(class=["panel", "panel-default"])
     h2.mg-title Apresentação
 
   .panel-body
-    p.mg-first
-      | Meu nome é 
+    p.mg-first Meu nome é #[=""]
       a(href="/montegasppa/author.html") #{mainAuthor}
       |  e este é meu #[em site] pessoal.
 
-    p
-      | A intenção deste espaço é concentrar coisas de minha extinta página,
-      |  como Konsulta Vortaro, e trazer meu #[em blog] 
+    p A intenção deste espaço é concentrar coisas de minha extinta página, como 
+      | Konsulta Vortaro, e trazer meu #[em blog] #[=""]
       a(href="http://montegasppa.blogspot.com.br/")
         | Reflexões de Monte Gasppa e Giulia C.
-      |  para 
-      a(href=public.montegasppa._data.blog.url) cá
+      |  para #[=""]
+      a(href=public.montegasppa.blog.url) cá
       | .
 
-    p
-      | Também pretendia #[em reblogar] as publicações do 
-      a(href="http://kodumaro.blogspot.com.br/")!= public.kodumaro._data.blog.title
+    p Também pretendia #[em reblogar] as publicações do #[=""]
+      a(href="http://kodumaro.blogspot.com.br/")!= public.kodumaro.blog.title
       |  aqui, sem desativar o #[em blog] original, mas limitações na interface
-      |  do 
+      |  do #[=""]
       a(href="https://www.blogger.com/") Blogger.com
-      |  me obrigaram a transferir este #[em blog] também pra 
-      a(href=public.kodumaro._data.blog.url) cá
+      |  me obrigaram a transferir este #[em blog] também pra #[=""]
+      a(href=public.kodumaro.blog.url) cá
       | .
 
-    p
-      | Aos poucos irei preenchendo as lacunas aqui e em breve estarei com o
+    p Aos poucos irei preenchendo as lacunas aqui e em breve estarei com o
       |  #[em site] ressuscitado!
 
     p Até o momento, os espaços disponíveis são:
 
     +ul
-      a(href=public.montegasppa._data.blog.url)
-        +li!= public.montegasppa._data.blog.title
-      a(href=public.kodumaro._data.blog.url)
-        +li!= public.kodumaro._data.blog.title
+      a(href=public.montegasppa.blog.url)
+        +li!= public.montegasppa.blog.title
+      a(href=public.kodumaro.blog.url)
+        +li!= public.kodumaro.blog.title

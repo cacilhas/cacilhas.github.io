@@ -23,7 +23,8 @@ block main-container
       h6!= public.montegasppa._data.blog.subtitle
 
     .panel-body
-      != yield
+      block yield
+        p
 
 block footer
   p.pull-left

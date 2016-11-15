@@ -94,23 +94,30 @@ const processFile = co.wrap(function*({ file, context, layout }) {
 
 
 const processPugFile = co.wrap(function*({ file, counterpart, context, layout }) {
-  let useLayout = context[layout]
+  let useLayout = context.layout
   useLayout = useLayout === undefined ? true : !!useLayout
-  let template
+  let template = fs.readFileSync(file, "utf-8")
 
-  if (useLayout)
-    template = fs.readFileSync(layout, "utf-8")
-                 .replace(/^\s*!=\s*yield\s*$/, `include "${file}"`)
+  if (useLayout) {
+    let curdir = path.dirname(file)
+    let pardirs = _(curdir.split("/")).map(() => "..").join("/")
+    layout = path.normalize(`${curdir}/${pardirs}/${layout}`)
 
-  else
-    tempate = fs.readFileSync(file, "utf-8")
+    template = template.split("\n").map(e => `  ${e}`).join("\n")
+    template = `extends ${layout}\n\nblock yield\n${template}`
+  }
 
   context = _.clone(context)
   context.public = globalContext
 
-  let renderer = pug.compile(template, { filename: file, globals: globalContext })
-
-  fs.writeFileSync(counterpart, renderer(context), "utf-8")
+  try {
+    let renderer = pug.compile(template, { filename: file, pretty: true })
+    fs.writeFileSync(counterpart, renderer(context), "utf-8")
+  } catch(err) { //TODO: remove it
+    console.error(err)
+    console.dir(context)
+    process.exit(1)
+  }
 })
 
 
