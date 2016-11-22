@@ -167,13 +167,17 @@ const processPugFile = co.wrap(function*({ file, counterpart, context, layout })
       layoutFile = layoutFile.slice(1)
     }
 
-    let orig = layout
+    let layoutContent = fs.readFileSync(layout, "utf-8")
     let pardirs = fileFile.map(() => "..").slice(1).join("/")
     layout = path.normalize(`${pardirs}/${layoutFile.join("/")}`)
     layout = layout.startsWith("/") ? `.${layout}` : layout
 
+    let blockName = layoutContent.indexOf(" block content") === -1
+                  ? "main-container"
+                  : "content"
+
     template = template.split("\n").map(e => `  ${e}`).join("\n")
-    template = `extends ${layout}\n\nblock main-container\n${template}`
+    template = `extends ${layout}\n\nblock ${blockName}\n${template}`
   }
 
   context = _.clone(context)
