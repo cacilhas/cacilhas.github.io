@@ -202,4 +202,6 @@ co(function*() {
   yield loadContext({ dirname: "./_source", context: globalContext })
   yield populateBlogs(globalContext)
   yield processDirectory({ dirname: "./_source", context: globalContext })
-}).catch(console.error)
+})
+.then(() => require("./_app"))
+.catch(console.error)
