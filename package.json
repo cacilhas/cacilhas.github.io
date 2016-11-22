@@ -1,0 +1,28 @@
+{
+  "name": "cacilhas.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "node _app.js",
+    "test": "node _build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cacilhas/cacilhas.github.io.git"
+  },
+  "author": "Arĥimedeς Montegasppα Cacilhας",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cacilhas/cacilhas.github.io/issues"
+  },
+  "homepage": "https://cacilhas.info/",
+  "dependencies": {
+    "co": "^4.6.0",
+    "express": "^4.14.0",
+    "moment": "^2.16.0",
+    "pug": "^2.0.0-beta6",
+    "stylus": "^0.54.5",
+    "underscore": "^1.8.3"
+  }
+}

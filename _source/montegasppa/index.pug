@@ -1,0 +1,35 @@
+p.mg-first Sempre que conversava com algum amigo #[em blogueiro], ele me sugeria
+  |  criar um #[em blog] meu. Não pensei a sério até #[=""]
+  a(href="http://montegasppa.blogspot.in/2006/07/prlogo.html") julho de 2006
+  | , quando criei a primeira encarnação das #[=""]
+  strong Reflexões de Monte Gasppa e Giulia C.
+  | .
+
+p O #[em blog] era sobre Informática, Software Livre e programação, mas acabou
+  |  se tornando um #[em blog] político, muito em função da parte de programação
+  |  ter se tornado responsabilidade do #[=""]
+  a(href=public.kodumaro.blog.url)!= public.kodumaro.blog.title
+  | .
+
+p Mais tarde Reflexões acabou virando de fato meu #[em blog] pessoal, onde
+  |  vomito tudo o que me afeta nesse mundo, de religião a música, de Computação
+  | a política.
+
+p Renasce então sob minha #[=""]
+  a(href=mainHost+"/") página pessoal
+  | , com um nome ligeiramente diferente, já que resolvi mudar “Monte Gasppa”
+  |  para “ℳontegasppα”, mas cada vez mais meu #[em blog] #[strong pessoal].
+
+ul.list-group
+  each month in public.montegasppa.months
+    li.list-group-item
+      select.list-group-item(onchange="window.location = this.value; return true;"
+                             style={width: "100%"})
+        option(selected=true)= month.title
+        each page, slug in month.dir
+          option(value=`${month.slug}/${slug}.html`)
+            != page.title
+  a(href="http://montegasppa.blogspot.in/")
+    li.list-group-item
+      img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
+      |  Publicações anteriores

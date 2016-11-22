@@ -1,0 +1,39 @@
+extends ../_layout.pug
+
+block blog-head
+  title Reflexões… :: #{title}
+  link(rel="alternate" type="application/atom+xml" title=public.montegasppa.blog.title
+       href=`${public.montegasppa.blog.url}feed.xml`)/
+  link(rel="stylesheet" href="/css/montegasppa.css")/
+  link(rel="icon" href="/img/montegasppa.ico")/
+
+block append nav-bar
+  li(class={active: home}): a(href=public.montegasppa.blog.url) Prólogo
+  if (!home)
+    li.active: a(href=".") Reflexões… :: !{title}
+
+block main-container
+  div(class=["panel", "panel-default"])
+    .panel-heading
+      h2.mg-title Reflexões… :: !{title}
+      if release
+        - var release_ = new Date(release + 'T12:00')
+        - var month = release_.getMonth()
+        h6#release.pull-right #{release_.getDate()} de #{monthSet[month]}, #{release_.getFullYear()}
+      h6!= public.montegasppa.blog.subtitle
+
+    .panel-body
+      block yield
+        p
+
+block footer
+  p.pull-left
+    a(href=`${public.montegasppa.blog.url}feed.xml` target="_blank" type="application/atom+xml")
+     img(src="/img/rss.png" alt="feed")
+
+  p.small
+    a(href="/montegasppa/author.html")
+      | !{public.montegasppa.blog.title} &nbsp;
+    a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt")
+      img(alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png"
+          style={"border-width" :"0"})

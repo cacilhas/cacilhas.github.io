@@ -1,15 +1,72 @@
-<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatibile" content="IE=edge"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Cache-Control" content="no-cache"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content=""><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"><link rel="stylesheet" href="/css/bootstrap-theme.min.css"><link rel="stylesheet" href="/css/theme.css"><link rel="stylesheet" href="/css/cacilhas.css"><title>Kodumaro :: Paradoxo de Monty Hall, parte Ⅰ</title><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"><link rel="stylesheet" href="/css/kodumaro.css"><link rel="icon" href="/img/kodumaro.ico"><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">ℭacilhας.INFO</a></div><div id="navbar" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Paradoxo de Monty Hall, parte Ⅰ</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Paradoxo de Monty Hall, parte Ⅰ</h2><h6 class="pull-right">Publicado em 22 de Maio, 2016</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img src="/img/monty-hall.jpg" alt="Monty Hall" class="pull-right"><p class="mg-first">O <a href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall">Paradoxo de Monty Hall</a> diz que, em se descartando algumas escolhas erradas, as desconhecidas
- restantes combinam as probabilidades daquelas descartadas.</p><p>O exemplo clássico desse paradoxo são três portas fechadas, uma com um carro
-zero e as outras duas com bodes. O convidado precisa escolher uma porta, e
-receberá como prêmio o que estiver atrás dela.</p><p>Então o convidado escolhe uma porta. O mestre de cerimônia em vez de abrir
-a porta escolhida, abre uma das outras duas portas, mostrando um bode atrás
-dela. Então ele pergunta se o convidado quer continuar com a porta escolhida
-ou se prefere trocar para a outra porta ainda fechada.</p><p>Segundo o Paradoxo de Monty Hall, o convidado tem 33% (uma chance em três)
-de ganhar o carro se mantiver a escolha inicial, mas 67% (duas em três) se
-trocar para a outra porta. Isso porque se a possibilidade dele ganhar era
-33%, ela não se altera, portanto a possibilidade do carro estar em uma das
-outras duas portas – agora apenas uma – é de 67%.</p><p>Nesta sequência de artigos escreveremos um código para colocar à prova esse paradoxo. No processo aprenderemos um pouco sobre <a href="https://github.com/erlang/otp">OTP</a>, o <em>framework</em> de serviços de <a href="http://erlang.org/">Erlang</a>. Neste primeiro artigo, faremos funcionar o primeiro ator: o mestre de
-cerimônias.</p><h3 id="boilerplate"><em>Boilerplate</em></h3><p>Vamos começar com um <em>boilerplate</em> OTP para o mestre de cerimônia. Será um arquivo chamado <code>mh_mc.erl</code>. Usaremos o <a href="http://erlang.org/doc/man/gen_server.html"><code>gen_server</code></a>:</p><pre class="prettyprint"><code class="language-erlang">-module(mh_mc).
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatibile" content="IE=edge"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/theme.css"/>
+    <link rel="stylesheet" href="/css/cacilhas.css"/>
+    <title>Kodumaro :: Paradoxo de Monty Hall, parte Ⅰ</title>
+    <link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/>
+    <link rel="stylesheet" href="/css/kodumaro.css"/>
+    <link rel="icon" href="/img/kodumaro.ico"/>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/handle-old-url.js"></script>
+    <script src="/js/anchors.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Início</a></li>
+            <li><a href="/about.html">Sobre</a></li>
+            <li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li>
+            <li class="active"><a href=".">Paradoxo de Monty Hall, parte Ⅰ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container"><img class="pull-right" src="/img/monty-hall.jpg" alt="Monty Hall">
+      <p class="mg-first">O <a href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall">Paradoxo de Monty Hall</a>
+         diz que, em se descartando algumas escolhas erradas, as desconhecidas
+         restantes combinam as probabilidades daquelas descartadas.
+      </p>
+      <p>O exemplo clássico desse paradoxo são três portas fechadas, uma com um carro
+        zero e as outras duas com bodes. O convidado precisa escolher uma porta, e
+        receberá como prêmio o que estiver atrás dela.
+      </p>
+      <p>Então o convidado escolhe uma porta. O mestre de cerimônia em vez de abrir
+        a porta escolhida, abre uma das outras duas portas, mostrando um bode atrás
+        dela. Então ele pergunta se o convidado quer continuar com a porta escolhida
+        ou se prefere trocar para a outra porta ainda fechada.
+      </p>
+      <p>Segundo o Paradoxo de Monty Hall, o convidado tem 33% (uma chance em três)
+        de ganhar o carro se mantiver a escolha inicial, mas 67% (duas em três) se
+        trocar para a outra porta. Isso porque se a possibilidade dele ganhar era
+        33%, ela não se altera, portanto a possibilidade do carro estar em uma das
+        outras duas portas – agora apenas uma – é de 67%.
+      </p>
+      <p>Nesta sequência de artigos escreveremos um código para colocar à prova esse paradoxo. No processo aprenderemos um pouco sobre <a href="https://github.com/erlang/otp">OTP</a>, o <em>framework</em> de serviços de <a href="http://erlang.org/">Erlang</a>
+        . Neste primeiro artigo, faremos funcionar o primeiro ator: o mestre de
+        cerimônias.
+      </p>
+      <h3 id="boilerplate"><em>Boilerplate</em></h3>
+      <p>Vamos começar com um <em>boilerplate</em> OTP para o mestre de cerimônia. Será um arquivo chamado <code>mh_mc.erl</code>. Usaremos o <a href="http://erlang.org/doc/man/gen_server.html"><code>gen_server</code></a>:
+      </p>
+      <pre class="prettyprint"><code class="language-erlang">-module(mh_mc).
 -behavior(gen_server).
 
 -export([start_link/0, stop/0]).
@@ -42,43 +99,132 @@ handle_cast(_Request, State) -&gt; {noreply, State}.
 handle_info(_Info, _State) -&gt; ok.
 
 terminate(_Reason, _State) -&gt; ok.
-</code></pre><p>Nosso código é dividido em duas partes: API (interface com outros atores) e
-comportamento (interface com OTP).</p><p>A API por enquanto tem apenas duas funções, descritas nas declarações <code>-spec</code>: <code>start_link/0</code>, que inicia o mestre de cerimônias, e <code>stop/0</code>, que encerra o processo.</p><p>Já podemos testá-o, aliás:</p><pre><code>sh$ <strong>erlc mh_mc.erl</strong><br>sh$ <strong>erl</strong><br><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]<br></em><br><em>Eshell V7.3  (abort with ^G)<br></em>1&gt; <strong>mh_mc:start_link().</strong><br><em>{ok, &lt;0.35.0&gt;<br></em>2&gt; <strong>processes().</strong><br><em>[<0 .0.0>,<0 .3.0>,<0 .6.0>,<0 .7.0>,<0 .9.0>,<0 .10.0>,<0 .11.0>,<br></0></0></0></0></0></0></0></em><em> <0 .12.0>,<0 .14.0>,<0 .15.0>,<0 .16.0>,<0 .17.0>,<0 .18.0>,<br></0></0></0></0></0></0></em><em> <0 .19.0>,<0 .20.0>,<0 .21.0>,<0 .22.0>,<0 .23.0>,<0 .24.0>,<br></0></0></0></0></0></0></em><em> <0 .25.0>,<0 .26.0>,<0 .27.0>,<0 .28.0>,<0 .29.0>,<0 .33.0>,<br></0></0></0></0></0></0></em><em> <0 .35.0>]<br></0></em>3&gt; <strong>mh_mc:stop().</strong><br><em>ok<br></em>4&gt; <strong>processes().</strong><br><em>[<0 .0.0>,<0 .3.0>,<0 .6.0>,<0 .7.0>,<0 .9.0>,<0 .10.0>,<0 .11.0>,<br></0></0></0></0></0></0></0></em><em> <0 .12.0>,<0 .14.0>,<0 .15.0>,<0 .16.0>,<0 .17.0>,<0 .18.0>,<br></0></0></0></0></0></0></em><em> <0 .19.0>,<0 .20.0>,<0 .21.0>,<0 .22.0>,<0 .23.0>,<0 .24.0>,<br></0></0></0></0></0></0></em><em> <0 .25.0>,<0 .26.0>,<0 .27.0>,<0 .28.0>,<0 .29.0>,<0 .33.0>]<br></0></0></0></0></0></0></em>5&gt;</code></pre><p>As funções de comportamento são:</p><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>init/1</code>: função chamada pelo OTP para inicializar o processo, configurando o estado inicial.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>code_change/3</code>: diz ao OTP o que fazer quando o módulo é atualizado. No caso, apenas continua rodando o código novo com o mesmo
-estado.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>handle_call/3</code>: diz ao OTP o que fazer quando outro processo faz uma chamada, aguardando retorno. Em nosso <em>boilerplate</em>, apenas responde <code>ok</code>.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>handle_cast/2</code>: diz ao OTP o que fazer quando outro processo lança uma chamada assíncrona. Se o requisição for <code>stop</code>, usada pela função <code>stop/0</code>, encerra o processo normalmente, caso contrário, não responde nada e continua com o estado atual.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>handle_info/2</code>: diz ao OTP o que fazer em caso de <em>timeout</em>.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>terminate/2</code>: função chamada pelo OTP quando o processo encerra.</li></ul><h3 id="iniciando-sistema">Iniciando o sistema</h3><p>A primeira coisa a se fazer é inicializar o sistema criando as portas e colocando os bodes e o carro atrás de cada uma <a href="http://erlang.org/doc/man/random.html">aleatoriamente.</a></p><p>O método que inicializa o processo é <code>init/1</code>. Ele pode continuar recebendo <code>null</code>. O processo deve cuidar pessoalmente de configurar as portas.</p><p>Vamos representar as portas usando uma lista de possibilidades. Podemos chamar as possibilidades de <code>prize()</code>:</p><pre class="prettyprint"><code class="language-erlang">-type prize() :: car | goat.
-</code></pre><p>Podemos também definir que as portas são <code>a</code>, <code>b</code> e <code>c</code>:</p><pre class="prettyprint"><code class="language-erlang">-type door() :: a | b | c.
-</code></pre><blockquote><tt>[update 2016-05-23]</tt><p>Colocamos as declarações de tipo no arquivo <code>mh.hrl</code>, que deve ser importando usando:</p><pre class="prettyprint"><code class="language-erlang">-include("mh.hrl").</code></pre><tt>[/update]</tt></blockquote><p>A primeira coisa que precisamos fazer é <em>resetar</em> o sistema de aleatoriedade:</p><pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
+</code></pre>
+      <p>
+        Nosso código é dividido em duas partes: API (interface com outros atores) ecomportamento (interface com OTP).</p>
+      <p>A API por enquanto tem apenas duas funções, descritas nas declarações <code>-spec</code>: <code>start_link/0</code>, que inicia o mestre de cerimônias, e
+         <code>stop/0</code>, que encerra o processo.
+      </p>
+      <p>Já podemos testá-o, aliás:</p>
+      <pre><code>sh$ <strong>erlc mh_mc.erl</strong><br/>
+sh$ <strong>erl</strong><br/><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
+ [hipe] [kernel-poll:false] [dtrace]<br/></em><br/><em>Eshell V7.3  (abort with ^G)<br/></em>1&gt; <strong>mh_mc:start_link().</strong><br/><em>{ok, &lt;0.35.0&gt;<br/></em>2&gt; <strong>processes().</strong><br/><em>[<0.0.0>,<0.3.0>,<0.6.0>,<0.7.0>,<0.9.0>,<0.10.0>,<0.11.0>,<br/></em><em> <0.12.0>,<0.14.0>,<0.15.0>,<0.16.0>,<0.17.0>,<0.18.0>,<br/></em><em> <0.19.0>,<0.20.0>,<0.21.0>,<0.22.0>,<0.23.0>,<0.24.0>,<br/></em><em> <0.25.0>,<0.26.0>,<0.27.0>,<0.28.0>,<0.29.0>,<0.33.0>,<br/></em><em> <0.35.0>]<br/></em>3&gt; <strong>mh_mc:stop().</strong><br/><em>ok<br/></em>4&gt; <strong>processes().</strong><br/><em>[<0.0.0>,<0.3.0>,<0.6.0>,<0.7.0>,<0.9.0>,<0.10.0>,<0.11.0>,<br/></em><em> <0.12.0>,<0.14.0>,<0.15.0>,<0.16.0>,<0.17.0>,<0.18.0>,<br/></em><em> <0.19.0>,<0.20.0>,<0.21.0>,<0.22.0>,<0.23.0>,<0.24.0>,<br/></em><em> <0.25.0>,<0.26.0>,<0.27.0>,<0.28.0>,<0.29.0>,<0.33.0>]<br/></em>5&gt;</code></pre>
+      <p>As funções de comportamento são:</p>
+            <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>init/1</code>: função chamada pelo OTP para inicializar o processo, configurando o estado inicial.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>code_change/3</code>: diz ao OTP o que fazer quando o módulo é
+                       atualizado. No caso, apenas continua rodando o código novo com o mesmo
+                      estado.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>handle_call/3</code>: diz ao OTP o que fazer quando outro processo faz uma chamada, aguardando retorno. Em nosso <em>boilerplate</em>, apenas
+                       responde <code>ok</code>.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>handle_cast/2</code>: diz ao OTP o que fazer quando outro processo lança uma chamada assíncrona. Se o requisição for <code>stop</code>, usada pela
+                       função <code>stop/0</code>, encerra o processo normalmente, caso contrário,
+                       não responde nada e continua com o estado atual.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>handle_info/2</code>: diz ao OTP o que fazer em caso de <em>timeout</em>.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>terminate/2</code>: função chamada pelo OTP quando o processo encerra.
+                    </li>
+            </ul>
+      <h3 id="iniciando-sistema">Iniciando o sistema</h3>
+      <p>A primeira coisa a se fazer é inicializar o sistema criando as portas e colocando os bodes e o carro atrás de cada uma <a href="http://erlang.org/doc/man/random.html">aleatoriamente.</a>
+      </p>
+      <p>O método que inicializa o processo é <code>init/1</code>. Ele pode continuar recebendo <code>null</code>. O processo deve cuidar pessoalmente de configurar
+         as portas.
+      </p>
+      <p>Vamos representar as portas usando uma lista de possibilidades. Podemos chamar as possibilidades de <code>prize()</code>:</p>
+      <pre class="prettyprint"><code class="language-erlang">-type prize() :: car | goat.
+</code></pre>
+      <p>Podemos também definir que as portas são <code>a</code>, <code>b</code> e <code>c</code>:</p>
+      <pre class="prettyprint"><code class="language-erlang">-type door() :: a | b | c.
+</code></pre>
+      <blockquote>
+        <tt>[update 2016-05-23]</tt>
+        <p>Colocamos as declarações de tipo no arquivo <code>mh.hrl</code>, que deve ser importando usando:</p>
+        <pre class="prettyprint"><code class="language-erlang">-include("mh.hrl").</code></pre>
+        <tt>[/update]</tt>
+      </blockquote>
+      <p>A primeira coisa que precisamos fazer é <em>resetar</em> o sistema de aleatoriedade:</p>
+      <pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
   random:seed(now()),
   {ok, []}.
-</code></pre><p>Vamos agora colocar bodes atrás de todas as portas:</p><pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
+</code></pre>
+      <p>Vamos agora colocar bodes atrás de todas as portas:</p>
+      <pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
   random:seed(now()),
   Doors = [{a, goat}, {b, goat}, {c, goat}],
   {ok, Doors}.
-</code></pre><p>Agora precisamos escolher uma porta para coloca o carro:</p><pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
+</code></pre>
+      <p>Agora precisamos escolher uma porta para coloca o carro:</p>
+      <pre class="prettyprint"><code class="language-erlang">init(null) -&gt;
   random:seed(now()),                                         % inicializa o gerador de números aleatórios
   Doors = [{a, goat}, {b, goat}, {c, goat}],                  % inicializa as três portas com bodes
   CarDoor = lists:nth(random:uniform(3), [a, b, c]),          % escolhe uma porta pra colocar o carro: a, b ou c
   {ok, lists:keyreplace(CarDoor, 1, Doors, {CarDoor, car})}.  % inicia o processo com as portas configuradas
-</code></pre><p>O estado inicial do mestre de cerimônias consiste em uma lista de três portas, <code>a</code>, <code>b</code> e <code>c</code>, cada uma com um bode (<code>goat</code>) ou o carro (<code>car</code>) atrás. Nós não conhecemos essa formação, mas processo conhece.</p><p>Merece atenção especial a última linha:</p><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>ok</code> informa ao OTP que tudo correu bem.</li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> O segundo elemento da tupla é a lista de portas. <code>lists:keyreplace/4</code> faz a substituição de um elemento de uma lista de tuplas baseada em uma posição das tuplas:<ul><li><code>CarDoor</code> é a porta escolhida;</li><li><code>1</code> indica que a substituição é feita pelo primeiro elemento de cada tupla;</li><li><code>Doors</code> é a list original (apenas bodes);</li><li><code>{CarDoor, car}</code> é o novo elemento carro na porta <code>CarDoor</code>.</li></ul></li></ul><h3 id="valor-das-portas">Obtendo o valor das portas</h3><p>Não faz sentido termos as portas se não pudermos obter seus valores ao final.
-Para obter o prêmio atrás de um porta, precisamos configurar o método de comportamento <code>handle_call/3</code>.</p><p>No momento, a função é:</p><pre class="prettyprint"><code class="language-erlang">handle_call(_Request, _From, State) -&gt; {reply, ok, State}.
-</code></pre><p><strong>Imediatamente</strong> antes, acrescente outra assinatura:</p><pre class="prettyprint"><code class="language-erlang">handle_call({door, Door}, _From, State) -&gt;
+</code></pre>
+      <p>O estado inicial do mestre de cerimônias consiste em uma lista de três portas, <code>a</code>, <code>b</code> e <code>c</code>, cada uma com um bode
+         (<code>goat</code>) ou o carro (<code>car</code>) atrás. Nós não conhecemos essa
+         formação, mas processo conhece.
+      </p>
+      <p>Merece atenção especial a última linha:</p>
+            <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>ok</code> informa ao OTP que tudo correu bem.
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>O segundo elemento da tupla é a lista de portas. <code>lists:keyreplace/4</code> faz a substituição de um elemento de uma lista
+                       de tuplas baseada em uma posição das tuplas:
+                      <ul>
+                        <li><code>CarDoor</code> é a porta escolhida;</li>
+                        <li><code>1</code> indica que a substituição é feita pelo primeiro elemento de cada tupla;</li>
+                        <li><code>Doors</code> é a list original (apenas bodes);</li>
+                        <li><code>{CarDoor, car}</code> é o novo elemento carro na porta <code>CarDoor</code>.</li>
+                      </ul>
+                    </li>
+            </ul>
+      <h3 id="valor-das-portas">Obtendo o valor das portas</h3>
+      <p>Não faz sentido termos as portas se não pudermos obter seus valores ao final.
+        Para obter o prêmio atrás de um porta, precisamos configurar o método de
+         comportamento <code>handle_call/3</code>.
+      </p>
+      <p>No momento, a função é:</p>
+      <pre class="prettyprint"><code class="language-erlang">handle_call(_Request, _From, State) -&gt; {reply, ok, State}.
+</code></pre>
+      <p><strong>Imediatamente</strong> antes, acrescente outra assinatura:</p>
+      <pre class="prettyprint"><code class="language-erlang">handle_call({door, Door}, _From, State) -&gt;
     case lists:keyfind(Door, 1, State) of
         {_, Prize} -&gt; {reply, {prize, Prize}, State};
         false -&gt; {reply, null, State}
     end;
-</code></pre><p>Agora, se o processo receber uma chamada síncrona no formato <code>{door, Door}</code>, retornará o conteúdo daquela porta. Precisamos apenas de uma interface. Primeiro vamos exportá-la e definir sua especificação:</p><pre class="prettyprint"><code class="language-erlang">-export([start_link/0, stop/0, get_prize/1]).
+</code></pre>
+      <p>Agora, se o processo receber uma chamada síncrona no formato <code>{door, Door}</code>, retornará o conteúdo daquela porta. Precisamos apenas
+         de uma interface. Primeiro vamos exportá-la e definir sua especificação:
+      </p>
+      <pre class="prettyprint"><code class="language-erlang">-export([start_link/0, stop/0, get_prize/1]).
 
 ...
 
 -spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _}.
-</code></pre><p>Podemos implementar a função <code>get_prize/1</code>, que apenas faz a chamada para OTP:</p><pre class="prettyprint"><code class="language-erlang">get_prize(Door) -&gt;
+</code></pre>
+      <p>Podemos implementar a função <code>get_prize/1</code>, que apenas faz a chamada para OTP:</p>
+      <pre class="prettyprint"><code class="language-erlang">get_prize(Door) -&gt;
     case gen_server:call(?MODULE, {door, Door}) of
         {prize, Prize} -&gt; {ok, Prize};
         Other -&gt; {error, Other}
     end.
-</code></pre><h3 id="outra-porta">A outra porta</h3><p>A última coisa é oferecer a outra porta para abertura. Esse processo tem dois
-fluxos:</p><ol><li>O convidado escolheu a porta com o carro, então o mestre de cerimônias deve
-escolher uma das outras duas portas, aleatoriamente;</li><li>O convidado escolheu uma porta com bode, então o mestre de cerimônias deve
-abrir a outra com bode.</li></ol><p>Imediatamente acima da implementação de falha de <code>handle_call/3</code>, crieuma nova implementação tratando do pedido de outra porta para troca:</p><pre class="prettyprint"><code class="language-erlang">handle_call({other, Door}, _From, State) -&gt;
+</code></pre>
+      <h3 id="outra-porta">A outra porta</h3>
+      <p>
+        A última coisa é oferecer a outra porta para abertura. Esse processo tem doisfluxos:</p>
+      <ol>
+        <li>
+          O convidado escolheu a porta com o carro, então o mestre de cerimônias deveescolher uma das outras duas portas, aleatoriamente;</li>
+        <li>
+          O convidado escolheu uma porta com bode, então o mestre de cerimônias deveabrir a outra com bode.</li>
+      </ol>
+      <p>Imediatamente acima da implementação de falha de <code>handle_call/3</code>, crieuma nova implementação tratando do pedido de outra porta para troca:</p>
+      <pre class="prettyprint"><code class="language-erlang">handle_call({other, Door}, _From, State) -&gt;
     case lists:keyfind(Door, 1, State) of
         {_, goat} -&gt;
             % convidado escolheu um bode (67%)
@@ -91,12 +237,29 @@ abrir a outra com bode.</li></ol><p>Imediatamente acima da implementação de fa
         false -&gt; OtherDoor = null
     end,
     {reply, OtherDoor, State};
-</code></pre><blockquote><tt>[update 2016-05-23]</tt><p>A linha que encontra a porta com o carro merece uma explicação mais
-profunda.</p><pre class="prettyprint"><code class="language-erlang">{OtherDoor, _} = lists:keyfind(car, 2,
+</code></pre>
+      <blockquote>
+        <tt>[update 2016-05-23]</tt>
+        <p>
+          A linha que encontra a porta com o carro merece uma explicação maisprofunda.</p>
+        <pre class="prettyprint"><code class="language-erlang">{OtherDoor, _} = lists:keyfind(car, 2,
                                lists:keydelete(Door, 1, State));
-</code></pre><p>A primeira função avaliada é:</p><pre class="prettyprint"><code class="language-erlang">lists:keydelete(Door, 1, State)
-</code></pre><p>Ela retorna uma nova lista a partir de <code>State</code>, removendo a tupla cujo primeiro elemento é <code>Door</code>, ou seja, a porta escolhida pelo convidado. Assim, restam duas portas, uma com um bode, outra com o carro.
-É preciso retornar a porta com o carro.</p><p>Então entra o outro <code>lists:keyfind/3</code>, cujo primeiro parâmetro é <code>car</code> e o segundo <code>2</code>. Ele retorna a tupla cujo <strong>segundo</strong> elemento é <code>car</code>.</p><p>Finalmente o <em>partern matching</em> seleciona apenas a letra da porta, armazenando-a em <code>OtherDoor</code>.</p><tt>[/update]</tt></blockquote><p>Também precisamos aqui criar uma interface, da mesma forma:</p><pre class="prettyprint"><code class="language-erlang">-export([start_link/0, stop/0, get_prize/1, suggest_another_door/1]).
+</code></pre>
+        <p>A primeira função avaliada é:</p>
+        <pre class="prettyprint"><code class="language-erlang">lists:keydelete(Door, 1, State)
+</code></pre>
+        <p>Ela retorna uma nova lista a partir de <code>State</code>, removendo a tupla cujo primeiro elemento é <code>Door</code>, ou seja, a porta escolhida pelo
+           convidado. Assim, restam duas portas, uma com um bode, outra com o carro.
+          É preciso retornar a porta com o carro.
+        </p>
+        <p>Então entra o outro <code>lists:keyfind/3</code>, cujo primeiro parâmetro é <code>car</code> e o segundo <code>2</code>. Ele retorna a tupla cujo
+           <strong>segundo</strong> elemento é <code>car</code>.
+        </p>
+        <p>Finalmente o <em>partern matching</em> seleciona apenas a letra da porta, armazenando-a em <code>OtherDoor</code>.</p>
+        <tt>[/update]</tt>
+      </blockquote>
+      <p>Também precisamos aqui criar uma interface, da mesma forma:</p>
+      <pre class="prettyprint"><code class="language-erlang">-export([start_link/0, stop/0, get_prize/1, suggest_another_door/1]).
 
 ...
 
@@ -109,9 +272,33 @@ suggest_another_door(Door) -&gt;
         null -&gt; {error, null};
         OtherDoor -&gt; {ok, OtherDoor}
     end.
-</code></pre><h3 id="testando">Testando</h3><p>Precisamos testar agora pra ver se funciona!</p><pre><code>sh$ <strong>erlc mh_mc.erl</strong><br>sh$ <strong>erl</strong><br><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]<br></em><br><em>Eshell V7.3  (abort with ^G)<br></em>1&gt; <strong>mh_mc:start_link().</strong><br><em>{ok,&lt;0.35.0&gt;}<br></em>2&gt; <strong>mh_mc:get_prize(a).</strong><br><em>{ok,goat}<br></em>3&gt; <strong>mh_mc:get_prize(b).</strong><br><em>{ok,goat}<br></em>4&gt; <strong>mh_mc:get_prize(c).</strong><br><em>{ok,car}<br></em>5&gt; <strong>mh_mc:suggest_another_door(a).</strong><br><em>{ok,c}<br></em>6&gt; <strong>mh_mc:suggest_another_door(b).</strong><br><em>{ok,c}<br></em>7&gt; <strong>mh_mc:suggest_another_door(c).</strong><br><em>{ok,b}<br></em>8&gt; <strong>mh_mc:suggest_another_door(a).</strong><br><em>{ok,c}<br></em>9&gt; <strong>mh_mc:suggest_another_door(b).</strong><br><em>{ok,c}<br></em>10&gt; <strong>mh_mc:suggest_another_door(c).</strong><br><em>{ok,a}<br></em>11&gt; <strong>mh_mc:stop()</strong><br><em>ok<br></em>12&gt;</code></pre><h3 id="para-baixar">Arquivos para baixar</h3><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a></li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="/misc/monty-hall/mh_mc.erl"><code>mh_mc.erl</code></a></li></ul><h3 id="proximos-passos">Próximos passos</h3><p>No <a href="http://cacilhas.info/kodumaro/2016/05/monty-hall-2.html">próximo artigo</a> criaremos o segundo ator, o convidado, que deve escolher uma das três
-portas e depois decidir se troca de porta ou não.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
-  this.page.url = 'http://cacilhas.info/kodumaro/2016/05/monty-hall.html'
-  this.page.identifier = '2016.05.monty-hall'
-  this.page.title = 'Paradoxo de Monty Hall, parte Ⅰ'
-}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div></div><div id="footer" class="panel-footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
+</code></pre>
+      <h3 id="testando">Testando</h3>
+      <p>Precisamos testar agora pra ver se funciona!</p>
+      <pre><code>sh$ <strong>erlc mh_mc.erl</strong><br/>
+sh$ <strong>erl</strong><br/><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
+ [hipe] [kernel-poll:false] [dtrace]<br/></em><br/><em>Eshell V7.3  (abort with ^G)<br/></em>1&gt; <strong>mh_mc:start_link().</strong><br/><em>{ok,&lt;0.35.0&gt;}<br/></em>2&gt; <strong>mh_mc:get_prize(a).</strong><br/><em>{ok,goat}<br/></em>3&gt; <strong>mh_mc:get_prize(b).</strong><br/><em>{ok,goat}<br/></em>4&gt; <strong>mh_mc:get_prize(c).</strong><br/><em>{ok,car}<br/></em>5&gt; <strong>mh_mc:suggest_another_door(a).</strong><br/><em>{ok,c}<br/></em>6&gt; <strong>mh_mc:suggest_another_door(b).</strong><br/><em>{ok,c}<br/></em>7&gt; <strong>mh_mc:suggest_another_door(c).</strong><br/><em>{ok,b}<br/></em>8&gt; <strong>mh_mc:suggest_another_door(a).</strong><br/><em>{ok,c}<br/></em>9&gt; <strong>mh_mc:suggest_another_door(b).</strong><br/><em>{ok,c}<br/></em>10&gt; <strong>mh_mc:suggest_another_door(c).</strong><br/><em>{ok,a}<br/></em>11&gt; <strong>mh_mc:stop()</strong><br/><em>ok<br/></em>12&gt;</code></pre>
+      <h3 id="para-baixar">Arquivos para baixar</h3>
+            <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_mc.erl"><code>mh_mc.erl</code></a>
+                    </li>
+            </ul>
+      <h3 id="proximos-passos">Próximos passos</h3>
+      <p>No <a href="http://cacilhas.info/kodumaro/2016/05/monty-hall-2.html">próximo artigo</a>
+         criaremos o segundo ator, o convidado, que deve escolher uma das três
+        portas e depois decidir se troca de porta ou não.
+      </p>
+    </div>
+    <div class="panel-footer" id="footer">
+      <p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p>
+      <p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a>
+      </p>
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/kodumaro.disqus.js"></script>
+    <script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script>
+  </body>
+</html>

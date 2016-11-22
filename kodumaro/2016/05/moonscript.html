@@ -1,15 +1,109 @@
-<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatibile" content="IE=edge"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Cache-Control" content="no-cache"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content=""><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"><link rel="stylesheet" href="/css/bootstrap-theme.min.css"><link rel="stylesheet" href="/css/theme.css"><link rel="stylesheet" href="/css/cacilhas.css"><title>Kodumaro :: MoonScript sobre LuaJIT</title><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"><link rel="stylesheet" href="/css/kodumaro.css"><link rel="icon" href="/img/kodumaro.ico"><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">ℭacilhας.INFO</a></div><div id="navbar" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">MoonScript sobre LuaJIT</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: MoonScript sobre LuaJIT</h2><h6 class="pull-right">Publicado em 12 de Maio, 2016</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img src="/img/moonscript.jpg" alt="MoonScript" class="pull-right"><p class="mg-first">Há muito pouco tempo atrás um amigo meu me sugeriu dar atenção a <a href="http://moonscript.org/">MoonScript</a>. Admito que eu via a linguagem com preconceito, mesmo assim resolvi dar uma
-olhada.</p><p>Resultado: todos os meus códigos em <a href="http://www.lua.org/">Lua</a> acabaram migrados para MoonScript. 😋</p><p>A linguagem é extremamente enxuta, limpa e poderosa. Para lidar com o
-paradigma funcional, a sintaxe de MoonScript é bem mais concisa e que a de
-Lua. O mesmo vale para orientação a objetos. Não vou entrar em detalhes, se estiver curioso, leia o <a href="http://moonscript.org/reference/">guia da linguagem</a>.</p><h3 id="luajit">LuaJIT</h3><p><a href="http://luajit.org/">LuaJIT</a> é uma implementação alternativa <a href="https://pt.wikipedia.org/wiki/JIT">JIT</a> de Lua, com suporte a <a href="https://pt.wikipedia.org/wiki/Interface_de_função_externa">FFI</a> nativo.</p><p>Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.</p><p>Vamos começar pelas dependências.</p><h3 id="dependencias">Dependências</h3><p>MoonScript depende de quatro outros módulos para funcionar:</p><ul class="list-group"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="http://luaforge.net/projects/alt-getopt/"><code>alt-getopt</code></a></li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <a href="http://keplerproject.github.io/luafilesystem/">LuaFileSystem</a></li><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> LPeg</li></ul><p>Instale <code>alt-getopt</code> normalmente no <code>LUA_PATH</code> de seu LuaJIT. Aqui para mim é <code>/usr/share/lua/jit</code>.</p><p>Para instalar LuaFileSystem, clone o repositório do <a href="https://github.com/keplerproject/luafilesystem">GitHUB</a> e não se esqueça de editar o arquivo <code>config</code>. As mudanças
-principais são:</p><pre class="prettyprint"><code class="language-sh">PREFIX=/usr
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatibile" content="IE=edge"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/theme.css"/>
+    <link rel="stylesheet" href="/css/cacilhas.css"/>
+    <title>Kodumaro :: MoonScript sobre LuaJIT</title>
+    <link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/>
+    <link rel="stylesheet" href="/css/kodumaro.css"/>
+    <link rel="icon" href="/img/kodumaro.ico"/>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/handle-old-url.js"></script>
+    <script src="/js/anchors.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Início</a></li>
+            <li><a href="/about.html">Sobre</a></li>
+            <li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li>
+            <li class="active"><a href=".">MoonScript sobre LuaJIT</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container"><img class="pull-right" src="/img/moonscript.jpg" alt="MoonScript">
+      <p class="mg-first">Há muito pouco tempo atrás um amigo meu me sugeriu dar atenção a <a href="http://moonscript.org/">MoonScript</a>
+        . Admito que eu via a linguagem com preconceito, mesmo assim resolvi dar uma
+        olhada.
+      </p>
+      <p>Resultado: todos os meus códigos em <a href="http://www.lua.org/">Lua</a> acabaram migrados para MoonScript. 😋
+      </p>
+      <p>A linguagem é extremamente enxuta, limpa e poderosa. Para lidar com o
+        paradigma funcional, a sintaxe de MoonScript é bem mais concisa e que a de
+        Lua. O mesmo vale para orientação a objetos. Não vou entrar em detalhes, se
+         estiver curioso, leia o <a href="http://moonscript.org/reference/">guia da linguagem</a>.
+      </p>
+      <h3 id="luajit">LuaJIT</h3>
+      <p><a href="http://luajit.org/">LuaJIT</a> é uma implementação alternativa <a href="https://pt.wikipedia.org/wiki/JIT">JIT</a> de Lua, com suporte a <a href="https://pt.wikipedia.org/wiki/Interface_de_função_externa">FFI</a> nativo.
+      </p>
+      <p>Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma série de pequenos <em>hacks</em> pra funcionar.</p>
+      <p>Vamos começar pelas dependências.</p>
+      <h3 id="dependencias">Dependências</h3>
+      <p>MoonScript depende de quatro outros módulos para funcionar:</p>
+            <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="http://luaforge.net/projects/alt-getopt/"><code>alt-getopt</code></a>
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="http://keplerproject.github.io/luafilesystem/">LuaFileSystem</a>
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>LPeg
+                    </li>
+            </ul>
+      <p>Instale <code>alt-getopt</code> normalmente no <code>LUA_PATH</code> de seu LuaJIT. Aqui para mim é <code>/usr/share/lua/jit</code>.</p>
+      <p>Para instalar LuaFileSystem, clone o repositório do <a href="https://github.com/keplerproject/luafilesystem">GitHUB</a>
+         e não se esqueça de editar o arquivo <code>config</code>. As mudanças
+        principais são:
+      </p>
+      <pre class="prettyprint"><code class="language-sh">PREFIX=/usr
 LUA_LIBDIR=$(PREFIX)/lib/lua/jit
 LUA_INC=$(PREFIX)/include/luajit-2.0
-</code></pre><p>Isso considerando que seu <code>LUA_CPATH</code> esteja em <code>/usr/lib/lua/jit</code>.</p><p>Compile e instale normalmente.</p><p>Já LPeg merece uma atenção extra, já que ele <strong>não</strong> funciona com LuaJIT. No lugar, use <a href="https://github.com/sacek/LPegLJ">LPegLJ</a>.</p><p>Clone e instale LPegLJ no seu <code>LUA_PATH</code>, depois execute o seguinte comando:</p><pre class="prettyprint"><code class="language-sh">cd $LUA_PATH
+</code></pre>
+      <p>Isso considerando que seu <code>LUA_CPATH</code> esteja em <code>/usr/lib/lua/jit</code>.</p>
+      <p>Compile e instale normalmente.</p>
+      <p>Já LPeg merece uma atenção extra, já que ele <strong>não</strong> funciona com LuaJIT. No lugar, use <a href="https://github.com/sacek/LPegLJ">LPegLJ</a>.
+      </p>
+      <p>Clone e instale LPegLJ no seu <code>LUA_PATH</code>, depois execute o seguinte comando:</p>
+      <pre class="prettyprint"><code class="language-sh">cd $LUA_PATH
 sudo ln -s lpeglj.lua lpeg.lua
-</code></pre><p>Isso fará com que MoonScript pense tratar-se do LPeg original.</p><h3 id="moonscript">Instalando MoonScript</h3><p>Com as três dependências instaladas, clone o projeto do <a href="https://github.com/leafo/moonscript">GitHUB</a>. Edite o <code>Makefile</code>, substituindo as ocorrências de <code>lua5.1</code> e <code>lua</code> por <code>luajit</code>.</p><p>Remova as entradas <code>local</code> e <code>global</code> do <code>Makefile</code>.</p><p>Edite o <em>hashbang</em> dos arquivos <code>bin/moon</code> e <code>bin/moonc</code>, trocando <code>lua</code> por <code>luajit</code>.</p><p>Execute <code>make compile</code></p><p>Copie os diretórios <code>moon/</code> e <code>moonscript/</code> para seu <code>LUA_PATH</code>.</p><p>Copie os arquivos <code>bin/moon</code> e <code>bin/moonc</code> para o diretório <code>/usr/bin/</code> do sistema.</p><p>E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eu
-revisar o texto.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
-  this.page.url = 'http://cacilhas.info/kodumaro/2016/05/moonscript.html'
-  this.page.identifier = '2016.05.moonscript'
-  this.page.title = 'MoonScript sobre LuaJIT'
-}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div></div><div id="footer" class="panel-footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
+</code></pre>
+      <p>Isso fará com que MoonScript pense tratar-se do LPeg original.</p>
+      <h3 id="moonscript">Instalando MoonScript</h3>
+      <p>Com as três dependências instaladas, clone o projeto do <a href="https://github.com/leafo/moonscript">GitHUB</a>. Edite o <code>Makefile</code>, substituindo as ocorrências de <code>lua5.1</code> e
+         <code>lua</code> por <code>luajit</code>.
+      </p>
+      <p>Remova as entradas <code>local</code> e <code>global</code> do <code>Makefile</code>.</p>
+      <p>Edite o <em>hashbang</em> dos arquivos <code>bin/moon</code> e <code>bin/moonc</code>, trocando <code>lua</code> por <code>luajit</code>.</p>
+      <p>Execute <code>make compile</code></p>
+      <p>Copie os diretórios <code>moon/</code> e <code>moonscript/</code> para seu <code>LUA_PATH</code>.</p>
+      <p>Copie os arquivos <code>bin/moon</code> e <code>bin/moonc</code> para o diretório <code>/usr/bin/</code> do sistema.</p>
+      <p>
+        E pronto! Já deve estar funcionando! Qualquer dúvida, me avisem pra eurevisar o texto.</p>
+    </div>
+    <div class="panel-footer" id="footer">
+      <p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p>
+      <p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a>
+      </p>
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/kodumaro.disqus.js"></script>
+    <script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script>
+  </body>
+</html>

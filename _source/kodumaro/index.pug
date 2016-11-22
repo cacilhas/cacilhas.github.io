@@ -1,0 +1,46 @@
+- let blogtitle = public.kodumaro.blog.title
+
+img.pull-right(src="/img/kodumaro.jpg" alt="Logo")
+
+p.mg-first Olá gente!
+
+p !{blogtitle} é um trabalho em conjunto de três amigos programadores: #[=""]
+  a(href="https://claudiotorcato.wordpress.com/") Cláudio Torcato
+  | , #[=""]
+  a(href=public.montegasppa.blog.url) Rodrigo Cacilhas
+  |  e #[=""]
+  a(href="http://waltercruz.com/") Walter Cruz
+  | , num esforço para trazer algumas dicas interessantes sobre programação.
+
+p Os temas irão de iniciante a avançado, desde conceitos de programação até
+  | códigos em diversas linguagens, com uma redação leve e acessível.
+
+p Esperamos que os artigos sejam úteis e elucidativos, e aguardamos retorno de
+  | nossos leitores para que !{blogtitle} se aperfeiçoe dia a dia.
+
+p Sem mais delongas, está apresentada nossa mídia: #[=""]
+  a(href=public.kodumaro.blog.url)!= blogtitle
+  | !
+
+p: small
+  | Publicação original #[=""]
+  a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
+  | .
+
+ul.list-group
+  each month in public.kodumaro.months
+    li.list-group-item
+      select.list-group-item(onchange="window.location = this.value; return true;"
+                             style={width: "100%"})
+        option(selected=true)= month.title
+        each page, slug in month.dir
+          option(value=`${month.slug}/${slug}.html`)
+            != page.title
+  a(href="http://kodumaro.blogspot.com.br/")
+    li.list-group-item
+      img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
+      |  Publicações anteriores
+  a(href="https://twitter.com/kodumaro")
+    li.list-group-item
+      img(src="/img/twitter.png" alt="" style={width: "24px", height: "24px"})
+      |  Kodumaro no Twitter
