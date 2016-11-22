@@ -1,18 +1,18 @@
 doctype xml
 rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
   channel
-    title= public.kodumaro._data.blog.title
-    link= public.kodumaro._data.blog.url
-    description= public.kodumaro._data.blog.subtitle
+    title= public.kodumaro.blog.title
+    link= public.kodumaro.blog.url
+    description= public.kodumaro.blog.subtitle
 
-    - var articles = new Array
+    - var articles = []
     each yearDir, yearSlug in public.kodumaro
-      if yearDir
+      if yearDir && /^\d{4}$/.test(yearSlug)
         each monthDir, monthSlug in yearDir
-          if monthDir._data
-            each page, slug in monthDir._data
+          if monthDir && /^\d\d$/.test(monthSlug)
+            each page, slug in monthDir
               - var article = {}
-              - article.url = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+              - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
               - article.title = page.title
               - article.release = page.release
               - article.content = page.content

@@ -8,7 +8,7 @@ p.mg-first Este artigo havia sido publicado originalmente em 18 de fevereiro de
   | #[em blog] original. Infelizmente o #[=""]
   a(href="https://blogger.com/") Blogger.com
   |  resolveu apagá-lo durante um #[em bug] da interface, mas o trouxemos de
-  |  volta nesta nova encarnação do !{public.kodumaro._data.blog.title}.
+  |  volta nesta nova encarnação do !{public.kodumaro.blog.title}.
 
 p Um paradigma muito útil é a #[=""]
   a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
@@ -22,7 +22,7 @@ p Nesta primeira parte, abordaremos essa separação de forma simples, deixando 
   |  conceito de #[=""]
   a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
   |  para a #[=""]
-  a(href=public.kodumaro._data.blog.url+"2016/04/aspectos-2.html") parte II
+  a(href=`${public.kodumaro.blog.url}2016/04/aspectos-2.html`) parte II
   | .
 
 p Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado de
@@ -264,5 +264,5 @@ h3 Observação
         import json
 
 p Na #[=""]
-  a(href=public.kodumaro._data.blog.url+"2016/04/aspectos-2.html") parte II
+  a(href=`${public.kodumaro.blog.url}2016/04/aspectos-2.html`) parte II
   |  abordaremos #[em mixins].

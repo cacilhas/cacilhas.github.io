@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatibile" content="IE=edge"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/theme.css"/>
+    <link rel="stylesheet" href="/css/cacilhas.css"/>
+    <title>Kodumaro :: Paradoxo de Monty Hall, parte Ⅱ</title>
+    <link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/>
+    <link rel="stylesheet" href="/css/kodumaro.css"/>
+    <link rel="icon" href="/img/kodumaro.ico"/>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/handle-old-url.js"></script>
+    <script src="/js/anchors.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Início</a></li>
+            <li><a href="/about.html">Sobre</a></li>
+            <li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li>
+            <li class="active"><a href=".">Paradoxo de Monty Hall, parte Ⅱ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container"><img class="pull-right" src="/img/erlang.png" alt="Erlang">
+      <p class="mg-first">Já temos o <a href="/misc/monty-hall/mh_mc.erl">mestre de cerimônias</a>, que fizemos no <a href="http://cacilhas.info/kodumaro/2016/05/monty-hall.html">artigo anterior</a>, agora precisamos de um convidado para escolher qual porta abrir.
+      </p>
+      <p>Vamos começar com um cabeçalho bastante simples:</p>
+      <pre class="prettyprint"><code class="language-erlang">-module(mh_guest).
+-export([choose/0, change/2]).
+
+-include("mh.hrl").
+
+-spec choose() -&gt; door().
+-spec change(Original :: door(), Alternative :: door()) -&gt; door().
+</code></pre>
+      <p>A função para escolher a porta:</p>
+      <pre class="prettyprint"><code class="language-erlang">choose() -&gt; lists:nth(random:uniform(3), [a, b, c]).
+</code></pre>
+      <p>E a função para mudar de porta:</p>
+      <pre class="prettyprint"><code class="language-erlang">-ifdef(change).
+change(_Original, Alternative) -&gt; Alternative.
+-else.
+change(Original, _Alternative) -&gt; Original.
+-endif.
+</code></pre>
+      <p>Com isso, a função <code>change/2</code> sempre retornará a porta originalmente escolhida, a menos que o arquivo <code>mh_guest.erl</code> seja compilado com a
+         <em>flag</em> <code>-Dchange</code>.
+      </p>
+      <p>E já temos como simular o convidado!</p>
+      <h3 id="para-baixar">Arquivos para baixar</h3>
+            <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a>
+                    </li>
+            </ul>
+      <h3 id="proximos-passos">Próximos passos</h3>
+      <p>No <a href="/kodumaro/2016/05/monty-hall-3.html">último artigo</a>
+         colocaremos tudo junto, executando diversas vezes para calcular quantas
+        vezes o convidado ganha o carro.
+      </p>
+    </div>
+    <div class="panel-footer" id="footer">
+      <p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p>
+      <p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a>
+      </p>
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/kodumaro.disqus.js"></script>
+    <script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script>
+  </body>
+</html>

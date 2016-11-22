@@ -1,11 +1,11 @@
 - var tags = {}
-- var kodumaro = public.kodumaro._data.blog.title
+- var kodumaro = public.kodumaro.blog.title
 
 each yearDir, yearSlug in public.montegasppa
-  if yearDir
+  if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
-      if monthDir._data
-        each page, slug in monthDir._data
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
           - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
           each tag in page.tags
             if tags[tag]
@@ -14,10 +14,10 @@ each yearDir, yearSlug in public.montegasppa
               - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
 
 each yearDir, yearSlug in public.kodumaro
-  if yearDir
+  if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
-      if monthDir._data
-        each page, slug in monthDir._data
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
           - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
           each tag in page.tags
             if tags[tag]

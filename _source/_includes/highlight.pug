@@ -1,15 +1,15 @@
-- var montegasppaArticles = new Array
-- var kodumaroArticles = new Array
-- var articles = new Array
+- var montegasppaArticles = []
+- var kodumaroArticles = []
+- var articles = []
 
 each yearDir, yearSlug in public.montegasppa
-  if yearDir
+  if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
-      if monthDir._data
-        each page, slug in monthDir._data
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
           if (!page.hidden)
             - var article = {}
-            - article.url = public.montegasppa._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.url = public.montegasppa.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
             - article.content = page.content
             - article.release = new Date(page.release)
@@ -17,20 +17,20 @@ each yearDir, yearSlug in public.montegasppa
 - montegasppaArticles.sort((a, b) => b.release - a.release)
 
 each yearDir, yearSlug in public.kodumaro
-  if yearDir
+  if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
-      if monthDir._data
-        each page, slug in monthDir._data
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
           if (!page.hidden)
             - var article = {}
-            - article.url = public.kodumaro._data.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-            - article.title = public.kodumaro._data.blog.title + " :: " + page.title
+            - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+            - article.title = public.kodumaro.blog.title + " :: " + page.title
             - article.content = page.content
             - article.release = new Date(page.release)
             - kodumaroArticles.push(article)
 - kodumaroArticles.sort((a, b) => b.release - a.release)
 
-for(var i = 0; i < 5; i++)
+each i in [0, 1, 2, 3, 4]
   if montegasppaArticles[i]
     - articles.push(montegasppaArticles[i])
   if kodumaroArticles[i]
