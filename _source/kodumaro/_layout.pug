@@ -20,7 +20,7 @@ block main-container
       if release
         - let release_ = new Date(`${release}T12:00`)
         - let month = release_.getMonth()
-        h6.pull-right Publicado em #{release_.getDate()} de #{public.monthSet[month]}, #{1900 + release_.getYear()}
+        h6.pull-right Publicado em #{release_.getDate()} de #{public.monthSet[month]}, #{release_.getFullYear()}
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
