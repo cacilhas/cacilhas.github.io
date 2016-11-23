@@ -13,7 +13,7 @@ p
   a(href="http://blogs.love2d.org/content/beginners-guide-shaders")
     em shaders
   |   nativo, porém exige um pouco de verborragia para lidar com outros recursos
-  | básicos, como câmera e temporização.
+  |  básicos, como câmera e temporização.
 
 p Mas não ficamos órfãos de recursos ao programar em LÖVE. A comunidade tem
   |  desenvolvido #[=""]
@@ -114,14 +114,14 @@ pre.prettyprint: code.
 
 p Importamos #[code hump.camera] – padronizado como #[code Camera] –, reservamos
   |  uma variável para a instância de aplicação e criamos a classe, apenas com o
-  | construtor.
+  |  construtor.
 
 p No construtor da classe, instanciamos uma câmera olhando para a posição
   |  (0, 0), e criamos uma lista de formas (#[code shapes]) contendo uma função
   |  anônima que desenha um círculo de 50 #[em pixels] na posição (0, 0).
 
 p Nossa classe ainda precisa de um método para chamar as funções que desenham
-  | as formas. Acrescente à classe o método:
+  |  as formas. Acrescente à classe o método:
 
 pre.prettyprint: code
   |     draw: =&gt;
@@ -148,7 +148,7 @@ pre: code
   | sh$ #[strong love .]
 
 p O resultado esperado é abrir uma janela azul com um círculo preto no canto.
-  | Pode fechá-la, ela ainda não faz mais nada.
+  |  Pode fechá-la, ela ainda não faz mais nada.
 
 p(style={"text-align": "center"})
   img(src="/img/camera-example/shot-1.jpg" alt="")
@@ -172,7 +172,7 @@ p(style={"text-align": "center"})
   img(src="/img/camera-example/shot-2.jpg" alt="")
 
 p Entenda o que aconteceu: agora a câmera está olhando para a posição onde está
-  | o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.
+  |  o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.
 
 h3#movendo-camera Movendo a câmera
 
@@ -212,10 +212,10 @@ p Então é possível mover a câmera usando as setas do teclado.
 h3#mais-objectos Adicionando mais objetos
 
 p Parece estranho… aperta para a esquerda, o círculo vai para a direita, aperta
-  | para baixo, vai para cima…
+  |  para baixo, vai para cima…
 
 p Isso porque o que está sendo movido é a câmera. Para deixar mais claro, basta
-  | acrescentar mais formas.
+  |  acrescentar mais formas.
 
 p Altere o construtor da classe para receber a lista de formas:
 
@@ -284,7 +284,7 @@ pre.prettyprint: code.
       app\update dt
 
 p Ao compilar e rodar a aplicação você verá os objetos piscando, enquanto a
-  | câmera pode ser movida para mudar o ponto de visão.
+  |  câmera pode ser movida para mudar o ponto de visão.
 
 p(style={"text-align": "center"})
   img(src="/img/camera-example/shot-3.jpg" alt="")
