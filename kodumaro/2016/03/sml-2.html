@@ -47,41 +47,41 @@
           <h6>As sombras da programação.</h6>
         </div>
         <div class="panel-body">
-          <p class="mg-first">No <a href="http://cacilhas.info/kodumaro/2016/03/sml.html">artigo anterior vimos como </a>
-            criar funções que retornem uma sequência de inteiros. Porém, para 
-            estendê-las para gerarem uma sequência de caracteres, por exemplo, teríamos
-            de reescrever o código.
-          </p>
-          <p>Neste artigo mudaremos o código para torná-lo estensível a outros tipos usando um <em>functor</em>.</p>
-          <p>Módulos em Standard ML são chamados <em>structures</em> e podem ser instanciados sob demanda com o uso de <em>functors</em>. A primeira coisa que precisamos é
-             da assinatura dos módulos gerados pelo <em>functor</em>.
-          </p>
-          <p>Os módulos gerados precisam ter o tipo de dado (<code>t</code>), uma função para construir o gerador (<code>build</code>) e outra para converter o gerador em
-             lista (<code>genToList</code>). A assinatura fica assim então:
-          </p>
-          <pre class="prettyprint"><code class="language-ml">signature GENERATOR =
+<p class="mg-first">No <a href="http://cacilhas.info/kodumaro/2016/03/sml.html">artigo anterior vimos como </a>
+  criar funções que retornem uma sequência de inteiros. Porém, para 
+  estendê-las para gerarem uma sequência de caracteres, por exemplo, teríamos
+  de reescrever o código.
+</p>
+<p>Neste artigo mudaremos o código para torná-lo estensível a outros tipos usando um <em>functor</em>.</p>
+<p>Módulos em Standard ML são chamados <em>structures</em> e podem ser instanciados sob demanda com o uso de <em>functors</em>. A primeira coisa que precisamos é
+   da assinatura dos módulos gerados pelo <em>functor</em>.
+</p>
+<p>Os módulos gerados precisam ter o tipo de dado (<code>t</code>), uma função para construir o gerador (<code>build</code>) e outra para converter o gerador em
+   lista (<code>genToList</code>). A assinatura fica assim então:
+</p>
+<pre class="prettyprint"><code class="language-ml">signature GENERATOR =
 sig
   eqtype t
   val genToList : (unit -&gt; t option) -&gt; t list
   val build : (t * t) -&gt; unit -&gt; t option
 end
 </code></pre>
-          <p>Também precisamos da assinatura da <em>structure</em> usada como parâmetro do <em>functor</em>. Essa <em>structure</em> deve gerenciar a reiteração dos dados.
-             Para tanto, deve conhecer o tipo de dado (<code>t</code>), ter uma função para
-             fazer o passo, ou seja, incrementar o dado (<code>increment</code>), e outra
-             para testar a condição de parada (<code>checkFinish</code>).
-          </p>
-          <p>A assinatura fica assim então:</p>
-          <pre class="prettyprint"><code class="language-ml">signature GENERATOR' =
+<p>Também precisamos da assinatura da <em>structure</em> usada como parâmetro do <em>functor</em>. Essa <em>structure</em> deve gerenciar a reiteração dos dados.
+   Para tanto, deve conhecer o tipo de dado (<code>t</code>), ter uma função para
+   fazer o passo, ou seja, incrementar o dado (<code>increment</code>), e outra
+   para testar a condição de parada (<code>checkFinish</code>).
+</p>
+<p>A assinatura fica assim então:</p>
+<pre class="prettyprint"><code class="language-ml">signature GENERATOR' =
 sig
   eqtype t
   val increment : t ref -&gt; unit
   val checkFinish : t ref -&gt; t -&gt; bool
 end
 </code></pre>
-          <p>O <em>functor</em> terá praticamente o mesmo código de nossas funções originais, mas agora será extensível.</p>
-          <p>Vamos então trazer o código para o <em>functor</em>:</p>
-          <pre class="prettyprint"><code class="language-ml">functor Generator (G : GENERATOR') : GENERATOR =
+<p>O <em>functor</em> terá praticamente o mesmo código de nossas funções originais, mas agora será extensível.</p>
+<p>Vamos então trazer o código para o <em>functor</em>:</p>
+<pre class="prettyprint"><code class="language-ml">functor Generator (G : GENERATOR') : GENERATOR =
 struct
   type t = G.t
 
@@ -110,13 +110,13 @@ struct
   end
 end
 </code></pre>
-          <p>Repare que agora em vez de <code>int</code> estamos usando <code>t</code> (que é igual a <code>G.t</code>), e delegamos a verificação do fim da reiteração e o
-             incremento da referência para <code>G</code>.
-          </p>
-          <p>Resta agora recriar nossas funções originais. Como só nos interessam <code>xrange</code> e <code>range</code>, podemos criar a <code>structure</code> como
-             <code>local</code>:
-          </p>
-          <pre class="prettyprint"><code class="language-ml">local
+<p>Repare que agora em vez de <code>int</code> estamos usando <code>t</code> (que é igual a <code>G.t</code>), e delegamos a verificação do fim da reiteração e o
+   incremento da referência para <code>G</code>.
+</p>
+<p>Resta agora recriar nossas funções originais. Como só nos interessam <code>xrange</code> e <code>range</code>, podemos criar a <code>structure</code> como
+   <code>local</code>:
+</p>
+<pre class="prettyprint"><code class="language-ml">local
   structure IntGenerator = Generator (struct
     type t = int
 
@@ -128,8 +128,8 @@ in
   val range = IntGenerator.genToList o xrange
 end
 </code></pre>
-          <p>E para criar funções equivalentes para caracteres? A lógica é a mesma:</p>
-          <pre class="prettyprint"><code class="language-ml">local
+<p>E para criar funções equivalentes para caracteres? A lógica é a mesma:</p>
+<pre class="prettyprint"><code class="language-ml">local
   structure StringGenerator = Generator (struct
     type t = char
 
@@ -141,7 +141,7 @@ in
   val strseq = implode o StringGenerator.genToList o StringGenerator.build
 end
 </code></pre>
-          <p>Veja que agora podemos com facilidade estender o lógica de criação de geradores para virtualmente qualquer tipo, com a ajuda do <em>functor</em>.</p>
+<p>Veja que agora podemos com facilidade estender o lógica de criação de geradores para virtualmente qualquer tipo, com a ajuda do <em>functor</em>.</p>
         </div>
       </div>
       <div class="panel panel-default">

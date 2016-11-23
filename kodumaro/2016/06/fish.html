@@ -46,52 +46,52 @@
           <h6 class="pull-right">Publicado em 15 de Junho, 2016</h6>
           <h6>As sombras da programação.</h6>
         </div>
-        <div class="panel-body"><img class="pull-right" src="/img/fish.jpg" alt="">
-          <p class="mg-first">Há há mais de um ano não uso mais <a href="https://pt.wikipedia.org/wiki/Bash">Bash</a> – tenho usado <a href="http://zshwiki.org/home/">Zsh</a>. Agora resolvi dar uma change ao <a href="http://fishshell.com/">Fish Shell</a>.
-          </p>
-          <p>Fish Shell – Friendly Interactive Shell – é um <em>shell</em> para sistemas <a href="https://pt.wikipedia.org/wiki/POSIX">Posix</a> com uma pegada mais amigável (<em>user friendly</em>) que os demais
-             <em>shells</em>.
-          </p>
-          <p>É considerado um <a href="https://en.wikipedia.org/wiki/Unix_shell#Exotic_shells"><em>shell</em> exótico</a> por sua sintaxe não derivar nem do <a href="https://pt.wikipedia.org/wiki/Bourne_shell">Bourne Shell</a>, nem do <a href="http://docs.freebsd.org/44doc/usd/04.csh/paper.html">CShell</a>. Sua sintaxe é muito mais parecida com <a href="http://tcl.tk/">Tcl/Tk</a>.
-          </p>
-          <p>Você pode encontrar a documentação <a href="http://fishshell.com/docs/current/">aqui</a>.
-          </p>
-          <p>suas principais características são:</p>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Autossugestão conforme a digitação;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Facilmente <em>escriptável</em>;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><em>Autocomplete</em> para páginas de manual;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Cores VGA em 24 <em>bits</em>;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Comando de ajuda chama páginas de hipertexto;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Funcionalidades “fora da caixa”, segundo os autores.
-                                </li>
-                    </ul>
-          <p>A princípio, usando Fish, parece ser apenas um <em>shell</em> cheio de firulas, mas as diferenças vão surgindo com o tempo.</p>
-          <p>Ao contrário de outros <em>shells</em>, o arquivo de carga inicial de <em>login shell</em> <strong>não</strong> segue o padrão <code>~/.<em>nomedosh</em>rc</code>, mas se encontra em <code>~/.config/fish/config.fish</code>.
-          </p>
-          <p>
-            Outra característica muito importante é que, sempre que você executa umcomando, o Fish procura um arquivo<code>~/.config/fish/functions/<em>comando</em>.fish</code>
-             e, encontrando, o executa. O objetivo é carregar sob demanda funções
-            definidas pelo usuário.
-          </p>
-          <p>Duas funções que são chamadas recorrentemente – e podem ser definidas em <code>~/.config/fish/functions/</code> – são <code>fish_prompt</code> e
-             <code>fish_title</code>:
-          </p>
-          <p><code>fish_prompt</code> é chamada sempre imediatamente antes do <em>prompt</em> ser
-             oferecido ao usuário e tem a função de construir a mensagem do
-             <em>prompt</em>.
-          </p>
-          <p><code>fish_title</code> é chamada a cada vez que algum outro <em>software</em> – como <code>xterm</code> – solicita o título.</p>
-          <h3 id="scripting"><em>Scripting</em></h3>
-          <p>Vamos a um <em>script</em> de exemplo: criaremos uma função <code>rmpyc</code> que limpa os arquivos <code>.pyc</code> do diretório informado. Crie um arquivo
-             <code>~/.config/fish/functions.rmpyc.fish</code>:
-          </p>
-          <pre class="prettyprint"><code class="language-sh">function rmpyc
+        <div class="panel-body"><img class="pull-right" src="/img/fish.jpg" alt=""/>
+<p class="mg-first">Há há mais de um ano não uso mais <a href="https://pt.wikipedia.org/wiki/Bash">Bash</a> – tenho usado <a href="http://zshwiki.org/home/">Zsh</a>. Agora resolvi dar uma change ao <a href="http://fishshell.com/">Fish Shell</a>.
+</p>
+<p>Fish Shell – Friendly Interactive Shell – é um <em>shell</em> para sistemas <a href="https://pt.wikipedia.org/wiki/POSIX">Posix</a> com uma pegada mais amigável (<em>user friendly</em>) que os demais
+   <em>shells</em>.
+</p>
+<p>É considerado um <a href="https://en.wikipedia.org/wiki/Unix_shell#Exotic_shells"><em>shell</em> exótico</a> por sua sintaxe não derivar nem do <a href="https://pt.wikipedia.org/wiki/Bourne_shell">Bourne Shell</a>, nem do <a href="http://docs.freebsd.org/44doc/usd/04.csh/paper.html">CShell</a>. Sua sintaxe é muito mais parecida com <a href="http://tcl.tk/">Tcl/Tk</a>.
+</p>
+<p>Você pode encontrar a documentação <a href="http://fishshell.com/docs/current/">aqui</a>.
+</p>
+<p>suas principais características são:</p>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Autossugestão conforme a digitação;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Facilmente <em>escriptável</em>;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><em>Autocomplete</em> para páginas de manual;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Cores VGA em 24 <em>bits</em>;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Comando de ajuda chama páginas de hipertexto;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Funcionalidades “fora da caixa”, segundo os autores.
+  </li>
+</ul>
+<p>A princípio, usando Fish, parece ser apenas um <em>shell</em> cheio de firulas, mas as diferenças vão surgindo com o tempo.</p>
+<p>Ao contrário de outros <em>shells</em>, o arquivo de carga inicial de <em>login shell</em> <strong>não</strong> segue o padrão <code>~/.<em>nomedosh</em>rc</code>, mas se encontra em <code>~/.config/fish/config.fish</code>.
+</p>
+<p>
+  Outra característica muito importante é que, sempre que você executa umcomando, o Fish procura um arquivo<code>~/.config/fish/functions/<em>comando</em>.fish</code>
+   e, encontrando, o executa. O objetivo é carregar sob demanda funções
+  definidas pelo usuário.
+</p>
+<p>Duas funções que são chamadas recorrentemente – e podem ser definidas em <code>~/.config/fish/functions/</code> – são <code>fish_prompt</code> e
+   <code>fish_title</code>:
+</p>
+<p><code>fish_prompt</code> é chamada sempre imediatamente antes do <em>prompt</em> ser
+   oferecido ao usuário e tem a função de construir a mensagem do
+   <em>prompt</em>.
+</p>
+<p><code>fish_title</code> é chamada a cada vez que algum outro <em>software</em> – como <code>xterm</code> – solicita o título.</p>
+<h3 id="scripting"><em>Scripting</em></h3>
+<p>Vamos a um <em>script</em> de exemplo: criaremos uma função <code>rmpyc</code> que limpa os arquivos <code>.pyc</code> do diretório informado. Crie um arquivo
+   <code>~/.config/fish/functions.rmpyc.fish</code>:
+</p>
+<pre class="prettyprint"><code class="language-sh">function rmpyc
   let -l pathes
   if test (count $argv) = 0
     set pathes .
@@ -105,29 +105,29 @@
   end
 end
 </code></pre>
-          <p>O programa verifica se há mais de um argumento, em não havendo, usa o diretório atual (<code>.</code>).</p>
-          <p>Para cada diretório passado, são executados dois comando de <code>find</code>: um
-             para arquivos de Python 3.x, outro para Python 2.7. Repare na clareza dos
-             comandos <code>if</code> e <code>for</code>, no uso da palavra chave <code>end</code>.
-          </p>
-          <h3 id="lidando-com-listas">Lidando com listas</h3>
-          <p>Fish Shell tem um suporte muito bom e intuitivo a listas. Por exemplo, para adicionar um novo <em>path</em> à variável <a href="https://en.wikipedia.org/wiki/PATH_(variable)"><code>PATH</code></a>:
-          </p>
-          <pre class="prettyprint"><code class="language-sh">set -x PATH $PATH $HOME/bin</code></pre>
-          <p>Você pode usar <code>for</code> para reiterar listas:</p>
-          <pre class="prettyprint"><code class="language-sh">for path in $PATH
+<p>O programa verifica se há mais de um argumento, em não havendo, usa o diretório atual (<code>.</code>).</p>
+<p>Para cada diretório passado, são executados dois comando de <code>find</code>: um
+   para arquivos de Python 3.x, outro para Python 2.7. Repare na clareza dos
+   comandos <code>if</code> e <code>for</code>, no uso da palavra chave <code>end</code>.
+</p>
+<h3 id="lidando-com-listas">Lidando com listas</h3>
+<p>Fish Shell tem um suporte muito bom e intuitivo a listas. Por exemplo, para adicionar um novo <em>path</em> à variável <a href="https://en.wikipedia.org/wiki/PATH_(variable)"><code>PATH</code></a>:
+</p>
+<pre class="prettyprint"><code class="language-sh">set -x PATH $PATH $HOME/bin</code></pre>
+<p>Você pode usar <code>for</code> para reiterar listas:</p>
+<pre class="prettyprint"><code class="language-sh">for path in $PATH
   echo "$path está em PATH"
 end
 </code></pre>
-          <p>É também possível usar listas literais:</p>
-          <pre class="prettyprint"><code class="language-sh">for letter in A E I O U
+<p>É também possível usar listas literais:</p>
+<pre class="prettyprint"><code class="language-sh">for letter in A E I O U
   echo "Vogal: $letter"
 end
 </code></pre>
-          <p>Um dos recursos mais poderosos de Fish é o produto cartesiano de listas. Por exemplo: uma forma de construir a variável <code>LUA_PATH</code> é usando
-             produto cartesiano:
-          </p>
-          <pre class="prettyprint"><code class="language-sh">set -l directories
+<p>Um dos recursos mais poderosos de Fish é o produto cartesiano de listas. Por exemplo: uma forma de construir a variável <code>LUA_PATH</code> é usando
+   produto cartesiano:
+</p>
+<pre class="prettyprint"><code class="language-sh">set -l directories
 set -l suffixes ?.lua ?.lc ?/init.lua ?/init.lc
 
 for dir in /usr/share/lua/5.1 /usr/share/lua/scilua /usr/local/share/lua/5.1 /usr/local/share/lua/scilua
@@ -139,27 +139,27 @@ end
 set -l lua_path $directories/$suffixes
 set -x LUA_PATH (string join ';' -- $lua_path)
 </code></pre>
-          <h3 id="lidando-com-strings">Lidando com <em>strings</em></h3>
-          <p>Outro recurso de Fish é a ferramenta <code>string</code>: basicamente ela traz suporte a contar o tamanho de uma <em>string</em>, pegar <em>substrings</em>,
-             quebrar em listas, juntar uma lista em uma <em>string</em>, etc.
-          </p>
-          <p>Por exemplo, para converter o <em>path</em> para o formato Mac OS:</p>
-          <pre class="prettyprint"><code class="language-sh">function to-mac-os-path
+<h3 id="lidando-com-strings">Lidando com <em>strings</em></h3>
+<p>Outro recurso de Fish é a ferramenta <code>string</code>: basicamente ela traz suporte a contar o tamanho de uma <em>string</em>, pegar <em>substrings</em>,
+   quebrar em listas, juntar uma lista em uma <em>string</em>, etc.
+</p>
+<p>Por exemplo, para converter o <em>path</em> para o formato Mac OS:</p>
+<pre class="prettyprint"><code class="language-sh">function to-mac-os-path
   set -l path (string split / -- "$argv")
   string join : -- $path[2..(count $path)]
 end
 </code></pre>
-          <p>Outra alternativa para fazer a mesma coisa:</p>
-          <pre class="prettyprint"><code class="language-sh">function to-mac-os-path
+<p>Outra alternativa para fazer a mesma coisa:</p>
+<pre class="prettyprint"><code class="language-sh">function to-mac-os-path
   string replace -a / : -- (string trim -l -c/ -- "$argv")
 end
 </code></pre>
-          <h3 id="ajuda">Buscando ajuda</h3>
-          <p>Os manuais de ajuda podem ser obtidos <a href="http://fishshell.com/docs/current/commands.html"><em>on-line</em></a>, ou digitando o comando <code>help</code>, que direcionará o usuário para o
-             navegador, apontando para o arquivo de ajuda que vem junto com a instalação
-            de Fish.
-          </p>
-          <pre><code>fish&gt; <strong>help string</strong><br/>
+<h3 id="ajuda">Buscando ajuda</h3>
+<p>Os manuais de ajuda podem ser obtidos <a href="http://fishshell.com/docs/current/commands.html"><em>on-line</em></a>, ou digitando o comando <code>help</code>, que direcionará o usuário para o
+   navegador, apontando para o arquivo de ajuda que vem junto com a instalação
+  de Fish.
+</p>
+<pre><code>fish&gt; <strong>help string</strong><br/>
 fish&gt;</code></pre>
         </div>
       </div>

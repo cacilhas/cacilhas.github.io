@@ -156,35 +156,22 @@ const processFile = co.wrap(function*({ file, context, layout }) {
 const processPugFile = co.wrap(function*({ file, counterpart, context, layout }) {
   let useLayout = context.layout
   useLayout = useLayout === undefined ? true : !!useLayout
+
   let template = fs.readFileSync(file, "utf-8")
-
-  if (useLayout) {
-    let fileFile = file.split("/")
-    let layoutFile = layout.split("/")
-
-    while (_.first(fileFile) === _.first(layoutFile)) {
-      fileFile = fileFile.slice(1)
-      layoutFile = layoutFile.slice(1)
-    }
-
-    let layoutContent = fs.readFileSync(layout, "utf-8")
-    let pardirs = fileFile.map(() => "..").slice(1).join("/")
-    layout = path.normalize(`${pardirs}/${layoutFile.join("/")}`)
-    layout = layout.startsWith("/") ? `.${layout}` : layout
-
-    let blockName = layoutContent.indexOf(" block content") === -1
-                  ? "main-container"
-                  : "content"
-
-    template = template.split("\n").map(e => `  ${e}`).join("\n")
-    template = `extends ${layout}\n\nblock ${blockName}\n${template}`
-  }
+  let render = pug.compile(template, { filename: file, pretty: true })
 
   context = _.clone(context)
   context.public = globalContext
+  let content = render(context)
 
-  let renderer = pug.compile(template, { filename: file, pretty: true })
-  fs.writeFileSync(counterpart, renderer(context), "utf-8")
+  if (useLayout) {
+    context.yield = content
+    template = fs.readFileSync(layout, "utf-8")
+    render = pug.compile(template, { filename: layout, pretty: true })
+    content = render(context)
+  }
+
+  fs.writeFileSync(counterpart, content, "utf-8")
 })
 
 

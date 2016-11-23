@@ -46,11 +46,11 @@
           <h6 class="pull-right">Publicado em 26 de Maio, 2016</h6>
           <h6>As sombras da programação.</h6>
         </div>
-        <div class="panel-body"><img class="pull-right" src="/img/erlang.png" alt="Erlang">
-          <p class="mg-first">Com o <a href="/misc/monty-hall/mh_mc.erl">mestre de cerimônias</a> criado no <a href="/kodumaro/2016/05/monty-hall.html">primeiro artigo</a>, e o <a href="/misc/monty-hall/mh_guest.erl">convidado</a> criado no <a href="/kodumaro/2016/05/monty-hall-2.html">segundo artigo</a>, podemos rodar o jogo!
-          </p>
-          <p>O jogo será um novo módulo, <code>mh_game</code>. Podemos começar pelos cabeçalhos obrigatórios:</p>
-          <pre class="prettyprint"><code class="language-erlang">-module(mh_game).
+        <div class="panel-body"><img class="pull-right" src="/img/erlang.png" alt="Erlang"/>
+<p class="mg-first">Com o <a href="/misc/monty-hall/mh_mc.erl">mestre de cerimônias</a> criado no <a href="/kodumaro/2016/05/monty-hall.html">primeiro artigo</a>, e o <a href="/misc/monty-hall/mh_guest.erl">convidado</a> criado no <a href="/kodumaro/2016/05/monty-hall-2.html">segundo artigo</a>, podemos rodar o jogo!
+</p>
+<p>O jogo será um novo módulo, <code>mh_game</code>. Podemos começar pelos cabeçalhos obrigatórios:</p>
+<pre class="prettyprint"><code class="language-erlang">-module(mh_game).
 -export(play/0, play/1).
 
 -define(ROUNDS, 1000).
@@ -58,47 +58,47 @@
 -spec play() -&gt; integer().
 -spec play(Rounds :: integer()) -&gt; integer().
 </code></pre>
-          <p>A <em>macro</em> <code>-define/2</code> define o número de rodadas em mil. A função <code>play/0</code> roda o número padrão de rodadas, enquanto <code>play/1</code>
-             roda um número determinado de rodadas.
-          </p>
-          <p>Vamos implementar <em>play/0</em> para rodar o número padrão de rodadas:</p>
-          <pre class="prettyprint"><code class="language-erlang">play() -&gt; play(?ROUNDS).
+<p>A <em>macro</em> <code>-define/2</code> define o número de rodadas em mil. A função <code>play/0</code> roda o número padrão de rodadas, enquanto <code>play/1</code>
+   roda um número determinado de rodadas.
+</p>
+<p>Vamos implementar <em>play/0</em> para rodar o número padrão de rodadas:</p>
+<pre class="prettyprint"><code class="language-erlang">play() -&gt; play(?ROUNDS).
 </code></pre>
-          <p>Nada mais complexo que isso. Agora <code>play/1</code> deve ser responsável por <sup>1</sup>levantar o mestre de cerimônias, <sup>2</sup>rodar a quantidade correta
-             de rodadas e <sup>3</sup>encerrar o processo mestre de cerimônias.
-          </p>
-          <p>Como precisamos encerrar o processo do mestre de cerimônias, não podemos
-            simplesmente executar a chamada da rodada, ele precisa ignorar os erros para
-             que <code>mh_mc:stop/1</code> seja executado em qualquer ocasião:
-          </p>
-          <pre class="prettyprint"><code class="language-erlang">play(Rounds) -&gt;
+<p>Nada mais complexo que isso. Agora <code>play/1</code> deve ser responsável por <sup>1</sup>levantar o mestre de cerimônias, <sup>2</sup>rodar a quantidade correta
+   de rodadas e <sup>3</sup>encerrar o processo mestre de cerimônias.
+</p>
+<p>Como precisamos encerrar o processo do mestre de cerimônias, não podemos
+  simplesmente executar a chamada da rodada, ele precisa ignorar os erros para
+   que <code>mh_mc:stop/1</code> seja executado em qualquer ocasião:
+</p>
+<pre class="prettyprint"><code class="language-erlang">play(Rounds) -&gt;
     mh_mc:start_link(),
     case catch play(Rounds, 0) of Response -> Response end,
     mh_mc:stop(),
     Response.
 </code></pre>
-          <p>Agora precisamos da função <code>play/2</code>, que executará cada rodada.</p>
-          <p>
-            Sendo uma função recursiva, podemos escrever primeiro a condição de parada,que é quando não há mais rodadas, retornando o acumulador:</p>
-          <pre class="prettyprint"><code class="language-erlang">play(0, Score) -&gt; Score;
+<p>Agora precisamos da função <code>play/2</code>, que executará cada rodada.</p>
+<p>
+  Sendo uma função recursiva, podemos escrever primeiro a condição de parada,que é quando não há mais rodadas, retornando o acumulador:</p>
+<pre class="prettyprint"><code class="language-erlang">play(0, Score) -&gt; Score;
 </code></pre>
-          <p>O passo deve executar o seguinte procedimento:</p>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao convidado que porta ele deseja escolher (<code>mh_guest:choose/0</code>);
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao mestre de cerimônias qual outra ficou disponível (<code>mh_mc:suggest_another_door/1</code>);
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao convidado se ele quer mudar de porta (<code>mh_guest:change/2</code>);
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>
-                                  Perguntar ao mestre de cerimônias qual o prêmio por trás da portaescolhida;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Somar 1 ao acumulador se o convidado ganhou um carro.
-                                </li>
-                    </ul>
-          <p>Segue então o código que executa este procedimento, acrescentando apenas um <code>throw/1</code> para levantar um exceção caso ocorra um erro:
-          </p>
-          <pre class="prettyprint"><code class="language-erlang">play(Rounds, Score) when Rounds &gt; 0 -&gt;
+<p>O passo deve executar o seguinte procedimento:</p>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao convidado que porta ele deseja escolher (<code>mh_guest:choose/0</code>);
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao mestre de cerimônias qual outra ficou disponível (<code>mh_mc:suggest_another_door/1</code>);
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Perguntar ao convidado se ele quer mudar de porta (<code>mh_guest:change/2</code>);
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>
+    Perguntar ao mestre de cerimônias qual o prêmio por trás da portaescolhida;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Somar 1 ao acumulador se o convidado ganhou um carro.
+  </li>
+</ul>
+<p>Segue então o código que executa este procedimento, acrescentando apenas um <code>throw/1</code> para levantar um exceção caso ocorra um erro:
+</p>
+<pre class="prettyprint"><code class="language-erlang">play(Rounds, Score) when Rounds &gt; 0 -&gt;
     FirstChoice = mh_guest:choose(),
     {ok, Other} = mh_mc:suggest_another_door(FirstChoice),
     Door = mh_guest:change(FirstChoice, Other),
@@ -108,31 +108,31 @@
         Other -&gt; throw(Other)
     end.
 </code></pre>
-          <p>Compile e rode. Meu resultado foi:</p>
-          <pre><code>sh$ <strong>erlc mh_game.erl</strong><br/>
+<p>Compile e rode. Meu resultado foi:</p>
+<pre><code>sh$ <strong>erlc mh_game.erl</strong><br/>
 sh$ <strong>erl</strong><br/><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
  [hipe] [kernel-poll:false] [dtrace]<br/></em><br/><em>Eshell V7.3  (abort with ^G)<br/></em>1&gt; <strong>mh_game:play().</strong><br/><em>325<br/></em>2&gt; <strong>mh_game:play().</strong><br/><em>320<br/></em>3&gt; <strong>mh_game:play().</strong><br/><em>348<br/></em>4&gt; <strong>mh_game:play().</strong><br/><em>336<br/></em>5gt;</code></pre>
-          <p>
-            Não importa quantas vezes rode, fica sempre próximo de 333 acertos em mil,333‰, ou seja 33,3%, uma chance em três.</p>
-          <p>No entanto, se compilarmos com a <em>flag</em> <code>-Dchange</code>, o resultado muda radicalmente:</p>
-          <pre><code>sh$ <strong>erlc -Dchange mh_game.erl</strong>[br/]
+<p>
+  Não importa quantas vezes rode, fica sempre próximo de 333 acertos em mil,333‰, ou seja 33,3%, uma chance em três.</p>
+<p>No entanto, se compilarmos com a <em>flag</em> <code>-Dchange</code>, o resultado muda radicalmente:</p>
+<pre><code>sh$ <strong>erlc -Dchange mh_game.erl</strong>[br/]
 sh$ <strong>erl</strong><br/><em>Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
  [hipe] [kernel-poll:false] [dtrace]<br/></em><br/><em>Eshell V7.3  (abort with ^G)<br/></em>1&gt; <strong>mh_game:play().</strong><br/><em>645<br/></em>2&gt; <strong>mh_game:play().</strong><br/><em>673<br/></em>3&gt; <strong>mh_game:play().</strong><br/><em>681<br/></em>3&gt; <strong>mh_game:play().</strong><br/><em>665<br/></em>4&gt;</code></pre>
-          <p>
-            Novamente o resultado está sempre por volta do complementar, que são 667acertos em mil, 667‰, 66,7%, duas em três.</p>
-          <p>Com isso, está <strong>provado</strong> o <a href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall">Paradoxo de Monty Hall</a>!
-          </p>
-          <h3 id="arquivos-para-baixar">Todos os arquivos para baixar</h3>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_mc.erl"><code>mh_mc.erl</code></a>
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a>
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_game.erl"><code>mh_game.erl</code></a>
-                                </li>
-                    </ul>
+<p>
+  Novamente o resultado está sempre por volta do complementar, que são 667acertos em mil, 667‰, 66,7%, duas em três.</p>
+<p>Com isso, está <strong>provado</strong> o <a href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall">Paradoxo de Monty Hall</a>!
+</p>
+<h3 id="arquivos-para-baixar">Todos os arquivos para baixar</h3>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_mc.erl"><code>mh_mc.erl</code></a>
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a>
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_game.erl"><code>mh_game.erl</code></a>
+  </li>
+</ul>
         </div>
       </div>
       <div class="panel panel-default">

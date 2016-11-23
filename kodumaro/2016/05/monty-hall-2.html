@@ -46,11 +46,11 @@
           <h6 class="pull-right">Publicado em 22 de Maio, 2016</h6>
           <h6>As sombras da programação.</h6>
         </div>
-        <div class="panel-body"><img class="pull-right" src="/img/erlang.png" alt="Erlang">
-          <p class="mg-first">Já temos o <a href="/misc/monty-hall/mh_mc.erl">mestre de cerimônias</a>, que fizemos no <a href="http://cacilhas.info/kodumaro/2016/05/monty-hall.html">artigo anterior</a>, agora precisamos de um convidado para escolher qual porta abrir.
-          </p>
-          <p>Vamos começar com um cabeçalho bastante simples:</p>
-          <pre class="prettyprint"><code class="language-erlang">-module(mh_guest).
+        <div class="panel-body"><img class="pull-right" src="/img/erlang.png" alt="Erlang"/>
+<p class="mg-first">Já temos o <a href="/misc/monty-hall/mh_mc.erl">mestre de cerimônias</a>, que fizemos no <a href="http://cacilhas.info/kodumaro/2016/05/monty-hall.html">artigo anterior</a>, agora precisamos de um convidado para escolher qual porta abrir.
+</p>
+<p>Vamos começar com um cabeçalho bastante simples:</p>
+<pre class="prettyprint"><code class="language-erlang">-module(mh_guest).
 -export([choose/0, change/2]).
 
 -include("mh.hrl").
@@ -58,32 +58,32 @@
 -spec choose() -&gt; door().
 -spec change(Original :: door(), Alternative :: door()) -&gt; door().
 </code></pre>
-          <p>A função para escolher a porta:</p>
-          <pre class="prettyprint"><code class="language-erlang">choose() -&gt; lists:nth(random:uniform(3), [a, b, c]).
+<p>A função para escolher a porta:</p>
+<pre class="prettyprint"><code class="language-erlang">choose() -&gt; lists:nth(random:uniform(3), [a, b, c]).
 </code></pre>
-          <p>E a função para mudar de porta:</p>
-          <pre class="prettyprint"><code class="language-erlang">-ifdef(change).
+<p>E a função para mudar de porta:</p>
+<pre class="prettyprint"><code class="language-erlang">-ifdef(change).
 change(_Original, Alternative) -&gt; Alternative.
 -else.
 change(Original, _Alternative) -&gt; Original.
 -endif.
 </code></pre>
-          <p>Com isso, a função <code>change/2</code> sempre retornará a porta originalmente escolhida, a menos que o arquivo <code>mh_guest.erl</code> seja compilado com a
-             <em>flag</em> <code>-Dchange</code>.
-          </p>
-          <p>E já temos como simular o convidado!</p>
-          <h3 id="para-baixar">Arquivos para baixar</h3>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a>
-                                </li>
-                    </ul>
-          <h3 id="proximos-passos">Próximos passos</h3>
-          <p>No <a href="/kodumaro/2016/05/monty-hall-3.html">último artigo</a>
-             colocaremos tudo junto, executando diversas vezes para calcular quantas
-            vezes o convidado ganha o carro.
-          </p>
+<p>Com isso, a função <code>change/2</code> sempre retornará a porta originalmente escolhida, a menos que o arquivo <code>mh_guest.erl</code> seja compilado com a
+   <em>flag</em> <code>-Dchange</code>.
+</p>
+<p>E já temos como simular o convidado!</p>
+<h3 id="para-baixar">Arquivos para baixar</h3>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh.hrl"><code>mh.hrl</code></a>
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><a href="/misc/monty-hall/mh_guest.erl"><code>mh_guest.erl</code></a>
+  </li>
+</ul>
+<h3 id="proximos-passos">Próximos passos</h3>
+<p>No <a href="/kodumaro/2016/05/monty-hall-3.html">último artigo</a>
+   colocaremos tudo junto, executando diversas vezes para calcular quantas
+  vezes o convidado ganha o carro.
+</p>
         </div>
       </div>
       <div class="panel panel-default">

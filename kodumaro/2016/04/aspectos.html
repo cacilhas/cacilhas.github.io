@@ -46,18 +46,18 @@
           <h6 class="pull-right">Publicado em 19 de Abril, 2016</h6>
           <h6>As sombras da programação.</h6>
         </div>
-        <div class="panel-body"><img class="pull-right" src="/img/python.png" alt="Python">
-          <p class="mg-first">Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
-            <!-- a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")--><em>blog</em> original. Infelizmente o <a href="https://blogger.com/">Blogger.com</a> resolveu apagá-lo durante um <em>bug</em> da interface, mas o trouxemos de
-             volta nesta nova encarnação do Kodumaro.
-          </p>
-          <p>Um paradigma muito útil é a <a href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto">Programação Orientada a Aspectos</a>.
-          </p>
-          <p>Consiste em separar e encapsular as funcionalidades de um código conforme sua<strong>importância</strong>.</p>
-          <p>Nesta primeira parte, abordaremos essa separação de forma simples, deixando o conceito de <a href="http://en.wikipedia.org/wiki/Mixin"><em>mixins</em></a> para a <a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">parte II</a>.
-          </p>
-          <p>Vamos começar com um exemplo: imagine uma <em>view</em> que modifica o estado deum objeto, retornando um <em>hash</em> do novo estado:</p>
-          <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+        <div class="panel-body"><img class="pull-right" src="/img/python.png" alt="Python"/>
+<p class="mg-first">Este artigo havia sido publicado originalmente em 18 de fevereiro de 2014 no 
+  <!-- a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")--><em>blog</em> original. Infelizmente o <a href="https://blogger.com/">Blogger.com</a> resolveu apagá-lo durante um <em>bug</em> da interface, mas o trouxemos de
+   volta nesta nova encarnação do Kodumaro.
+</p>
+<p>Um paradigma muito útil é a <a href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto">Programação Orientada a Aspectos</a>.
+</p>
+<p>Consiste em separar e encapsular as funcionalidades de um código conforme sua<strong>importância</strong>.</p>
+<p>Nesta primeira parte, abordaremos essa separação de forma simples, deixando o conceito de <a href="http://en.wikipedia.org/wiki/Mixin"><em>mixins</em></a> para a <a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">parte II</a>.
+</p>
+<p>Vamos começar com um exemplo: imagine uma <em>view</em> que modifica o estado deum objeto, retornando um <em>hash</em> do novo estado:</p>
+<pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
 
 @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
 def update_person(uuid: str) -&gt; ResponseType:
@@ -82,26 +82,26 @@ def update_person(uuid: str) -&gt; ResponseType:
            200, &#92;
            {'Content-Type': 'application/json'}
 </code></pre>
-          <p>A solução atende, mas é de difícil manutenção. Perceba que a função chamada <code>update_person</code> (atualiza pessoa) faz muito mais do que simplesmente
-             atualizar os dados:
-          </p>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Recupera o documento do banco, retornando 404 se não existir;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Faz <em>parsing</em> dos dados recebidos, retornando 400 em caso de erro;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Efetivamente atualiza o documento;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Serializa o objeto para a resposta;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Gera um hash da serialização;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Responde a requisição com formato conveniente.
-                                </li>
-                    </ul>
-          <p>Cada um desses passos é um <strong>aspecto</strong> do processo e pode ser isolado do restante.</p>
-          <p>Vamos então separar o primeiro aspecto: recuperação do documento.</p>
-          <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+<p>A solução atende, mas é de difícil manutenção. Perceba que a função chamada <code>update_person</code> (atualiza pessoa) faz muito mais do que simplesmente
+   atualizar os dados:
+</p>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Recupera o documento do banco, retornando 404 se não existir;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Faz <em>parsing</em> dos dados recebidos, retornando 400 em caso de erro;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Efetivamente atualiza o documento;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Serializa o objeto para a resposta;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Gera um hash da serialização;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Responde a requisição com formato conveniente.
+  </li>
+</ul>
+<p>Cada um desses passos é um <strong>aspecto</strong> do processo e pode ser isolado do restante.</p>
+<p>Vamos então separar o primeiro aspecto: recuperação do documento.</p>
+<pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
 ViewType = Callable[[str], ResponseType]
 ParserType = Callable[[MutableMapping], ResponseType]
 
@@ -134,14 +134,14 @@ def update_person(person: MutableMapping) -&gt; ResponseType:
            200, &#92;
            {'Content-Type': 'application/json'}
 </code></pre>
-          <p>Agora a recuperação do documento está isolada, podendo inclusive ser usada emoutras <em>views</em>. Nossa <em>view</em> já recebe o documento recuperado e não
-            precisa lidar com o fato dele existir ou não.
-          </p>
-          <p>Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e <em>parsing</em> dos dados recebidos: isso caracteriza outro aspecto do
-             código, que não a atualização do documento.
-          </p>
-          <p>Podemos portanto, separá-los:</p>
-          <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+<p>Agora a recuperação do documento está isolada, podendo inclusive ser usada emoutras <em>views</em>. Nossa <em>view</em> já recebe o documento recuperado e não
+  precisa lidar com o fato dele existir ou não.
+</p>
+<p>Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e <em>parsing</em> dos dados recebidos: isso caracteriza outro aspecto do
+   código, que não a atualização do documento.
+</p>
+<p>Podemos portanto, separá-los:</p>
+<pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
 ViewType = Callable[[str], ResponseType]
 ParserType = Callable[[MutableMapping], ResponseType]
 ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
@@ -175,10 +175,10 @@ def update_person(person: MutableMapping, data: Mapping) -&gt; ResponseType:
            200, &#92;
            {'Content-Type': 'application/json'}
 </code></pre>
-          <p>A função <code>update_person</code> já está muito mais limpa: atualiza o documento, serializa e retorna o <em>hash</em>, mas ainda faz coisas demais. Vamos
-             separar o tratamento do retorno:
-          </p>
-          <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+<p>A função <code>update_person</code> já está muito mais limpa: atualiza o documento, serializa e retorna o <em>hash</em>, mas ainda faz coisas demais. Vamos
+   separar o tratamento do retorno:
+</p>
+<pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
 ViewType = Callable[[str], ResponseType]
 ParserType = Callable[[MutableMapping], ResponseType]
 ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
@@ -210,10 +210,10 @@ def update_person(person: MutableMapping, data: Mapping) -&gt; str:
     r = sorted((str(k), repr(v)) for k, v in person.items())
     return ';'.join('{}:{!r}'.format(k, v) for k, v in r)
 </code></pre>
-          <p>As coisas estão ficando cada vez mais separadas. A única coisa que a função <code>update_person</code> ainda faz além de atualizar o documento é
-             serializá-lo. Isso também pode ser isolado:
-          </p>
-          <pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
+<p>As coisas estão ficando cada vez mais separadas. A única coisa que a função <code>update_person</code> ainda faz além de atualizar o documento é
+   serializá-lo. Isso também pode ser isolado:
+</p>
+<pre class="prettyprint"><code class="language-python">ResponseType = Tuple[str, Integral, Mapping]
 ViewType = Callable[[str], ResponseType]
 ParserType = Callable[[MutableMapping], ResponseType]
 ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
@@ -246,41 +246,41 @@ def update_person(person: MutableMapping, data: Mapping) -&gt; MutableMapping:
     db.person.save(person)
     return person
 </code></pre>
-          <p>
-            Perceba que, com a separação dos aspectos em funções distintas, o código ficoumuito mais semântico:</p>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>retrive_person_aspect</code> apenas recupera o documento do banco;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>parse_data_aspect</code> apenas faz o <em>parsing</em> dos dados
-                                  recebidos;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>respond_etag_aspect</code> apenas gera o formato correto da resposta;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>serialise_person_aspect</code> apenas serializa o documento;
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>finalmente, <code>update_person</code> apenas atualiza o documento.
-                                </li>
-                    </ul>
-          <h3>Observação</h3>
-                    <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>db</code> é um objeto de banco de dados MongoDB, apenas para fim de exemplo.
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>app</code> é uma aplicação <a href="http://flask.pocoo.org/">Flask</a>, apenas para fim de exemplo.
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>A ordem dos decoradores <strong>é importante</strong>, o retorno de cada decorador <strong>precisa</strong> ser do mesmo tipo do argumento do
-                                   decorador seguinte.
-                                </li>
-                                <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Os <code>import</code>s foram omitidos:
-                                  <pre class="prettyprint"><code class="language-python">from typing import Callable, Mapping, MutableMapping, Tuple
+<p>
+  Perceba que, com a separação dos aspectos em funções distintas, o código ficoumuito mais semântico:</p>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>retrive_person_aspect</code> apenas recupera o documento do banco;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>parse_data_aspect</code> apenas faz o <em>parsing</em> dos dados
+    recebidos;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>respond_etag_aspect</code> apenas gera o formato correto da resposta;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>serialise_person_aspect</code> apenas serializa o documento;
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>finalmente, <code>update_person</code> apenas atualiza o documento.
+  </li>
+</ul>
+<h3>Observação</h3>
+<ul class="list-group">
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>db</code> é um objeto de banco de dados MongoDB, apenas para fim de exemplo.
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span><code>app</code> é uma aplicação <a href="http://flask.pocoo.org/">Flask</a>, apenas para fim de exemplo.
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>A ordem dos decoradores <strong>é importante</strong>, o retorno de cada decorador <strong>precisa</strong> ser do mesmo tipo do argumento do
+     decorador seguinte.
+  </li>
+  <li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span>Os <code>import</code>s foram omitidos:
+    <pre class="prettyprint"><code class="language-python">from typing import Callable, Mapping, MutableMapping, Tuple
 from numbers import Integral
 from functools import wraps
 from hashlib import md5
 import json
 </code></pre>
-                                </li>
-                    </ul>
-          <p>Na <a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">parte II</a> abordaremos <em>mixins</em>.
-          </p>
+  </li>
+</ul>
+<p>Na <a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">parte II</a> abordaremos <em>mixins</em>.
+</p>
         </div>
       </div>
       <div class="panel panel-default">

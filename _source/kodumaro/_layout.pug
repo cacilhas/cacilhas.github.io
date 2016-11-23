@@ -24,7 +24,7 @@ block main-container
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
-      block content
+      != yield
 
   if current.source !== 'index'
     div(class=["panel", "panel-default"])

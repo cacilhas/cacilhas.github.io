@@ -46,41 +46,41 @@
           <h6 class="pull-right">Publicado em 13 de Maio, 2016</h6>
           <h6>As sombras da programação.</h6>
         </div>
-        <div class="panel-body"><img class="pull-right" src="/img/python.png" alt="Python">
-          <p class="mg-first">É muito comum programadores inexperientes desrespeitarem contratos
-            estabelecidos, algumas vezes por não saberem como resolver uma situação de
-             outra forma, outras por <a href="https://pt.wikipedia.org/wiki/Efeito_Dunning-Kruger">
-              <efeito>Dunning-Kruger</efeito></a>.
-          </p>
-          <p>Um dos erros mais comuns que tenho visto no mundo <a href="http://python.org/">Python</a> é a quebra do contrato da classe <a href="https://docs.python.org/3/library/unittest.html#unittest.TestCase"><code>TestCase</code></a>.
-          </p>
-          <h3 id="metodos-hook">Métodos <em>hook</em></h3>
-          <p>Geralmente a quebra de contrato ocorre porque o programador não entende o conceito de <em>hook</em> ou não sabe como evitar chamar <code>super</code> na
-             herança.
-          </p>
-          <p><em>Hook</em> é aquele método preenchido pelo código principal para ser chamado por um <em>framework</em>. Por definição, o <em>hook</em> não deve ser chamado no
-             código de aplicação, ou deve ser evitado. Em seu lugar é feita chamada para
-             alguma rotina do <em>framework</em> que, por sua fez, usa o <em>hook</em> dentro
-             da conveniência do mesmo.
-          </p>
-          <p>Na biblioteca de <em>unit test</em> de Python, os métodos de <code>TestCase</code> <code>setUp</code> e <code>tearDown</code> (de instância), e <code>setUpClass</code> e
-             <code>tearDownClass</code> são métodos <em>hook</em>, evocados pelo <em>framework</em>
-             de teste unitário.
-          </p>
-          <h3 id="problema">O problema</h3>
-          <p>O programador júnior, muito satisfeito com seu entendimento sobre herança,
-            quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
-            abordagem em que a herança se encaixa como uma luva: nos testes unitários,
-             ele precisa iniciar uma sessão com o banco (um <a href="https://www.sqlite.org/">SQLite</a>) antes de cada teste, e encerrá-lo ao final de cada um.
-          </p>
-          <p>Ele sabe que o método <code>setUp</code> é executado antes de cada teste, enquanto o método <code>tearDown</code> é executado ao final, havendo erro,
-             falha ou sucesso. Perfeito!
-          </p>
-          <p>Mas ele precisa que todas as classes de teste usem esses métodos, então ele pensa numa solução que parece perfeita: implementar os métodos <em>hook</em>
-             numa classe pai, que será herdada pelas demais classes de teste.
-          </p>
-          <p>A coisa fica mais ou menos assim:</p>
-          <pre class="prettyprint"><code class="language-python">import unittest
+        <div class="panel-body"><img class="pull-right" src="/img/python.png" alt="Python"/>
+<p class="mg-first">É muito comum programadores inexperientes desrespeitarem contratos
+  estabelecidos, algumas vezes por não saberem como resolver uma situação de
+   outra forma, outras por <a href="https://pt.wikipedia.org/wiki/Efeito_Dunning-Kruger">
+    <efeito>Dunning-Kruger</efeito></a>.
+</p>
+<p>Um dos erros mais comuns que tenho visto no mundo <a href="http://python.org/">Python</a> é a quebra do contrato da classe <a href="https://docs.python.org/3/library/unittest.html#unittest.TestCase"><code>TestCase</code></a>.
+</p>
+<h3 id="metodos-hook">Métodos <em>hook</em></h3>
+<p>Geralmente a quebra de contrato ocorre porque o programador não entende o conceito de <em>hook</em> ou não sabe como evitar chamar <code>super</code> na
+   herança.
+</p>
+<p><em>Hook</em> é aquele método preenchido pelo código principal para ser chamado por um <em>framework</em>. Por definição, o <em>hook</em> não deve ser chamado no
+   código de aplicação, ou deve ser evitado. Em seu lugar é feita chamada para
+   alguma rotina do <em>framework</em> que, por sua fez, usa o <em>hook</em> dentro
+   da conveniência do mesmo.
+</p>
+<p>Na biblioteca de <em>unit test</em> de Python, os métodos de <code>TestCase</code> <code>setUp</code> e <code>tearDown</code> (de instância), e <code>setUpClass</code> e
+   <code>tearDownClass</code> são métodos <em>hook</em>, evocados pelo <em>framework</em>
+   de teste unitário.
+</p>
+<h3 id="problema">O problema</h3>
+<p>O programador júnior, muito satisfeito com seu entendimento sobre herança,
+  quer então aplicar o mesmo no máximo de soluções possíveis e encontrou uma
+  abordagem em que a herança se encaixa como uma luva: nos testes unitários,
+   ele precisa iniciar uma sessão com o banco (um <a href="https://www.sqlite.org/">SQLite</a>) antes de cada teste, e encerrá-lo ao final de cada um.
+</p>
+<p>Ele sabe que o método <code>setUp</code> é executado antes de cada teste, enquanto o método <code>tearDown</code> é executado ao final, havendo erro,
+   falha ou sucesso. Perfeito!
+</p>
+<p>Mas ele precisa que todas as classes de teste usem esses métodos, então ele pensa numa solução que parece perfeita: implementar os métodos <em>hook</em>
+   numa classe pai, que será herdada pelas demais classes de teste.
+</p>
+<p>A coisa fica mais ou menos assim:</p>
+<pre class="prettyprint"><code class="language-python">import unittest
 import sqlite3
 import my_app
 
@@ -102,12 +102,12 @@ class TestCase(unittest.TestCase):
     def tearDown(self):
         my_app.conn.close()
 </code></pre>
-          <h3 id="novo-problema">O novo problema</h3>
-          <p>
-            Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de seustestes, ele precisa simular o comportamento de um acesso a um servidor <a href="http://redis.io/">Redis</a>, o que sobrescreve sua perfeita solução de banco de dados!
-          </p>
-          <p>Qual a nova solução? O que se faz em herança: evocar <code>super</code>!</p>
-          <pre class="prettyprint"><code class="language-python">from unittest.mock import patch
+<h3 id="novo-problema">O novo problema</h3>
+<p>
+  Tudo ia às mil maravilhas, até nosso programador descobrir que, em um de seustestes, ele precisa simular o comportamento de um acesso a um servidor <a href="http://redis.io/">Redis</a>, o que sobrescreve sua perfeita solução de banco de dados!
+</p>
+<p>Qual a nova solução? O que se faz em herança: evocar <code>super</code>!</p>
+<pre class="prettyprint"><code class="language-python">from unittest.mock import patch
 from my_test_case import TestCase
 from my_app import CacheManager
 
@@ -127,20 +127,20 @@ class TestCacheManager(TestCase):
 
     """Seguem os testes..."""
 </code></pre>
-          <p>O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não sacou como resolver – é que o <strong>contrato do <code>unittest</code> foi quebrado</strong>.
-          </p>
-          <h3 id="abordagem-correta">A abordagem correta</h3>
-          <p>A regra de ouro do <code>unittest</code> é: <strong>jamais</strong> implemente métodos <em>hook</em> em classes que não sejam testes de fato, que sejam abstrações de
-             comportamento para casos de teste de fato.
-          </p>
-          <p>— Mas como resolver então? 😯</p>
-          <p>Como sua classe pai tem o objetivo de alterar o comportamento do <em>framework</em>, sobrescreva rotinas internas do <em>framework</em>.</p>
-          <p>No caso, o método cujo comportamento você quer mudar é <code>run</code>. A
-             alteração será parecida com a criação de um contexto usando
-             <code>contextlib.contextmanager</code>, apenas trocando o <code>yield</code> por
-             <code>super</code>:
-          </p>
-          <pre class="prettyprint"><code class="language-python">class TestCase(unittest.TestCase):
+<p>O que nosso resoluto programador júnior não percebeu – ou percebeu, mas não sacou como resolver – é que o <strong>contrato do <code>unittest</code> foi quebrado</strong>.
+</p>
+<h3 id="abordagem-correta">A abordagem correta</h3>
+<p>A regra de ouro do <code>unittest</code> é: <strong>jamais</strong> implemente métodos <em>hook</em> em classes que não sejam testes de fato, que sejam abstrações de
+   comportamento para casos de teste de fato.
+</p>
+<p>— Mas como resolver então? 😯</p>
+<p>Como sua classe pai tem o objetivo de alterar o comportamento do <em>framework</em>, sobrescreva rotinas internas do <em>framework</em>.</p>
+<p>No caso, o método cujo comportamento você quer mudar é <code>run</code>. A
+   alteração será parecida com a criação de um contexto usando
+   <code>contextlib.contextmanager</code>, apenas trocando o <code>yield</code> por
+   <code>super</code>:
+</p>
+<pre class="prettyprint"><code class="language-python">class TestCase(unittest.TestCase):
 
     def run(self, result=None):
         conn = my_app.conn = sqlite3.connect(':memory:')
@@ -157,10 +157,10 @@ class TestCacheManager(TestCase):
         finally:
             conn.close()
 </code></pre>
-          <p>Pronto! O problema já está resolvido! Agora nossa classe <code>TestCase</code> já possui comportamento de <em>framework</em>, e os <em>hooks</em> podem ser usados
-             corretamente:
-          </p>
-          <pre class="prettyprint"><code class="language-python">class TestCacheManager(TestCase):
+<p>Pronto! O problema já está resolvido! Agora nossa classe <code>TestCase</code> já possui comportamento de <em>framework</em>, e os <em>hooks</em> podem ser usados
+   corretamente:
+</p>
+<pre class="prettyprint"><code class="language-python">class TestCacheManager(TestCase):
 
     def setUp(self):
         redis_patch = self.redis_patch = patch('my_app.Redis')
@@ -171,12 +171,12 @@ class TestCacheManager(TestCase):
 
           """Seguem os testes..."""
 </code></pre>
-          <h3 id="conclusao">Conclusão</h3>
-          <p>Esses problemas são causados por desentendimento dos contratos e
-            desconhecimento da linguagem, mas são facilmente resolvidos com um pouco de
-            pesquisa e leitura dos códigos das bibliotecas padrão, que são muito bem
-            documentadas.
-          </p>
+<h3 id="conclusao">Conclusão</h3>
+<p>Esses problemas são causados por desentendimento dos contratos e
+  desconhecimento da linguagem, mas são facilmente resolvidos com um pouco de
+  pesquisa e leitura dos códigos das bibliotecas padrão, que são muito bem
+  documentadas.
+</p>
         </div>
       </div>
       <div class="panel panel-default">
