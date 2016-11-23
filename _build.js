@@ -158,7 +158,7 @@ const processPugFile = co.wrap(function*({ file, counterpart, context, layout })
   useLayout = useLayout === undefined ? true : !!useLayout
 
   let template = fs.readFileSync(file, "utf-8")
-  let render = pug.compile(template, { filename: file, pretty: true })
+  let render = pug.compile(template, { filename: file, pretty: false })
 
   context = _.clone(context)
   context.public = globalContext
@@ -167,7 +167,7 @@ const processPugFile = co.wrap(function*({ file, counterpart, context, layout })
   if (useLayout) {
     context.yield = content
     template = fs.readFileSync(layout, "utf-8")
-    render = pug.compile(template, { filename: layout, pretty: true })
+    render = pug.compile(template, { filename: layout, pretty: false })
     content = render(context)
   }
 
