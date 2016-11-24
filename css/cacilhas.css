@@ -1,4 +1,7 @@
-@import "_default-fancy.css";
+@font-face {
+  font-family: "Default Fancy";
+  src: url("/fonts/default-fancy.ttf") format("truetype");
+}
 blockquote {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
   font-size: small;
