@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "blackchanceryregular";
+  font-family: "Default Fancy";
   src: url("/fonts/default-fancy.ttf") format("truetype"), url("/fonts/default-fancy.woff") format("woff"), url("/fonts/default-fancy.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -13,10 +13,10 @@ blockquote strong {
   font-weight: bolder;
 }
 .mg-title:first-letter {
-  font-family: "blackchanceryregular";
+  font-family: "Default Fancy";
 }
 .mg-first:first-letter {
-  font-family: "blackchanceryregular";
+  font-family: "Default Fancy";
   font-size: 180%;
   vertical-align: text-top;
   float: left;
