@@ -1,6 +1,10 @@
 @font-face
   font-family "Default Fancy"
-  src url("/fonts/default-fancy.ttf") format("truetype")
+  src url("/fonts/default-fancy.ttf") format("truetype"),
+      url("/fonts/default-fancy.woff") format("woff"),
+      url("/fonts/default-fancy.woff2") format("woff2")
+  font-weight normal
+  font-style normal
 
 
 $alert_color = #bbbb55
@@ -18,12 +22,12 @@ blockquote
 
 
 .mg-title
-  :first-letter
+  &:first-letter
     font-family "Default Fancy"
 
 
 .mg-first
-  :first-letter
+  &:first-letter
     font-family "Default Fancy"
     font-size 180%
     vertical-align text-top
@@ -32,7 +36,7 @@ blockquote
 
 
 .mg-highlighted
-  :hover
+  &:hover
     text-decoration none
 
   p.lead
@@ -56,14 +60,14 @@ blockquote
   td
     border-right 1px solid $grid_color !important
 
-    :last-child
+    &:last-child
       border-right none !important
 
 
 .mg-hidden-link
   color white
 
-  :hover
+  &:hover
     color $link_color
 
 
