@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "node _app.js",
-    "test": "node _build.js"
+    "start": "node _build.js",
+    "test": "node _app.js"
   },
   "repository": {
     "type": "git",
