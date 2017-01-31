@@ -70,8 +70,7 @@ love.draw = -&gt;
         @shapes = {...}</code></pre><p>Adicione um método <code>start</code> para iniciar o <em>tweening</em>, que mudará a cor entre branco e preto a cada 2s:</p><pre class="prettyprint"><code>    start: =&gt;
         guard = -&gt;
             color = if @color &lt; 0x80 then 0xff else 0x00
-            Timer.tween 1.9375, @, {:color}, "in-sine"
-            Timer.after 2, guard
+            Timer.tween 2, @, {:color}, "in-sine", guard
         guard!</code></pre><p>Esse método precisa ser chamado no carregamento de LÖVE:</p><pre class="prettyprint"><code>love.load = -&gt;
     app = CameraExample (-&gt; love.graphics.circle "fill", 0, 0, 50),
                         (-&gt; love.graphics.rectangle "fill", 100, 80, 10, 10),
