@@ -25,6 +25,8 @@ p É considerado um #[=""]
   a(href="http://docs.freebsd.org/44doc/usd/04.csh/paper.html") CShell
   | . Sua sintaxe é muito mais parecida com #[=""]
   a(href="http://tcl.tk/") Tcl/Tk
+  |   e #[=""]
+  a(href="https://www.lua.org/") Lua
   | .
 
 p Você pode encontrar a documentação #[=""]
@@ -50,7 +52,7 @@ p Ao contrário de outros #[em shells], o arquivo de carga inicial de
   | , mas se encontra em #[code ~/.config/fish/config.fish].
 
 p Outra característica muito importante é que, sempre que você executa um
-  | comando, o Fish procura um arquivo
+  |  comando, o Fish procura um arquivo
   code ~/.config/fish/functions/#[em comando].fish
   |  e, encontrando, o executa. O objetivo é carregar sob demanda funções
   | definidas pelo usuário.
@@ -70,7 +72,7 @@ h3#scripting: em Scripting
 
 p Vamos a um #[em script] de exemplo: criaremos uma função #[code rmpyc] que
   |  limpa os arquivos #[code .pyc] do diretório informado. Crie um arquivo
-  |  #[code ~/.config/fish/functions.rmpyc.fish]:
+  |  #[code ~/.config/fish/functions/rmpyc.fish]:
 
 pre.prettyprint: code.language-sh.
   function rmpyc
@@ -143,16 +145,16 @@ p Outro recurso de Fish é a ferramenta #[code string]: basicamente ela traz
 p Por exemplo, para converter o #[em path] para o formato Mac OS:
 
 pre.prettyprint: code.language-sh.
-  function to-mac-os-path
-    set -l path (string split / -- "$argv")
+  function to-mac-os-path -a original_path
+    set -l path (string split / -- "$original_path")
     string join : -- $path[2..(count $path)]
   end
 
 p Outra alternativa para fazer a mesma coisa:
 
 pre.prettyprint: code.language-sh.
-  function to-mac-os-path
-    string replace -a / : -- (string trim -l -c/ -- "$argv")
+  function to-mac-os-path -a path
+    string replace -a / : -- (string trim -l -c/ -- "$path")
   end
 
 h3#ajuda Buscando ajuda
