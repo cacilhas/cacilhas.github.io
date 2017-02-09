@@ -1,2 +1,1 @@
-- Add CC-BY to the first page.
-- Remove jQuery.
+- https://www.facebook.com/rodrigo.cacilhas/posts/10206144123840481
