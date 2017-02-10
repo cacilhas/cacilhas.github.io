@@ -1,0 +1,154 @@
+img.pull-right(src="/img/moonscript.jpg" alt="MoonScript")
+
+p.mg-first Abordarei três formas diferentes de se construir #[=""]
+  a(href="https://en.wikipedia.org/wiki/Iteration#Computing") reiteradores
+  |  em #[=""]
+  a(href="http://moonscript.org/") Moonscript
+  | .
+
+p Como Moonscript compila – ou, como tem-se preferido dizer, #[em interpila] –
+  |  para #[=""]
+  a(href="https://www.lua.org/") Lua
+  | , os princípios básicos aqui usado valem também para Lua.
+
+
+h3 Reiteradores padrão Lua
+
+p A primeira abordagem não usa #[em closures], mas tem algumas restrições. São
+  |  os reiteradores padrão da linguagem.
+
+p O reiterador padrão consiste em três parâmetros: uma função geradora, o estado
+  |  ou condição de parada e o valor inicial. A função geradora por sua vez
+  |  deve receber dois parâmetros, a condição de parada e o resultado anterior,
+  |  e retorna o(s) próximo(s) resultado(s).
+
+p Para exemplificar, vamos criar um reiterador que resolva a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz")
+    | conjectura de Collatz
+  | .
+
+p A função geradora deve receber então a condição de parada (sempre 1), o último
+  |  resultado e calcular o próximo elemento da sequência:
+
+pre.prettyprint: code.
+  _collatz = (stop, last) ->
+      return if last == stop
+      switch last % 2
+          when 0
+              last / 2
+          when 1
+              last * 3 + 1
+
+p Quando o estado atinge a condição de parada, retorna #[code nil] (nada).
+
+p Agora precisamos da função que retornará os três parâmetros para a reiteração:
+
+pre.prettyprint: code.
+  collatz = (value) -> _collatz, 1, value
+
+p Podemos testar agora nosso reiterador:
+
+pre: code
+  | mooni> #[strong print x for x in collatz 10]#[br/]
+  em 5#[br/]
+  em 16#[br/]
+  em 8#[br/]
+  em 4#[br/]
+  em 2#[br/]
+  em 1#[br/]
+  | mooni>
+
+
+h3: em Closures
+
+p O problema dos reiteradores padrão de Lua é o transporte de estado de uma
+  |  execução para outra, que pode se tornar complicado. Podemos resolver isso
+  |  com #[em closures].
+
+p Em Lua/Moonscript, se o #[code for] recebe uma função, ele a executa até que
+  |  o resultado seja #[code nil].
+
+p Então a conjectura de Collatz poderia ser resumida em uma única função:
+
+pre.prettyprint: code.
+  collatz = (value) ->
+      () ->
+          return if value == 1
+          switch value % 2
+              when 0
+                  value =/ 2
+              when 1
+                  value = value * 3 + 1
+          value
+
+p A função acima se comporta exatamente igual à #[code collatz] da abordagem
+  |  anterior:
+
+pre: code
+  | mooni> #[strong print x for x in collatz 10]#[br/]
+  em 5#[br/]
+  em 16#[br/]
+  em 8#[br/]
+  em 4#[br/]
+  em 2#[br/]
+  em 1#[br/]
+  | mooni>
+
+p Podemos ousar um pouco mais, por exemplo, calculando a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci")
+    | Sequência de Fibonacci
+  | , armazendo o estado usando #[em closures]:
+
+pre.prettyprint: code.
+  fib = (n) ->
+      a, b, c = 0, 1, 0
+      () ->
+          return if c >= n
+          a, b, c = b, a+b, c+1
+          a
+
+p Testando:
+
+pre: code
+  | mooni> #[strong print x for x in fib 10]#[br/]
+  em 1#[br/]
+  em 1#[br/]
+  em 2#[br/]
+  em 3#[br/]
+  em 5#[br/]
+  em 8#[br/]
+  em 13#[br/]
+  em 21#[br/]
+  em 34#[br/]
+  em 55#[br/]
+  | mooni>
+
+
+h3 Corrotinas
+
+p Podemos também fazer controle de estado sem #[em closures], usando #[=""]
+  a(href="http://lua-users.org/wiki/CoroutinesTutorial") corrotinas
+  | .
+
+p A lógica é a mesma, porém o código fica ainda mais claro:
+
+pre.prettyprint: code.
+  fib = (n) ->
+      import wrap, yield from coroutine
+      wrap () ->
+          a, b = 0, 1
+          for _ = 1, n
+              a, b = b, a+b
+              yield a
+
+p Pudemos usar um #[code for] para controlar o #[em loop], deixando o código
+  |  muito mais claro de ser lido e debugado.
+
+
+h3 Conclusão
+
+p É possível usar qualquer uma das três abordagens – e algumas podem ser
+  |  melhores que outras, dependendo da situação (a conjectura de Collatz ficou
+  |  melhor implementada com reiterador padrão, por exemplo). Porém minha
+  |  recomendação é, na dúvida, preferir corrotinas, pois deixarão seu código
+  |  mais claro.
