@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Reiteradores em Moonscript</title><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/"></a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Reiteradores em Moonscript</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Reiteradores em Moonscript</h2><h6 class="pull-right">Publicado em 10 de Fevereiro, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/moonscript.jpg" alt="MoonScript"/><p class="mg-first">Abordarei três formas diferentes de se construir <a href="https://en.wikipedia.org/wiki/Iteration#Computing">reiteradores</a> em <a href="http://moonscript.org/">Moonscript</a>.</p><p>Como Moonscript compila – ou, como tem-se preferido dizer, <em>interpila</em> – para <a href="https://www.lua.org/">Lua</a>, os princípios básicos aqui usado valem também para Lua.</p><h3>Reiteradores padrão Lua</h3><p>A primeira abordagem não usa <em>closures</em>, mas tem algumas restrições. São os reiteradores padrão da linguagem.</p><p>O reiterador padrão consiste em três parâmetros: uma função geradora, o estado ou condição de parada e o valor inicial. A função geradora por sua vez
+ deve receber dois parâmetros, a condição de parada e o resultado anterior,
+ e retorna o(s) próximo(s) resultado(s).</p><p>Para exemplificar, vamos criar um reiterador que resolva a <a href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz">conjectura de Collatz</a>.</p><p>A função geradora deve receber então a condição de parada (sempre 1), o último resultado e calcular o próximo elemento da sequência:</p><pre class="prettyprint"><code>_collatz = (stop, last) ->
+    return if last == stop
+    switch last % 2
+        when 0
+            last / 2
+        when 1
+            last * 3 + 1
+</code></pre><p>Quando o estado atinge a condição de parada, retorna <code>nil</code> (nada).</p><p>Agora precisamos da função que retornará os três parâmetros para a reiteração:</p><pre class="prettyprint"><code>collatz = (value) -> _collatz, 1, value
+</code></pre><p>Podemos testar agora nosso reiterador:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><h3><em>Closures</em></h3><p>O problema dos reiteradores padrão de Lua é o transporte de estado de uma execução para outra, que pode se tornar complicado. Podemos resolver isso
+ com <em>closures</em>.</p><p>Em Lua/Moonscript, se o <code>for</code> recebe uma função, ele a executa até que o resultado seja <code>nil</code>.</p><p>Então a conjectura de Collatz poderia ser resumida em uma única função:</p><pre class="prettyprint"><code>collatz = (value) ->
+    () ->
+        return if value == 1
+        switch value % 2
+            when 0
+                value =/ 2
+            when 1
+                value = value * 3 + 1
+        value
+</code></pre><p>A função acima se comporta exatamente igual à <code>collatz</code> da abordagem anterior:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><p>Podemos ousar um pouco mais, por exemplo, calculando a <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">Sequência de Fibonacci</a>, armazendo o estado usando <em>closures</em>:</p><pre class="prettyprint"><code>fib = (n) ->
+    a, b, c = 0, 1, 0
+    () ->
+        return if c >= n
+        a, b, c = b, a+b, c+1
+        a
+</code></pre><p>Testando:</p><pre><code>mooni> <strong>print x for x in fib 10</strong><br/><em>1<br/></em><em>1<br/></em><em>2<br/></em><em>3<br/></em><em>5<br/></em><em>8<br/></em><em>13<br/></em><em>21<br/></em><em>34<br/></em><em>55<br/></em>mooni></code></pre><h3>Corrotinas</h3><p>Podemos também fazer controle de estado sem <em>closures</em>, usando <a href="http://lua-users.org/wiki/CoroutinesTutorial">corrotinas</a>.</p><p>A lógica é a mesma, porém o código fica ainda mais claro:</p><pre class="prettyprint"><code>fib = (n) ->
+    import wrap, yield from coroutine
+    wrap () ->
+        a, b = 0, 1
+        for _ = 1, n
+            a, b = b, a+b
+            yield a
+</code></pre><p>Pudemos usar um <code>for</code> para controlar o <em>loop</em>, deixando o código muito mais claro de ser lido e debugado.</p><h3>Conclusão</h3><p>É possível usar qualquer uma das três abordagens – e algumas podem ser melhores que outras, dependendo da situação (a conjectura de Collatz ficou
+ melhor implementada com reiterador padrão, por exemplo). Porém minha
+ recomendação é, na dúvida, preferir corrotinas, pois deixarão seu código
+ mais claro.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `${mainHost}/${current.path.join("/")}.html`
+  this.page.identifier = `${current.path.slice(1).join(".")}`
+  this.page.title = 'Reiteradores em Moonscript'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
