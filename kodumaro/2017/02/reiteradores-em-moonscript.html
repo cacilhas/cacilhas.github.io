@@ -7,9 +7,10 @@
             last / 2
         when 1
             last * 3 + 1
-</code></pre><p>Quando o estado atinge a condição de parada, retorna <code>nil</code> (nada).</p><p>Agora precisamos da função que retornará os três parâmetros para a reiteração:</p><pre class="prettyprint"><code>collatz = (value) -> _collatz, 1, value
-</code></pre><p>Podemos testar agora nosso reiterador:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><h3><em>Closures</em></h3><p>O problema dos reiteradores padrão de Lua é o transporte de estado de uma execução para outra, que pode se tornar complicado. Podemos resolver isso
+</code></pre><p>Quando o estado atinge a condição de parada, retorna <code>nil</code> (nada).</p><p>Agora precisamos da função que retornará os três parâmetros para a reiteração:</p><pre class="prettyprint"><code>collatz = (value) -> _collatz, 1, value * 2
+</code></pre><blockquote><p>Multiplicamos o valor por dois para que o valor inicial também seja retornado na reiteração.</p></blockquote><p>Podemos testar agora nosso reiterador:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>10<br/></em><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><h3><em>Closures</em></h3><p>O problema dos reiteradores padrão de Lua é o transporte de estado de uma execução para outra, que pode se tornar complicado. Podemos resolver isso
  com <em>closures</em>.</p><p>Em Lua/Moonscript, se o <code>for</code> recebe uma função, ele a executa até que o resultado seja <code>nil</code>.</p><p>Então a conjectura de Collatz poderia ser resumida em uma única função:</p><pre class="prettyprint"><code>collatz = (value) ->
+    value *= 2
     ->
         return if value == 1
         switch value % 2
@@ -18,7 +19,7 @@
             when 1
                 value = value * 3 + 1
         value
-</code></pre><p>A função acima se comporta exatamente igual à <code>collatz</code> da abordagem anterior:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><p>Podemos ousar um pouco mais, por exemplo, calculando a <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">Sequência de Fibonacci</a>, armazendo o estado usando <em>closures</em>:</p><pre class="prettyprint"><code>fib = (n) ->
+</code></pre><p>A função acima se comporta exatamente igual à <code>collatz</code> da abordagem anterior:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>10<br/></em><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><p>Podemos ousar um pouco mais, por exemplo, calculando a <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">Sequência de Fibonacci</a>, armazendo o estado usando <em>closures</em>:</p><pre class="prettyprint"><code>fib = (n) ->
     a, b, c = 0, 1, 0
     ->
         return if c >= n

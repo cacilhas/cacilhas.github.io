@@ -44,12 +44,17 @@ p Quando o estado atinge a condição de parada, retorna #[code nil] (nada).
 p Agora precisamos da função que retornará os três parâmetros para a reiteração:
 
 pre.prettyprint: code.
-  collatz = (value) -> _collatz, 1, value
+  collatz = (value) -> _collatz, 1, value * 2
+
+blockquote
+  p Multiplicamos o valor por dois para que o valor inicial também seja
+    |  retornado na reiteração.
 
 p Podemos testar agora nosso reiterador:
 
 pre: code
   | mooni> #[strong print x for x in collatz 10]#[br/]
+  em 10#[br/]
   em 5#[br/]
   em 16#[br/]
   em 8#[br/]
@@ -72,6 +77,7 @@ p Então a conjectura de Collatz poderia ser resumida em uma única função:
 
 pre.prettyprint: code.
   collatz = (value) ->
+      value *= 2
       ->
           return if value == 1
           switch value % 2
@@ -86,6 +92,7 @@ p A função acima se comporta exatamente igual à #[code collatz] da abordagem
 
 pre: code
   | mooni> #[strong print x for x in collatz 10]#[br/]
+  em 10#[br/]
   em 5#[br/]
   em 16#[br/]
   em 8#[br/]
