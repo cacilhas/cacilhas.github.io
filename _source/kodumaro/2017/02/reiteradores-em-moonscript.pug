@@ -1,6 +1,6 @@
 img.pull-right(src="/img/moonscript.jpg" alt="MoonScript")
 
-p.mg-first Abordarei três formas diferentes de se construir #[=""]
+p.mg-first Abordarei três formas diferentes de construir #[=""]
   a(href="https://en.wikipedia.org/wiki/Iteration#Computing") reiteradores
   |  em #[=""]
   a(href="http://moonscript.org/") Moonscript
@@ -17,8 +17,8 @@ h3 Reiteradores padrão Lua
 p A primeira abordagem não usa #[em closures], mas tem algumas restrições. São
   |  os reiteradores padrão da linguagem.
 
-p O reiterador padrão consiste em três parâmetros: uma função geradora, o estado
-  |  ou condição de parada e o valor inicial. A função geradora por sua vez
+p O reiterador padrão consiste em três parâmetros: uma função de passo, o estado
+  |  ou condição de parada e o valor inicial. A função de passo por sua vez
   |  deve receber dois parâmetros, a condição de parada e o resultado anterior,
   |  e retorna o(s) próximo(s) resultado(s).
 
@@ -27,8 +27,8 @@ p Para exemplificar, vamos criar um reiterador que resolva a #[=""]
     | conjectura de Collatz
   | .
 
-p A função geradora deve receber então a condição de parada (sempre 1), o último
-  |  resultado e calcular o próximo elemento da sequência:
+p A função de passo deve receber então a condição de parada (sempre 1), o
+  |  resultado anterior e calcular o próximo elemento da sequência:
 
 pre.prettyprint: code.
   _collatz = (stop, last) ->
@@ -147,8 +147,8 @@ p Pudemos usar um #[code for] para controlar o #[em loop], deixando o código
 
 h3 Conclusão
 
-p É possível usar qualquer uma das três abordagens – e algumas podem ser
-  |  melhores que outras, dependendo da situação (a conjectura de Collatz ficou
+p É possível usar qualquer uma das três abordagens – e alguma pode ser melhor
+  |  que as outras, dependendo da situação (a conjectura de Collatz ficou
   |  melhor implementada com reiterador padrão, por exemplo). Porém minha
   |  recomendação é, na dúvida, preferir corrotinas, pois deixarão seu código
   |  mais claro.
