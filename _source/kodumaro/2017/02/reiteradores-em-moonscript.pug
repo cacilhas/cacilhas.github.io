@@ -18,9 +18,9 @@ p A primeira abordagem não usa #[em closures], mas tem algumas restrições. S�
   |  os reiteradores padrão da linguagem.
 
 p O reiterador padrão consiste em três parâmetros: uma função de passo, o estado
-  |  ou condição de parada e o valor inicial. A função de passo por sua vez
-  |  deve receber dois parâmetros, a condição de parada e o resultado anterior,
-  |  e retorna o(s) próximo(s) resultado(s).
+  |  ou a condição de parada e o valor inicial. A função de passo por sua vez
+  |  deve receber dois parâmetros, o estado ou a condição de parada e o
+  |  resultado anterior, e retorna o(s) próximo(s) resultado(s).
 
 p Para exemplificar, vamos criar um reiterador que resolva a #[=""]
   a(href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz")
@@ -72,7 +72,7 @@ p Então a conjectura de Collatz poderia ser resumida em uma única função:
 
 pre.prettyprint: code.
   collatz = (value) ->
-      () ->
+      ->
           return if value == 1
           switch value % 2
               when 0
@@ -102,7 +102,7 @@ p Podemos ousar um pouco mais, por exemplo, calculando a #[=""]
 pre.prettyprint: code.
   fib = (n) ->
       a, b, c = 0, 1, 0
-      () ->
+      ->
           return if c >= n
           a, b, c = b, a+b, c+1
           a
@@ -135,7 +135,7 @@ p A lógica é a mesma, porém o código fica ainda mais claro:
 pre.prettyprint: code.
   fib = (n) ->
       import wrap, yield from coroutine
-      wrap () ->
+      wrap ->
           a, b = 0, 1
           for _ = 1, n
               a, b = b, a+b
