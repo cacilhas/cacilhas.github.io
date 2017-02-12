@@ -1,0 +1,49 @@
+img.pull-right(src="/img/moonscript.jpg" alt="MoonScript")
+
+p.mg-first No #[=""]
+  a(href=`${public.kodumaro.blog.url}2017/02/reiteradores-em-moonscript.html`)
+    | último artigo
+  |  vimos três abordagens para fazer reiteração em #[=""]
+  a(href="http://moonscript.org/") Moonscript
+  | . Neste artigos nos apronfundaremos na persistência de estado entre passos
+  |  do reiterador padrão, que eu citei como sendo uma dificuldade, porém nem
+  |  tanto.
+
+p Vocês vão se recordar que eu disse que o reiterador padrão era representado
+  |  pelo gerador, condição de parada ou estado e valor inicial, enquanto o
+  |  gerador recebe como parâmetros o estado ou condição de parada e o resultado
+  |  da reiteração anterior.
+
+p No exemplo, Conjectura de Collatz, usamos uma condição de parada. Neste artigo
+  |  daremos um exemplo com #[strong estado].
+
+p Vamos fazer a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci")
+    | Sequência de Fibonacci
+  |  usando o reiterador padrão. Pra isso manteremos os valores de #[code a] e
+  |  #[code b] em uma tabela de estado, bem como a contagem #[code n].
+
+p A função a ser passada para o #[code for] é:
+
+pre.prettyprint: code.
+  (n) -> _fib, {a: 0, b: 1, :n}, 0
+
+p Que inicia o estado com os valores de #[code a], #[code b] e #[code n], e
+  |  assume o valor inicial como zero.
+
+p A função de passo (#[code _fib]) deve atualizar os valores de #[code a] e
+  |  #[code b], e decrementar o valor de #[code n], retornando #[code a]. Não
+  |  será preciso lidar com o resultado anterior, já que temos todos os dados no
+  |  estado:
+
+pre.prettyprint: code.
+  _fib = =>
+      if @n > 0
+          @a, @b, @n = @b, @a+@b, @n-1
+          @a
+
+p Veja que tiramos proveito da sintaxe de #[em fat arrow] de Moonscript, que
+  |  trata #[code self] como #[code @].
+
+p E este foi um exemplo bem simples de como usar estado no reiterador padrão de
+  |  Lua.
