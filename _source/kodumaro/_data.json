@@ -4,9 +4,11 @@
     "subtitle": "As sombras da programação.",
     "url": "http://cacilhas.info/kodumaro/"
   },
+
   "feed": {
     "layout": false
   },
+
   "index": {
     "title": "<em>Saluton!</em>",
     "home": true
