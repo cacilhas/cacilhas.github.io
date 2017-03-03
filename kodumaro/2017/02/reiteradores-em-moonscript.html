@@ -19,13 +19,13 @@
             when 1
                 value = value * 3 + 1
         value
-</code></pre><p>A função acima se comporta exatamente igual à <code>collatz</code> da abordagem anterior:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>10<br/></em><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><p>Podemos ousar um pouco mais, por exemplo, calculando a <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">Sequência de Fibonacci</a>, armazendo o estado usando <em>closures</em>:</p><pre class="prettyprint"><code>fib = (n) ->
+</code></pre><p>A função acima se comporta exatamente igual à <code>collatz</code> da abordagem anterior:</p><pre><code>mooni> <strong>print x for x in collatz 10</strong><br/><em>10<br/></em><em>5<br/></em><em>16<br/></em><em>8<br/></em><em>4<br/></em><em>2<br/></em><em>1<br/></em>mooni></code></pre><p>Podemos ousar um pouco mais, por exemplo, calculando a <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">Sequência de Fibonacci</a>, armazendo o estado usando <em>closures</em>:</p><pre class="prettyprint"><code>fib = (n using nil) ->
     a, b, c = 0, 1, 0
     ->
         return if c >= n
         a, b, c = b, a+b, c+1
         a
-</code></pre><p>Testando:</p><pre><code>mooni> <strong>print x for x in fib 10</strong><br/><em>1<br/></em><em>1<br/></em><em>2<br/></em><em>3<br/></em><em>5<br/></em><em>8<br/></em><em>13<br/></em><em>21<br/></em><em>34<br/></em><em>55<br/></em>mooni></code></pre><h3>Corrotinas</h3><p>Podemos também fazer controle de estado sem <em>closures</em>, usando <a href="http://lua-users.org/wiki/CoroutinesTutorial">corrotinas</a>.</p><p>A lógica é a mesma, porém o código fica ainda mais claro:</p><pre class="prettyprint"><code>fib = (n) ->
+</code></pre><p>Testando:</p><pre><code>mooni> <strong>print x for x in fib 10</strong><br/><em>1<br/></em><em>1<br/></em><em>2<br/></em><em>3<br/></em><em>5<br/></em><em>8<br/></em><em>13<br/></em><em>21<br/></em><em>34<br/></em><em>55<br/></em>mooni></code></pre><h3>Corrotinas</h3><p>Podemos também fazer controle de estado sem <em>closures</em>, usando <a href="http://lua-users.org/wiki/CoroutinesTutorial">corrotinas</a>.</p><p>A lógica é a mesma, porém o código fica ainda mais claro:</p><pre class="prettyprint"><code>fib = (n using coroutine) ->
     import wrap, yield from coroutine
     wrap ->
         a, b = 0, 1

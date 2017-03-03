@@ -107,7 +107,7 @@ p Podemos ousar um pouco mais, por exemplo, calculando a #[=""]
   | , armazendo o estado usando #[em closures]:
 
 pre.prettyprint: code.
-  fib = (n) ->
+  fib = (n using nil) ->
       a, b, c = 0, 1, 0
       ->
           return if c >= n
@@ -140,7 +140,7 @@ p Podemos também fazer controle de estado sem #[em closures], usando #[=""]
 p A lógica é a mesma, porém o código fica ainda mais claro:
 
 pre.prettyprint: code.
-  fib = (n) ->
+  fib = (n using coroutine) ->
       import wrap, yield from coroutine
       wrap ->
           a, b = 0, 1
