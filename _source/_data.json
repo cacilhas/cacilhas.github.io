@@ -1,12 +1,14 @@
 {
   "404": {
-	"title": ":: NOT FOUND"
+    "title": ":: NOT FOUND"
   },
 
   "about": {
     "aboutActive": true,
     "title": ":: Sobre"
   },
+
+  "googleAdClient": "ca-pub-5741846017654057",
 
   "index": {
     "homeActive": true
