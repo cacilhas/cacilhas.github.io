@@ -1,0 +1,9 @@
+{
+  "golang": {
+    "title": "Sobre Golang",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Recentemente começei a trabalhar em um projeto usando a linguagem Go…",
+    "release": "2017-06-12",
+    "tags": ["Go", "TDD"]
+  }
+}
