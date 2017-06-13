@@ -1,0 +1,228 @@
+img.pull-right(src="/img/golang.jpg" alt="Golang")
+
+p.mg-first Recentemente começei a trabalhar em um projeto usando a
+  |  linguagem #[=""]
+  a(href="https://golang.org/") Go
+  |  do Google. Minha intenção é expor aqui minhas impressões sobre a linguagem
+  |  enquanto plataforma de desenvolvimento.
+
+
+h3 Abordagem
+
+p A primeira coisa que percebi é que abordei a linguagem inicialmente com uma
+  |  visão equivocada. Olhei para Go do ponto de vista de #[=""]
+  a(href="https://www.python.org/") Python
+  |  e #[=""]
+  a(href="https://nodejs.org/") Node.js
+  | . O resultado foi uma total decepção. Quando você tenta usar uma linguagem
+  |  que oferece ferramentas mais poderosas no uso de recursos do sistema com
+  |  mentalidade de linguagens poderosas no sentido de facilitar #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Desenvolvimento_rápido_de_aplicações")
+    RAD
+  |  o resultado é #[strong frustração].
+
+p A partir do momento que chaveei meu pensamento para #[=""]
+  a(href="http://www.cplusplus.com/") C++
+  |  e #[=""]
+  a(href="https://www.gnu.org/software/gnustep/resources/documentation/Developer/Base/ProgrammingManual/manual_toc.html")
+    | Objective-C
+  |  tive uma epifania sobre Go: de repente ela se tornou um linguagem
+  |  interessante, até divertida de programar.
+
+p Inclusive um amigo meu de muito boa vontade tentou me explicar ponteiros
+  |  com analogias e relações #[em ro] vs #[em rw] – bastava dizer “são
+  |  ponteiros“.
+
+p A única crítica que tenho nesse ponto a Go é que o Google poderia ter tentado
+  |  menos reinventar a roda e aproveitado mais a sintaxe de C++, já amplamente
+  |  experimentada e readaptada, como #[=""]
+  a(href="https://wiki.gnome.org/Projects/Vala") Vala
+  |  fez com #[=""]
+  a(href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/")
+    | C#
+  | . Teria atraído mais bons programadores devido a uma menor curva de
+  |  aprendizado (apesar de #[=""]
+  a(href="https://lwn.net/Articles/249460/") Linus Torvalds discordar
+  | ).
+
+
+h3 Interfaces
+
+p
+  a(href="https://www.golang-book.com/books/intro/9") Interfaces
+  |  se parecem parte com interfaces de #[=""]
+  a(href="https://www.oracle.com/java/") Java
+  |  e parte com interfaces de Objective-C – na verdade #[code struct]s se
+  |  parecem com interfaces de Objetive-C. Porém, ao contrário de Java, as
+  |  interfaces de Go seguem a filosofia #[=""]
+  a(href="http://apprize.info/python/fluent/12.html"): em goose typing
+  | , que é um aprimoramento do #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Duck_typing"): em duck typing
+  | .
+
+p Ou seja, se seu objeto implementa todos os métodos descritos pela interface,
+  |  ele #[strong é de fato] uma instância daquela interface.
+
+p Por exemplo:
+
+pre.prettyprint: code.
+  type Person interface {
+    FirstName() string
+    LastName() string
+    FullName() string
+    Birth() time.Time
+  }
+
+  type personType struct {
+    firstName, lastName string
+    birth time.Time
+  }
+
+  func NewPerson(firstName, lastName string, birth time.Time) Person {
+    return personType{firstName, lastName, birth}
+  }
+
+  func (p personType) FirstName() string {
+    return p.firstName
+  }
+
+  func (p personType) LastName() string {
+    return p.lastName
+  }
+
+  func (p personType) FullName() string {
+    return strings.Trim(fmt.Sprintf("%v %v", p.firstName, p.lastName), " ")
+  }
+
+  func (p personType) Birth() time.Time {
+    return p.birth
+  }
+
+p No exemplo acima, instâncias da #[code struct] #[code personType] são
+  |  automaticamente instâncias de #[code Person], uma vez que
+  |  #[code personType] implemente todos os métodos da interface, podendo ser
+  |  retornadas por #[code NewPerson] como instâncias reais de #[code Person].
+
+
+h3 Testes unitários
+
+p A biblioteca padrão de Go oferece recursos simples, porém poderosíssimos para
+  |  testes unitários. Trata-se da #[em lib] #[=""]
+  a(href="https://golang.org/pkg/testing/"): code testing
+  | .
+
+p Por exemplo, para testarmos nossa #[code struct] (sendo bastante prolixo):
+
+pre.prettyprint: code.
+
+  func TestPerson(t *testing.T) {
+    timeForm := "2000-01-31"
+    birth, _ := time.Parse(timeForm, "2017-06-12")
+    p := NewPerson("John", "Doe", birth)
+
+    t.Run("primary methods", func(t *testing.T) {
+      t.Run("#FirstName", func(t *test.T) {
+        if got := p.FirstName(); got != "John" {
+          t.Fatalf("expected John, got %v", got)
+        }
+      })
+
+      t.Run("#LastName", func(t *test.T) {
+        if got := p.LastName(); got != "Doe" {
+          t.Fatalf("expected Doe, got %v", got)
+        }
+      })
+
+      t.Run("#Birth", func(t *test.T) {
+        expected, _ := time.Parse(timeForm, "2017-02-12")
+        if got := p.Birth(); got != expected {
+          t.Fatalf("expected %v, got %v", expected, got)
+        }
+      })
+    })
+
+    t.Run("secondary methods", func(t *test.T) {
+      t.Run("#FullName", func(t *test.T) {
+        if got := p.FullName(); got != "John Doe" {
+          t.Fatalf("expected John Doe, got %v", got)
+        }
+      })
+    })
+  }
+
+p Mais do que suficiente para os testes unitários do dia-a-dia.
+
+
+h3 Tratamento de exceções
+
+p A forma padrão de tratar exceções em Go é retornando a exceção como última
+  |  resposta.
+
+p Por exemplo, você deve ter reparado no #[code _] na linha que cria a data de
+  |  nascimento:
+
+pre.prettyprint: code.
+  birth, _ := time.Parse(timeForm, "2017-06-12")
+
+p O #[code _] diz para Go descartar o retorno daquela posição. Um código mais
+  |  honesto seria:
+
+pre.prettyprint: code.
+  birth, err := time.Parse(timeForm, "2017-06-12")
+  if err != nil {
+    // Faça alguma coisa com err
+    ...
+  }
+
+p O segundo valor retornado é o erro, caso o #[em parsing] da data tenha
+  |  falhado, ou #[code nil] se tudo deu certo e o objeto #[code time.Time] pode
+  |  ser criado corretamente.
+
+p Porém há casos em que a exceção não pode ser tratada (ou não se deseja que
+  |  seja). Nesses casos é levantado um #[code panic], que é uma exceção
+  |  destrutiva que derruba a #[em gorrotina] atual e cada uma que esteja
+  |  conectada a ela.
+
+p A forma de tratar um #[code panic] é através de um #[code defer].
+
+p #[code defer] é um bloco de código (não uma função!) que é executado
+  |  incondicionalmente na saída da função atual.
+
+p Dentro do bloco #[code defer] é possível chamar #[code recover()], que para a
+  |  propagação do #[code panic]. Se houver algum #[code panic] sendo propagado,
+  |  sua exceção será retornada pelo #[code recover()], caso não haja, será
+  |  retornado #[code nil].
+
+p Por exemplo:
+
+pre.prettyprint: code.
+
+  func DoSomethingDangerous(res chan<- error) {
+    defer res <- recover()
+
+    // Faz algo que possa levar a um panic
+    ...
+  }
+
+p Podem ser registrados quantos #[code defer]s forem necessários.
+
+
+h3 Conclusão
+
+p Esta foi uma avaliação bem superficial da linguagem, não entrei em detalhes
+  |  importantes, como #[em gorrotinas] e #[code chan]s,
+  |  #[code sync.WaitGroup]s, #[em slices], #[em loops], etc. Fica para uma
+  |  próxima.
+
+p Quem estiver interessado em aventurar-se no mundo do Go, recomendo o #[=""]
+  a(href="https://tour.golang.org/") #[em tour] pela linguagem
+  | , o livro #[=""]
+  a(href="https://www.golang-book.com/books/intro")
+    An Introdution to Programming in Go
+  | ,  #[=""]
+  a(href="https://blog.golang.org/") The Go Blog
+  |  e #[=""]
+  a(href="https://www.goinggo.net/") Going Go Programming
+  | . Para experimentar a linguagem, há disponível #[=""]
+  a(href="https://play.golang.org/") The Go Playground
+  | .
