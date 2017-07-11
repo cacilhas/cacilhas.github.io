@@ -1,0 +1,111 @@
+img.pull-right(src="/img/typescript.jpg" alt="Typescript")
+
+p.mg-first Recentemente comecei minhas aventuras em #[=""]
+  a(href="http://www.typescriptlang.org/") Typescript
+  |  e percebi algo importante: é preciso ser muito honesto com a representação
+  |  da tipagem.
+
+p O problema com a tipagem do Typescript é que ela só pode ser verificada em
+  |  tempo de transpilação, uma vez que a transpilação gera código #[=""]
+  a(href="http://es6-features.org/") Javascript
+  | , cuja tipagem é dinâmica e também bastante fraca.
+
+p Vamos a um exemplo:
+
+pre.prettyprint: code.
+  export interface Employee {
+    id: number
+    name: string
+    birth: Date
+  }
+
+  export function registerEmployee(employee: Employee): Promise&lt;boolean&gt; {
+    return sequelize.query(
+      "INSERT INTO t_employee VALUES (?, ?, ?)",
+      {
+        replacements: [ employee.id, employee.name, employee.birth ],
+        type: sequelize.QueryType.INSERT,
+      }
+    ).then(() => true).catch(err => {
+      console.error(err)
+      return false
+    })
+  }
+
+p Parece um código bastante seguro, uma vez que, se for passado um elemento que
+  |  não seja um #[code Employee] para #[code registerEmployee], o código nem
+  |  mesmo transpila.
+
+p Porém esta é uma falsa segurança. Considere dois casos:
+
+ol
+  li A função é chamada de um código Javascript.
+  li A rotina que chama esta função recebe #[code employee] de uma resposta ou
+    |  uma requisição do #[=""]
+    a(href="http://expressjs.com/pt-br/") Express
+    | .
+
+p Nesses dois casos, não há como garantir que #[code employee] será do tipo
+  |  #[code Employee].
+
+p Para solucionar este problema precisamos ser bastante honestos – e
+  |  verborrágicos – quanto à representação dos tipos.
+
+p Neste caso, o objeto recebido pode não ter qualquer um dos atributos esperados
+  |  – ou pior: nem ser um #[code object].
+
+p Temos então de lidar com as possibilidades – usaremos #[=""]
+  a(href="http://underscorejs.org/") Underscore.js
+  |  para ajudar:
+
+pre.prettyprint: code.
+  export interface Employee {
+    id: number
+    name: string
+    birth: Date
+  }
+
+  function castEmployee(data: any): Employee {
+    let check = _.isObject(data)
+    check = check && _(data).has("id")    && _.isNumber(data.id)
+    check = check && _(data).has("name")  && _.isString(data.name)
+    check = check && _(data).has("birth") && _.isDate(birth)
+
+    if (check)
+      return &lt;Employee&gt;data
+
+    throw new TypeError(`${data} is not an Employee`)
+  }
+
+  function _registerEmployee(employee: Employee): Promise&lt;boolean&gt; {
+    return sequelize.query(
+      "INSERT INTO t_employee VALUES (?, ?, ?)",
+      {
+        replacements: [ employee.id, employee.name, employee.birth ],
+        type: sequelize.QueryType.INSERT,
+      }
+    ).then(() => true).catch(err => {
+      console.error(err)
+      return Promise.resolve(false)
+    })
+  }
+
+  export function registerEmployee(resource: any): Promise&lt;boolean&gt; {
+    try {
+      const employee = castEmployee(resource)
+      return _registerEmployee(employee)
+
+    } catch(_err) {
+      return Promise.resolve(false)
+    }
+  }
+
+p Admito ter sido um pouco rude ao levantar uma exceção para reconhecer o data,
+  |  mas a ideia está clara.
+
+p Em resumo: se é possível que um valor seja #[code any], é preciso que ele seja
+  |  declarado como tal, e o tratamento e #[em casting] precisam ser feitos
+  |  manualmente. Se um valor puder ser #[code undefined], é preciso tratá-lo
+  |  como tal (#[code Employee | undefined], por exemplo). Não podemos confiar
+  |  totalmente na tipagem estática se o código será compilado para uma
+  |  tecnologia que não suporta tal ferramenta.
