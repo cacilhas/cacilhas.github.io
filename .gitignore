@@ -8,6 +8,7 @@
 .env
 .idea
 .vscode
+_build.js
 
 /node_modules
 /package-lock.json
