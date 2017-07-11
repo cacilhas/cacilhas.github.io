@@ -13,6 +13,8 @@ p O problema com a tipagem do Typescript é que ela só pode ser verificada em
 p Vamos a um exemplo:
 
 pre.prettyprint: code.
+  import * as sequelize from "sequelize"
+
   export interface Employee {
     id: number
     name: string
@@ -59,6 +61,9 @@ p Temos então de lidar com as possibilidades – usaremos #[=""]
   |  para ajudar:
 
 pre.prettyprint: code.
+  import * as _ from "underscore"
+  import * as sequelize from "sequelize"
+
   export interface Employee {
     id: number
     name: string
