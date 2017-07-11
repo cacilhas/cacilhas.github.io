@@ -96,17 +96,11 @@ pre.prettyprint: code.
   }
 
   export function registerEmployee(resource: Employee): Promise&lt;boolean&gt; {
-    try {
-      const employee = castEmployee(resource)
-      return _registerEmployee(employee)
-
-    } catch(_err) {
-      return Promise.resolve(false)
-    }
+    return _registerEmployee(castEmployee(employee))
   }
 
-p Admito ter sido um pouco rude ao levantar uma exceção para reconhecer o data,
-  |  mas a ideia está clara.
+p Parece rude levantar uma exceção, mas é honesto – tipo errado leva a um
+  |  #[code TypeError].
 
 p Em resumo: se é possível que um valor seja #[code any], é preciso que ele seja
   |  tratado como tal, e o tratamento e #[em casting] precisam ser feitos

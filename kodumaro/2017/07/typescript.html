@@ -64,15 +64,9 @@ function _registerEmployee(employee: Employee): Promise&lt;boolean&gt; {
 }
 
 export function registerEmployee(resource: Employee): Promise&lt;boolean&gt; {
-  try {
-    const employee = castEmployee(resource)
-    return _registerEmployee(employee)
-
-  } catch(_err) {
-    return Promise.resolve(false)
-  }
+  return _registerEmployee(castEmployee(employee))
 }
-</code></pre><p>Admito ter sido um pouco rude ao levantar uma exceção para reconhecer o data, mas a ideia está clara.</p><p>Em resumo: se é possível que um valor seja <code>any</code>, é preciso que ele seja tratado como tal, e o tratamento e <em>casting</em> precisam ser feitos
+</code></pre><p>Parece rude levantar uma exceção, mas é honesto – tipo errado leva a um <code>TypeError</code>.</p><p>Em resumo: se é possível que um valor seja <code>any</code>, é preciso que ele seja tratado como tal, e o tratamento e <em>casting</em> precisam ser feitos
  manualmente. Se um valor puder ser <code>undefined</code>, é preciso tratá-lo
  como tal (<code>Employee | undefined</code>, por exemplo). Não podemos confiar
  totalmente na tipagem estática se o código será compilado para uma
