@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Sendo honesto em Typescript</title><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/"></a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Sendo honesto em Typescript</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Sendo honesto em Typescript</h2><h6 class="pull-right">Publicado em 10 de Julho, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/typescript.jpg" alt="Typescript"/><p class="mg-first">Recentemente comecei minhas aventuras em <a href="http://www.typescriptlang.org/">Typescript</a> e percebi algo importante: é preciso ser muito honesto com a representação
+ da tipagem.</p><p>O problema com a tipagem do Typescript é que ela só pode ser verificada em tempo de transpilação, uma vez que a transpilação gera código <a href="http://es6-features.org/">Javascript</a>, cuja tipagem é dinâmica e também bastante fraca.</p><p>Vamos a um exemplo:</p><pre class="prettyprint"><code>export interface Employee {
+  id: number
+  name: string
+  birth: Date
+}
+
+export function registerEmployee(employee: Employee): Promise&lt;boolean&gt; {
+  return sequelize.query(
+    "INSERT INTO t_employee VALUES (?, ?, ?)",
+    {
+      replacements: [ employee.id, employee.name, employee.birth ],
+      type: sequelize.QueryType.INSERT,
+    }
+  ).then(() => true).catch(err => {
+    console.error(err)
+    return false
+  })
+}
+</code></pre><p>Parece um código bastante seguro, uma vez que, se for passado um elemento que não seja um <code>Employee</code> para <code>registerEmployee</code>, o código nem
+ mesmo transpila.</p><p>Porém esta é uma falsa segurança. Considere dois casos:</p><ol><li>A função é chamada de um código Javascript.</li><li>A rotina que chama esta função recebe <code>employee</code> de uma resposta ou uma requisição do <a href="http://expressjs.com/pt-br/">Express</a>.</li></ol><p>Nesses dois casos, não há como garantir que <code>employee</code> será do tipo <code>Employee</code>.</p><p>Para solucionar este problema precisamos ser bastante honestos – e verborrágicos – quanto à representação dos tipos.</p><p>Neste caso, o objeto recebido pode não ter qualquer um dos atributos esperados – ou pior: nem ser um <code>object</code>.</p><p>Temos então de lidar com as possibilidades – usaremos <a href="http://underscorejs.org/">Underscore.js</a> para ajudar:</p><pre class="prettyprint"><code>export interface Employee {
+  id: number
+  name: string
+  birth: Date
+}
+
+function castEmployee(data: any): Employee {
+  let check = _.isObject(data)
+  check = check && _(data).has("id")    && _.isNumber(data.id)
+  check = check && _(data).has("name")  && _.isString(data.name)
+  check = check && _(data).has("birth") && _.isDate(birth)
+
+  if (check)
+    return &lt;Employee&gt;data
+
+  throw new TypeError(`${data} is not an Employee`)
+}
+
+function _registerEmployee(employee: Employee): Promise&lt;boolean&gt; {
+  return sequelize.query(
+    "INSERT INTO t_employee VALUES (?, ?, ?)",
+    {
+      replacements: [ employee.id, employee.name, employee.birth ],
+      type: sequelize.QueryType.INSERT,
+    }
+  ).then(() => true).catch(err => {
+    console.error(err)
+    return Promise.resolve(false)
+  })
+}
+
+export function registerEmployee(resource: any): Promise&lt;boolean&gt; {
+  try {
+    const employee = castEmployee(resource)
+    return _registerEmployee(employee)
+
+  } catch(_err) {
+    return Promise.resolve(false)
+  }
+}
+</code></pre><p>Admito ter sido um pouco rude ao levantar uma exceção para reconhecer o data, mas a ideia está clara.</p><p>Em resumo: se é possível que um valor seja <code>any</code>, é preciso que ele seja declarado como tal, e o tratamento e <em>casting</em> precisam ser feitos
+ manualmente. Se um valor puder ser <code>undefined</code>, é preciso tratá-lo
+ como tal (<code>Employee | undefined</code>, por exemplo). Não podemos confiar
+ totalmente na tipagem estática se o código será compilado para uma
+ tecnologia que não suporta tal ferramenta.</p></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `${mainHost}/${current.path.join("/")}.html`
+  this.page.identifier = `${current.path.slice(1).join(".")}`
+  this.page.title = 'Sendo honesto em Typescript'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
