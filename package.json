@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "build": "node _build.js",
+    "build": "tsc -p . && node _build.js",
     "start": "npm run build && node _app.js",
     "test": "npm start"
   },
@@ -19,11 +19,12 @@
   },
   "homepage": "https://cacilhas.info/",
   "dependencies": {
+    "@types/node": "^8.0.10",
     "co": "^4.6.0",
     "express": "^4.14.0",
-    "moment": "^2.16.0",
     "pug": "^2.0.0-beta6",
     "stylus": "^0.54.5",
+    "typescript": "^2.4.1",
     "underscore": "^1.8.3"
   }
 }
