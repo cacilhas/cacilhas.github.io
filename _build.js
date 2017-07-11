@@ -194,5 +194,5 @@ co(function*() {
   yield populateBlogs(globalContext)
   yield processDirectory({ dirname: "./_source", context: globalContext })
 })
-.then(() => require("./_app"))
+.then(() => console.log("built"))
 .catch(console.error)
