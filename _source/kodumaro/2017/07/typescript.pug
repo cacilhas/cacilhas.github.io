@@ -91,11 +91,11 @@ pre.prettyprint: code.
       }
     ).then(() => true).catch(err => {
       console.error(err)
-      return Promise.resolve(false)
+      return false
     })
   }
 
-  export function registerEmployee(resource: any): Promise&lt;boolean&gt; {
+  export function registerEmployee(resource: Employee): Promise&lt;boolean&gt; {
     try {
       const employee = castEmployee(resource)
       return _registerEmployee(employee)
@@ -109,7 +109,7 @@ p Admito ter sido um pouco rude ao levantar uma exceção para reconhecer o data
   |  mas a ideia está clara.
 
 p Em resumo: se é possível que um valor seja #[code any], é preciso que ele seja
-  |  declarado como tal, e o tratamento e #[em casting] precisam ser feitos
+  |  tratado como tal, e o tratamento e #[em casting] precisam ser feitos
   |  manualmente. Se um valor puder ser #[code undefined], é preciso tratá-lo
   |  como tal (#[code Employee | undefined], por exemplo). Não podemos confiar
   |  totalmente na tipagem estática se o código será compilado para uma
