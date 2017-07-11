@@ -3,6 +3,7 @@
     "title": "Reiteradores em Moonscript",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Abordarei três formas diferentes de se construir reiteradores em Moonscript.",
+    "image": "/img/moonscript.jpg",
     "release": "2017-02-10",
     "tags": ["Lua"]
   },
@@ -10,6 +11,7 @@
     "title": "Mais sobre reiteradores em Moonscript",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Neste artigos nos apronfundaremos na persistência de estado entre passos do reiterador padrão.",
+    "image": "/img/moonscript.jpg",
     "release": "2017-02-10",
     "tags": ["Lua"]
   }

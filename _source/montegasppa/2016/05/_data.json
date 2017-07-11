@@ -10,6 +10,7 @@
     "title": "Todo político é corrupto",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Verdades absolutas são burras por desconsiderar a realidade factual…",
+    "image": "/img/heim.jpg",
     "release": "2016-05-20",
     "tags": ["Política"]
   },
@@ -17,6 +18,7 @@
     "title": "A Cultura do Estupro (<em>Rape Culture</em>)",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Ontem ouvi que a menor de 16 anos que sofreu estupro de mais de 30 homens…",
+    "image": "/img/estupro.jpg",
     "release": "2016-05-28",
     "tags": ["Política", "Educação e Cultura"]
   },
@@ -24,6 +26,7 @@
     "title": "ॐ नमः शिवाय",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
     "content": "Oṁ Namah Shivaya!",
+    "image": "/img/shiva-back.jpg",
     "release": "2016-05-31",
     "tags": ["Religião", "Educação e Cultura"]
   }

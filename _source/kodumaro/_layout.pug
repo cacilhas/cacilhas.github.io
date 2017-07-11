@@ -2,6 +2,18 @@ extends ../_layout.pug
 
 block blog-head
   title #{public.kodumaro.blog.title} :: #{title}
+  meta(property="og:site_name" content=public.kodumaro.blog.title)/
+  meta(property="og:title" content=title)/
+  if current && current.path
+    meta(property="og:url"
+         content=`${public.mainHost}/${current.path.slice(2).join("/")}.html`)/
+  if tags
+    meta(property="og:type" content="article")/
+    meta(property="article:tag" content=tags.join(", "))/
+  if author
+    meta(property="article:author" content=author)/
+  if image
+    meta(property="og:image" content=`${public.mainHost}${image}`)/
   link(rel="alternate" type="application/atom+xml" title=public.kodumaro.blog.title
        href=public.kodumaro.blog.url+"feed.xml")/
   link(rel="stylesheet" href="/css/kodumaro.css")/
