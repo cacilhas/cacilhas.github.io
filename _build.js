@@ -26,19 +26,19 @@ function getCounterpart(name) {
 }
 
 
-const copyFile = co.wrap(function*({ from, to }) {
+function copyFile({ from, to }) {
   spawnSync("cp", [ from, to ]) // TODO: perform it without system
-})
+}
 
 
 const loadContext = co.wrap(function*({ dirname, context }) {
-  let files = fs.readdirSync(dirname)
-                .filter(e => !e.startsWith("."))
-  let children = []
+  const files = fs.readdirSync(dirname)
+                  .filter(e => !e.startsWith("."))
+  const children = []
 
   for (let cname of files) {
-    let file = `${dirname}/${cname}`
-    let stats = fs.lstatSync(file)
+    const file = `${dirname}/${cname}`
+    const stats = fs.lstatSync(file)
 
     if (stats.isFile()) {
       if (cname.endsWith(".json"))
@@ -57,7 +57,7 @@ const loadContext = co.wrap(function*({ dirname, context }) {
       }
 
     } else if (!stats.isSymbolicLink() && stats.isDirectory()) {
-      let current = context[cname] = context[cname] || {}
+      const current = context[cname] = context[cname] || {}
       children.push(loadContext({ dirname: file, context: current })
                     .catch(console.error))
     }
@@ -72,88 +72,108 @@ const populateBlogs = co.wrap(function*(context) {
 })
 
 
-const populateBlog = co.wrap(function(context) {
-  let months = []
+const populateBlog = context => new Promise((resolve, reject) => {
+  try {
+    const months = []
 
-  for (let [ yearSlug, yearDir ] of _.pairs(context))
-    if (/^\d{4}$/.test(yearSlug))
-      for (let [ monthSlug, monthDir ] of _.pairs(yearDir))
-        if (/^\d\d$/.test(monthSlug)) {
-          let index = parseInt(monthSlug) - 1
-          months.push({
-            slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
-            title: `${globalContext.monthSet[index]} de ${yearSlug}`,
-            dir: monthDir,
-            date: new Date(`${yearSlug}-${monthSlug}-01`)
-          })
-        }
+    for (const [ yearSlug, yearDir ] of _.pairs(context))
+      if (/^\d{4}$/.test(yearSlug))
+        for (const [ monthSlug, monthDir ] of _.pairs(yearDir))
+          if (/^\d\d$/.test(monthSlug)) {
+            const index = parseInt(monthSlug) - 1
+            months.push({
+              slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
+              title: `${globalContext.monthSet[index]} de ${yearSlug}`,
+              dir: monthDir,
+              date: new Date(`${yearSlug}-${monthSlug}-01`)
+            })
+          }
 
-  months.sort((a, b) => b.date - a.date)
-  context.months = months
-})
+    months.sort((a, b) => b.date - a.date)
+    context.months = months
+    resolve()
 
-
-const processDirectory = co.wrap(function*({ dirname, context, layout }) {
-  // Clean up
-  let counterpart = getCounterpart(dirname)
-  if (fs.existsSync(counterpart) && counterpart !== ".")
-    spawnSync("rm", [ "-rf", counterpart ]) // TODO: perform it without system
-
-  let check = _.last(counterpart.split("/"))
-  if (/^[\._][^\._].*/.test(check))
-    return
-
-  if (counterpart !== ".")
-    fs.mkdirSync(counterpart)
-  let files = fs.readdirSync(dirname)
-                .filter(e => !e.startsWith("."))
-
-  // Update layout
-  if (fs.existsSync(`${dirname}/_layout.pug`))
-    layout = `${dirname}/_layout.pug`
-
-  // Scan dirname
-  for (let cname of files) {
-    let file = `${dirname}/${cname}`
-    let stats = fs.lstatSync(file)
-
-    if (!(cname.startsWith("_") || stats.isSymbolicLink())) {
-      if (stats.isFile()) {
-        if (cname.indexOf(".") !== -1)
-          cname = cname.slice(0, cname.indexOf("."))
-        processFile({ file, context: context[cname], layout })
-        .catch(console.error)
-
-      } else {
-        processDirectory({ dirname: file, context: context[cname], layout })
-        .catch(console.error)
-      }
-    }
+  } catch(err) {
+    reject(err)
   }
 })
 
 
-const processFile = co.wrap(function*({ file, context, layout }) {
-  // Clean up
-  let counterpart = getCounterpart(file)
+const processDirectory = ({ dirname, context, layout }) => new Promise((resolve, reject) => {
+  try {
+    // Clean up
+    const counterpart = getCounterpart(dirname)
+    if (fs.existsSync(counterpart) && counterpart !== ".")
+      spawnSync("rm", [ "-rf", counterpart ]) // TODO: perform it without system
 
-  if (fs.existsSync(counterpart) && counterpart !== ".")
-    fs.unlinkSync(counterpart)
+    const check = _.last(counterpart.split("/"))
+    if (/^[\._][^\._].*/.test(check))
+      return resolve()
 
-  if (file.endsWith(".pug")) {
-    if (!context)
-      throw Error(`no context for ${file}`)
-    yield processPugFile({ file, counterpart, context, layout })
+    if (counterpart !== ".")
+      fs.mkdirSync(counterpart)
+    const files = fs.readdirSync(dirname)
+                    .filter(e => !e.startsWith("."))
 
-  } else if (file.endsWith(".styl"))
-    yield processStylusFile({ file, counterpart })
+    // Update layout
+    if (fs.existsSync(`${dirname}/_layout.pug`))
+      layout = `${dirname}/_layout.pug`
 
-  else
-    yield copyFile({ from: file, to: counterpart })
+    // Scan dirname
+    for (let cname of files) {
+      const file = `${dirname}/${cname}`
+      const stats = fs.lstatSync(file)
+
+      if (!(cname.startsWith("_") || stats.isSymbolicLink())) {
+        if (stats.isFile()) {
+          if (cname.indexOf(".") !== -1)
+            cname = cname.slice(0, cname.indexOf("."))
+          processFile({ file, context: context[cname], layout })
+          .catch(console.error)
+
+        } else {
+          processDirectory({ dirname: file, context: context[cname], layout })
+          .catch(console.error)
+        }
+      }
+    }
+
+    resolve()
+
+  } catch(err) {
+    reject(err)
+  }
 })
 
 
-const processPugFile = co.wrap(function*({ file, counterpart, context, layout }) {
+const processFile = ({ file, context, layout }) => new Promise((resolve, reject) => {
+  try {
+    // Clean up
+    const counterpart = getCounterpart(file)
+
+    if (fs.existsSync(counterpart) && counterpart !== ".")
+      fs.unlinkSync(counterpart)
+
+    if (file.endsWith(".pug")) {
+      if (!context)
+        throw Error(`no context for ${file}`)
+      processPugFile({ file, counterpart, context, layout })
+
+    } else if (file.endsWith(".styl"))
+      processStylusFile({ file, counterpart })
+
+    else
+      copyFile({ from: file, to: counterpart })
+
+    resolve()
+
+  } catch(err) {
+    reject(err)
+  }
+})
+
+
+function processPugFile({ file, counterpart, context, layout }) {
   let useLayout = context.layout
   useLayout = useLayout === undefined ? true : !!useLayout
 
@@ -172,11 +192,11 @@ const processPugFile = co.wrap(function*({ file, counterpart, context, layout })
   }
 
   fs.writeFileSync(counterpart, content, "utf-8")
-})
+}
 
 
-const processStylusFile = co.wrap(function*({ file, counterpart }) {
-  let template = fs.readFileSync(file, "utf-8")
+function processStylusFile({ file, counterpart }) {
+  const template = fs.readFileSync(file, "utf-8")
   stylus(template)
   .set("filename", counterpart)
   .set("paths", [ path.dirname(file) ])
@@ -186,7 +206,7 @@ const processStylusFile = co.wrap(function*({ file, counterpart }) {
     else
       fs.writeFileSync(counterpart, css, "utf-8")
   })
-})
+}
 
 
 co(function*() {
