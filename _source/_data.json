@@ -8,8 +8,10 @@
     "title": ":: Sobre"
   },
 
-  "googleAdSense": "ca-pub-5741846017654057",
-  "googleAnalyticsId": "UA-99357497-1",
+  "google": {
+    "adSense": "ca-pub-5741846017654057",
+    "analyticsId": "UA-99357497-1"
+  },
 
   "index": {
     "homeActive": true
