@@ -13,6 +13,10 @@
     "analyticsId": "UA-99357497-1"
   },
 
+  "spotify": {
+    "uri": "spotify:artist:17ztrEzLSzYOp8MySGqFHy"
+  },
+
   "index": {
     "homeActive": true
   },
