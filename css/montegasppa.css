@@ -15,8 +15,8 @@ body {
   text-shadow: #4b5964 2px 2px 2px;
 }
 .tag {
-  color: #fff;
-  background-color: #97b3c9;
+  color: #fff !important;
+  background-color: #97b3c9 !important;
 }
 #release {
   text-shadow: #000 1px 1px 1px;
