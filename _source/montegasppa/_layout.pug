@@ -6,14 +6,14 @@ block blog-head
   meta(property="og:title" content=title)/
   if current && current.path
     meta(property="og:url"
-         content=`${public.mainHost}/${current.path.slice(2).join("/")}.html`)/
+         content=`${public.main.host}/${current.path.slice(2).join("/")}.html`)/
   if tags
     meta(property="og:type" content="article")/
     meta(property="article:tag" content=tags.join(", "))/
   if author
     meta(property="article:author" content=author)/
   if image
-    meta(property="og:image" content=`${public.mainHost}${image}`)/
+    meta(property="og:image" content=`${public.main.host}${image}`)/
   link(rel="alternate" type="application/atom+xml" title=public.montegasppa.blog.title
        href=`${public.montegasppa.blog.url}feed.xml`)/
   link(rel="stylesheet" href="/css/montegasppa.css")/
@@ -21,11 +21,11 @@ block blog-head
 
 block append nav-bar
   li(class={active: home}): a(href=public.montegasppa.blog.url) Prólogo
-  if (!home)
+  unless home
     li.active: a(href=".") Reflexões… :: !{title}
 
 block main-container
-  div(class=["panel", "panel-default"])
+  .panel.panel-default
     .panel-heading
       h2.mg-title Reflexões… :: !{title}
       if release
@@ -37,6 +37,16 @@ block main-container
     .panel-body
       != yield
 
+  if tags
+    p.text-right
+      each tag, index in tags
+        case index
+          when 0
+            small.tag !{tag}
+          default
+            |  | #[=""]
+            small.tag !{tag}
+
 block footer
   p.pull-left
     a(href=`${public.montegasppa.blog.url}feed.xml` target="_blank" type="application/atom+xml")
@@ -45,6 +55,8 @@ block footer
   p.small
     a(href="/montegasppa/author.html")
       | !{public.montegasppa.blog.title} &nbsp;
-    a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt")
-      img(alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-          style={"border-width" :"0"})
+    a(rel="license" href=public.license.url)
+      img(
+        alt=`[${public.license.name}]`
+        src=public.license.image
+        style={"border-width" :"0"})

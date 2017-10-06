@@ -21,11 +21,17 @@
     "homeActive": true
   },
 
-  "mainAuthor": "ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας",
+  "main": {
+    "author": "ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας",
+    "host": "http://cacilhas.info",
+    "title": "ℭacilhας.INFO"
+  },
 
-  "mainHost": "http://cacilhas.info",
-
-  "mainTitle": "ℭacilhας.INFO",
+  "license": {
+    "name": "CC-BY 4.0",
+    "url": "http://creativecommons.org/licenses/by/4.0/deed.pt",
+    "image": "https://i.creativecommons.org/l/by/4.0/80x15.png"
+  },
 
   "monthSet": [
     "Janeiro",

@@ -7,7 +7,7 @@ each yearDir, yearSlug in public.montegasppa
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          if (!page.hidden)
+          unless page.hidden
             - var article = {}
             - article.url = public.montegasppa.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
@@ -21,7 +21,7 @@ each yearDir, yearSlug in public.kodumaro
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          if (!page.hidden)
+          unless page.hidden
             - var article = {}
             - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = public.kodumaro.blog.title + " :: " + page.title
