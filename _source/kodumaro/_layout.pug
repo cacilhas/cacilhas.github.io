@@ -41,12 +41,9 @@ block main-container
   if tags
     p.text-right
       each tag, index in tags
-        case index
-          when 0
-            small.tag !{tag}
-          default
-            |  | #[=""]
-            small.tag !{tag}
+        unless index === 0
+          |  | #[=""]
+        small.tag !{tag}
 
   if current.source !== 'index'
     .panel.panel-default
