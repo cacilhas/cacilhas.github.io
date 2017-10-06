@@ -22,7 +22,7 @@ block blog-head
 
 block append nav-bar
   li(class={active: home}): a(href=public.kodumaro.blog.url)!= public.kodumaro.blog.title
-  if (!home)
+  unless home
     li.active: a(href=".") !{title}
 
 block main-container
@@ -37,6 +37,16 @@ block main-container
 
     .panel-body
       != yield
+
+    if tags
+      .panel: p.text-right
+        each tag, index in tags
+          case index
+            when 0
+              small.tag !{tag}
+            default
+              |  | #[=""]
+              small.tag !{tag}
 
   if current.source !== 'index'
     .panel.panel-default
@@ -63,9 +73,11 @@ block footer
       | Autor: #{author} &nbsp;
     else
       | !{public.kodumaro.blog.title} &nbsp;
-    a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt")
-      img(alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-          style={"border-width" :"0"})
+    a(rel="license" href=public.license.url)
+      img(
+        alt=`[${public.license.name}]`
+        src=public.license.image
+        style={"border-width" :"0"})
 
 block append final-scripts
   if current.source !== 'index'
