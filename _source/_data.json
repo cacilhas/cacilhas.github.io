@@ -21,11 +21,11 @@
     "homeActive": true
   },
 
-  "mainAuthor": "ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας",
-
-  "mainHost": "http://cacilhas.info",
-
-  "mainTitle": "ℭacilhας.INFO",
+  "main":{
+    "author": "ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας",
+    "host": "http://cacilhas.info",
+    "title": "ℭacilhας.INFO"
+  },
 
   "monthSet": [
     "Janeiro",

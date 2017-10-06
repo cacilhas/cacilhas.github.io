@@ -6,14 +6,14 @@ block blog-head
   meta(property="og:title" content=title)/
   if current && current.path
     meta(property="og:url"
-         content=`${public.mainHost}/${current.path.slice(2).join("/")}.html`)/
+         content=`${public.main.host}/${current.path.slice(2).join("/")}.html`)/
   if tags
     meta(property="og:type" content="article")/
     meta(property="article:tag" content=tags.join(", "))/
   if author
     meta(property="article:author" content=author)/
   if image
-    meta(property="og:image" content=`${public.mainHost}${image}`)/
+    meta(property="og:image" content=`${public.main.host}${image}`)/
   link(rel="alternate" type="application/atom+xml" title=public.montegasppa.blog.title
        href=`${public.montegasppa.blog.url}feed.xml`)/
   link(rel="stylesheet" href="/css/montegasppa.css")/
@@ -25,7 +25,7 @@ block append nav-bar
     li.active: a(href=".") Reflexões… :: !{title}
 
 block main-container
-  div(class=["panel", "panel-default"])
+  .panel.panel-default
     .panel-heading
       h2.mg-title Reflexões… :: !{title}
       if release
