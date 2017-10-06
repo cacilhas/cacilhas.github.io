@@ -26,15 +26,15 @@ p Vamos fazer a #[=""]
 p A função a ser passada para o #[code for] é:
 
 pre.prettyprint: code.
-  (n) -> _fib, {a: 0, b: 1, :n}, 0
+  (n) -> _fib, {a: 0, b: 1, :n}
 
 p Que inicia o estado com os valores de #[code a], #[code b] e #[code n], e
-  |  assume o valor inicial como zero.
+  |  ignora o valor inicial, atribuindo-lhe #[code nil].
 
 p A função de passo (#[code _fib]) deve atualizar os valores de #[code a] e
   |  #[code b], e decrementar o valor de #[code n], retornando #[code a]. Não
-  |  será preciso lidar com o resultado anterior, já que temos todos os dados no
-  |  estado:
+  |  será preciso lidar com o resultado anterior (que ignoramos em
+  |  #[code _fib]), já que temos todos os dados no estado:
 
 pre.prettyprint: code.
   _fib = =>
