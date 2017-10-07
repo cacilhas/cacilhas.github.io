@@ -37,8 +37,8 @@ each i in [0, 1, 2, 3, 4]
     - articles.push(kodumaroArticles[i])
 
 each article in articles
-  a(class=["col-md-4", "mg-highlighted"] href=article.url role="button")
-    div(class=["panel", "panel-default"])
+  a.col-md-4.mg-highlighted(href=article.url role="button")
+    .panel.panel-default
       .panel-heading
         h3.mg-title!= article.title
       .panel-body

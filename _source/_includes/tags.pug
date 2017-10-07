@@ -32,7 +32,7 @@ each yearDir, yearSlug in public.kodumaro
 
 .col-md-4
   .list-group
-    h3(class=["mg-title", "list-group-item", "active"]): em Tags
+    h3.mg-title.list-group-item.active: em Tags
     ul.list-group(id="tags")
       each tagName in Object.keys(tags).sort()
         - const tag = tags[tagName]
@@ -47,7 +47,7 @@ each yearDir, yearSlug in public.kodumaro
 
 script(language="javascript").
   {
-    var tags = document.getElementById("tags").children
+    var tags = $("#tags").children()
     for (var index = 0; index < tags.length; ++index)
       tags[index].firstChild.selectedIndex = 0
   }
