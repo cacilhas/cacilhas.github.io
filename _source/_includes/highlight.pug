@@ -1,6 +1,6 @@
-- var montegasppaArticles = []
-- var kodumaroArticles = []
-- var articles = []
+- const montegasppaArticles = []
+- const kodumaroArticles = []
+- const articles = []
 
 each yearDir, yearSlug in public.montegasppa
   if yearDir && /^\d{4}$/.test(yearSlug)
@@ -8,7 +8,7 @@ each yearDir, yearSlug in public.montegasppa
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           unless page.hidden
-            - var article = {}
+            - const article = {}
             - article.url = public.montegasppa.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
             - article.content = page.content
@@ -22,7 +22,7 @@ each yearDir, yearSlug in public.kodumaro
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           unless page.hidden
-            - var article = {}
+            - const article = {}
             - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = public.kodumaro.blog.title + " :: " + page.title
             - article.content = page.content
