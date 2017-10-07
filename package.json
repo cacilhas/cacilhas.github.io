@@ -20,7 +20,6 @@
   "homepage": "https://cacilhas.info/",
   "dependencies": {
     "@types/node": "^8.0.10",
-    "co": "^4.6.0",
     "express": "^4.14.0",
     "pug": "^2.0.0-beta6",
     "stylus": "^0.54.5",

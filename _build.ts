@@ -4,7 +4,6 @@ import * as _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
 import { spawnSync } from "child_process"
-import * as co from "co"
 import * as pug from "pug"
 import * as stylus from "stylus"
 
@@ -49,81 +48,70 @@ interface loadContextParameter {
   dirname: string
   context: Context
 }
-type loadContextType = (param: loadContextParameter) => Promise<void>
 
-const loadContext: loadContextType = co.wrap(
-  function* ({ dirname, context }: loadContextParameter) {
-    const files = fs.readdirSync(dirname)
-                    .filter(e => !e.startsWith("."))
-    const children: Promise<void>[] = []
+async function loadContext({ dirname, context }: loadContextParameter):
+Promise<void> {
+  const files = fs.readdirSync(dirname)
+                  .filter(e => !e.startsWith("."))
+  const children: Promise<void>[] = []
 
-    for (let cname of files) {
-      const file = `${dirname}/${cname}`
-      const stats = fs.lstatSync(file)
+  for (let cname of files) {
+    const file = `${dirname}/${cname}`
+    const stats = fs.lstatSync(file)
 
-      if (stats.isFile()) {
-        if (cname.endsWith(".json"))
-          _(context).assign(require(file))
+    if (stats.isFile()) {
+      if (cname.endsWith(".json"))
+        _(context).assign(require(file))
 
-        else if (cname.endsWith(".pug")) {
-          cname = cname.slice(0, cname.indexOf("."))
-          context[cname] = context[cname] === undefined ? {} : context[cname]
+      else if (cname.endsWith(".pug")) {
+        cname = cname.slice(0, cname.indexOf("."))
+        context[cname] = context[cname] === undefined ? {} : context[cname]
 
-          // Add current
-          context[cname].current = {
-            source: cname,
-            path: `${dirname}/${cname}`.split("/"),
-          }
+        // Add current
+        context[cname].current = {
+          source: cname,
+          path: `${dirname}/${cname}`.split("/"),
+        }
+      }
+
+    } else if (!stats.isSymbolicLink() && stats.isDirectory()) {
+      const current = context[cname] = context[cname] || {}
+      children.push(
+        loadContext({ dirname: file, context: current }).catch(console.error)
+      )
+    }
+  }
+
+  await children
+}
+
+
+async function populateBlog(context: Context): Promise<void> {
+  const months: FileData[] = []
+
+  for (const [ yearSlug, yearDir ] of _.pairs(context))
+    if (/^\d{4}$/.test(yearSlug))
+      for (const [ monthSlug, monthDir ] of _.pairs(yearDir))
+        if (/^\d\d$/.test(monthSlug)) {
+          const index = parseInt(monthSlug) - 1
+          months.push({
+            slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
+            title: `${globalContext.monthSet[index]} de ${yearSlug}`,
+            dir: monthDir,
+            date: new Date(`${yearSlug}-${monthSlug}-01`)
+          })
         }
 
-      } else if (!stats.isSymbolicLink() && stats.isDirectory()) {
-        const current = context[cname] = context[cname] || {}
-        children.push(
-          loadContext({ dirname: file, context: current }).catch(console.error)
-        )
-      }
-    }
-
-    yield children
-  }
-)
+  months.sort((a: FileData, b: FileData) => (+b.date) - (+a.date))
+  context.months = months
+}
 
 
-type populateBlogType = (ctx: Context) => Promise<{}>
-
-const populateBlog: populateBlogType =
-  (context: Context) => new Promise((resolve, reject) => {
-    try {
-      const months: FileData[] = []
-
-      for (const [ yearSlug, yearDir ] of _.pairs(context))
-        if (/^\d{4}$/.test(yearSlug))
-          for (const [ monthSlug, monthDir ] of _.pairs(yearDir))
-            if (/^\d\d$/.test(monthSlug)) {
-              const index = parseInt(monthSlug) - 1
-              months.push({
-                slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
-                title: `${globalContext.monthSet[index]} de ${yearSlug}`,
-                dir: monthDir,
-                date: new Date(`${yearSlug}-${monthSlug}-01`)
-              })
-            }
-
-      months.sort((a: FileData, b: FileData) => (+b.date) - (+a.date))
-      context.months = months
-      resolve()
-
-    } catch(err) {
-      reject(err)
-    }
-  })
-
-
-type populateBlogsType = (ctx: Context) => Promise<void>[]
-
-const populateBlogs: populateBlogsType = co.wrap(function* (context: Context) {
-  yield [ populateBlog(context.kodumaro), populateBlog(context.montegasppa) ]
-})
+async function populateBlogs(context: Context): Promise<void> {
+  await [
+    populateBlog(context.kodumaro), populateBlog(context.montegasppa)
+  ]
+}
 
 
 interface processPugFileParameter {
@@ -133,7 +121,9 @@ interface processPugFileParameter {
   layout?: string
 }
 
-function processPugFile({ file, counterpart, context, layout }: processPugFileParameter) {
+function processPugFile(
+  { file, counterpart, context, layout }: processPugFileParameter
+): void {
   const _useLayout = context.layout
   const useLayout = _useLayout === undefined ? true : !!_useLayout
 
@@ -179,35 +169,26 @@ interface processFileParameter {
   context: Context
   layout?: string
 }
-type processFileType = (param: processFileParameter) => Promise<{}>
 
-const processFile: processFileType =
-  ({ file, context, layout }: processFileParameter) =>
-    new Promise((resolve, reject) => {
-      try {
-        // Clean up
-        const counterpart = getCounterpart(file)
+async function processFile({ file, context, layout }: processFileParameter):
+Promise<void> {
+  // Clean up
+  const counterpart = getCounterpart(file)
 
-        if (fs.existsSync(counterpart) && counterpart !== ".")
-          fs.unlinkSync(counterpart)
+  if (fs.existsSync(counterpart) && counterpart !== ".")
+    fs.unlinkSync(counterpart)
 
-        if (file.endsWith(".pug")) {
-          if (!context)
-            throw Error(`no context for ${file}`)
-          processPugFile({ file, counterpart, context, layout })
+  if (file.endsWith(".pug")) {
+    if (!context)
+      throw Error(`no context for ${file}`)
+    processPugFile({ file, counterpart, context, layout })
 
-        } else if (file.endsWith(".styl"))
-          processStylusFile({ file, counterpart })
+  } else if (file.endsWith(".styl"))
+    processStylusFile({ file, counterpart })
 
-        else
-          copyFile({ from: file, to: counterpart })
-
-        resolve()
-
-      } catch(err) {
-        reject(err)
-      }
-    })
+  else
+    copyFile({ from: file, to: counterpart })
+}
 
 
 interface processDirectoryParameter {
@@ -215,60 +196,53 @@ interface processDirectoryParameter {
   context: Context
   layout?: string
 }
-type processDirectoryType = (param: processDirectoryParameter) => Promise<{}>
 
-const processDirectory: processDirectoryType =
-  ({ dirname, context, layout }) => new Promise((resolve, reject) => {
-    try {
-      // Clean up
-      const counterpart = getCounterpart(dirname)
-      if (fs.existsSync(counterpart) && counterpart !== ".")
-        spawnSync("rm", [ "-rf", counterpart ]) // TODO: perform it without system
+async function processDirectory(
+  { dirname, context, layout }: processDirectoryParameter
+): Promise<void> {
+  // Clean up
+  const counterpart = getCounterpart(dirname)
+  if (fs.existsSync(counterpart) && counterpart !== ".")
+    spawnSync("rm", ["-rf", counterpart]) // TODO: perform it without system
 
-      const check: string = _.last(counterpart.split("/"))
-      if (/^[\._][^\._].*/.test(check))
-        return resolve()
+  const check: string = _.last(counterpart.split("/"))
+  if (/^[\._][^\._].*/.test(check))
+    return
 
-      if (counterpart !== ".")
-        fs.mkdirSync(counterpart)
-      const files = fs.readdirSync(dirname)
-                      .filter(e => !e.startsWith("."))
+  if (counterpart !== ".")
+    fs.mkdirSync(counterpart)
+  const files = fs.readdirSync(dirname)
+    .filter(e => !e.startsWith("."))
 
-      // Update layout
-      if (fs.existsSync(`${dirname}/_layout.pug`))
-        layout = `${dirname}/_layout.pug`
+  // Update layout
+  if (fs.existsSync(`${dirname}/_layout.pug`))
+    layout = `${dirname}/_layout.pug`
 
-      // Scan dirname
-      for (let cname of files) {
-        const file = `${dirname}/${cname}`
-        const stats = fs.lstatSync(file)
+  // Scan dirname
+  for (let cname of files) {
+    const file = `${dirname}/${cname}`
+    const stats = fs.lstatSync(file)
 
-        if (!(cname.startsWith("_") || stats.isSymbolicLink())) {
-          if (stats.isFile()) {
-            if (cname.indexOf(".") !== -1)
-              cname = cname.slice(0, cname.indexOf("."))
-            processFile({ file, context: <Context>context[cname], layout })
-            .catch(console.error)
+    if (!(cname.startsWith("_") || stats.isSymbolicLink())) {
+      if (stats.isFile()) {
+        if (cname.indexOf(".") !== -1)
+          cname = cname.slice(0, cname.indexOf("."))
+        processFile({ file, context: <Context>context[cname], layout })
+          .catch(console.error)
 
-          } else {
-            processDirectory({ dirname: file, context: context[cname], layout })
-            .catch(console.error)
-          }
-        }
+      } else {
+        processDirectory({ dirname: file, context: context[cname], layout })
+          .catch(console.error)
       }
-
-      resolve()
-
-    } catch(err) {
-      reject(err)
     }
-  })
+  }
+ }
 
 
-co(function*() {
-  yield loadContext({ dirname: "./_source", context: globalContext })
-  yield populateBlogs(globalContext)
-  yield processDirectory({ dirname: "./_source", context: globalContext })
-})
-.then(() => console.log("built"))
-.catch(console.error)
+;(async () => {
+  await loadContext({ dirname: "./_source", context: globalContext })
+  await populateBlogs(globalContext)
+  await processDirectory({ dirname: "./_source", context: globalContext })
+})()
+  .then(() => console.log("built"))
+  .catch(console.error)
