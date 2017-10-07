@@ -200,6 +200,7 @@ interface processDirectoryParameter {
 async function processDirectory(
   { dirname, context, layout }: processDirectoryParameter
 ): Promise<void> {
+  console.log("processing directory:", dirname)
   // Clean up
   const counterpart = getCounterpart(dirname)
   if (fs.existsSync(counterpart) && counterpart !== ".")
@@ -236,13 +237,32 @@ async function processDirectory(
       }
     }
   }
- }
+}
+
+async function fixFeed(fname: string): Promise<void> {
+  let text = fs.readFileSync(fname)
+    .toString()
+    .replace(/(GMT-0300) \(-03\)/g, "$1 (BRT)")
+    .replace(/(GMT-0200) \(-02\)/g, "$1 (BRST)")
+  text = text.endsWith("\n") ? text : `${text}\n`
+  fs.writeFileSync(fname, text, "utf8")
+}
 
 
 ;(async () => {
+  console.log("loading context")
   await loadContext({ dirname: "./_source", context: globalContext })
+
+  console.log("populating blogs")
   await populateBlogs(globalContext)
+
   await processDirectory({ dirname: "./_source", context: globalContext })
+
+  console.log("fixing feeds’ time")
+  await [
+    fixFeed("./kodumaro/feed.xml"),
+    fixFeed("./montegasppa/feed.xml"),
+  ]
 })()
   .then(() => console.log("built"))
   .catch(console.error)
