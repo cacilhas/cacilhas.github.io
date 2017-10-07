@@ -1,4 +1,5 @@
 - var tags = {}
+- var montegasppa = "Reflexões…"
 - var kodumaro = public.kodumaro.blog.title
 
 each yearDir, yearSlug in public.montegasppa
@@ -6,24 +7,28 @@ each yearDir, yearSlug in public.montegasppa
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - var url = "montegasppa/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          - var url = `montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
+          - var title = `${montegasppa} :: ${page.title}`
+          - var current = {url, title}
           each tag in page.tags
             if tags[tag]
-              - tags[tag].pages.push({url: url, title: "Reflexões… :: " + page.title})
+              - tags[tag].pages.push(current)
             else
-              - tags[tag] = {name: tag, pages: [{url: url, title: "Reflexões… :: " + page.title}]}
+              - tags[tag] = {name: tag, pages: [current]}
 
 each yearDir, yearSlug in public.kodumaro
   if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - var url = "kodumaro/" + yearSlug + "/" + monthSlug + "/" + slug + ".html"
+          - var url = `kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
+          - var title = `${kodumaro} :: ${page.title}`
+          - var current = {url, title}
           each tag in page.tags
             if tags[tag]
-              - tags[tag].pages.push({url: url, title: kodumaro + " :: " + page.title})
+              - tags[tag].pages.push(current)
             else
-              - tags[tag] = {name: tag, pages: [{url: url, title: kodumaro + " :: " + page.title}]}
+              - tags[tag] = {name: tag, pages: [current]}
 
 .col-md-4
   .list-group
@@ -32,8 +37,10 @@ each yearDir, yearSlug in public.kodumaro
       each tagName in Object.keys(tags).sort()
         - var tag = tags[tagName]
         li.list-group-item
-          select.list-group-item(onchange="window.location = this.value; return true;"
-                                 style={width: "100%"})
+          select.list-group-item(
+            onchange="window.location = this.value; return true;"
+            style={width: "100%"}
+          )
             option(selected=true)!= tag.name
             each page in tag.pages
               option(value=page.url)!= page.title
