@@ -7,7 +7,7 @@ each yearDir, yearSlug in public.montegasppa
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - const url = `montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
+          - const url = `/montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
           - const title = `${montegasppa} :: ${page.title}`
           - const current = {url, title}
           each tag in page.tags
@@ -21,7 +21,7 @@ each yearDir, yearSlug in public.kodumaro
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - const url = `kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
+          - const url = `/kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
           - const title = `${kodumaro} :: ${page.title}`
           - const current = {url, title}
           each tag in page.tags
@@ -33,14 +33,21 @@ each yearDir, yearSlug in public.kodumaro
 .col-md-4
   .list-group
     h3(class=["mg-title", "list-group-item", "active"]): em Tags
-    ul.list-group
+    ul.list-group(id="tags")
       each tagName in Object.keys(tags).sort()
         - const tag = tags[tagName]
         li.list-group-item
           select.list-group-item(
-            onchange="window.location = this.value; return true;"
+            onchange="if (this.value !== '/') window.location = this.value; return true;"
             style={width: "100%"}
           )
-            option(selected=true)!= tag.name
+            option(value="/" selected=true)!= tag.name
             each page in tag.pages
               option(value=page.url)!= page.title
+
+script(language="javascript").
+  {
+    var tags = document.getElementById("tags").children
+    for (var index = 0; index < tags.length; ++index)
+      tags[index].firstChild.selectedIndex = 0
+  }
