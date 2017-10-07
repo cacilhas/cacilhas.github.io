@@ -5,13 +5,13 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
     link= public.kodumaro.blog.url
     description= public.kodumaro.blog.subtitle
 
-    - var articles = []
+    - const articles = []
     each yearDir, yearSlug in public.kodumaro
       if yearDir && /^\d{4}$/.test(yearSlug)
         each monthDir, monthSlug in yearDir
           if monthDir && /^\d\d$/.test(monthSlug)
             each page, slug in monthDir
-              - var article = {}
+              - const article = {}
               - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
               - article.title = page.title
               - article.release = page.release

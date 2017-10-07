@@ -1,15 +1,15 @@
-- var tags = {}
-- var montegasppa = "Reflexões…"
-- var kodumaro = public.kodumaro.blog.title
+- const tags = {}
+- const montegasppa = "Reflexões…"
+- const kodumaro = public.kodumaro.blog.title
 
 each yearDir, yearSlug in public.montegasppa
   if yearDir && /^\d{4}$/.test(yearSlug)
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - var url = `montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
-          - var title = `${montegasppa} :: ${page.title}`
-          - var current = {url, title}
+          - const url = `montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
+          - const title = `${montegasppa} :: ${page.title}`
+          - const current = {url, title}
           each tag in page.tags
             if tags[tag]
               - tags[tag].pages.push(current)
@@ -21,9 +21,9 @@ each yearDir, yearSlug in public.kodumaro
     each monthDir, monthSlug in yearDir
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
-          - var url = `kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
-          - var title = `${kodumaro} :: ${page.title}`
-          - var current = {url, title}
+          - const url = `kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
+          - const title = `${kodumaro} :: ${page.title}`
+          - const current = {url, title}
           each tag in page.tags
             if tags[tag]
               - tags[tag].pages.push(current)
@@ -35,7 +35,7 @@ each yearDir, yearSlug in public.kodumaro
     h3(class=["mg-title", "list-group-item", "active"]): em Tags
     ul.list-group
       each tagName in Object.keys(tags).sort()
-        - var tag = tags[tagName]
+        - const tag = tags[tagName]
         li.list-group-item
           select.list-group-item(
             onchange="window.location = this.value; return true;"
