@@ -49,13 +49,13 @@ interface loadContextParameter {
   dirname: string
   context: Context
 }
-type loadContextType = (param: loadContextParameter) => Promise<any>
+type loadContextType = (param: loadContextParameter) => Promise<void>
 
 const loadContext: loadContextType = co.wrap(
   function* ({ dirname, context }: loadContextParameter) {
     const files = fs.readdirSync(dirname)
                     .filter(e => !e.startsWith("."))
-    const children: Promise<any>[] = []
+    const children: Promise<void>[] = []
 
     for (let cname of files) {
       const file = `${dirname}/${cname}`
