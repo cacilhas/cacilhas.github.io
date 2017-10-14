@@ -1,11 +1,11 @@
 img.pull-right(src=image alt="Python")
 
 p.mg-first Na #[=""]
-  a(href=public.kodumaro.blog.url+"2016/04/aspectos.html") parte I demos uma
-  |  passada rápida no conceito de #[=""]
+  a(href=public.kodumaro.blog.url+"2016/04/aspectos.html") parte I
+  |  demos uma passada rápida no conceito de #[=""]
   a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
-    aspectos
-  | . Agora versmos os #[=""]
+    | aspectos
+  | . Agora veremos os #[=""]
   a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
   | .
 
@@ -13,7 +13,7 @@ p #[em Mixins] são classes incompletas que apenas atribuem determinado
   |  comportamento a suas herdeiras.
 
 p Vamos a um exemplo muito superficial, mas suficiente: um objeto que armazena
-  | notas de alunos em um arquivo.
+  |  notas de alunos em um arquivo.
 
 pre.prettyprint: code.language-python.
   from typing import TypeVar
@@ -111,7 +111,7 @@ pre.prettyprint: code.language-python.
           return m if ca is None else (m + ca) / 2
 
 p Repare que temos o mesmo problema apresentando na parte I: está tudo misturado
-  | em uma única classe!
+  |  em uma única classe!
 
 p Podemos separar as partes de gerência de banco e serialização em classes
   |  diferentes, dedicadas a seu próprio aspecto, chamadas #[em mixins].
