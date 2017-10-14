@@ -5,7 +5,7 @@ img.pull-right(src=image alt="Python")
 p.mg-first Este artigo havia sido publicado originalmente em 18 de fevereiro de
   |  2014 no #[=""]
   // a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
-  | #[em blog] original. Infelizmente o #[=""]
+  |  #[em blog] original. Infelizmente o #[=""]
   a(href="https://blogger.com/") Blogger.com
   |  resolveu apagá-lo durante um #[em bug] da interface, mas o trouxemos de
   |  volta nesta nova encarnação do !{public.kodumaro.blog.title}.
@@ -16,7 +16,7 @@ p Um paradigma muito útil é a #[=""]
   | .
 
 p Consiste em separar e encapsular as funcionalidades de um código conforme sua
-  | #[strong importância].
+  |  #[strong importância].
 
 p Nesta primeira parte, abordaremos essa separação de forma simples, deixando o
   |  conceito de #[=""]
@@ -26,7 +26,7 @@ p Nesta primeira parte, abordaremos essa separação de forma simples, deixando 
   | .
 
 p Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado de
-  | um objeto, retornando um #[em hash] do novo estado:
+  |  um objeto, retornando um #[em hash] do novo estado:
 
 pre.prettyprint: code.language-python.
   ResponseType = Tuple[str, Integral, Mapping]
@@ -72,9 +72,13 @@ p Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado d
 p Vamos então separar o primeiro aspecto: recuperação do documento.
 
 pre.prettyprint: code.language-python.
+  # Type aliases
+
   ResponseType = Tuple[str, Integral, Mapping]
   ViewType = Callable[[str], ResponseType]
   ParserType = Callable[[MutableMapping], ResponseType]
+
+  # Aspect decorators
 
   def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
       @wraps(view)
@@ -84,6 +88,8 @@ pre.prettyprint: code.language-python.
               raise Http404
           return view(person)
       return wrapper
+
+  # View(s)
 
   @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
   @retrieve_person_aspect
@@ -106,8 +112,8 @@ pre.prettyprint: code.language-python.
              {'Content-Type': 'application/json'}
 
 p Agora a recuperação do documento está isolada, podendo inclusive ser usada em
-  | outras #[em views]. Nossa #[em view] já recebe o documento recuperado e não
-  | precisa lidar com o fato dele existir ou não.
+  |  outras #[em views]. Nossa #[em view] já recebe o documento recuperado e não
+  |  precisa lidar com o fato dele existir ou não.
 
 p Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
   |  #[em parsing] dos dados recebidos: isso caracteriza outro aspecto do
@@ -116,14 +122,18 @@ p Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
 p Podemos portanto, separá-los:
 
 pre.prettyprint: code.language-python.
+  # Type aliases
+
   ResponseType = Tuple[str, Integral, Mapping]
   ViewType = Callable[[str], ResponseType]
   ParserType = Callable[[MutableMapping], ResponseType]
   ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
 
+  # Aspect decorators
+
   def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
       @wraps(view)
-      def wrapper(person: MutableMapping):
+      def wrapper(person: MutableMapping) -&gt; ResponseType:
           try:
               data = json.loads(request.data)
           except ValueError:
@@ -135,6 +145,8 @@ pre.prettyprint: code.language-python.
 
   def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
       ...
+
+  # View(s)
 
   @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
   @retrieve_person_aspect
@@ -155,11 +167,15 @@ p A função #[code update_person] já está muito mais limpa: atualiza o docume
   |  separar o tratamento do retorno:
 
 pre.prettyprint: code.language-python.
+  # Type aliases
+
   ResponseType = Tuple[str, Integral, Mapping]
   ViewType = Callable[[str], ResponseType]
   ParserType = Callable[[MutableMapping], ResponseType]
   ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
   PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
+
+  # Aspect decorators
 
   def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
       @wraps(view)
@@ -175,6 +191,8 @@ pre.prettyprint: code.language-python.
 
   def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
       ...
+
+  # View(s)
 
   @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
   @retrieve_person_aspect
@@ -192,12 +210,16 @@ p As coisas estão ficando cada vez mais separadas. A única coisa que a funçã
   |  serializá-lo. Isso também pode ser isolado:
 
 pre.prettyprint: code.language-python.
+  # Type aliases
+
   ResponseType = Tuple[str, Integral, Mapping]
   ViewType = Callable[[str], ResponseType]
   ParserType = Callable[[MutableMapping], ResponseType]
   ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
   PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
   PersonUpdaterType = Callable[[MutableMapping, Mapping], MutableMapping]
+
+  # Aspect decorators
 
   def serialise_person_aspect(view: PersonUpdaterType) -&gt; PersonSerialiserType:
       @wraps(view)
@@ -215,6 +237,8 @@ pre.prettyprint: code.language-python.
   def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
       ...
 
+  # View(s)
+
   @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
   @retrieve_person_aspect
   @parse_data_aspect
@@ -226,7 +250,7 @@ pre.prettyprint: code.language-python.
       return person
 
 p Perceba que, com a separação dos aspectos em funções distintas, o código ficou
-  | muito mais semântico:
+  |  muito mais semântico:
 
 +ul
   +li #[code retrive_person_aspect] apenas recupera o documento do banco;
