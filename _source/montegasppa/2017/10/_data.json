@@ -6,5 +6,13 @@
     "image": "/img/lampada.jpg",
     "release": "2017-10-06",
     "tags": ["Autismo", "Educação e Cultura", "Pessoal", "Psicologia"]
+  },
+  "novo-ep": {
+    "title": "Novo EP Sækla Saklōrum (O Sutra)",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Há poucos meses minha banda, Sækla Saklōrum, lançou seu primeiro álbum…",
+    "image": "/img/saekla.jpg",
+    "release": "2017-10-22",
+    "tags": ["Música"]
   }
 }
