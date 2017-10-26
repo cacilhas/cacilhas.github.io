@@ -22,5 +22,13 @@
     "image": "/img/lampada.jpg",
     "release": "2017-10-25",
     "tags": ["Autismo", "Psicologia"]
+  },
+  "autoridade": {
+    "title": "Autoridade",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Nossa cultura patriarcal nos ensina a respeitar incondicionalmente a autoridade.",
+    "image": "/img/manes.jpg",
+    "release": "2017-10-26",
+    "tags": ["Educação e Cultura", "Pessoal"]
   }
 }
