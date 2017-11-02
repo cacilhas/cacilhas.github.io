@@ -6,5 +6,13 @@
     "image": "/img/lisp.jpg",
     "release": "2017-11-02",
     "tags": ["Conceitual", "Funcional", "LISP"]
+  },
+  "lazy-racket": {
+    "title": "Lazy Racket",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Dando continuidade ao artigo anterior, podemos abordar dois patterns interessantes: acumuladores e promises.",
+    "image": "/img/lisp.jpg",
+    "release": "2017-11-04",
+    "tags": ["Funcional", "LISP"]
   }
 }
