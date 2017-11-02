@@ -1,0 +1,10 @@
+{
+  "lisp": {
+    "title": "LISP",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "LISP é um conceito de programação funcional especificado em 1958 por John McCarthy…",
+    "image": "/img/lisp.jpg",
+    "release": "2017-11-02",
+    "tags": ["Conceitual", "Funcional", "LISP"]
+  }
+}
