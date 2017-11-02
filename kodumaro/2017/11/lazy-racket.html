@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Lazy Racket</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Lazy Racket"/><meta property="og:url" content="http://cacilhas.info/kodumaro/2017/11/lazy-racket.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Funcional, LISP"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="http://cacilhas.info/img/lisp.jpg"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">ℭacilhας.INFO</a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Lazy Racket</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Lazy Racket</h2><h6 class="pull-right">Publicado em 2 de Novembro, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/lisp.jpg" alt="Made with secret alien technology"/><p class="mg-first">Dando continuidade ao <a href="http://cacilhas.info/kodumaro/2017/11/lisp.html">artigo anterior</a>, podemos abordar dois <em>patterns</em> interessantes: acumuladores e
+ avaliação tardia. Usaremos como plataforma <a href="http://racket-lang.org/">Racket</a>, portanto você vai precisar <a href="https://download.racket-lang.org/">instalá-lo</a>.</p><h3>Acumuladores</h3><p>Acumulador é um <em>pattern</em> muito comum em <a href="https://pt.wikipedia.org/wiki/Programação_funcional">programação funcional</a> e <a href="https://pt.wikipedia.org/wiki/Programação_lógica">lógica</a>. Consistem em tirar proveito de <a href="http://wiki.c2.com/?TailCallOptimization"><em>tail-call optimisation</em></a> (TCO) em recursões lineares ou binárias.</p><p>Vamos ao mesmo exemplo do artigo anterior, <a href="https://pt.wikipedia.org/wiki/Fatorial">fatorial</a>.</p><p>O passo do fatorial é definido como o próprio número vezes o fatorial de seu antecessor, enquanto a parada é o fatorial de zero, igual a um:</p><pre><code>n! = n × (n - 1)!
+0! = 1
+</code></pre><p>Implementando isso em Racket fica:</p><pre class="prettyprint"><code>(define factorial
+  (λ (n)
+    [if (zero? n)
+        1
+        (* n (factorial (- n 1)))]))
+</code></pre><p>O corpo da função λ possui apenas a instrução <code>'if</code>, que roda <code>'zero?</code> para verificar a condição – para determinar se se trata do
+ passo ou da parada.</p><p>Se for a parada (0!), retorna 1, caso contrário retorna o resultado dainstrução <code>'*</code>.</p><p>Portanto, a última instrução, que tirará proveito de TCO será a multiplicação. Porém quem efetua a recursão, promovendo o empilhamento de <em>stacks</em> de
+ função, é <code>'factorial</code>.</p><p>Assim, para aproveitar TCO na recursão, é necessário que a última instrução seja a chamada da recursão.</p><p>Pra que isso seja possível, é preciso carregar o resultado acumulado através dos <em>stacks</em> como parâmetro, para que seja retornado na parada. Esta
+ carga de valor acumulado é chamada acumulador.</p><p>Então precisamos de uma função que receba o número para o qual se deseja calcular o fatorial <strong>e</strong> o valor acumulado – o acumulador.
+ Chamaremos essa função de <code>'*factorial*</code>.</p><p>A função “provida”, <code>'factorial</code>, deverá chamar <code>'*factorial*</code> passando o número para o qual o fatorial deve ser calculado e, como valor
+ inicial do acumulador, o valor retornado na parada (1):</p><pre class="prettyprint"><code>(define factorial
+  (λ (n)
+    *factorial* n 1))
+</code></pre><p>Todo o trabalho pesado deve ser feito em <code>'*factorial*</code>. O algoritmo é quase idêntico ao da função original, apenas retornando o valor acumulado
+ para a parada e, para o passo, retorna a chamada recursiva. A
+ multiplicação será efetuada para calcular o próximo valor do acumulador,
+ passado como parâmetro para o próximo passo:</p><pre class="prettyprint"><code>(define *factorial*
+  (λ (n acc)
+    [if (zero? n)
+        acc
+        (*factorial* (- n 1) (* acc n))]))
+</code></pre><p>Agora temos o cálculo fatorial tirando proveito de TCO, o que torna a função tão eficiente quando uma função reiterativa numa linguagem imperativa, mas
+ usando uma abordagem recursiva, muito mais legível e inteligível.</p><h3>Avaliação tardia ou preguiçosa (<em>lazy evaluation</em>)</h3><p>As estratégias mais eficientes para lidar com grandes volumes de dados calculados – e até com quantidades infinitas – é a <a href="https://en.wikipedia.org/wiki/Lazy_evaluation">avaliação tardia</a> ou <em>call-by-need</em>. Linguagens como <a href="https://www.haskell.org/">Haskell</a> resolvem os valores das funções sob demanda, ou seja, se uma função é
+ chamada, mas seu resultado não é usado, o corpo da função <strong>não</strong> é
+ executado – será apenas quando o retorno for necessário.</p><p>Isso dá ao programador recursos poderosos, como definir Fibonacci como uma uma função que retorna uma lista infinita:</p><pre class="prettyprint"><code>fib :: [Integer]
+fib = 1 : 1 : zipWith (+) fib (tail fib)
+</code></pre><p>Aqui se declara <code>fib</code> como uma função que retorna uma lista de inteiros (<code>Integer</code>) e se define o retorno como 1 seguido de 1, seguido da
+ soma de cada elemento retornado por <code>fib</code> com cada elemento
+ retornado por <code>fib</code> exceto o primeiro (<code>tail</code>).</p><p>Isso só é possível porque cada elemento da lista retornada por <code>fib</code> só é avaliado quando necessário.</p><p>Para trazer os 10 primeiros elementos de Fibonacci, solicitamos a avaliação dos mesmos usando <code>take</code>:</p><pre><code><em>ghci&gt;</em> <strong>take 10 fib</strong>
+<em>[1,1,2,3,5,8,13,21,34,55</em>]
+<em>ghci&gt;</em>
+
+</code></pre><h3><em>Promises</em></h3><p>O recurso de <a href="http://docs.racket-lang.org/lazy/">Lazy Racket</a> para fazer avaliação tardia é chamado <em>promise</em> (promessa), que é
+ totalmente diferente de <em>promise</em> em <a href="https://nodejs.org/en/">Node.js</a>, mas muito similar à forma como Haskell lida com funções tardiamente.</p><p>Ao declarar um código como Lazy Racket com o <em>hash bang</em> <code>#!lazy</code>, ou importando o módulo (<code>(require lazy)</code>), isso sobrescreve muitas
+ das funções por versões preguiçosas, que retornam uma <em>promise</em> em vez
+ de avaliar imediatamente seu resultado.</p><p>Ainda introduz a função <code>'!!</code>, que força a resolução da <em>promise</em>.</p><p>Vamos então criar um módulo chamado <code>fact.rkt</code> que provê uma versão preguiçosa do cálculo do fatorial, que pode ser usado paralelamente e sob
+ demanda. Repare que o corpo das funções é exatamente igual ao que fizemos
+ acima:</p><pre class="prettyprint"><code>#!lazy
+;; fact.rkt
+
+(provide factorial)
+
+(define *factorial*
+  (λ (n acc)
+    [if (zero? n)
+        acc
+        (*factorial* (- n 1) (* acc n))]))
+
+(define factorial
+  (λ (n)
+    *factorial* n 1))
+</code></pre><p>Podemos validar no <em>prompt</em> do <code>racket</code>:</p><pre><code><em>-&gt;</em> <strong>(require "fact.rkt")</strong>
+<em>-&gt;</em> <strong>(require lazy)</strong>
+<em>-&gt;</em> <strong>(!! [map (lambda (n) `(,n ,(factorial n))) '(0 1 2 3 4 5)</strong>)]
+<em>'((0 1) (1 1) (2 2) (3 6) (4 24) (5 120))</em>
+</code></pre><p>O <code>'map</code> gera uma <em>promise</em> que valida o <em>lambda</em> sob demanda para cada valor da lista <code>'(0 1 2 3 4 5)</code>.</p></div></div><p class="text-right"><small class="tag">Funcional</small> | <small class="tag">LISP</small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `http://cacilhas.info/kodumaro/2017/11/lazy-racket.html`
+  this.page.identifier = `kodumaro.2017.11.lazy-racket`
+  this.page.title = 'Lazy Racket'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script><iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:17ztrEzLSzYOp8MySGqFHy&amp;size=detail&amp;theme=light" width="300" height="56" scrolling="no" frameboarder="0" style="border:none; overflow:hidden" allowtransparency></iframe></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
