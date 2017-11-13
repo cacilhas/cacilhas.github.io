@@ -14,5 +14,13 @@
     "image": "/img/racket.jpg",
     "release": "2017-11-02",
     "tags": ["Funcional", "LISP"]
+  },
+  "acumuladores": {
+    "title": "Acumuladores em programação lógica",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Programação lógica ou declarativa é um paradigma bastante alienígena para os programadores imperativos.",
+    "image": "/img/glider.png",
+    "release": "2017-11-13",
+    "tags": ["Conceitual", "Lógica"]
   }
 }
