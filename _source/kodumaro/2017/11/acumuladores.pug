@@ -82,11 +82,11 @@ p Em seguinda, podemos definir o passo: cada elemento é a soma dos dois
   |  o resultado da posição #[code N] é a soma de #[code R1] e #[code R2]:
 
 pre.prettyprint: code.
-  fibonacci(N, R) :- N1 is N - 1,
-                     N2 is N - 2,
+  fibonacci(N, R) :- succ(N1, N),
+                     succ(N2, N1),
                      fibonacci(N1, R1),
                      fibonacci(N2, R2),
-                     R is R1 + R2.
+                     plus(R1, R2, R).
 
 p Já temos a definição lógica da sequência de Fibonacci! Porém de forma muito
   |  ineficiente, construindo uma árvore binária, empilheirando #[em stacks] de

@@ -21,11 +21,11 @@ ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse na
 </code></pre><p>Em seguinda, podemos definir o passo: cada elemento é a soma dos dois anteriores. Então, dado o elemento <code>N</code>, sendo <code>N1</code> o anterior
  a ele e <code>N2</code> o anterior a este segundo, podemos determinar os
  elementos nestas posições (<code>R1</code> e <code>R2</code>), para então dizer que
- o resultado da posição <code>N</code> é a soma de <code>R1</code> e <code>R2</code>:</p><pre class="prettyprint"><code>fibonacci(N, R) :- N1 is N - 1,
-                   N2 is N - 2,
+ o resultado da posição <code>N</code> é a soma de <code>R1</code> e <code>R2</code>:</p><pre class="prettyprint"><code>fibonacci(N, R) :- succ(N1, N),
+                   succ(N2, N1),
                    fibonacci(N1, R1),
                    fibonacci(N2, R2),
-                   R is R1 + R2.
+                   plus(R1, R2, R).
 </code></pre><p>Já temos a definição lógica da sequência de Fibonacci! Porém de forma muito ineficiente, construindo uma árvore binária, empilheirando <em>stacks</em> de
  funções uns sobre os outros.</p><p>Para resolver o problema, precisamos fazer uma solução linear tirando proveito de <a href="http://wiki.c2.com/?TailCallOptimization">TCO</a>. Para tanto, usaremos dois acumuladores.</p><p>Acumuladores</p><p>Vamos descartar tudo o que fizemos até agora. Precisamos redefinir o cálculo como uma chamada para a função com acumuladores, passando os valores
  iniciais para os acumuladores. Como usaremos o segundo acumulador como
