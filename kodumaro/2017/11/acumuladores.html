@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Acumuladores em programação lógica</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Acumuladores em programação lógica"/><meta property="og:url" content="http://cacilhas.info/kodumaro/2017/11/acumuladores.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Conceitual, Lógica"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="http://cacilhas.info/img/glider.png"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">ℭacilhας.INFO</a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Acumuladores em programação lógica</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Acumuladores em programação lógica</h2><h6 class="pull-right">Publicado em 13 de Novembro, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/glider.png" alt="Programação lógica"/><p class="mg-first"><a href="https://pt.wikipedia.org/wiki/Programação_lógica">Programação lógica ou declarativa</a> é um paradigma bastante alienígena para <a href="https://pt.wikipedia.org/wiki/Programação_imperativa">programadores imperativos</a>.</p><p>O paradigma de programação mais popular, programação imperativa, consiste em dar ordens ao computador que alteram o estado geral do sistema. É o mais
+ popular por ser o mais fácil e por ser mais fácil de ser compiado para
+ o microprograma, que funciona de forma imperativa.</p><p>Porém nem de longe é o mais eficiente do ponto de vista da criação e da manutenilibidade, tendendo a gerar códigos de difícil manutenção e com
+ maior densidade de <em>bugs</em> por linha de código.</p><p>Um concorrente do paradigma imperativo é a <a href="https://pt.wikipedia.org/wiki/Programação_funcional">programação funcional</a>, baseada no <a href="https://pt.wikipedia.org/wiki/Cálculo_lambda">cálculo-λ</a>, que resolve os problemas de integridade encontrados na programação
+ imperativa com <a href="http://www.dictionary.com/browse/constraint"><em>constraints</em></a>.</p><p>Mas ainda há outro paradigma que difere da abordagem dos dois citados: a <strong>programação lógica</strong>, também chamada programação declarativa.</p><p>Enquanto na programação imperativa ordens alteram o estado da máquina e na programação funcional valores são passados através de cadeias de funções,
+ na programação lógica é declarado um domínio de verdades, enquanto a
+ execução em si consiste em “perguntas” (<em>queries</em>) feitas a esse
+ domínio.</p><p>Ao contrário da programação imperativa, nenhuma ordem é dada ao sistema, apenas perguntas, e, ao contrário da programação funcional, efeitos
+ colaterais são amplamente tolerados.</p><p>Esses efeitos colaterais vão desde comuncação I/O a até alterações no domínio de verdades – ou seja: o sistema pode aprender novas verdades.</p><p>O domínio de verdade consiste em um conjunto de predicados, e há duas formas de definir um predicado: dizendo se ele é verdadeiro ou falso, ou definindo
+ o predicado como uma cadeia de outros predicados.</p><p>Como exemplo vamos determinar os valores da <a href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci">sequência de Fibonacci</a> em programação lógica usando acumuladores, assim como fizemos no <a href="http://cacilhas.info/kodumaro/2017/11/lazy-racket.html">artigo sobre acumuladores</a> em programação funcional.</p><h3>Fibonacci</h3><p>Vamos primeiro definir a sequência como um conjunto de verdades.</p><p>Como se trata de uma árvore binária, temos duas paradas, que são definidas como os dois primeiros valores da sequência sendo 1.</p><p>Em <a href="http://www.swi-prolog.org/">Prolog</a> dizemos que é verdade que o elemento na posição 0 é igual a 1:</p><pre class="prettyprint"><code>fibonacci(0, 1).
+</code></pre><p>E que o elemento na posição 1 é igual 1:</p><pre class="prettyprint"><code>fibonacci(1, 1).
+</code></pre><p>Em seguinda, podemos definir o passo: cada elemento é a soma dos dois anteriores. Então, dado o elemento <code>N</code>, sendo <code>N1</code> o anterior
+ a ele e <code>N2</code> o anterior a este segundo, podemos determinar os
+ elementos nestas posições (<code>R1</code> e <code>R2</code>), para então dizer que
+ o resultado da posição <code>N</code> é a soma de <code>R1</code> e <code>R2</code>:</p><pre class="prettyprint"><code>fibonacci(N, R) :- N1 is N - 1,
+                   N2 is N - 2,
+                   fibonacci(N1, R1),
+                   fibonacci(N2, R2),
+                   R is R1 + R2.
+</code></pre><p>Já temos a definição lógica da sequência de Fibonacci! Porém de forma muito ineficiente, construindo uma árvore binária, empilheirando <em>stacks</em> de
+ funções uns sobre os outros.</p><p>Para resolver o problema, precisamos fazer uma solução linear tirando proveito de <a href="http://wiki.c2.com/?TailCallOptimization">TCO</a>. Para tanto, usaremos dois acumuladores.</p><p>Acumuladores</p><p>Vamos descartar tudo o que fizemos até agora. Precisamos redefinir o cálculo como uma chamada para a função com acumuladores, passando os valores
+ iniciais para os acumuladores. Como usaremos o segundo acumulador como
+ resultado, o primeiro (descartado) conterá 0.</p><p>Também adicionaremos uma verificação de valor, para evitar a passagem de valores negativos:</p><pre class="prettyprint"><code>fibonacci(N, R) :- N &gt;= 0,
+                   fibonacci(N, 0, 1, R).
+</code></pre><p>Assim, o elemento na posição <code>N</code> é <code>R</code> <strong>se</strong> <code>N</code> for maior ou igual a zero e a última pergunta (<code>fibonacci(N, 0, 1, R)</code>)
+ for verdadeira.</p><p>Agora vamos definir este último predicado. A parada pode ser definida como:</p><pre class="prettyprint"><code>fibonacci(0, _, R, R) :- !.
+</code></pre><p>Significa que, chegando a <code>N</code> valendo 0, ignora-se o primeiro acumulador e a resposta é igual ao segundo acumulador. o Sinal <code>!</code> indica que,
+ se o caso bater com esta definição, ignorar qualquer outra; o símbolo
+ <code>_</code> indica que o parâmetro deve ser ignorado.</p><p>O passo pode ser definido como: <code>N1</code> é o antecessor de <code>N</code> – ou melhor, <code>N</code> é o sucessor de <code>N1</code>, <code>AB</code> é a soma dos
+ acumuladores <code>A</code> e <code>B</code>, e para o índice <code>N1</code> o primeiro
+ acumulador é <code>B</code> e o segundo <code>AB</code>:</p><pre class="prettyprint"><code>fibonacci(N, A, B, R) :- succ(N1, N),
+                         plus(A, B, AB),
+                         fibonacci(N1, B, AB, R).
+</code></pre><p>Já temos a sequência e podemos testá-la:</p><pre><code><em>sh$</em> <strong>swipl -q</strong>
+<em>?-</em> <strong>[fibonacci].</strong>
+<em>true.</em>
+
+<em>?-</em> <strong>fibonacci(5, X).</strong>
+<em>X = 8.</em>
+
+</code></pre><h3>Cadeia de predicados</h3><p>Também podemos definir a função como uma cadeia de predicados, usando a sintaxe <code>--&gt;</code>.</p><p>Precisaremos instalar o pacote <code>lambda</code>:</p><pre><code><em>?-</em> <strong>pack_install(lambda).</strong>
+</code></pre><p>E no código <code>fibonacci.pl</code>:</p><pre class="prettyprint"><code>:- [library(lambda)].
+</code></pre><p>Reescrevendo a parada:</p><pre class="prettyprint"><code>fibonacci(0, _) --&gt; '='.
+</code></pre><p>A sintaxe <code>--&gt;</code> entende que o predicado recebe dois parâmetros extra: o resultado do predicado anterior da cadeia e o valor a ser passado para
+ o próximo predicado.</p><p>Por exemplo:</p><pre class="prettyprint"><code>d --&gt; a(1), b, c(test).
+</code></pre><p>é o mesmp que:</p><pre class="prettyprint"><code>d(P1, R) :- a(1, P1, R1),
+            b(R1, R2),
+            c(test, R2, R).
+</code></pre><p><code>'='</code> é o mesmo que garantir igualdade: <code>'='(P1,R)</code>, ou <code>P1 = R</code>.</p><p>Precisamos abordar cada predicado da cadeia e convertê-lo nesse formato.</p><p>Aqui temos dois problemas (solucionáveis): o primeiro predicado define o valor de <code>N1</code> sem alterar a cadeira. Para isso usamos <code>{}</code>:</p><pre class="prettyprint"><code>{ succ(N1, N1) },
+</code></pre><p>Segundo precisamos guardar o valor do segundo acumulador em um <em>slot</em> qualquer, por isso precisamos da biblioteca <code>lambda</code>: pegar <code>B</code>
+ e repassá-lo para o próximo predicado da cadeia:</p><pre class="prettyprint"><code>call(\B^B^B^(true), B),
+</code></pre><p>Isso equivale ao lambda <code>λbbb.TRUE</code> atribuindo o valor dos parâmetros (idênticos) a <code>B</code>. Os dois últimos predicados (<code>plus/3</code> e
+ <code>fibonacci/4</code>) já estão organizados para receber e repassar ao
+ cumulador:</p><pre class="prettyprint"><code>fibonacci(N, A) --&gt; { succ(N1, N) },
+                    call(\B^B^B^(true), B),
+                    plus(A),
+                    fibonacci(N1, B).
+</code></pre><p>Testando:</p><pre><code><em>?-</em> <strong>[fibonacci].</strong>
+<em>true.</em>
+
+<em>?-</em> <strong>forall(between(0, 10, X), (fibonacci(X, F), writeln({X, F}))).</strong>
+<em>{0,1}</em>
+<em>{1,1}</em>
+<em>{2,2}</em>
+<em>{3,3}</em>
+<em>{4,5}</em>
+<em>{5,8}</em>
+<em>{6,13}</em>
+<em>{7,21}</em>
+<em>{8,34}</em>
+<em>{9,55}</em>
+<em>{10,89}</em>
+<em>true.</em></code></pre></div></div><p class="text-right"><small class="tag">Conceitual</small> | <small class="tag">Lógica</small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `http://cacilhas.info/kodumaro/2017/11/acumuladores.html`
+  this.page.identifier = `kodumaro.2017.11.acumuladores`
+  this.page.title = 'Acumuladores em programação lógica'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script><iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:17ztrEzLSzYOp8MySGqFHy&amp;size=detail&amp;theme=light" width="300" height="56" scrolling="no" frameboarder="0" style="border:none; overflow:hidden" allowtransparency></iframe></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
