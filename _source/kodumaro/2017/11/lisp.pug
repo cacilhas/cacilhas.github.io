@@ -22,11 +22,22 @@ pre.prettyprint: code.
   (+ 1 2)
 
 p Que é lido como a lista dos elementos #[code +], #[code 1] e #[code 2]. O
-  |  processamento da lista se dá separando o primeiro elemento (#[em head]) dos
-  |  demais (#[em tail]):
+  |  processamento da lista se dá separando o primeiro elemento (#[em head] ou
+  |  #[code car]) dos demais (#[em tail] ou #[code cdr]):
 
 pre.prettyprint: code.
   (+ . (1 2))
+
+blockquote: small
+  p: tt [update 2017-11-20]
+  p Os termos #[code car] e #[code cdr] são comandos do #[=""]
+    a(href="https://pt.wikipedia.org/wiki/IBM_704") IBM 704
+    | , para o qual LISP foi desenvolvido. Significam #[=""]
+    em Contents of the Address part of Register number
+    |  e #[=""]
+    em Contents of the Decrement part of Register number
+    | .
+  p: tt [/update]
 
 p O primeiro elemento representa uma função λ e os demais elementos representam
   |  os parâmetros para esta função. No exemplo a função é #[code '+], que
