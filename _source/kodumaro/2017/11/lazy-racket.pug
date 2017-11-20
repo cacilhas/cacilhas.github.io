@@ -169,7 +169,7 @@ p Podemos validar no #[em prompt] do #[code racket]:
 pre: code.
   #[em -&gt;] #[strong (require "fact.rkt")]
   #[em -&gt;] #[strong (require lazy)]
-  #[em -&gt;] #[strong (!! [map (lambda (n) `(,n ,(factorial n))) '(0 1 2 3 4 5)])]
+  #[em -&gt;] #[strong (!! &#91;map (lambda (n) `(,n ,(factorial n))) '(0 1 2 3 4 5)&#93;)]
   #[em '((0 1) (1 1) (2 2) (3 6) (4 24) (5 120))]
 
 p O #[code 'map] gera uma #[em promise] que valida o #[em lambda] sob demanda
