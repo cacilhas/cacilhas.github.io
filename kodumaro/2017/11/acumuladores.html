@@ -47,7 +47,7 @@ ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse na
 <em>?-</em> <strong>fibonacci(5, X).</strong>
 <em>X = 8.</em>
 
-</code></pre><h3>Cadeia de predicados</h3><p>Também podemos definir a função como uma cadeia de predicados, usando a sintaxe <code>--&gt;</code>.</p><p>Precisaremos instalar o pacote <code>lambda</code>:</p><pre><code><em>?-</em> <strong>pack_install(lambda).</strong>
+</code></pre><h3>Cadeia de predicados</h3><p>Também podemos definir a função como uma <a href="https://pt.wikipedia.org/wiki/Gramática_de_cláusulas_definidas">cadeia de predicados</a>, usando a sintaxe <code>--&gt;</code>.</p><p>Precisaremos instalar o pacote <code>lambda</code>:</p><pre><code><em>?-</em> <strong>pack_install(lambda).</strong>
 </code></pre><p>E no código <code>fibonacci.pl</code>:</p><pre class="prettyprint"><code>:- [library(lambda)].
 </code></pre><p>Reescrevendo a parada:</p><pre class="prettyprint"><code>fibonacci(0, _) --&gt; '='.
 </code></pre><p>A sintaxe <code>--&gt;</code> entende que o predicado recebe dois parâmetros extra: o resultado do predicado anterior da cadeia e o valor a ser passado para
