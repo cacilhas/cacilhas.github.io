@@ -8,3 +8,10 @@ mixin li
     if block
       | #[=" "]
       block
+
+mixin li2
+  li.list-group-item
+    span.glyphicon.glyphicon-chevron-right
+    if block
+      | #[=" "]
+      block
