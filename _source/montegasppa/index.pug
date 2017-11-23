@@ -1,3 +1,5 @@
+include ../_widgets/list-group-item.pug
+
 p.mg-first Sempre que conversava com algum amigo #[em blogueiro], ele me sugeria
   |  criar um #[em blog] meu. Não pensei a sério até #[=""]
   a(href="http://montegasppa.blogspot.in/2006/07/prlogo.html") julho de 2006
@@ -20,15 +22,17 @@ p Renasce então sob minha #[=""]
   | , com um nome ligeiramente diferente, já que resolvi mudar “Monte Gasppa”
   |  para “ℳontegasppα”, mas cada vez mais meu #[em blog] #[strong pessoal].
 
-ul.list-group
++ul
   each month in public.montegasppa.months
-    li.list-group-item
-      select.list-group-item(onchange="window.location = this.value; return true;"
-                             style={width: "100%"})
-        option(selected=true)= month.title
+    +li
+      != month.title
+      span.badge
+        != Object.keys(month.dir).length
+      ul
         each page, slug in month.dir
-          option(value=`${month.slug}/${slug}.html`)
+          a(href=`${month.slug}/${slug}.html`): +li2
             != page.title
+
   a(href="http://montegasppa.blogspot.in/")
     li.list-group-item
       img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})

@@ -1,3 +1,5 @@
+include ../_widgets/list-group-item.pug
+
 - let blogtitle = public.kodumaro.blog.title
 
 img.pull-right(src="/img/kodumaro.jpg" alt="Logo")
@@ -27,15 +29,17 @@ p: small
   a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
   | .
 
-ul.list-group
++ul
   each month in public.kodumaro.months
-    li.list-group-item
-      select.list-group-item(onchange="window.location = this.value; return true;"
-                             style={width: "100%"})
-        option(selected=true)= month.title
+    +li
+      != month.title
+      span.badge
+        != Object.keys(month.dir).length
+      ul
         each page, slug in month.dir
-          option(value=`${month.slug}/${slug}.html`)
+          a(href=`${month.slug}/${slug}.html`): +li2
             != page.title
+
   a(href="http://kodumaro.blogspot.com.br/")
     li.list-group-item
       img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
