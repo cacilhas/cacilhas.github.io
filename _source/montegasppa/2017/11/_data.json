@@ -6,5 +6,13 @@
     "image": "/img/sutra-pre-release.jpg",
     "release": "2017-11-20",
     "tags": ["Música", "Pessoal"]
+  },
+  "punisher": {
+    "title": "Resenha de Marvel’s The Punisher",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Terminei de assistir ontem a série Marvel’s The Punisher…",
+    "image": "/img/punisher.jpg",
+    "release": "2017-11-27",
+    "tags": ["TV e Cinema"]
   }
 }
