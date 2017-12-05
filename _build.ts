@@ -64,13 +64,14 @@ Promise<void> {
         _(context).assign(require(file))
 
       else if (cname.endsWith(".pug")) {
-        cname = cname.slice(0, cname.indexOf("."))
+        cname = cname.replace(/\.pug$/, "")
         context[cname] = context[cname] === undefined ? {} : context[cname]
 
         // Add current
         context[cname].current = {
           source: cname,
           path: `${dirname}/${cname}`.split("/"),
+          url: `${cname}.html`,
         }
       }
 
