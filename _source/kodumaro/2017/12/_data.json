@@ -1,0 +1,11 @@
+
+{
+  "brainfuck-1": {
+    "title": "Brainfuck (parte 1) – A fita",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Vamos começar a construção de nosso interpretador Brainfuck pela fita.",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-11",
+    "tags": ["Conceitual", "Lógica"]
+  }
+}
