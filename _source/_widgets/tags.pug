@@ -10,11 +10,12 @@ each yearDir, yearSlug in public.montegasppa
           - const url = `/montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
           - const title = `${montegasppa} :: ${page.title}`
           - const current = {url, title}
-          each tag in page.tags
-            if tags[tag]
-              - tags[tag].pages.push(current)
-            else
-              - tags[tag] = {name: tag, pages: [current]}
+          if !page.hidden
+            each tag in page.tags
+              if tags[tag]
+                - tags[tag].pages.push(current)
+              else
+                - tags[tag] = {name: tag, pages: [current]}
 
 each yearDir, yearSlug in public.kodumaro
   if yearDir && /^\d{4}$/.test(yearSlug)
@@ -24,11 +25,12 @@ each yearDir, yearSlug in public.kodumaro
           - const url = `/kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
           - const title = `${kodumaro} :: ${page.title}`
           - const current = {url, title}
-          each tag in page.tags
-            if tags[tag]
-              - tags[tag].pages.push(current)
-            else
-              - tags[tag] = {name: tag, pages: [current]}
+          if !page.hidden
+            each tag in page.tags
+              if tags[tag]
+                - tags[tag].pages.push(current)
+              else
+                - tags[tag] = {name: tag, pages: [current]}
 
 .col-md-4
   .list-group
