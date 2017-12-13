@@ -8,7 +8,6 @@ p O módulo #[code memory.pl] comerçará com o seguinte cabeçalho:
 
 pre.prettyprint: code.
   % -*- Prolog -*-
-  % @copyright ©2017, Rodrigo Cacilhας <batalema@cacilhas.info>
   :- module(memory, []).
   :- [utils].
 
@@ -61,7 +60,7 @@ pre.prettyprint: code.
   get_pos(_, 0).
 
 p O segundo predicado precisa #[=""]
-  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=retract/1") recolher
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=retract/1") retrair
   |  a verdade atual do predicado e #[=""]
   a(href="http://www.swi-prolog.org/pldoc/doc_for?object=assertz/1") criar
   |  uma nova verdade. Para que a retração não falhe, usaremos
@@ -73,3 +72,123 @@ pre.prettyprint: code.
 
 h3 Pegando o valor do #[em slot] de memória
 
+p O predicado que valida o valor em memória deve considerar a célula atual, cuja
+  |  posição é definida por #[code get_pos/2]. Portanto #[code get_slot/2] deve
+  |  consultar a posição atual e repassar a responsabilidade para
+  |  #[code get_slot/2] usando #[=""]
+  a(href="https://en.wikipedia.org/wiki/Tail_call"): em tail-call optimisation
+  | :
+
+pre.prettyprint: code.
+  get_slot(Name, Value) :- get_pos(Name, Pos),
+                           get_slot(Name, Pos, Value).
+
+blockquote
+  p Ao contrário do #[=""]
+    a(href=`${public.kodumaro.blog.url}2017/12/brainfuck-1.html`)
+      | artigo anterior
+    | , não vou comentar os testes, mas você pode vê-los no #[=""]
+    a(href=`${public.main.host}/misc/brainfuck/memory.pl`) código fonte
+    | .
+
+p A primeira verdade de nosso perdicado é quando coincide com alguma verdade do
+  |  predicado dinâmico:
+
+pre.prettyprint: code.
+  get_slot(Name, Pos, Value) :- slot(Name, Pos, Value), !.
+
+p A segunda verdade é que o valor é zero #[strong se] não existir uma verdade
+  |  que coincida com o nome e a posição no predicado dinâmico:
+
+pre.prettyprint: code.
+  get_slot(Name, Pos, 0)     :- \+ slot(Name, Pos, _).
+
+p O metapredicado #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=(%5C%2B)/1")
+    code \+/1
+  |  verifica se o predicado parâmetro falha.
+
+p Agora precisamos de um predicado para mudar o valor da célula atual. Será
+  |  regulado pelo mesmo princípio do #[em getter]:
+
+pre.prettyprint: code.
+  set_slot(Name, Value) :- get_pos(Name, Pos),
+                           set_slot(Name, Pos, Value).
+
+p Enquanto #[code set_slot/3] se comportará de modo parecido a
+  |  #[code set_pos/2], retraindo a verdade atual e criando a nova:
+
+pre.prettyprint: code.
+  set_slot(Name, Pos, Value) :- optional(retract(slot(Name, Pos, _))),
+                                assertz(slot(Name, Pos, Value)).
+
+p Agora vamos exportar nossos predicados alterando o cabeçalho:
+
+pre.prettyprint: code.
+  :- module(memory, [get_slot/2, set_slot/2]).
+
+h3 Incremento e decremento
+
+p As operações mais comuns de mudança de valor de célula são incremento e
+  |  decremento. Podemos implementá-las usando os predicados que já temos:
+
+pre.prettyprint: code.
+  incr_slot(Name) :- get_slot(Name, Value),
+                     succ(Value, NewValue),
+                     set_slot(Name, NewValue).
+
+  decr_slot(Name) :- get_slot(Name, Value),
+                     succ(NewValue, Value),
+                     set_slot(Name, NewValue).
+
+p O predicado #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=succ/2")
+    code succ/2
+  |  calcula o valor sucessor ou antecessor de valores naturais. Usando #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Cálculo_lambda") notação λ
+  | , sucessor e antecessor são definidos como:
+
+pre: code.
+  SUCC := λx.sx
+  PRED := λ(sx).x
+
+p Fazendo a equivalência em Prolog:
+
+pre: code
+  p succ(#[em X], #[em S(X)]).
+
+p Exportando agora:
+
+pre.prettyprint: code.
+  :- module(memory, [get_slot/2, set_slot/2, incr_slot/1, decr_slot/1]).
+
+h3 Mudando de célula
+
+p As operações para mudança de célula são mover para a próxima ou para a
+  |  anterior, e são muito parecidas com incremento e decremento, a diferença
+  |  é que, em vez do valor da célula, quem é incrementada ou decrementada é a
+  |  posição:
+
+pre.prettyprint: code.
+  next_slot(Name) :- get_pos(Name, Pos),
+                     succ(Pos, NewPos),
+                     set_pos(Name, NewPos).
+
+  prev_slot(Name) :- get_pos(Name, Pos),
+                     succ(NewPos, Pos),
+                     set_pos(Name, NewPos).
+
+p Ao exportarmos, teremos terminado nossa memória:
+
+pre.prettyprint: code.
+  :- module(memory, [get_slot/2, set_slot/2, incr_slot/1, decr_slot/1
+                     next_slot/1, prev_slot/1]).
+
+h3 Arquivos
+
+.text-center
+  a(href=`${public.main.host}/misc/brainfuck/utils.pl`)
+    code utils.pl
+  br/
+  a(href=`${public.main.host}/misc/brainfuck/memory.pl`)
+    code memory.pl
