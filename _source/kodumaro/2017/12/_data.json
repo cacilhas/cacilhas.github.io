@@ -7,5 +7,13 @@
     "image": "/img/turing-machine.jpg",
     "release": "2017-12-11",
     "tags": ["Conceitual", "Lógica"]
+  },
+  "brainfuck-2": {
+    "title": "Brainfuck (parte 2) – A memória",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "O próximo elemento do interpretador será a memória",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-13",
+    "tags": ["Conceitual", "Lógica"]
   }
 }
