@@ -5,7 +5,13 @@
     "content": "Aproveito meu aniversário para fazer o pré-lançamento do novo EP…",
     "image": "/img/sutra-pre-release.jpg",
     "release": "2017-11-20",
-    "tags": ["Música", "Pessoal"]
+    "tags": ["Música", "Pessoal"],
+    "nav": {
+      "next": {
+        "path": "2017/10/novo-ep",
+        "title": "Anúncio"
+      }
+    }
   },
   "punisher": {
     "title": "Resenha de Marvel’s The Punisher",

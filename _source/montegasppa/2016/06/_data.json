@@ -5,7 +5,13 @@
     "content": "Há algumas semanas tomei uma decisão muito séria quanto a meu crescimento musical.",
     "image": "/img/schecter-c8.jpg",
     "release": "2016-06-12",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "next": {
+        "path": "2017/04/oito-cordas",
+        "title": "<em>Open C</em>"
+      }
+    }
   },
   "modos-gregos": {
     "title": "Modos gregos",
@@ -13,7 +19,13 @@
     "content": "Ouve-se muito falar em escalas <em>Ionian</em>, <em>Dorian</em>, <em>Phrygian</em>…",
     "image": "/img/schecter-c8.jpg",
     "release": "2016-06-16",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "next": {
+        "path": "2016/06/escalas-exoticas-c",
+        "title": "Versão em dó"
+      }
+    }
   },
   "escalas-exoticas": {
     "title": "Escalas exóticas",
@@ -22,6 +34,12 @@
     "image": "/img/clave-sol.jpg",
     "release": "2016-06-16",
     "tags": ["Música"],
+    "nav": {
+      "next": {
+        "path": "2016/06/escalas-exoticas-c",
+        "title": "Versão em dó"
+      }
+    },
     "hidden": true
   },
   "escalas-exoticas-c": {
@@ -30,6 +48,16 @@
     "content": "No último artigo falei sobre os modos gregos. Dando continuidade, falarei de algumas escalas exóticas.",
     "image": "/img/clave-sol.jpg",
     "release": "2016-06-24",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2016/06/modos-gregos",
+        "title": "Modos gregos"
+      },
+      "next": {
+        "path": "2017/02/modos-gregos-guitarra",
+        "title": "Modos gregos na guitarra"
+      }
+    }
   }
 }

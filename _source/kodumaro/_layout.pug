@@ -15,7 +15,7 @@ block blog-head
   if image
     meta(property="og:image" content=`${public.main.host}${image}`)/
   link(rel="alternate" type="application/atom+xml" title=public.kodumaro.blog.title
-       href=public.kodumaro.blog.url+"feed.xml")/
+       href=`${public.kodumaro.blog.url}feed.xml`)/
   link(rel="stylesheet" href="/css/kodumaro.css")/
   link(rel="icon" href="/img/kodumaro.ico")/
   script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")
@@ -44,6 +44,18 @@ block main-container
         unless index === 0
           |  | #[=""]
         small.tag !{tag}
+
+  if nav
+    .panel.panel-default
+      .panel-body
+        if nav.prev
+          .pull-left: small
+            a(href=`${public.kodumaro.blog.url}${nav.prev.path}.html`)
+              | Anterior: !{nav.prev.title}
+        if nav.next
+          .pull-right: small
+            a(href=`${public.kodumaro.blog.url}${nav.next.path}.html`)
+              | Próximo: !{nav.next.title}
 
   if current.source !== 'index'
     .panel.panel-default

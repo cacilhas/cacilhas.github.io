@@ -5,7 +5,13 @@
     "content": "Orientação a Aspectos consiste em encapsular funcionalidades conforme sua importância.",
     "image": "/img/python.png",
     "release": "2016-04-19",
-    "tags": ["Conceitual", "Python"]
+    "tags": ["Conceitual", "Python"],
+    "nav": {
+      "next": {
+        "path": "2016/04/aspectos-2",
+        "title": "<em>Mixins</em>"
+      }
+    }
   },
     "aspectos-2": {
     "title": "Aspectos – parte Ⅱ",
@@ -14,6 +20,12 @@
     "image": "/img/python.png",
     "release": "2016-04-19",
     "tags": ["Conceitual", "Python"],
+    "nav": {
+      "prev": {
+        "path": "2016/04/aspectos",
+        "title": "Aspectos"
+      }
+    },
     "hidden": true
   }
 }

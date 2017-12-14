@@ -5,7 +5,13 @@
     "content": "Dando continuidade ao artigo <em>Rock is dead</em>…",
     "image": "/img/clave-sol.jpg",
     "release": "2017-02-05",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2016/07/rock-is-dead",
+        "title": "Original"
+      }
+    }
   },
   "modos-gregos-guitarra": {
     "title": "Modos gregos na guitarra",
@@ -13,7 +19,17 @@
     "content": "Complementando o artigo sobre modos gregos, este foca em sua execução em violão e guitarra.",
     "image": "/img/schecter-c8.jpg",
     "release": "2017-02-10",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2016/06/escalas-exoticas-c",
+        "title": "Escalas exóticas"
+      },
+      "next": {
+        "path": "2017/02/escalas-anemitonicas-e-semitonicas",
+        "title": "Escalas anemitônicas e semitônicas"
+      }
+    }
   },
   "escalas-anemitonicas-e-semitonicas": {
     "title": "Escalas anemitônicas e semitônicas",
@@ -21,6 +37,16 @@
     "content": "Vou dar uma pincelada sobre escalas anemitônicas e semitônicas.",
     "image": "/img/clave-sol.jpg",
     "release": "2017-02-14",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2017/02/modos-gregos-guitarra",
+        "title": "Modos gregos na guitarra"
+      },
+      "next": {
+        "path": "2017/04/escalas-anemitonicas",
+        "title": "Escalas anemitônicas"
+      }
+    }
   }
 }

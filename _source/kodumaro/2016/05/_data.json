@@ -29,7 +29,13 @@
     "content": "Em se descartando algumas escolhas erradas, as desconhecidas restantes combinam as probabilidades das descartadas.",
     "image": "/img/monty-hall.jpg",
     "release": "2016-05-22",
-    "tags": ["Erlang", "Funcional", "Lógica"]
+    "tags": ["Erlang", "Funcional", "Lógica"],
+    "nav": {
+      "next": {
+        "path": "2016/05/monty-hall-2",
+        "title": "O convidado"
+      }
+    }
   },
   "monty-hall-2": {
     "title": "Paradoxo de Monty Hall, parte Ⅱ",
@@ -38,6 +44,16 @@
     "image": "/img/erlang.png",
     "release": "2016-05-22",
     "tags": ["Erlang", "Funcional", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2016/05/monty-hall",
+        "title": "O mestre de cerimônia"
+      },
+      "next": {
+        "path": "2016/05/monty-hall-3",
+        "title": "O jogo"
+      }
+    },
     "hidden": true
   },
   "monty-hall-3": {
@@ -47,6 +63,12 @@
     "image": "/img/erlang.png",
     "release": "2016-05-26",
     "tags": ["Erlang", "Funcional", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2016/05/monty-hall-2",
+        "title": "O convidado"
+      }
+    },
     "hidden": true
   },
   "camera-exemplo": {

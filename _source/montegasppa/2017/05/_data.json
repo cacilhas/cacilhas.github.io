@@ -5,7 +5,13 @@
     "content": "No último artigo comentei sobre a afinação que pretendia fazer…",
     "image": "/img/schecter-c8.jpg",
     "release": "2017-05-02",
-    "tags": ["Música"]
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2017/04/oito-cordas",
+        "title": "Planejando"
+      }
+    }
   },
   "guitarristas": {
     "title": "Guitarristas",
