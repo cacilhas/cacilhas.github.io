@@ -6,7 +6,13 @@
     "content": "Vamos começar a construção de nosso interpretador Brainfuck pela fita.",
     "image": "/img/turing-machine.jpg",
     "release": "2017-12-11",
-    "tags": ["Conceitual", "Lógica"]
+    "tags": ["Conceitual", "Lógica"],
+    "nav": {
+      "next": {
+        "path": "2017/12/brainfuck-2",
+        "title": "A memória"
+      }
+    }
   },
   "brainfuck-2": {
     "title": "Brainfuck (parte 2) – A memória",
@@ -14,6 +20,12 @@
     "content": "O próximo elemento do interpretador será a memória",
     "image": "/img/turing-machine.jpg",
     "release": "2017-12-13",
-    "tags": ["Conceitual", "Lógica"]
+    "tags": ["Conceitual", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/brainfuck-1",
+        "title": "A fita"
+      }
+    }
   }
 }
