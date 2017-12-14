@@ -5,6 +5,12 @@
     "content": "Sempre me considerei um musicista progressivo.",
     "image": "/img/the-yes-album.jpg",
     "release": "2017-07-20",
-    "tags": ["Música", "Pessoal"]
+    "tags": ["Música", "Pessoal"],
+    "nav": {
+      "prev": {
+        "path": "2017/06/punk",
+        "title": "Punk"
+      }
+    }
   }
 }
