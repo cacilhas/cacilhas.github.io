@@ -7,7 +7,7 @@
     "release": "2017-11-20",
     "tags": ["Música", "Pessoal"],
     "nav": {
-      "next": {
+      "prev": {
         "path": "2017/10/novo-ep",
         "title": "Anúncio"
       }
