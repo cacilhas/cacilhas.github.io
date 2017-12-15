@@ -79,7 +79,7 @@
   "brainfuck-toc": {
     "title": "Brainfuck – Sumário",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
-    "content": "Brainfuck é uma linguagem de programação esotérica que implementa a máquina de Turing de forma extrema.",
+    "content": "Brainfuck é uma linguagem de programação esotérica que implementa a máquina de Turing de forma restrita.",
     "image": "/img/turing-machine.jpg",
     "release": "2017-12-15",
     "tags": ["Conceitual", "Lógica"]
