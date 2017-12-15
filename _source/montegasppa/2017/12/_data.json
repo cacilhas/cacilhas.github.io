@@ -5,7 +5,13 @@
     "content": "Ontem finalmente recebi o resultado de uma avaliação que estou fazendo há algumas sessões…",
     "image": "/img/tea.jpg",
     "release": "2017-12-03",
-    "tags": ["Autismo", "Pessoal"]
+    "tags": ["Autismo", "Pessoal"],
+    "nav": {
+      "next": {
+        "path": "2017/12/literalmente",
+        "title": "Literalmente"
+      }
+    }
   },
   "capitalismo": {
     "title": "Dez modos como o capitalismo nega ou tira a sua liberdade",
@@ -29,7 +35,17 @@
     "content": "As pessoas acham que ser literal significa não entender sentido figurado…",
     "image": "/img/tea.jpg",
     "release": "2017-12-10",
-    "tags": ["Autismo", "Pessoal"]
+    "tags": ["Autismo", "Pessoal"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/entre-logos",
+        "title": "Entre lobos"
+      },
+      "next": {
+        "path": "2017/12/nos-autistas",
+        "title": "“Nós” autistas"
+      }
+    }
   },
   "nos-autistas": {
     "title": "“Nós” autistas",
@@ -37,6 +53,12 @@
     "content": "Participando de alguns grupos de pais de autistas (…) tenho percebido uma tentiva (…) de padronizar o autista…",
     "image": "/img/tea.jpg",
     "release": "2017-12-14",
-    "tags": ["Autismo", "Pessoal"]
+    "tags": ["Autismo", "Pessoal"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/literalmente",
+        "title": "Literalmente"
+      }
+    }
   }
 }
