@@ -44,6 +44,25 @@
       "prev": {
         "path": "2017/12/brainfuck-2",
         "title": "A memória"
+      },
+      "next": {
+        "path": "2017/12/brainfuck-4",
+        "title": "Finalização"
+      }
+    },
+    "hidden": true
+  },
+  "brainfuck-4": {
+    "title": "Brainfuck (parte 4) – finalização",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Já com todas as partes em mãos, vamos colar tudo em um executável.",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-15",
+    "tags": ["Conceitual", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/brainfuck-3",
+        "title": "Cabeçote e microprograma"
       }
     }
   }

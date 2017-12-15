@@ -21,13 +21,13 @@ test(create_tape, [setup(create_tape('test.tape', Tape)),
   start_of_tape(Tape).
 
 :- end_tests(tape).
-</code></pre><p>Precisamos também de uma fita teste. No terminal execute:</p><pre><code><p><em>sh&gt;</em> <strong>echo 12345 &gt; test.tape</strong></p></code></pre><p>Então <code>create_tape/2</code> terá a seguinte definição (coloque antes dos testes):</p><pre class="prettyprint"><code>create_tape(Filename, Tape) :-
+</code></pre><p>Precisamos também de uma fita teste. No terminal execute:</p><pre><code><p><em>sh&gt; </em><strong>echo 12345 &gt; test.tape</strong></p></code></pre><p>Então <code>create_tape/2</code> terá a seguinte definição (coloque antes dos testes):</p><pre class="prettyprint"><code>create_tape(Filename, Tape) :-
     open(Filename, read, Tape,
          [buffer(false), lock(read), wait(false)]).
 </code></pre><p>Estamos abrindo o arquivo <code>Filename</code> sem <em>buffering</em> (<code>buffer(false)</code>), travado para leitura (<code>lock(read)</code>, não
  queremos modificar a fita) e retornando um erro caso o arquivo não exista
  (<code>wait(false)</code>).</p><p>E <code>start_of_tape/1</code> será:</p><pre class="prettyprint"><code>start_of_tape(Tape) :- seek(Tape, 0, current, 0).
-</code></pre><p>Essa foi uma trapaça: usamos <code>seed/4</code> para mover o ponteiro para mesma posição em que ele já se encontrava e verificamos se a posição é zero.</p><p>Agora já podemos testar. No terminal rode:</p><pre><code><p><em>sh&gt;</em> <strong>swipl -q -t run_tests. tape.pl</strong><br/></p>.</code></pre><p>Sucesso! Agora é possível exportar o predicato. Vamos mudar a declaração do módulo para:</p><pre class="prettyprint"><code>:- module(tape, [create_tape/1]).
+</code></pre><p>Essa foi uma trapaça: usamos <code>seed/4</code> para mover o ponteiro para mesma posição em que ele já se encontrava e verificamos se a posição é zero.</p><p>Agora já podemos testar. No terminal rode:</p><pre><code><p><em>sh&gt; </em><strong>swipl -q -t run_tests. tape.pl</strong><br/>.</p></code></pre><p>Sucesso! Agora é possível exportar o predicato. Vamos mudar a declaração do módulo para:</p><pre class="prettyprint"><code>:- module(tape, [create_tape/1]).
 </code></pre><h3>Lendo a fita</h3><p>Para ler a fita vamos usar <code>get_char/2</code>, e vamos criar um predicato <code>end_of_tape/1</code> para testar se a fita chegou ao fim.</p><p>Como a fita é um <em>stream</em>, podemos usar <a href="http://www.swi-prolog.org/pldoc/doc_for?object=at_end_of_stream/1"><code>at_end_of_stream/1</code></a> para tanto:</p><pre class="prettyprint"><code>end_of_tape(Tape) :- at_end_of_stream(Tape).
 </code></pre><p>Na seção de testes (entre <code>begin_tests/1</code> e <code>end_tests/1</code>) vamos escrever o teste para ver se <code>read_tape/2</code> se comporta de acordo:</p><pre class="prettyprint"><code>test(read_tape, [setup(create_tape('test.tape', Tape)),
                  cleanup(close(Tape)) ]) :-
@@ -42,7 +42,7 @@ test(create_tape, [setup(create_tape('test.tape', Tape)),
     end_of_tape(Tape).
 </code></pre><p>Para cada elemento da fita <code>test.tape</code>, convertemos de <em>atom</em> para carácter (portanto tem de ser um <em>atom</em>) e verificamos se bate
  com o esperado.</p><p>Antes da leitura fazemos a verificação se está no começo da fita, ao final verificamos se chegou ao final.</p><p>Agora vamos à definição de <code>read_tape/2</code>.</p><p>Sua assinatura é <code>read_tape(+Tape, -Statement)</code>, e podemos defini-lo como:</p><pre class="prettyprint"><code>read_tape(Tape, Statement) :- get_char(Tape, Statement).
-</code></pre><p>Voltemos ao teste:</p><pre><code><p><em>sh&gt;</em> <strong>swipl -q -t run_tests. tape.pl</strong><br/></p>..</code></pre><p>Sétimo andar e tudo bem até aqui…</p><p>Expondo o novo predicado:</p><pre class="prettyprint"><code>:- module(tape, [create_tape/1, read_tape/1]).
+</code></pre><p>Voltemos ao teste:</p><pre><code><p><em>sh&gt; </em><strong>swipl -q -t run_tests. tape.pl</strong><br/>..</p></code></pre><p>Sétimo andar e tudo bem até aqui…</p><p>Expondo o novo predicado:</p><pre class="prettyprint"><code>:- module(tape, [create_tape/1, read_tape/1]).
 </code></pre><h3>Recuando a fita</h3><p>Ao ler a fita, ela já anda para a próxima célula, mas precisamos poder recuar a fita.</p><p>Para tanto vamos criar o predicado <code>tape_backward/2</code>. Para facilitar os testes, podemos criar também um predicado <code>tape_foward/2</code>.</p><p>Na seção de testes, podemos escrever nosso novo teste:</p><pre class="prettyprint"><code>test(tape_backward, [setup(create_tape('test.tape', Tape)),
                      cleanup(close(Tape))]) :-
     start_of_tape(Tape),
@@ -52,7 +52,7 @@ test(create_tape, [setup(create_tape('test.tape', Tape)),
 </code></pre><p>Assim avançamos três células a partir do começo e recuamos uma, precisa retornar o <em>atom</em> <code>'3'</code>.</p><p>Podemos começar com nosso predicado auxiliar:</p><pre class="prettyprint"><code>tape_forward(Tape, Steps) :- seek(Tape, Steps, current, _).
 </code></pre><p>Usamos <code>seek/4</code> para avançar a fita <code>Steps</code> passos a partir da posição atual (<code>current</code>).</p><p>O predicado principal pode tirar proveito desse:</p><pre class="prettyprint"><code>tape_backward(Tape, Steps) :- BackwardSteps is -1 * Steps,
                               tape_forward(Tape, BackwardSteps).
-</code></pre><p>Simplesmente recuar é avançar passos negativos! Os testes agora:</p><pre><code><p><em>sh&gt;</em> <strong>swipl -q -t run_tests. tape.pl</strong><br/></p>...</code></pre><p>O uso mais frequente de de <code>tape_backward/2</code> será com dois passos para trás, então podemos criar um predicado facilitador:</p><pre class="prettyprint"><code>tape_backward(Tape) :- tape_backward(Tape, 2).
+</code></pre><p>Simplesmente recuar é avançar passos negativos! Os testes agora:</p><pre><code><p><em>sh&gt; </em><strong>swipl -q -t run_tests. tape.pl</strong><br/>...</p></code></pre><p>O uso mais frequente de de <code>tape_backward/2</code> será com dois passos para trás, então podemos criar um predicado facilitador:</p><pre class="prettyprint"><code>tape_backward(Tape) :- tape_backward(Tape, 2).
 </code></pre><h3>Finalizando</h3><p>Vamos precisar também exportar os predicador <code>start_of_tape/1</code> e <code>end_of_tape/1</code>, serão úteis. Assim o cabeçalho de nosso módulo
  termina assim:</p><pre class="prettyprint"><code>% -*- Prolog -*-
 :- module(tape, [create_tape/2, read_tape/2, tape_backward/1, end_of_tape/1,

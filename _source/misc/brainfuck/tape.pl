@@ -38,7 +38,7 @@ test(read_tape, [setup(create_tape('test.tape', Tape)),
         member(X, [49, 50, 51, 52, 53, 10]),
         (
             read_tape(Tape, R),
-            atom_char(R, X)
+            char_code(R, X)
         )
     ),
     end_of_tape(Tape).

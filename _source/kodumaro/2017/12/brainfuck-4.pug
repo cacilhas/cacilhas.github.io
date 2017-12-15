@@ -1,0 +1,90 @@
+img.pull-right(src=image alt="Máquina de Turing")
+
+p.mg-first Já com todas as partes em mãos, vamos colar tudo em um executável.
+
+p Vamos criar um arquivo #[=""]
+  a(href=`${public.main.host}/misc/brainfuck/brainfuck.pl`)
+    code brainfuck.pl
+  |  cujo cabeçalho apenas importará o módulo #[code parser] e a biblioteca
+  |  padrão #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/man?section=main")
+    code main
+  | :
+
+pre.prettyprint: code.
+  % -*- Prolog -*-
+  :- [parser, library(main)].
+
+p A #[em lib] #[code main] espera um predicado #[code user:main/1], que receba
+  |  uma lista de #[em atoms] representando os parâmetros da linha de comando.
+  |  Considerando que nosso #[code parse/1] espera o nome do arquivo,
+  |  consideremos que o nome do arquivo seja passado na linha de comando:
+
+pre.prettyprint: code.
+  main([Filename]) :- parse(Filename).
+
+p Se nenhum parâmetro for passado vamos exibir uma mensagem de uso:
+
+pre.prettyprint: code.
+  main([]) :- current_prolog_flag(os_argv, [_, '-x', Path | _]),
+              file_base_name(Path, Script),
+              format('use: ~w &lt;source&gt;~n', [Script]).
+
+p Podemos rodar todos os testes a partir deste arquivo agora:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. brainfuck.pl
+  br/
+  | ...
+  | ......
+  | .......
+
+p Se quisermos testar como um #[em script], adicione a seguinte linha:
+
+pre.prettyprint: code.
+  :- initialization(main).
+
+p Use o arquivo #[=""]
+  a(href=`${public.main.host}/misc/brainfuck/hello.bf`)
+    code hello.bf
+  |  para testar:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q brainfuck.pl hello.bf
+  br/
+  em Hello World!
+
+h3 Criando executável
+
+p Para criar um executável, #[strong remova] ou comente a linha com
+  |  #[code initialization] e execute a seguinte linha de comando:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q
+  br/
+  em ?- #[=""]
+  strong [library(qsave), brainfuck].
+  br/
+  em true.
+  br/
+  em ?- #[=""]
+  strong qsave_program&#40;brainfuck, &#91;init_file('brainfuck.pl'),
+  br/
+  em |    #[=""]
+  strong goal(main),
+  br/
+  em |    #[=""]
+  strong toplevel(halt)&#93;&#41;.
+  br/
+  em true.
+
+p Testando agora:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong ./brainfuck hello.bf
+  br/
+  em Hello World!
