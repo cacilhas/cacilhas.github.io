@@ -37,14 +37,14 @@ perform(_, -) :- !, decr_slot(brainfuck).
                  flush_output.
 </code></pre><p>E <em>vois là</em>! Já temos nossa saída.</p><p>Para a entrada de dados o processo também será tão simples quanto, lendo um <em>atom</em> de carácter da entrada padrão com <a href="http://www.swi-prolog.org/pldoc/man?predicate=get_char/1"><code>get_char/1</code></a>, convertendo para numérico também com <code>char_code/2</code> e ajustando o
  <em>slot</em> da memória com <code>set_lot/2</code>.</p><p>No entanto há uma <strong>pegadinha</strong>! <code>get_char/1</code> pode retornar <code>end_of_file</code>, e precisamos tratar isso. Apesar de o código ASCII
- mais coerente com <code>end_of_file</code> seja <a href="http://www.theasciicode.com.ar/ascii-control-characters/eot-end-of-transmission-diamonds-card-suit-ascii-code-4.html"><span class="mg-sc">eot</span></a>, ele não apresenta o comportamento desejado de encerramento de <em>loops</em>
+ mais coerente com <code>end_of_file</code> ser <a href="http://www.theasciicode.com.ar/ascii-control-characters/eot-end-of-transmission-diamonds-card-suit-ascii-code-4.html"><span class="mg-sc">eot</span></a>, ele não apresenta o comportamento desejado de encerramento de <em>loops</em>
  como costuma ser usado, então, em seu lugar, usaremos <a href="http://www.theasciicode.com.ar/ascii-control-characters/null-character-ascii-code-0.html"><span class="mg-sc">null</span></a>.</p><p>Então o predicado principal chamará <code>get_char/1</code> e repassará a responsabilidade para <code>process_read/1</code>:</p><pre class="prettyprint"><code>perform(_, ',') :- !, get_char(Value),
                    process_read(Value).
 </code></pre><p>Agora <code>process_read/1</code> receberá um <em>atom</em>, que pode ser <code>end_of_file</code> ou a representação de um carácter. Tratando o primeiro
  caso:</p><pre class="prettyprint"><code>process_read(end_of_file) :- !, set_slot(brainfuck, 0). % use NULL as EOF
 </code></pre><p>No segundo caso precisamos converter o <em>atom</em> para código ASCII antes de chamar <code>set_slot/2</code>:</p><pre class="prettyprint"><code>process_read(Value) :- char_code(Value, Num),
                        set_slot(brainfuck, Num).
-</code></pre><h3><em>Loops</em> e condicionais</h3><p>Agora vem a parte mais complicado. Ao abrir um bloco condicional, é preciso verificar se a célula (<em>slot</em>) atual é zero, se for, o bloco será
+</code></pre><h3><em>Loops</em> e condicionais</h3><p>Agora vem a parte mais complicado. Ao abrir um bloco condicional, é preciso verificar se a célula (<em>slot</em>) atual é zero. Se for, o bloco será
  ignorado e é preciso procurar o fechamento <strong>deste</strong> bloco. Para
  tanto, usaremos um contador de blocos abertos:</p><pre class="prettyprint"><code>perform(Tape, '[') :- get_slot(brainfuck, 0), !,
                       goto_close(Tape, 1).
@@ -57,7 +57,7 @@ perform(_, -) :- !, decr_slot(brainfuck).
 goto_close(Tape, _) :- end_of_tape(Tape), !.
 </code></pre><p>Caso isso não ocorra, ele precisa ler a posição atual da fita e verificar se isso indica uma abertura ou fechamento de bloco:</p><pre class="prettyprint"><code>goto_close(Tape, N) :- read_tape(Tape, Value),
                        check_close(Tape, N, Value).
-</code></pre><p>Se for uma nova abertura de bloco, é preciso incrementar o contador e continuar da próxima posição da fita</p><pre class="prettyprint"><code>check_close(Tape, N, '[') :- !, succ(N, N1),
+</code></pre><p>Se for uma nova abertura de bloco, é preciso incrementar o contador e continuar da próxima posição da fita:</p><pre class="prettyprint"><code>check_close(Tape, N, '[') :- !, succ(N, N1),
                              goto_close(Tape, N1).
 </code></pre><p>Se for um fechamento de bloco, é preciso decrementar o contador e continuar:</p><pre class="prettyprint"><code>check_close(Tape, N, ']') :- !, succ(N1, N),
                              goto_close(Tape, N1).

@@ -101,7 +101,7 @@ p Para a entrada de dados o processo também será tão simples quanto, lendo um
 
 p No entanto há uma #[strong pegadinha]! #[code get_char/1] pode retornar
   |  #[code end_of_file], e precisamos tratar isso. Apesar de o código ASCII
-  |  mais coerente com #[code end_of_file] seja #[=""]
+  |  mais coerente com #[code end_of_file] ser #[=""]
   a(href="http://www.theasciicode.com.ar/ascii-control-characters/eot-end-of-transmission-diamonds-card-suit-ascii-code-4.html")
     span.mg-sc eot
   | , ele não apresenta o comportamento desejado de encerramento de #[em loops]
@@ -134,7 +134,7 @@ pre.prettyprint: code.
 h3 #[em Loops] e condicionais
 
 p Agora vem a parte mais complicado. Ao abrir um bloco condicional, é preciso
-  |  verificar se a célula (#[em slot]) atual é zero, se for, o bloco será
+  |  verificar se a célula (#[em slot]) atual é zero. Se for, o bloco será
   |  ignorado e é preciso procurar o fechamento #[strong deste] bloco. Para
   |  tanto, usaremos um contador de blocos abertos:
 
@@ -179,7 +179,7 @@ pre.prettyprint: code.
                          check_close(Tape, N, Value).
 
 p Se for uma nova abertura de bloco, é preciso incrementar o contador e
-  |  continuar da próxima posição da fita
+  |  continuar da próxima posição da fita:
 
 pre.prettyprint: code.
   check_close(Tape, N, '[') :- !, succ(N, N1),
