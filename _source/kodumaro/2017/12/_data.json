@@ -25,6 +25,25 @@
       "prev": {
         "path": "2017/12/brainfuck-1",
         "title": "A fita"
+      },
+      "next": {
+        "path": "2017/12/brainfuck-3",
+        "title": "Cabeçote e microprograma"
+      }
+    },
+    "hidden": true
+  },
+  "brainfuck-3": {
+    "title": "Brainfuck (parte 3) – Cabeçote e microprograma",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Agora falta criar a lógica de fato do interpretador…",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-14",
+    "tags": ["Conceitual", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/brainfuck-2",
+        "title": "A memória"
       }
     }
   }

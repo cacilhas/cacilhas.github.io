@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Brainfuck (parte 3) – Cabeçote e microprograma</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Brainfuck (parte 3) – Cabeçote e microprograma"/><meta property="og:url" content="http://cacilhas.info/kodumaro/2017/12/brainfuck-3.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Conceitual, Lógica"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="http://cacilhas.info/img/turing-machine.jpg"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">ℭacilhας.INFO</a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Brainfuck (parte 3) – Cabeçote e microprograma</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Brainfuck (parte 3) – Cabeçote e microprograma</h2><h6 class="pull-right">Publicado em 14 de Dezembro, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/turing-machine.jpg" alt="Máquina de Turing"/><p class="mg-first">Agora falta criar a lógica de fato do interpretador, criando o cabeçote de leitura e o microprograma. O cabeçalho do arquivo
+ <code>parser.pl</code> será:</p><pre class="prettyprint"><code>% -*- Prolog -*-
+:- module(parser, []).
+:- [tape, memory,  utils].
+</code></pre><p>Pois usaremos a fita e a memória, e precisaremos do predicado <code>finally/2</code> do submódulo <a href="http://cacilhas.info/misc/brainfuck/utils.pl"><code>utils.pl</code></a>.</p><p>O ponto de entrada será o predicado <code>parse/1</code>, que receberá o nome do arquivo da fita, criará a fita e executará os comandos do microprograma
+ para os símbolos do alfabeto contidos na fita. Usaremos <code>finally/2</code>
+ porque, ao final, independente do que acontecer, a fita deverá ser fechada.</p><pre class="prettyprint"><code>parse(Filename) :- create_tape(Filename, Tape),
+                   finally(parse_tape(Tape),
+                           close(Tape)).
+</code></pre><p>Para exportar o predicado, alteramos o cabeçalho:</p><pre class="prettyprint"><code>:- module(parser, [parse/1]).
+</code></pre><h3>Analizando a fita</h3><p>Para analisar a fita, <code>parse_tape/1</code> precisa ler a fita, executar a ação</p> e passar para a próxima ação:<pre class="prettyprint"><code>parse_tape(Tape) :- read_tape(Tape, Statement),
+                    perform(Tape, Statement),
+                    parse_tape(Tape).
+</code></pre><p>Mas <strong>antes</strong> disso, é preciso verificar se a fita já acabou! Se acabou, não há mais nada o que fazer, apenas encerrar:</p><pre class="prettyprint"><code>parse_tape(Tape) :- end_of_tape(Tape), !.
+</code></pre><p>Repare que <code>preform/2</code> recebe a fita e a isntrução.</p><h3>Manipulando a memória</h3><p>As quatro primeiras instruções de <a href="https://pt.wikipedia.org/wiki/Brainfuck">Brainfuck</a> (<code>&gt;</code>, <code>&lt;</code>, <code>+</code> e <code>-</code>) já estão prontas, foram
+ implementadas no <a href="http://cacilhas.info/kodumaro/2017/12/brainfuck-2.html">módulo de memória</a>, é só repassar para os predicados corretos:</p><pre class="prettyprint"><code>perform(_, >) :- !, next_slot(brainfuck).
+
+perform(_, <) :- !, prev_slot(brainfuck).
+
+perform(_, +) :- !, incr_slot(brainfuck).
+
+perform(_, -) :- !, decr_slot(brainfuck).
+</code></pre><p>Como não lida com a fita, nem precisamos nos preocupar com o primeiro parâmetro.</p><h3>Entrada e saída (I/O)</h3><p>As próximas duas instruções são as instruções de I/O. Para fazer a saída do valor da célula atual basta transformarmos o valor em um <em>atom</em>
+ usando <a href="http://www.swi-prolog.org/pldoc/man?predicate=char_code/2"><code>char_code/2</code></a> e realizarmos a saída usando <a href="http://www.swi-prolog.org/pldoc/man?predicate=write/1"><code>write/1</code></a>, porém, como a saída pode não apresentar mudança de linha, precisamos
+ forçar o <em>flush</em> da saída com <a href="http://www.swi-prolog.org/pldoc/man?predicate=flush_output/0"><code>flush_output/0</code></a>.</p><pre class="prettyprint"><code>perform(_, .) :- !, get_slot(brainfuck, Value),
+                 char_code(Show, Value),
+                 write(Show),
+                 flush_output.
+</code></pre><p>E <em>vois là</em>! Já temos nossa saída.</p><p>Para a entrada de dados o processo também será tão simples quanto, lendo um <em>atom</em> de carácter da entrada padrão com <a href="http://www.swi-prolog.org/pldoc/man?predicate=get_char/1"><code>get_char/1</code></a>, convertendo para numérico também com <code>char_code/2</code> e ajustando o
+ <em>slot</em> da memória com <code>set_lot/2</code>.</p><p>No entanto há uma <strong>pegadinha</strong>! <code>get_char/1</code> pode retornar <code>end_of_file</code>, e precisamos tratar isso. Apesar de o código ASCII
+ mais coerente com <code>end_of_file</code> ser <a href="http://www.theasciicode.com.ar/ascii-control-characters/eot-end-of-transmission-diamonds-card-suit-ascii-code-4.html"><span class="mg-sc">eot</span></a>, ele não apresenta o comportamento desejado de encerramento de <em>loops</em>
+ como costuma ser usado, então, em seu lugar, usaremos <a href="http://www.theasciicode.com.ar/ascii-control-characters/null-character-ascii-code-0.html"><span class="mg-sc">null</span></a>.</p><p>Então o predicado principal chamará <code>get_char/1</code> e repassará a responsabilidade para <code>process_read/1</code>:</p><pre class="prettyprint"><code>perform(_, ',') :- !, get_char(Value),
+                   process_read(Value).
+</code></pre><p>Agora <code>process_read/1</code> receberá um <em>atom</em>, que pode ser <code>end_of_file</code> ou a representação de um carácter. Tratando o primeiro
+ caso:</p><pre class="prettyprint"><code>process_read(end_of_file) :- !, set_slot(brainfuck, 0). % use NULL as EOF
+</code></pre><p>No segundo caso precisamos converter o <em>atom</em> para código ASCII antes de chamar <code>set_slot/2</code>:</p><pre class="prettyprint"><code>process_read(Value) :- char_code(Value, Num),
+                       set_slot(brainfuck, Num).
+</code></pre><h3><em>Loops</em> e condicionais</h3><p>Agora vem a parte mais complicado. Ao abrir um bloco condicional, é preciso verificar se a célula (<em>slot</em>) atual é zero. Se for, o bloco será
+ ignorado e é preciso procurar o fechamento <strong>deste</strong> bloco. Para
+ tanto, usaremos um contador de blocos abertos:</p><pre class="prettyprint"><code>perform(Tape, '[') :- get_slot(brainfuck, 0), !,
+                      goto_close(Tape, 1).
+</code></pre><p>Se não for zero – ou seja, esta verdade falhou – continua normalmente:</p><pre class="prettyprint"><code>perform(_, '[') :- !.
+</code></pre><p>Quanto ao fechamento de bloco condicional, como ele se comporta como um <a href="https://en.wikipedia.org/wiki/While_loop"><code>while</code></a>, se a célula atual for zero, passa normalmente:</p><pre class="prettyprint"><code>perform(_, ']') :- get_slot(brainfuck, 0), !.
+</code></pre><p>Se não for, volta a fita até encontrar a abertura <strong>deste</strong> bloco, usando também um contador de blocos:</p><pre class="prettyprint"><code>perform(Tape, ']') :- !, goto_open(Tape, 1).
+</code></pre><h4>Procurando o fechamento</h4><p>O predicado <code>goto_close/2</code> tem como efeito colateral correr pra frente a fita até o fechamento do bloco, o que ocorre quando o contador zera ou
+ quando chega ao fim da fita:</p><pre class="prettyprint"><code>goto_close(_, 0) :- !.
+
+goto_close(Tape, _) :- end_of_tape(Tape), !.
+</code></pre><p>Caso isso não ocorra, ele precisa ler a posição atual da fita e verificar se isso indica uma abertura ou fechamento de bloco:</p><pre class="prettyprint"><code>goto_close(Tape, N) :- read_tape(Tape, Value),
+                       check_close(Tape, N, Value).
+</code></pre><p>Se for uma nova abertura de bloco, é preciso incrementar o contador e continuar da próxima posição da fita:</p><pre class="prettyprint"><code>check_close(Tape, N, '[') :- !, succ(N, N1),
+                             goto_close(Tape, N1).
+</code></pre><p>Se for um fechamento de bloco, é preciso decrementar o contador e continuar:</p><pre class="prettyprint"><code>check_close(Tape, N, ']') :- !, succ(N1, N),
+                             goto_close(Tape, N1).
+</code></pre><p>Se for qualquer outro carácter, continua como o mesmo contador:</p><pre class="prettyprint"><code>check_close(Tape, N, _) :- goto_close(Tape, N).
+</code></pre><h4>Procurando a abertura</h4><p>O predicado <code>goto_open/2</code> tem como efeito colateral rebobinar a fita até a abertura do bloco, o que ocorre quando o contador zera ou quando chega
+ ao início da fita:</p><pre class="prettyprint"><code>goto_open(_, 0) :- !.
+
+goto_open(Tape, _) :- start_of_tape(Tape), !.
+</code></pre><p>Caso contrário, precisa rebobinar a fita e ler a posição atual, verificando abertura ou fechamento de bloco:</p><pre class="prettyprint"><code>goto_open(Tape, N) :- tape_backward(Tape),
+                      read_tape(Tape, Value),
+                      check_open(Tape, N, Value).
+</code></pre><p>A verificação de bloco ocorre quase da mesma forma que a anterior, apenas incrementando o contador quando encontra novo fechamento e decremento nas
+ aberturas:</p><pre class="prettyprint"><code>check_open(Tape, N, '[') :- !, succ(N1, N),
+                            goto_open(Tape, N1).
+
+check_open(Tape, N, ']') :- !, succ(N, N1),
+                            goto_open(Tape, N1).
+
+check_open(Tape, N, _) :- goto_open(Tape, N).
+</code></pre><h3>Comentários</h3><p>Para Brainfuck, todo carácter desconhecido é um comentário, sendo ignorado:</p><pre class="prettyprint"><code>perform(_, _). % ignore unknown characters
+</code></pre><h3>Arquivos</h3><div class="text-center"><a href="http://cacilhas.info/misc/brainfuck/utils.pl"><code>utils.pl</code></a><br/><a href="http://cacilhas.info/misc/brainfuck/parser.pl"><code>parser.pl</code></a></div></div></div><p class="text-right"><small class="tag">Conceitual</small> | <small class="tag">Lógica</small></p><div class="panel panel-default"><div class="panel-body"><div class="pull-left"><small><a href="http://cacilhas.info/kodumaro/2017/12/brainfuck-2.html">Anterior: A memória</a></small></div></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `http://cacilhas.info/kodumaro/2017/12/brainfuck-3.html`
+  this.page.identifier = `kodumaro.2017.12.brainfuck-3`
+  this.page.title = 'Brainfuck (parte 3) – Cabeçote e microprograma'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script><iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:17ztrEzLSzYOp8MySGqFHy&amp;size=detail&amp;theme=light" width="300" height="56" scrolling="no" frameboarder="0" style="border:none; overflow:hidden" allowtransparency></iframe></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
