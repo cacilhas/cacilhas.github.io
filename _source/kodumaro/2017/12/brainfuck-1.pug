@@ -1,17 +1,5 @@
 img.pull-right(src=image alt="Máquina de Turing")
 
-p Hoje começamos uma série de artigos demonstrando o passo-a-passo da construção
-  |  de um interpretador de #[=""]
-  a(href="https://pt.wikipedia.org/wiki/Brainfuck") Brainfuck
-  | , a representação mais simples de uma #[=""]
-  a(href="https://pt.wikipedia.org/wiki/M%C3%A1quina_de_Turing")
-    | máquina de Turing
-  | .
-
-p Ao final, farei uma publicação com os #[em links] para todos os artigos.
-
-hr/
-
 p.mg-first Vamos começar a construção de nosso interpretador Brainfuck pela
   |  fita.
 
@@ -96,8 +84,9 @@ pre.prettyprint: code.
 
 p Precisamos também de uma fita teste. No terminal execute:
 
-pre: code
-  p #[em sh&gt;] #[strong echo 12345 &gt; test.tape]
+pre: code: p
+  em sh&gt; #[=""]
+  strong echo 12345 &gt; test.tape
 
 p Então #[code create_tape/2] terá a seguinte definição (coloque antes dos
   |  testes):
@@ -122,8 +111,10 @@ p Essa foi uma trapaça: usamos #[code seed/4] para mover o ponteiro para mesma
 
 p Agora já podemos testar. No terminal rode:
 
-pre: code
-  p #[em sh&gt;] #[strong swipl -q -t run_tests. tape.pl]#[br/]
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
   | .
 
 p Sucesso! Agora é possível exportar o predicato. Vamos mudar a declaração do
@@ -179,8 +170,10 @@ pre.prettyprint: code.
 
 p Voltemos ao teste:
 
-pre: code
-  p #[em sh&gt;] #[strong swipl -q -t run_tests. tape.pl]#[br/]
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
   | ..
 
 p Sétimo andar e tudo bem até aqui…
@@ -227,8 +220,10 @@ pre.prettyprint: code.
 
 p Simplesmente recuar é avançar passos negativos! Os testes agora:
 
-pre: code
-  p #[em sh&gt;] #[strong swipl -q -t run_tests. tape.pl]#[br/]
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
   | ...
 
 p O uso mais frequente de de #[code tape_backward/2] será com dois passos para

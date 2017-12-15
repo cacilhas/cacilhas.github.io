@@ -8,11 +8,16 @@
     "release": "2017-12-11",
     "tags": ["Conceitual", "Lógica"],
     "nav": {
+      "prev": {
+        "path": "2017/12/brainfuck-toc",
+        "title": "Sumário"
+      },
       "next": {
         "path": "2017/12/brainfuck-2",
         "title": "A memória"
       }
-    }
+    },
+    "hidden": true
   },
   "brainfuck-2": {
     "title": "Brainfuck (parte 2) – A memória",
@@ -44,7 +49,39 @@
       "prev": {
         "path": "2017/12/brainfuck-2",
         "title": "A memória"
+      },
+      "next": {
+        "path": "2017/12/brainfuck-4",
+        "title": "Finalização"
       }
-    }
+    },
+    "hidden": true
+  },
+  "brainfuck-4": {
+    "title": "Brainfuck (parte 4) – Finalização",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Já com todas as partes em mãos, vamos colar tudo em um executável.",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-15",
+    "tags": ["Conceitual", "Lógica"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/brainfuck-3",
+        "title": "Cabeçote e microprograma"
+      },
+      "next": {
+        "path": "2017/12/brainfuck-toc",
+        "title": "Sumário"
+      }
+    },
+    "hidden": true
+  },
+  "brainfuck-toc": {
+    "title": "Brainfuck – Sumário",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Brainfuck é uma linguagem de programação esotérica que implementa a máquina de Turing de forma extrema.",
+    "image": "/img/turing-machine.jpg",
+    "release": "2017-12-15",
+    "tags": ["Conceitual", "Lógica"]
   }
 }
