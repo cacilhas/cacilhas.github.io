@@ -30,7 +30,8 @@
         "path": "2017/12/brainfuck-3",
         "title": "Cabeçote e microprograma"
       }
-    }
+    },
+    "hidden": true
   },
   "brainfuck-3": {
     "title": "Brainfuck (parte 3) – Cabeçote e microprograma",
