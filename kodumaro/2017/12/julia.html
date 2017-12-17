@@ -22,14 +22,14 @@ ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse na
  coisas. Diante do problema, a solução dos desenvolvedores foi <strong>tirar a documentação do ar</strong>.</p><p>Foi um banho de água fria e o suficiente para me fazer <strong>desistir</strong> da plataforma.</p><p>Mais recentemente, quando lançaram a <a href="https://julialang.org/downloads/">versão 0.6.1</a> e voltaram com a documentação, resolvi tentar de novo e descobri que meus
  códigos antigos voltaram a funcionar com pouquíssimas alterações.</p><h3>Uma nova chance</h3><p>Voltei então a experimentar Julia. Apesar das frustrações causadas pelos elogios exagerados e falta de profissionalismo da equipe envolvida, a
  plataforma é realmente boa. A sintaxe é sim elegante, a performance
- razoável e o ecossistema interessante.</p><p>A instalação de pacotes é muito simplificada. Por exemplo, para instalar o pacote de suporte <a href="https://pt.wikipedia.org/wiki/REST">REST<em>ful</em></a> o comando é:</p><pre><code><p><em>sh&gt; </em><strong>julia -e 'Pkg.add("Resftful")'</strong></p></code></pre><p>E Julia faz todo o resto pra você.</p><h3>Collatz</h3><p>Como um exemplo de um módulo Julia, vamos implementar a <a href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz">conjectura de Collatz</a>. Não veremos paralelismo, mas veremos criação de <a href="https://docs.julialang.org/en/stable/manual/modules/">módulo</a>, <a href="https://docs.julialang.org/en/stable/manual/interfaces/#man-interface-iteration-1">interface de reiteradores</a>, <a href="https://docs.julialang.org/en/stable/manual/documentation/#Types-1">construto</a> e <a href="https://docs.julialang.org/en/stable/stdlib/test/">testes unitários</a>.</p><p>Podemos começar com o arquivo <code>Collatz.jl</code>, que definirá o módulo<code>Collatz</code>. O arquivo pode começar assim:</p><pre class="prettyprint"><code>module Collatz
+ razoável e o ecossistema interessante.</p><p>A instalação de pacotes é muito simplificada. Por exemplo, para instalar o pacote de suporte <a href="https://pt.wikipedia.org/wiki/REST">REST<em>ful</em></a> o comando é:</p><pre><code><p><em>sh&gt; </em><strong>julia -e 'Pkg.add("Resftful")'</strong></p></code></pre><p>E Julia faz todo o resto pra você.</p><h3>Collatz</h3><p>Como um exemplo de um módulo Julia, vamos implementar a <a href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz">conjectura de Collatz</a>. Não veremos paralelismo, mas veremos criação de <a href="https://docs.julialang.org/en/stable/manual/modules/">módulo</a>, <a href="https://docs.julialang.org/en/stable/manual/interfaces/#man-interface-iteration-1">interface de reiteradores</a>, <a href="https://docs.julialang.org/en/stable/manual/documentation/#Types-1"><em>struct</em></a> e <a href="https://docs.julialang.org/en/stable/stdlib/test/">testes unitários</a>.</p><p>Podemos começar com o arquivo <code>Collatz.jl</code>, que definirá o módulo<code>Collatz</code>. O arquivo pode começar assim:</p><pre class="prettyprint"><code>module Collatz
 
     #=
      = O código vai aqui.
      =#
 
 end
-</code></pre><p>Para representar o reiterador (e os passos da reiteração) usaremos um construto imutável que embrulha um inteiro sem sinal. Criaremos dois
+</code></pre><p>Para representar o reiterador (e os passos da reiteração) usaremos um <em>struct</em> imutável que embrulha um inteiro sem sinal. Criaremos dois
  construidores para fazer a conversão de número para o reiterador:</p><pre class="prettyprint"><code>struct Iter
     value::UInt
     Iter(value::UInt) = (value ≡ zero(value)) ?
@@ -40,7 +40,7 @@ end
  contruidor padrão, que envelopará o inteiro. O segundo construidor recebe
  um inteiro qualquer, converte para sem sinal e repassa para o construidor
  cabível (o anterior).</p><p>Para expor nosso reiterador, vamos criar um método que retorne o reiterador. No cabeçalho do arquivo, dentro do módulo, exporte:</p><pre class="prettyprint"><code>export collatz
-</code></pre><p>E após a definição do construto:</p><pre class="prettyprint"><code>collatz(value::Integer) = Iter(value)
+</code></pre><p>E após a definição do <em>struct</em>:</p><pre class="prettyprint"><code>collatz(value::Integer) = Iter(value)
 </code></pre><p>Isso diz que a função <code>collatz</code>, quando recebe um parâmetro inteiro, retorna um reiterador embrulhando o valor.</p><p>Podemos escrever um teste: crie o arquivo <code>test.jl</code>:</p><pre class="prettyprint"><code>#!/usr/bin/env julia
 
 include("Collatz.jl")

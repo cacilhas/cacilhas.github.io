@@ -108,7 +108,7 @@ p Como um exemplo de um módulo Julia, vamos implementar a #[=""]
     | interface de reiteradores
   | , #[=""]
   a(href="https://docs.julialang.org/en/stable/manual/documentation/#Types-1")
-    | construto
+    em struct
   |  e #[=""]
   a(href="https://docs.julialang.org/en/stable/stdlib/test/") testes unitários
   | .
@@ -126,7 +126,7 @@ pre.prettyprint: code.
   end
 
 p Para representar o reiterador (e os passos da reiteração) usaremos um
-  |  construto imutável que embrulha um inteiro sem sinal. Criaremos dois
+  |  #[em struct] imutável que embrulha um inteiro sem sinal. Criaremos dois
   |  construidores para fazer a conversão de número para o reiterador:
 
 pre.prettyprint: code.
@@ -149,7 +149,7 @@ p Para expor nosso reiterador, vamos criar um método que retorne o reiterador.
 pre.prettyprint: code.
   export collatz
 
-p E após a definição do construto:
+p E após a definição do #[em struct]:
 
 pre.prettyprint: code.
   collatz(value::Integer) = Iter(value)
