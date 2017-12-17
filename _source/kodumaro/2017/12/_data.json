@@ -83,5 +83,13 @@
     "image": "/img/turing-machine.jpg",
     "release": "2017-12-15",
     "tags": ["Conceitual", "Lógica"]
+  },
+  "julia": {
+    "title": "Julia",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Há uns sete ou oito anos um amigo meu me recomendou dar uma olhadinha numa linguagem de programação nova…",
+    "image": "/img/julia.jpg",
+    "release": "2017-12-17",
+    "tags": ["Funcional"]
   }
 }
