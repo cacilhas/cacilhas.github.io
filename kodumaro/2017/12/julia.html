@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Julia</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Julia"/><meta property="og:url" content="http://cacilhas.info/kodumaro/2017/12/julia.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Funcional"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="http://cacilhas.info/img/julia.jpg"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="http://cacilhas.info/kodumaro/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">ℭacilhας.INFO</a></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="/">Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://cacilhas.info/kodumaro/">Kodumaro</a></li><li class="active"><a href=".">Julia</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Julia</h2><h6 class="pull-right">Publicado em 17 de Dezembro, 2017</h6><h6>As sombras da programação.</h6></div><div class="panel-body"><img class="pull-right" src="/img/julia.jpg" alt="Julia Lang"/><p class="mg-first">Há uns sete ou oito anos um amigo meu me recomendou dar uma olhadinha numa linguagem de programação nova que estaria sendo amplamente
+ usada em <a href="https://pt.wikipedia.org/wiki/Aprendizado_de_máquina"><em>machine learning</em></a> e seria uma “<a href="https://www.python.org/">Python</a> melhorada”. Essa linguagem era <a href="https://julialang.org/">Julia</a>.</p><p>Na época olhei e não achei nada de mais. Este ano resolvi dar outra olhada e me supreendi com o que aprendi.</p><p><a href="https://julialang.org/">Julia</a> é linguagem de programação funcional impura, como <a href="http://www.smlnj.org/">Standard-ML</a>, <a href="https://ocaml.org/">OCaml</a> e <a href="http://fsharp.org/">F♯</a>, mas com suporte ao paradigma imperativa, de sintaxe fortemente inspirada
+ em <a href="https://www.python.org/">Python</a>, com foco em análise numérica e computação científica, e otimizada para
+ paralelismo e computação distribuída. Foi descrita como tendo a elegância
+ de Python e a performance de C.</p><p>Só por essa introdução, já dá pra ver que não é possível abordar a linguagem profundamente em alguns poucos artigos, mas posso adiantar que há um certo
+ exagero nos elogios a Julia.</p><h3>Nem tudo são flores</h3><p>Pra começar, a performance de Julia não é nada excepcional: ela faz compilação <a href="https://pt.wikipedia.org/wiki/JIT">JIT</a>, mas o desempenho deixa a desejar mesmo entre plataformas JIT. Seu
+ desempenho é bastante impressionante se comparado a plataformas
+ interpretadas.</p><p>Quanto à elegância, seria um ponto a favor da linguagem, com suas estruturas funcionais realmente elegantes, porém a linguagem só demonstra eficiência
+ se o código for escrito de modo quase procedimental, anulando essa
+ vantagem. Além disso, não é difícil conseguir uma <a href="https://pt.wikipedia.org/wiki/Falha_de_segmentação"> falha de segmentação</a> ou um <a href="https://pt.wikipedia.org/wiki/Core_dump"><em>core dump</em></a>.</p><p>Outra coisa que demonstra certo amadorismo é a postura dos desenvolvedores. Darei um exemplo.</p><p>Há algumas semanas quando saiu a <a href="https://github.com/JuliaLang/julia/releases/download/v0.6.0/julia-0.6.0-full.tar.gz">versão 0.6.0</a>, muitos códigos que funcionavam perfeitamente na <a href="https://julialang.org/downloads/oldreleases.html">versão 0.5</a> simplesmente pararam de funcionar, e a linguagem não se comportava como
+ a <a href="https://docs.julialang.org/en/stable/">documentação</a> dizia que deveria. Procurando em fóruns na Web, percebi que não era um
+ problema exclusivo meu, e que toda a comunidade reclamava das mesmas
+ coisas. Diante do problema, a solução dos desenvolvedores foi <strong>tirar a documentação do ar</strong>.</p><p>Foi um banho de água fria e o suficiente para me fazer <strong>desistir</strong> da plataforma.</p><p>Mais recentemente, quando lançaram a <a href="https://julialang.org/downloads/">versão 0.6.1</a> e voltaram com a documentação, resolvi tentar de novo e descobri que meus
+ códigos antigos voltaram a funcionar com pouquíssimas alterações.</p><h3>Uma nova chance</h3><p>Voltei então a experimentar Julia. Apesar das frustrações causadas pelos elogios exagerados e falta de profissionalismo da equipe envolvida, a
+ plataforma é realmente boa. A sintaxe é sim elegante, a performance
+ razoável e o ecossistema interessante.</p><p>A instalação de pacotes é muito simplificada. Por exemplo, para instalar o pacote de suporte <a href="https://pt.wikipedia.org/wiki/REST">REST<em>ful</em></a> o comando é:</p><pre><code><p><em>sh&gt; </em><strong>julia -e 'Pkg.add("Resftful")'</strong></p></code></pre><p>E Julia faz todo o resto pra você.</p><h3>Collatz</h3><p>Como um exemplo de um módulo Julia, vamos implementar a <a href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz">conjectura de Collatz</a>. Não veremos paralelismo, mas veremos criação de <a href="https://docs.julialang.org/en/stable/manual/modules/">módulo</a>, <a href="https://docs.julialang.org/en/stable/manual/interfaces/#man-interface-iteration-1">interface de reiteradores</a>, <a href="https://docs.julialang.org/en/stable/manual/documentation/#Types-1">construto</a> e <a href="https://docs.julialang.org/en/stable/stdlib/test/">testes unitários</a>.</p><p>Podemos começar com o arquivo <code>Collatz.jl</code>, que definirá o módulo<code>Collatz</code>. O arquivo pode começar assim:</p><pre class="prettyprint"><code>module Collatz
+
+    #=
+     = O código vai aqui.
+     =#
+
+end
+</code></pre><p>Para representar o reiterador (e os passos da reiteração) usaremos um construto imutável que embrulha um inteiro sem sinal. Criaremos dois
+ construidores para fazer a conversão de número para o reiterador:</p><pre class="prettyprint"><code>struct Iter
+    value::UInt
+    Iter(value::UInt) = (value ≡ zero(value)) ?
+        throw(InexactError()) : new(value)
+    Iter(value::Integer) = value |&gt; UInt |&gt; Iter
+end
+</code></pre><p>O primeiro construidor recebe um inteiro sem sinal, se for igual a zero, levanta um erro do tipo <code>InexactError</code>, se não repassa para o
+ contruidor padrão, que envelopará o inteiro. O segundo construidor recebe
+ um inteiro qualquer, converte para sem sinal e repassa para o construidor
+ cabível (o anterior).</p><p>Para expor nosso reiterador, vamos criar um método que retorne o reiterador. No cabeçalho do arquivo, dentro do módulo, exporte:</p><pre class="prettyprint"><code>export collatz
+</code></pre><p>E após a definição do construto:</p><pre class="prettyprint"><code>collatz(value::Integer) = Iter(value)
+</code></pre><p>Isso diz que a função <code>collatz</code>, quando recebe um parâmetro inteiro, retorna um reiterador embrulhando o valor.</p><p>Podemos escrever um teste: crie o arquivo <code>test.jl</code>:</p><pre class="prettyprint"><code>#!/usr/bin/env julia
+
+include("Collatz.jl")
+
+module CollatzTest
+
+    import Base.Test
+    import Collatz
+    using Collatz: collatz
+
+    @testset "Collatz.Iter" begin
+        @testset "should return iterator" begin
+            iter = @inferred collatz(4)
+            @test isa(iter, Collatz.Iter)
+            @test iter.value == 4
+        end
+    end
+end
+</code></pre><p>Já pode rodar o teste:</p><pre><code><p><em>sh&gt; </em><strong>chmod +x test.jl</strong><br/><em>sh&gt; </em><strong>./test.jl</strong><br/><em>Test Summary:            | Pass  Total</em><br/><em>Collatz.Iter             |    1      1</em><br/><em>  should return iterator |    1      1</em></p></code></pre><p>O <em>macro</em> <code>@testset</code> define um grupo de testes, <code>@test</code> define um teste e <code>@inferred</code> forçar a inferência de tipo para permitir
+ testes com <code>isa</code>.</p><p>Podemos testar também os casos de erro:</p><pre class="prettyprint"><code>@testset "collatz tests" begin
+    @testset "should fail on zero" begin
+        @test_throws InexactError collatz(0)
+    end
+
+    @testset "should fail on negative integer" begin
+        @test_throws InexactError collatz(-1)
+    end
+
+    @testset "should fail on non integer" begin
+        @test_throws MethodError collatz(1.0)
+    end
+end
+</code></pre><p>Voltando ao módulo <code>Collatz</code>, para permitir a reiteração, precisamos importar algumas funções e criar métodos para elas:</p><pre class="prettyprint"><code>import Base.SizeUnknown,
+       Base.done,
+       Base.iteratorsize,
+       Base.next,
+       Base.start
+</code></pre><p>Essas funções são usadas internamente pelo <em>data model</em> de Julia para gerenciar reiteração.</p><p>Bem, nesse tipo de sequência não se sabe o tamanho da reiteração, portanto precisamos definir um método para <code>iteratorsize</code> que retorne tamanho
+ desconhecido:</p><pre class="prettyprint"><code>iteratorsize(::Iter) = SizeUnknown()
+</code></pre><p>E podemos começar a reiteração com nenhum valor:</p><pre class="prettyprint"><code>start(::Iter) = nothing
+</code></pre><p>Passo seguinte é o próprio valor envolvido pelo reiterador:</p><pre class="prettyprint"><code>next(iter::Iter, ::Void) = (iter.value, iter.value)
+</code></pre><p>Os passos seguintes serão definidos pelo método <code>nextstep</code>:</p><pre class="prettyprint"><code>next(::Iter, state::UInt) = state |&gt; nextstep |&gt; v -&gt; (v, v)
+</code></pre><p>Enquanto <code>nextstep</code> implementa o cálculo do passo da conjectura:</p><pre class="prettyprint"><code>nextstep(value::UInt) = (value % 2) ≡ zero(value) ? value ÷ 2 : 3value + 1
+</code></pre><p>Para a parada, se nada foi retornado ainda, não terminou:</p><pre class="prettyprint"><code>done(::Iter, ::Void) = false
+</code></pre><p>E termina quando chega a um:</p><pre class="prettyprint"><code>done(::Iter, state::UInt) = state ≡ one(state)
+</code></pre><p>Resta apenas testar. Na <em>suite</em> de testes <code>collatz tests</code> acrescente o seguinte teste:</p><pre class="prettyprint"><code>@testset "should be iterable" begin
+    @test [n for n in collatz(5)] == [5, 16, 8, 4, 2, 1]
+end
+</code></pre><p>Temos aqui um <a href="https://pt.wikipedia.org/wiki/Compreensão_de_lista"><em>list comprehension</em></a> para transformar a sequência em uma lista testável.</p><h3>Arquivos</h3><ul class="list-group"><a href="http://cacilhas.info/misc/julia/test.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>test.jl</code></li></a><a href="http://cacilhas.info/misc/julia/Collatz.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>Collatz.jl</code></li></a></ul></div></div><p class="text-right"><small class="tag">Funcional</small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `http://cacilhas.info/kodumaro/2017/12/julia.html`
+  this.page.identifier = `kodumaro.2017.12.julia`
+  this.page.title = 'Julia'
+}</script><noscript>Por favor habilite o JavaScript para ver os <a href="https://disqus.com/?ref_noscript">comentários do Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script><iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:17ztrEzLSzYOp8MySGqFHy&amp;size=detail&amp;theme=light" width="300" height="56" scrolling="no" frameboarder="0" style="border:none; overflow:hidden;" allowtransparency></iframe></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="http://cacilhas.info/kodumaro/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Autor: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0;"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script></body></html>
