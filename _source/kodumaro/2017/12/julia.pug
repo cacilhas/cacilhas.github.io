@@ -282,7 +282,13 @@ pre.prettyprint: code.
 p Temos aqui uma #[=""]
   a(href="https://pt.wikipedia.org/wiki/Compreensão_de_lista")
     em list comprehension
-  |  para transformar a sequência em uma lista testável.
+  |  para transformar a sequência em uma lista testável. Poderíamos fazer
+  |  diferente:
+
+pre.prettyprint: code.
+  @testset "should be iterable" begin
+      @test collect(collatz(5)) == [5, 16, 8, 4, 2, 1]
+  end
 
 h3 Arquivos
 

@@ -89,7 +89,11 @@ end
 </code></pre><p>Resta apenas testar. Na <em>suite</em> de testes <code>collatz tests</code> acrescente o seguinte teste:</p><pre class="prettyprint"><code>@testset "should be iterable" begin
     @test [n for n in collatz(5)] == [5, 16, 8, 4, 2, 1]
 end
-</code></pre><p>Temos aqui uma <a href="https://pt.wikipedia.org/wiki/Compreensão_de_lista"><em>list comprehension</em></a> para transformar a sequência em uma lista testável.</p><h3>Arquivos</h3><ul class="list-group"><a href="http://cacilhas.info/misc/julia/test.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>test.jl</code></li></a><a href="http://cacilhas.info/misc/julia/Collatz.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>Collatz.jl</code></li></a></ul><p>No próximo artigo explicarei melhor alguns detalhes da sintaxe e a relação entre função e métodos.</p></div></div><p class="text-right"><small class="tag">Funcional</small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+</code></pre><p>Temos aqui uma <a href="https://pt.wikipedia.org/wiki/Compreensão_de_lista"><em>list comprehension</em></a> para transformar a sequência em uma lista testável. Poderíamos fazer
+ diferente:</p><pre class="prettyprint"><code>@testset "should be iterable" begin
+    @test collect(collatz(5)) == [5, 16, 8, 4, 2, 1]
+end
+</code></pre><h3>Arquivos</h3><ul class="list-group"><a href="http://cacilhas.info/misc/julia/test.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>test.jl</code></li></a><a href="http://cacilhas.info/misc/julia/Collatz.jl"><li class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> <code>Collatz.jl</code></li></a></ul><p>No próximo artigo explicarei melhor alguns detalhes da sintaxe e a relação entre função e métodos.</p></div></div><p class="text-right"><small class="tag">Funcional</small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = `http://cacilhas.info/kodumaro/2017/12/julia.html`
   this.page.identifier = `kodumaro.2017.12.julia`
   this.page.title = 'Julia'
