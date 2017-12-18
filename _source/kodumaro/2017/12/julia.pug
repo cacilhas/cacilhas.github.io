@@ -133,7 +133,7 @@ pre.prettyprint: code.
 
 p Para representar o reiterador (e os passos da reiteração) usaremos um
   |  #[em struct] imutável que embrulha um inteiro sem sinal. Criaremos dois
-  |  construidores para fazer a conversão de número para o reiterador:
+  |  construtores para fazer a conversão de número para o reiterador:
 
 pre.prettyprint: code.
   struct Iter
@@ -143,10 +143,10 @@ pre.prettyprint: code.
       Iter(value::Integer) = value |&gt; UInt |&gt; Iter
   end
 
-p O primeiro construidor recebe um inteiro sem sinal, se for igual a zero,
+p O primeiro construtor recebe um inteiro sem sinal, se for igual a zero,
   |  levanta um erro do tipo #[code InexactError], se não repassa para o
-  |  construidor padrão, que envelopará o inteiro. O segundo construidor recebe
-  |  um inteiro qualquer, converte para sem sinal e repassa para o construidor
+  |  construtor padrão, que envelopará o inteiro. O segundo construtor recebe
+  |  um inteiro qualquer, converte para sem sinal e repassa para o construtor
   |  cabível (o anterior).
 
 p Para expor nosso reiterador, vamos criar um método que retorne o reiterador.
