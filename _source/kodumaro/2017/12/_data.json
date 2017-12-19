@@ -90,6 +90,26 @@
     "content": "Há uns sete ou oito anos um amigo meu me recomendou dar uma olhadinha numa linguagem de programação nova…",
     "image": "/img/julia.jpg",
     "release": "2017-12-17",
-    "tags": ["Funcional"]
+    "tags": ["Funcional"],
+    "nav": {
+      "next": {
+        "path": "2017/12/metodos",
+        "title": "Funções e métodos"
+      }
+    }
+  },
+  "metodos": {
+    "title": "Funções e métodos em Julia",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Uma ideia bacana em Julia é a relação entre funções e métodos.",
+    "image": "/img/julia.jpg",
+    "release": "2017-12-19",
+    "tags": ["Funcional"],
+    "nav": {
+      "prev": {
+        "path": "2017/12/julia",
+        "title": "Julia"
+      }
+    }
   }
 }
