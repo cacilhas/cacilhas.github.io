@@ -60,5 +60,13 @@
         "title": "Literalmente"
       }
     }
+  },
+  "iwa": {
+    "title": "A história de Iwa",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Conheci uma história indígena muito interessante…",
+    "image": "/img/iwa.jpg",
+    "release": "2017-12-30",
+    "tags": ["Educação e Cultura", "Psicologia"]
   }
 }
