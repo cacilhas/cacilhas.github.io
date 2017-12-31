@@ -68,5 +68,19 @@
     "image": "/img/iwa.jpg",
     "release": "2017-12-30",
     "tags": ["Educação e Cultura", "Psicologia"]
+  },
+  "rock-is-dead": {
+    "title": "<em>Rock is dead</em> Ⅲ",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Mais uma lista de trabalhos interessantes a serem ouvidos.",
+    "image": "/img/clave-sol.jpg",
+    "release": "2017-12-31",
+    "tags": ["Música"],
+    "nav": {
+      "prev": {
+        "path": "2017/02/rock-is-dead",
+        "title": "parte Ⅱ"
+      }
+    }
   }
 }

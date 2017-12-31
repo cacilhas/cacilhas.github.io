@@ -9,7 +9,11 @@
     "nav": {
       "prev": {
         "path": "2016/07/rock-is-dead",
-        "title": "Original"
+        "title": "parte Ⅰ"
+      },
+      "next": {
+        "path": "2017/12/rock-is-dead",
+        "title": "parte Ⅲ"
       }
     }
   },
