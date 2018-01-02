@@ -24,10 +24,12 @@ p Renasce então sob minha #[=""]
 
 +ul
   each month in public.montegasppa.months
-    +li
-      != month.title
-      span.badge
-        != Object.keys(month.dir).length
+    li.list-group-item: details(open)
+      summary
+        != month.title
+        .text-right
+          span.badge
+            != Object.keys(month.dir).length
       ul
         each page, slug in month.dir
           a(href=`${month.slug}/${slug}.html`): +li2
