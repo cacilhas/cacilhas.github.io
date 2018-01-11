@@ -14,11 +14,13 @@ p Porque é isso que acontece com a maioria das crianças que não são vacinas.
   |  suspensão das vacinas promove a volta de doenças mortais que estavam
   |  erradicadas, como o #[=""]
   a(href="https://seuhistory.com/noticias/movimento-antivacinas-trouxe-de-volta-uma-doenca-mortal"
-   title="Movimento antivacinas trouxe de volta uma doença mortal.")
+    data-toogle="tooltip"
+    title="Movimento antivacinas trouxe de volta uma doença mortal.")
     | sarampo
   | , #[=""]
   a(href="http://www.bbc.com/portuguese/noticias/2014/02/140221_vacinas_doencas_dg"
-   title="Movimento antivacina gera surto de doenças nos EUA.")
+    data-toogle="tooltip"
+    title="Movimento antivacina gera surto de doenças nos EUA.")
     | caxumba e coqueluche
   | .
 
@@ -34,18 +36,19 @@ p O caso que deu origem a este surto de teoria da conspiração antivacinas
   a(href="https://pt.wikipedia.org/wiki/Andrew_Wakefield") Andrew Wakefield
   |  publicou uma pesquisa preliminar na revista #[=""]
   a(href="http://www.thelancet.com/") The Lancet
-  |  descrevendo (apenas) 12 crianças que desenvolveram comportamentos autistas
-  |  e inflamação intestinal.
+  |  descrevendo (apenas) 12 crianças que desenvolveram quadro de
+  |  comportamentos autistas e inflamação intestinal.
 
 p Wakefield disse que a característica em comum entre essas crianças seria
   |  vestígio de vírus de sarampo no corpo (nada a ver com metais pesados).
   |  Então ele levantou a #[strong hipótese] de haver um vínculo causal entre
-  |  os efeitos observados e a vacina #[=""]
+  |  o quadro e a vacina #[=""]
   a(href="http://www.cva.ufrj.br/informacao/vacinas/mmr-v.html") tríplice viral
   | , que havia sido aplicada a 11 das crianças estudadas.
 
 p Em 2004 o #[=""]
   a(href="http://www.nationalacademies.org/hmd/"
+    data-toogle="tooltip"
     title="US Institute of Medicine") US-IoM
   |  concluiu que #[strong não havia provas] de vínculo causal. Neste mesmo ano,
   |  o assistente de Wakefield revelou que o pesquisador havia
@@ -64,6 +67,7 @@ p E por que diabos Wakefield fez isso? Em 1998 ele havia entrado com um pedido
   |  #[strong medo e pânico] para derrubar a concorrência e #[strong LUCRAR],
   |  a famosa prática criminosa do #[=""]
   a(href="https://pt.wikipedia.org/wiki/Medo,_incerteza_e_dúvida"
+    data-toogle="tooltip"
     title="Fear, Uncertainty and Doubt") FUD
   | .
 
@@ -81,7 +85,8 @@ p Quando #[=""]
   a(href="https://pt.wikipedia.org/wiki/Hans_Asperger") Hans Asperger
   |  começaram seus estudos sobre autismo em 1943, a relação de pessoas
   |  diagnosticadas com autismo foi dada como #[=""]
-  u(title="O primeiro chute parece ter sido de 1:500.") 1:160
+  u(data-toogle="tooltip"
+    title="O primeiro chute parece ter sido de 1:500.") 1:160
   |  (0,625%). Com o avanço dos conhecimentos sobre neurodiversidade, os
   |  especialistas perceberam que muitas pessoas estavam sendo
   |  #[strong subdiagnosticadas], ou seja, #[=""]
@@ -93,7 +98,7 @@ p Numa análise melhor, ali por volta da década de ’80, #[strong reajustaram]
 
 p Mas o conhecimento sobre o assunto continuou evoluindo, e muitos outros casos
   |  que eram deixados sem tratamento por falta de identificação passaram a ser
-  |  reconhecidos, #[strong corrigindo] a relação para 1:68 (1,47%±) a partir do
+  |  reconhecidos, #[strong corrigindo] a relação para 1:68 (1,47%) a partir do
   |  #[=""]
   a(href="https://www.psychiatry.org/psychiatrists/practice/dsm") DSM-5
   | .
@@ -111,11 +116,13 @@ p O problema é que, #[strong manipulando as palavras] e até valendo-se de
   |  informações falsas, pessoas inescrupulosas dão a entender que há um
   |  crescente aumento nos casos dessa #[=""]
   a(href="http://entendendoautismo.com.br/artigo/autismo-nao-e-doenca-tea/"
+    data-toogle="tooltip"
     title="Autismo não é doença!")
     | “doença”
   | , uma “epidemia”. Até mesmo #[=""]
   a(href="https://estilo.uol.com.br/gravidez-e-filhos/noticias/redacao/2016/08/21/casos-de-autismo-sobem-para-um-a-cada-68-criancas-especialistas-explicam.htm"
-   title="Alerta de informação mal passada‼️")
+    data-toogle="tooltip"
+    title="Alerta de informação mal passada‼️")
     | organizações ditas sérias
   |  de imprensa prestam esse #[strong desserviço] à sociedade.
 
@@ -125,6 +132,14 @@ hr/
 
 p Mais informações na #[=""]
   a(href="http://www.bbc.com/portuguese/geral-40663622"
+    data-toogle="tooltip"
     title="A história que deu origem ao mito da ligação entre vacinas e autismo.")
     | BBC
   | .
+
+
+script(language="javascript").
+  $(document).ready(function() {
+    $('[data-toogle="tooltip"]').tooltip();
+    alert($(document));
+  })
