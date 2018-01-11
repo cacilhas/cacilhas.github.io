@@ -12,6 +12,18 @@ blockquote {
 blockquote strong {
   font-weight: bolder;
 }
+summary::-webkit-details-marker {
+  display: none;
+}
+summary:before {
+  content: "+ ";
+  color: #337ab7;
+  font-family: monospace;
+  font-weight: bold;
+}
+details[open] summary:before {
+  content: "- ";
+}
 .mg-title:first-letter {
   font-family: "Default Fancy";
 }

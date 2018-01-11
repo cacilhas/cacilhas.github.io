@@ -30,3 +30,6 @@ a code {
   border: 1px solid #808080 !important;
   border-radius: 5px !important;
 }
+.badge {
+  background-color: #c60 !important;
+}

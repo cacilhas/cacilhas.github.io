@@ -21,6 +21,23 @@ blockquote
     font-weight bolder
 
 
+summary
+  &::-webkit-details-marker
+    display none
+
+  &:before
+    content "+ "
+    color $link_color
+    font-family monospace
+    font-weight bold
+
+details
+  &[open]
+    summary
+      &:before
+        content "- "
+
+
 .mg-title
   &:first-letter
     font-family "Default Fancy"
