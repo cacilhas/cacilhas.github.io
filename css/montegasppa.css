@@ -21,6 +21,9 @@ body {
 .badge {
   background-color: #97b3c9 !important;
 }
+.label-default {
+  background-color: #97b3c9 !important;
+}
 #release {
   text-shadow: #000 1px 1px 1px;
 }

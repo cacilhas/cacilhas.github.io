@@ -22,14 +22,20 @@ p Renasce então sob minha #[=""]
   | , com um nome ligeiramente diferente, já que resolvi mudar “Monte Gasppa”
   |  para “ℳontegasppα”, mas cada vez mais meu #[em blog] #[strong pessoal].
 
+script(src="/js/collapse-expand.js")
+
+div
+  a.label.label-default(onClick="expandAll()") Abrir todos
+  | &nbsp;
+  a.label.label-default(onClick="collapseAll()") Fechar todos
+
 +ul
   each month in public.montegasppa.months
     li.list-group-item: details(open)
       summary
         != month.title
-        .text-right
-          span.badge
-            != Object.keys(month.dir).length
+        span.badge
+          != Object.keys(month.dir).length
       ul
         each page, slug in month.dir
           a(href=`${month.slug}/${slug}.html`): +li2

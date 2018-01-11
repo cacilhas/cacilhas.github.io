@@ -12,6 +12,9 @@ blockquote {
 blockquote strong {
   font-weight: bolder;
 }
+summary {
+  padding-bottom: 8pt;
+}
 summary::-webkit-details-marker {
   display: none;
 }
@@ -20,6 +23,9 @@ summary:before {
   color: #337ab7;
   font-family: monospace;
   font-weight: bold;
+}
+summary .badge {
+  float: right;
 }
 details[open] summary:before {
   content: "- ";
