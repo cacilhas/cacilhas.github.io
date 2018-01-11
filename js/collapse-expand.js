@@ -1,15 +1,9 @@
-var elements = document.getElementsByTagName("details");
-
 function expandAll() {
-  Array.from(elements).forEach(function(e, idx) {
-    e.open = true;
-  })
+  $('details').attr('open', 'open');
   return true;
 }
 
 function collapseAll() {
-  Array.from(elements).forEach(function(e, idx) {
-    e.open = false;
-  })
+  $('details').removeAttr('open');
   return true;
 }
