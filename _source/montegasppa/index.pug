@@ -24,22 +24,31 @@ p Renasce então sob minha #[=""]
 
 script(src="/js/collapse-expand.js")
 
-div
+.collapse-expand-buttons
   a.label.label-default(onClick="expandAll()") Abrir todos
   | &nbsp;
   a.label.label-default(onClick="collapseAll()") Fechar todos
 
+- let years = _(public.montegasppa.months).groupBy(month => month.date.getYear())
+
 +ul
-  each month in public.montegasppa.months
-    li.list-group-item: details(open)
-      summary
-        != month.title
-        span.badge
-          != Object.keys(month.dir).length
-      ul
-        each page, slug in month.dir
-          a(href=`${month.slug}/${slug}.html`): +li2
-            != page.title
+  ul
+    each year in _.keys(years).sort()
+      - let months = years[year]
+      li.list-group-item: details(open)
+        summary
+          != parseInt(year) + 1900
+        ul
+          each month in months
+            li.list-group-item: details(open)
+              summary
+                != month.title
+                span.badge
+                  != Object.keys(month.dir).length
+              ul
+                each page, slug in month.dir
+                  a(href=`${month.slug}/${slug}.html`): +li2
+                    != page.title
 
   a(href="http://montegasppa.blogspot.in/")
     li.list-group-item

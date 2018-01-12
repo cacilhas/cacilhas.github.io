@@ -99,7 +99,7 @@ async function populateBlog(context: Context): Promise<void> {
             slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
             title: `${globalContext.monthSet[index]} de ${yearSlug}`,
             dir: monthDir,
-            date: new Date(`${yearSlug}-${monthSlug}-01`)
+            date: new Date(`${yearSlug}-${monthSlug}-01T12:00:00.000Z`)
           })
         }
 
@@ -129,16 +129,17 @@ function processPugFile(
   const useLayout = _useLayout === undefined ? true : !!_useLayout
 
   let template = fs.readFileSync(file, "utf-8")
-  let render: Render = pug.compile(template, { filename: file, pretty: false })
+  let render: Render =
+    pug.compile(template, { filename: file, pretty: false }) as Render
 
-  context = _.clone(context)
-  context.public = globalContext
+  context = _(_.clone(context)).extend({ public: globalContext, _ })
   let content = render(context)
 
   if (useLayout && typeof layout === "string") {
     context.yield = content
     template = fs.readFileSync(layout, "utf-8")
-    render = pug.compile(template, { filename: layout, pretty: false })
+    render =
+      pug.compile(template, { filename: layout, pretty: false }) as Render
     content = render(context)
   }
 
