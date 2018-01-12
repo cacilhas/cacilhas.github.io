@@ -3,11 +3,11 @@ include ../../../_widgets/list-group-item.pug
 img.pull-right(src=image alt="Erlang")
 
 p.mg-first Com o #[=""]
-  a(href="/misc/monty-hall/mh_mc.erl") mestre de cerimônias
+  a(href=`${public.misc.repo}/monty-hall/mh_mc.erl`) mestre de cerimônias
   |  criado no #[=""]
   a(href="/kodumaro/2016/05/monty-hall.html") primeiro artigo
   | , e o #[=""]
-  a(href="/misc/monty-hall/mh_guest.erl") convidado
+  a(href=`${public.misc.repo}/monty-hall/mh_guest.erl`) convidado
   |  criado no #[=""]
   a(href="/kodumaro/2016/05/monty-hall-2.html") segundo artigo
   | , podemos rodar o jogo!
@@ -140,7 +140,7 @@ p Com isso, está #[strong provado] o #[=""]
 h3#arquivos-para-baixar Todos os arquivos para baixar
 
 +ul
-  +li: a(href="/misc/monty-hall/mh.hrl"): code mh.hrl
-  +li: a(href="/misc/monty-hall/mh_mc.erl"): code mh_mc.erl
-  +li: a(href="/misc/monty-hall/mh_guest.erl"): code mh_guest.erl
-  +li: a(href="/misc/monty-hall/mh_game.erl"): code mh_game.erl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh.hrl`): code mh.hrl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh_mc.erl`): code mh_mc.erl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh_guest.erl`): code mh_guest.erl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh_game.erl`): code mh_game.erl
