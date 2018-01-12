@@ -33,6 +33,11 @@
     "image": "https://i.creativecommons.org/l/by/4.0/80x15.png"
   },
 
+  "misc": {
+    "repo": "https://github.com/cacilhas/blog-files/blob/master",
+    "url": "http://cacilhas.info/blog-files"
+  },
+
   "monthSet": [
     "Janeiro",
     "Fevereiro",

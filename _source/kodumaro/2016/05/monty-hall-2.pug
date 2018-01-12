@@ -3,7 +3,7 @@ include ../../../_widgets/list-group-item.pug
 img.pull-right(src=image alt="Erlang")
 
 p.mg-first Já temos o #[=""]
-  a(href="/misc/monty-hall/mh_mc.erl") mestre de cerimônias
+  a(href=`${public.misc.repo}/monty-hall/mh_mc.erl`) mestre de cerimônias
   | , que fizemos no #[=""]
   a(href=`${public.kodumaro.blog.url}2016/05/monty-hall.html`)
     | artigo anterior
@@ -43,8 +43,8 @@ p E já temos como simular o convidado!
 h3#para-baixar Arquivos para baixar
 
 +ul
-  +li: a(href="/misc/monty-hall/mh.hrl"): code mh.hrl
-  +li: a(href="/misc/monty-hall/mh_guest.erl"): code mh_guest.erl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh.hrl`): code mh.hrl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh_guest.erl`): code mh_guest.erl
 
 h3#proximos-passos Próximos passos
 
