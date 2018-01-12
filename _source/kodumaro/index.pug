@@ -44,7 +44,7 @@ script(src="/js/collapse-expand.js")
     each year in _.keys(years).sort()
       - let months = years[year]
       - let total = _(months).reduce((memo, month) => memo + _.keys(month.dir).length, 0)
-      li.list-group-item: details(open)
+      li.list-group-item: details
         summary
           != parseInt(year) + 1900
           span.badge
