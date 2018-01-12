@@ -27,7 +27,7 @@ summary:before {
 summary .badge {
   float: right;
 }
-details[open] summary:before {
+details[open] > summary:before {
   content: "- ";
 }
 .mg-title:first-letter {
@@ -69,6 +69,9 @@ details[open] summary:before {
 }
 .mg-hidden-link:hover {
   color: #337ab7;
+}
+.collapse-expand-buttons {
+  padding-left: 2pt;
 }
 #footer {
   position: fixed;
