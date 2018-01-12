@@ -45,7 +45,7 @@ script(src="/js/collapse-expand.js")
 
 +ul
   ul
-    each year in _.keys(years).sort()
+    each year in _.keys(years).sort().reverse()
       -
         let months = years[year]
         let total = _(months).reduce(
