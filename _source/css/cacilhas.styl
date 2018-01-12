@@ -36,11 +36,8 @@ summary
   .badge
     float right
 
-details
-  &[open]
-    summary
-      &:before
-        content "- "
+details[open] > summary:before
+  content "- "
 
 
 .mg-title
@@ -95,6 +92,10 @@ details
 
   &:hover
     color $link_color
+
+
+.collapse-expand-buttons
+  padding-left 2pt
 
 
 #footer
