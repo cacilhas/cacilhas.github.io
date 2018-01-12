@@ -1,9 +1,10 @@
 extends ../_layout.pug
 
 block blog-head
-  title Reflexões… :: #{title}
+  - shownTitle = (title || "").replace(/<[^>]+>/g, "")
+  title Reflexões… :: !{shownTitle}
   meta(property="og:site_name" content=public.montegasppa.blog.title)/
-  meta(property="og:title" content=title)/
+  meta(property="og:title" content=shownTitle)/
   if current && current.path
     meta(property="og:url"
          content=`${public.main.host}/${current.path.slice(2).join("/")}.html`)/

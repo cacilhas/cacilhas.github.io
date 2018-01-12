@@ -11,8 +11,10 @@ link(rel="stylesheet" href="/css/bootstrap-theme.min.css")/
 link(rel="stylesheet" href="/css/theme.css")/
 link(rel="stylesheet" href="/css/cacilhas.css")/
 
+- let shownTitle = (title || "").replace(/<[^>]+>/g, "")
+
 block blog-head
-  title #{public.main.title} #{title}
+  title #{public.main.title} !{shownTitle}
   link(rel="icon" href="/img/favicon.ico")/
 
 script(src="/js/ie-emulation-modes-warning.js")

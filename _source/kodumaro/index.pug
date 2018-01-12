@@ -37,14 +37,22 @@ script(src="/js/collapse-expand.js")
   a.label.label-default(onClick="collapseAll()") Fechar todos
 
 
-- let years = _(public.kodumaro.months).groupBy(month => month.date.getYear())
+-
+  let years = _(public.kodumaro.months).groupBy(
+    month => month.date.getYear()
+  )
+  let lastYear = _.last(_.keys(years).sort())
 
 +ul
   ul
     each year in _.keys(years).sort()
-      - let months = years[year]
-      - let total = _(months).reduce((memo, month) => memo + _.keys(month.dir).length, 0)
-      li.list-group-item: details
+      -
+        let months = years[year]
+        let total = _(months).reduce(
+          (memo, month) => memo + _.keys(month.dir).length, 0
+        )
+
+      li.list-group-item: details(open=(year == lastYear))
         summary
           != parseInt(year) + 1900
           span.badge
