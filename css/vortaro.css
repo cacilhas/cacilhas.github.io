@@ -35,6 +35,7 @@ body {
 }
 .readme {
   margin: 20pt 10% 0% 10%;
+  padding: 0em 2em 0em 2em;
   width: 80%;
   border-style: outset;
   border-width: 2px;
