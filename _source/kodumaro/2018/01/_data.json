@@ -2,7 +2,7 @@
   "vortaro": {
     "title": "Konsulta Vortaro <em>on-line</em>",
     "author": "Arĥimedeς ℳontegasppα ℭacilhας",
-    "content": "Como exercício de ML, decidi escrever uma versão <em>on-line</em> do Konsulta Vortarto",
+    "content": "Como exercício de ML, decidi escrever uma versão <em>on-line</em> do Konsulta Vortaro.",
     "image": "/misc/vortaro.png",
     "release": "2018-01-14",
     "tags": ["Esperanto", "ECMAScript", "Funcional", "ML", "Pessoal"]
