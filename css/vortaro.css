@@ -36,7 +36,8 @@ body {
 .readme {
   margin: 20pt 10% 0% 10%;
   width: 80%;
-  border-style: outset 2pt;
+  border-style: outset;
+  border-width: 2px;
 }
 .readme h1:first-letter,
 .readme h2:first-letter {
