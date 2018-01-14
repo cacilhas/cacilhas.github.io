@@ -42,7 +42,7 @@ body {
   font-family: "Default Fancy";
 }
 .readme h1,
-.readme p:contains(img) {
+.readme p:first {
   text-align: center;
 }
 .readme a {
