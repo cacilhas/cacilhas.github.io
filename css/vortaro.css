@@ -51,6 +51,7 @@ body {
 }
 .readme a {
   text-decoration: none;
+  text-shadow: #fff 1pt 1pt 1pt;
   color: #035;
 }
 .readme a:hover {
