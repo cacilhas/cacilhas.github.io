@@ -34,8 +34,15 @@
   },
 
   "misc": {
+    "title": "Repositório",
     "repo": "https://github.com/cacilhas/misc/blob/master",
     "url": "http://cacilhas.info/misc"
+  },
+
+  "vortaro": {
+    "title": "Konsulta Vortaro",
+    "repo": "https://github.com/cacilhas/vortaro/blob/master",
+    "url": "http://cacilhas.info/vortaro"
   },
 
   "monthSet": [
