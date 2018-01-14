@@ -1,0 +1,10 @@
+{
+  "vortaro": {
+    "title": "Konsulta Vortaro <em>on-line</em>",
+    "author": "Arĥimedeς ℳontegasppα ℭacilhας",
+    "content": "Como exercício de ML, decidi escrever uma versão <em>on-line</em> do Konsulta Vortarto",
+    "image": "/misc/vortaro.png",
+    "release": "2018-01-14",
+    "tags": ["Educação e Cultura", "ECMAScript", "Funcional", "ML", "Pessoal"]
+  }
+}
