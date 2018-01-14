@@ -35,12 +35,14 @@
 
   "misc": {
     "title": "Repositório",
+    "git": "https://github.com/cacilhas/misc",
     "repo": "https://github.com/cacilhas/misc/blob/master",
     "url": "http://cacilhas.info/misc"
   },
 
   "vortaro": {
     "title": "Konsulta Vortaro",
+    "git": "https://github.com/cacilhas/vortaro",
     "repo": "https://github.com/cacilhas/vortaro/blob/master",
     "url": "http://cacilhas.info/vortaro"
   },
