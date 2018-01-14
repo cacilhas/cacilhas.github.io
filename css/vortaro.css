@@ -36,11 +36,14 @@ body {
 .readme {
   margin: 20pt 10% 0% 10%;
   width: 80%;
-  h1: , text-align center;
+  border-style: outset 2pt;
 }
 .readme h1:first-letter,
 .readme h2:first-letter {
   font-family: "Default Fancy";
+}
+.readme h1 {
+  text-align: center;
 }
 .readme a {
   text-decoration: none;
