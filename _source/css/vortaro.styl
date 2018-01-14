@@ -36,7 +36,8 @@ body
     height 30 em
 
 .readme
-  margin 20 10% 0% 10%
+  margin 20pt 10% 0% 10%
+  width 80%
 
   h1,
   h2
@@ -44,12 +45,12 @@ body
       font-family "Default Fancy"
 
   h1,
-  p[img]
+  p:contains(img)
     text-align center
 
   a
     text-decoration none
-    text-color cyan
+    color cyan
 
     &:hover
       text-decoration underline

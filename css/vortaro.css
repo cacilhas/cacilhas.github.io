@@ -34,19 +34,20 @@ body {
   height: 30em;
 }
 .readme {
-  margin: 20 10% 0% 10%;
+  margin: 20pt 10% 0% 10%;
+  width: 80%;
 }
 .readme h1:first-letter,
 .readme h2:first-letter {
   font-family: "Default Fancy";
 }
 .readme h1,
-.readme p[img] {
+.readme p:contains(img) {
   text-align: center;
 }
 .readme a {
   text-decoration: none;
-  text-color: #0ff;
+  color: #0ff;
 }
 .readme a:hover {
   text-decoration: underline;
