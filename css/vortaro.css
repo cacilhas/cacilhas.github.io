@@ -10,7 +10,7 @@ body {
   font-weight: normal;
   background-color: #97b3c9;
   color: #fff;
-  text-shadow: #4b5964 1px 1px 1px;
+  text-shadow: #4b5964 1pt 1pt 1pt;
 }
 .title {
   width: 100%;
@@ -45,11 +45,13 @@ body {
   font-family: "Default Fancy";
 }
 .readme h1 {
+  color: #0f0f6a;
   text-align: center;
+  text-shadow: #fff 1pt 1pt 1pt;
 }
 .readme a {
   text-decoration: none;
-  color: #0ff;
+  color: #035;
 }
 .readme a:hover {
   text-decoration: underline;
