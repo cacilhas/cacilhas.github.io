@@ -1,0 +1,52 @@
+"404":
+  title: ":: NOT FOUND"
+
+about:
+  aboutActive: true
+  title: ":: Sobre"
+
+google:
+  adSense: ca-pub-5741846017654057
+  analyticsId: UA-99357497-1
+
+spotify:
+  uri: spotify:artist:17ztrEzLSzYOp8MySGqFHy
+
+index:
+  homeActive: true
+
+main:
+  author: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
+  host: http://cacilhas.info
+  title: ℭacilhας.INFO
+
+license:
+  name: CC-BY 4.0
+  url: http://creativecommons.org/licenses/by/4.0/deed.pt
+  image: https://i.creativecommons.org/l/by/4.0/80x15.png
+
+misc:
+  title: Repositório
+  git: https://github.com/cacilhas/misc
+  repo: https://github.com/cacilhas/misc/blob/master
+  url: http://cacilhas.info/misc
+
+vortaro:
+  title: Konsulta Vortaro
+  git: https://github.com/cacilhas/vortaro
+  repo: https://github.com/cacilhas/vortaro/blob/master
+  url: http://cacilhas.info/vortaro
+
+monthSet:
+  - Janeiro
+  - Fevereiro
+  - Março
+  - Abril
+  - Maio
+  - Junho
+  - Julho
+  - Agosto
+  - Setembro
+  - Outubro
+  - Novembro
+  - Dezembro
