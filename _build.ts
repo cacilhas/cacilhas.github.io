@@ -65,7 +65,7 @@ Promise<void> {
         _(context).assign(require(file))
 
       else if (cname.endsWith(".yaml") || cname.endsWith(".yml"))
-        _(context).assign(yaml.safeLoad(fs.readFileSync(cname, "utf-8")))
+        _(context).assign(yaml.safeLoad(fs.readFileSync(file, "utf-8")))
 
       else if (cname.endsWith(".pug")) {
         cname = cname.replace(/\.pug$/, "")
