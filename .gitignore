@@ -10,6 +10,8 @@
 .vscode
 _build.js
 
+/misc
 /node_modules
 /package-lock.json
 /tmp
+/vortaro
