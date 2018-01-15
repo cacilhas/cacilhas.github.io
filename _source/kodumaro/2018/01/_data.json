@@ -22,7 +22,7 @@
     "release": "2018-01-15",
     "tags": ["Esperanto", "ECMAScript", "Funcional", "ML", "Pessoal"],
     "nav": {
-      "next": {
+      "prev": {
         "path": "2018/01/vortaro-orig",
         "title": "Versão original"
       }
