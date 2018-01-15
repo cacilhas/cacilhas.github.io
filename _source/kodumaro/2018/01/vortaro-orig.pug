@@ -3,22 +3,12 @@ include ../../../_widgets/list-group-item.pug
 
 -
   let elmCore = "http://package.elm-lang.org/packages/elm-lang/core/latest"
-  let vortaro20180115 = public.vortaro.repo.replace(
+  let vortaro20180114 = public.vortaro.repo.replace(
     "master",
-    "efcb58a543308ba47930915d58939aaff12653ec"
+    "1f2f32a9515eb648f678d5de98096628d3ed863f"
   )
 
 br/
-
-p Após escrever o #[=""]
-  a(href=`${public.kodumaro.blog.url}2018/01/vortaro-orig.html`) artigo
-  |  sobre a versão #[em on-line] do Konsulta Vortaro, parei um tempo para olhar
-  |  outros códigos em Elm e assim adequar meu código ao padrão comum da
-  |  comunidade.
-
-p Por isso, resolvi atualizar este artigo.
-
-hr/
 
 p.mg-first Como exercício de #[=""]
   a(href="https://pt.wikipedia.org/wiki/ML_(linguagem_de_programação)") ML
@@ -39,8 +29,8 @@ h3 Abordagem
 
 p Elm possui um #[=""]
   a(href="https://guide.elm-lang.org/architecture/") desenho de arquitetura
-  |  bastante interessante, separando o código em modelo, atualização,
-  |  visualização e inscrições.
+  |  bastante interessante, separando o código em modelo, atualização e
+  |  visualização, às vezes inscrições.
 
 p #[strong Modelo] (#[em model]) é um tipo definido pelo usuário para
   |  representar o estado da aplicação.
@@ -55,17 +45,13 @@ p #[strong Atualização] (#[em update]) é a função que é chamada cada vez q
 p #[strong Visualização] (#[em view]) é a função chamada cada vez que a página
   |  precisa ser renderizada.
 
-p #[strong Incrições] (#[em subscriptions]) é a função que monitora e reage a
-  |  eventos, retornando uma inscrição, que é avalida e transaformada em uma
-  |  atualização.
-
 p Para escrever o código, segui a arquitetura restritamente, deixando de fora
   |  apenas a camada de inscrições (#[em subscriptions]).
 
 h3 Cabeçalho
 
 p O cabeçalho do arquivo começa na #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L1`) primeira linha
+  a(href=`${vortaro20180114}/Main.elm#L1`) primeira linha
   |  e vai até a sétima.
 
 p A primeira linha, declaração do módulo, não é necessária aqui, uma vez que se
@@ -79,13 +65,16 @@ p As linha seguintes importam os módulos dos quais farei uso mais abaixo: #[=""
   a(href=`${elmCore}/Regex`): code Regex
   | .
 
-p Desta fui mais criterioso e importei explicitamente os recursos em vez de
-  |  usar #[code exposing (..)].
+p Poderia (deveria) ter sido mais criterioso e importar explicitamente os
+  |  recursos, mas usei #[code exposing (..)] para agilizar o desenvolvimento.
+  |  A final de contas, escrevi esta aplicação na #[=""]
+  u(title="Sábado, 13 de Dezembro de 2018") tarde de ontem
+  | .
 
 h3: em Entrypoint
 
 p O ponto de entrada é a função #[code main], declarada na #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L10`) linha 10
+  a(href=`${vortaro20180114}/Main.elm#L10`) linha 10
   | . Sua assinatura é #[code Program Never Model Msg]:
 
 +ul
@@ -93,9 +82,9 @@ p O ponto de entrada é a função #[code main], declarada na #[=""]
     +li #[code Program] é a aplicação em si.
   a(href=`${elmCore}/Basics#Never`)
     +li #[code Never] nunca retorna.
-  a(href=`${vortaro20180115}/Main.elm#L24`)
+  a(href=`${vortaro20180114}/Main.elm#L24`)
     +li #[code Model] é o modelo da aplicação.
-  a(href=`${vortaro20180115}/Main.elm#L41`)
+  a(href=`${vortaro20180114}/Main.elm#L51`)
     +li #[code Msg] é o tipo que define as possíveis mensagens trocadas.
 
 p A função chama #[=""]
@@ -104,26 +93,18 @@ p A função chama #[=""]
   | , que constrói a aplicação a partir de funções de #[em callback]:
 
 +ul
-  +li #[code init] inicialização, retorna o modelo inicial vazio e dispara um
-    |  comando (mônada) para ser executado e carregar o dicionário.
-  +li #[code view] visualização, função declarada no final do arquivo.
-  +li #[code update] atualização, declarada em sua própria camada.
-  +li #[code subscriptions] inscrições, lâmbda vazio.
+  +li #[code init] inicialização.
+  +li #[code update] atualização.
+  +li #[code subscriptions] inscrições.
+  +li #[code view] visualização.
 
 h3 Modelo
 
-p Além de definir o formato do estado da aplicação, a camada de modelo costuma
-  |  ser responsável pela inicialização da aplicação. Como a inicialização foi
-  |  muito simples, usei #[=""]
-  a(href="http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Platform-Cmd#!")
-    code Cmd.!
-  |  com modelo vazio e a função #[code loadWordbook].
-
-
-p A camada de modelo vai da
+p Além de definir o formato do estado da aplicação, a camada de modelo também
+  |  é responsável pela inicialização da aplicação. A camada de modelo vai da
   |  #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L24`) linha 24
-  |  até a linha 34.
+  a(href=`${vortaro20180114}/Main.elm#L24`) linha 24
+  |  até a linha 44.
 
 p O modelo em si possui quatro atributos:
 
@@ -131,6 +112,11 @@ p O modelo em si possui quatro atributos:
   +li #[code query] a busca feita pelo usuário.
   +li #[code content] o conteúdo a ser exibido.
   +li #[code wordbook] o dicionário de palavras em Esperanto.
+
+p A função #[code init] returna o modelo inicial vazio e uma mônada para
+  |  retornar o dicionário, que se encontra em #[=""]
+  a(href=`${public.vortaro.url}/vortaro.text`): code vortaro.text
+  | .
 
 p A busca pelo dicionário é feita pela função #[code loadWordbook], que usa o
   |  módulo #[code Http] para criar um comando (mônada) para trazer o conteúdo
@@ -140,8 +126,8 @@ p A busca pelo dicionário é feita pela função #[code loadWordbook], que usa 
 h3 Atualização
 
 p Chegamos à camada de atualização, que vai da #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L41`) linha 41
-  |  até a linha 83.
+  a(href=`${vortaro20180114}/Main.elm#L51`) linha 51
+  |  até a linha 82.
 
 p A primeira coisa definida é o tipo #[code Msg], que classifica a troca de
   |  mensagens interna da aplicação. Este tipo possui duas apresentações: a
@@ -149,12 +135,13 @@ p A primeira coisa definida é o tipo #[code Msg], que classifica a troca de
   |  (#[code Load]).
 
 p A função de atualização (#[code update]) trata a busca do usuário na #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L48`) linha 48
-  | , a carga do dicionário na #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L51`) linha 51
-  | , e na #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L54`) linha 54
-  |  o tratamento de erros na leitura do dicionário.
+  a(href=`${vortaro20180114}/Main.elm#L58`) linha 58
+  |  e a carga do dicionário na #[=""]
+  a(href=`${vortaro20180114}/Main.elm#L71`) linha 71
+  | . Na #[=""]
+  a(href=`${vortaro20180114}/Main.elm#L74`) linha 74
+  |  eu #[strong deveria] ter tratado erro na leitura do dicionário, mas isso
+  |  ficará para um outro momento.
 
 p No tratamento da busca, se a #[em string] for maior que um carácter, ele chama
   |  a função #[code find] para selecionar o conteúdo exibido, caso contrário
@@ -164,19 +151,17 @@ p No tratamento da carga, o dicionário é transformado em uma lista de
   |  #[em strings] e armazenado no modelo.
 
 p A #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L71`) função #[code find]
-  |  retorna uma #[em string] vazia caso a busca seja menor que dois
-  |  caracteres. Caso contrário, filtra o dicionário de acordo com a busca
-  |  usando #[=""]
+  a(href=`${vortaro20180114}/Main.elm#L77`) função #[code find]
+  |  filtra o dicionário de acordo com a busca usando #[=""]
   a(href="https://pt.wikipedia.org/wiki/Express%C3%A3o_regular")
     | expressão regular
   | , junta tudo em uma única #[em string] e a processa para exibição.
 
 h3 Visualização
 
-p A camada de visualização vai da #[=""]
-  a(href=`${vortaro20180115}/Main.elm#L90`) linha 90
-  |  até o final do arquivo, e é a coisa mais bizarras de Elm.
+p A camada de visualização começa na #[=""]
+  a(href=`${vortaro20180114}/Main.elm#L89`) linha 89
+  |  e termina na linha 115, e é a coisa mais bizarras de Elm.
 
 p O próprio código HTML é gerado usando código, o que me lembra muito a
   |  malfadada abordagem da plataforma #[=""]
