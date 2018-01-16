@@ -1,0 +1,26 @@
+sml:
+  title: &sml_title Standard ML
+  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
+  content: Standard ML é a definição padrão da família de linguagens ML.
+  release: 2016-03-15
+  tags:
+    - Funcional
+    - ML
+  nav:
+    next:
+      path: 2016/03/sml-2
+      title: Continuação
+
+sml-2:
+  title: Standard ML – continuação
+  author: *cacilhas
+  content: Veja como podemos estender a criação de sequências.
+  release: 2016-03-17
+  tags:
+    - Funcional
+    - ML
+  nav:
+    prev:
+      path: 2016/03/sml
+      title: *sml_title
+  hidden: true

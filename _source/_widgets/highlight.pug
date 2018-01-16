@@ -11,7 +11,7 @@ each yearDir, yearSlug in public.montegasppa
             - const article = {}
             - article.url = public.montegasppa.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = "Reflexões… :: " + page.title
-            - article.content = page.content
+            - article.content = page.content.trim()
             - article.release = new Date(page.release)
             - montegasppaArticles.push(article)
 - montegasppaArticles.sort((a, b) => b.release - a.release)
@@ -25,7 +25,7 @@ each yearDir, yearSlug in public.kodumaro
             - const article = {}
             - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
             - article.title = public.kodumaro.blog.title + " :: " + page.title
-            - article.content = page.content
+            - article.content = page.content.trim()
             - article.release = new Date(page.release)
             - kodumaroArticles.push(article)
 - kodumaroArticles.sort((a, b) => b.release - a.release)

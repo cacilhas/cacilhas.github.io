@@ -31,9 +31,10 @@ block main-container
     .panel-heading
       h2.mg-title !{public.kodumaro.blog.title} :: !{title}
       if release
-        - let release_ = new Date(`${release}T12:00`)
-        - let month = release_.getMonth()
-        h6.pull-right Publicado em #{release_.getDate()} de #{public.monthSet[month]}, #{release_.getFullYear()}
+        - release = moment(release).add(3, "hours")
+        - let month = release.month()
+        h6.pull-right Publicado em #{release.date()} de
+          |  #{public.monthSet[month]}, #{release.year()}
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
