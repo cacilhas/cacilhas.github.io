@@ -1,6 +1,5 @@
 rock-is-dead:
   title: <em>Rock is dead</em> (continuação)
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: Dando continuidade ao artigo <em>Rock is dead</em>…
   image: /img/clave-sol.jpg
   release: 2017-02-05
@@ -16,7 +15,6 @@ rock-is-dead:
 
 modos-gregos-guitarra:
   title: &mgg_title Modos gregos na guitarra
-  author: *cacilhas
   content: >
     Complementando o artigo sobre modos gregos, este foca em sua execução em
     violão e guitarra.
@@ -34,7 +32,6 @@ modos-gregos-guitarra:
 
 escalas-anemitonicas-e-semitonicas:
   title: Escalas anemitônicas e semitônicas
-  author: *cacilhas
   content: Vou dar uma pincelada sobre escalas anemitônicas e semitônicas.
   image: /img/clave-sol.jpg
   release: 2017-02-14

@@ -1,6 +1,5 @@
 de-volta:
   title: De volta à ativa
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: Depois de um mês fora, volto a poder publicar!
   image: /img/nodejs.png
   release: 2016-11-22
@@ -9,7 +8,6 @@ de-volta:
 
 fullstack:
   title: <em>Full-stack</em>
-  author: *cacilhas
   content: O novo <em>hype</em> é o desenvolvedor <em>full-stack</em>.
   image: /img/fullstack.jpg
   release: 2016-11-28

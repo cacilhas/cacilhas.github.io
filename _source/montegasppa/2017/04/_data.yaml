@@ -1,6 +1,5 @@
 escalas-anemitonicas:
   title: Escalas anemitônicas
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Há um tempo fiz uma postagem sobre a diferença entre escanas anemitônicas e
     semitônicas…
@@ -15,7 +14,6 @@ escalas-anemitonicas:
 
 oito-cordas:
   title: Oito cordas
-  author: *cacilhas
   content: Tenho feito há alguns meses dois experimentos em paralelo…
   image: /img/schecter-c8.jpg
   release: 2017-04-09
