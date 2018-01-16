@@ -1,0 +1,48 @@
+normalidade:
+  title: A Normalidade
+  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
+  content: É preciso extirpar o conceito de normalidade da sociedade…
+  image: /img/lampada.jpg
+  release: 2017-10-06
+  tags:
+    - Autismo
+    - Educação e Cultura
+    - Pessoal
+    - Psicologia
+
+novo-ep:
+  title: Novo EP Sækla Saklōrum (O Sutra)
+  author: *cacilhas
+  content: >
+    Há poucos meses minha banda, Sækla Saklōrum, lançou seu primeiro álbum…
+  image: /img/saekla.jpg
+  release: 2017-10-22
+  tags:
+    - Música
+  nav:
+    next:
+      path: 2017/11/pre-release
+      title: β-pre-release
+
+tea:
+  title: Apanhado geral sobre síndromes do espectro autista
+  author: *cacilhas
+  content: >
+    Em função da condição de meu filho, tenho pesquisado bastante sobre TEA…
+  image: /img/lampada.jpg
+  release: 2017-10-25
+  tags:
+    - Autismo
+    - Psicologia
+
+autoridade:
+  title: Autoridade
+  author: *cacilhas
+  content: >
+    Nossa cultura patriarcal nos ensina a respeitar incondicionalmente a
+    autoridade.
+  image: /img/manes.jpg
+  release: 2017-10-26
+  tags:
+    - Educação e Cultura
+    - Pessoal

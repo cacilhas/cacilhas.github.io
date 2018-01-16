@@ -16,7 +16,7 @@ each yearDir, yearSlug in public.montegasppa
                 content: page.content.trim(),
                 release: moment(page.release),
               }
-            - montegasppaArticles.push(article)
+              montegasppaArticles.push(article)
 - montegasppaArticles.sort((a, b) => b.release - a.release)
 
 each yearDir, yearSlug in public.kodumaro

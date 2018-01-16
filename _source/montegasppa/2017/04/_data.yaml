@@ -1,0 +1,30 @@
+escalas-anemitonicas:
+  title: Escalas anemitônicas
+  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
+  content: >
+    Há um tempo fiz uma postagem sobre a diferença entre escanas anemitônicas e
+    semitônicas…
+  image: /img/clave-sol.jpg
+  release: 2017-04-01
+  tags:
+    - Música
+  nav:
+    prev:
+      path: 2017/02/escalas-anemitonicas-e-semitonicas
+      title: Escalas anemitônicas e semitônicas
+
+oito-cordas:
+  title: Oito cordas
+  author: *cacilhas
+  content: Tenho feito há alguns meses dois experimentos em paralelo…
+  image: /img/schecter-c8.jpg
+  release: 2017-04-09
+  tags:
+    - Música
+  nav:
+    prev:
+      path: 2016/06/dad-gad
+      title: DAD-GAD
+    next:
+      path: 2017/05/do-maior-aberto
+      title: Consolidando

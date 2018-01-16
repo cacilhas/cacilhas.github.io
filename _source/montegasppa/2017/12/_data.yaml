@@ -1,0 +1,99 @@
+entre-lobos:
+  title: &entre_lobos_title Entre lobos
+  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
+  content: >
+    Ontem finalmente recebi o resultado de uma avaliação que estou fazendo há
+    algumas sessões…
+  image: /img/tea.jpg
+  release: 2017-12-03
+  tags:
+    - Autismo
+    - Pessoal
+  nav:
+    next:
+      path: 2017/12/literalmente
+      title: Literalmente
+
+capitalismo:
+  title: Dez modos como o capitalismo nega ou tira a sua liberdade
+  author: Robson Fernando de Souza
+  content: >
+    Um dos mais fortes argumentos a favor do capitalismo utilizado por seus
+    defensores é que ele seria um sistema que garante a liberdade. Será mesmo?
+  image: /img/ratos-metro-steve-cutts.jpg
+  release: 2017-12-05
+  tags:
+    - Política
+    - Reblog
+
+culpa:
+  title: Culpa de quem?
+  author: *cacilhas
+  content: >
+    Com meu recentíssimo diagnóstico, sinto-me compelido a escrever uma série
+    de desabafos…
+  image: /img/lampada.jpg
+  release: 2017-12-05
+  tags:
+    - Autismo
+    - Educação e Cultura
+    - Pessoal
+    - Psicologia
+
+literalmente:
+  title: Literalmente
+  author: *cacilhas
+  content: >
+    As pessoas acham que ser literal significa não entender sentido figurado…
+  image: /img/tea.jpg
+  release: 2017-12-10
+  tags:
+    - Autismo
+    - Pessoal
+  nav:
+    prev:
+      path: 2017/12/entre-lobos
+      title: *entre_lobos_title
+
+    next:
+      path: 2017/12/nos-autistas
+      title: &nos_autistas_title “Nós” autistas
+
+nos-autistas:
+  title: *nos_autistas_title
+  author: *cacilhas
+  content: >
+    Participando de alguns grupos de pais de autistas, tenho percebido uma
+    tentiva de padronizar o autista…
+  image: /img/tea.jpg
+  release: 2017-12-14
+  tags:
+    - Autismo
+    - Pessoal
+  nav:
+    prev:
+      path: 2017/12/literalmente
+      title: Literalmente
+
+iwa:
+  title: A história de Iwa
+  author: *cacilhas
+  content: Conheci uma história indígena muito interessante…
+  image: /img/iwa.jpg
+  release: 2017-12-30
+  tags:
+    - Educação e Cultura
+    - Psicologia
+
+rock-is-dead:
+  title: <em>Rock is dead</em> Ⅲ
+  author: Arĥimedeς ℳontegasppα ℭacilhας
+  content: Mais uma lista de trabalhos interessantes a serem ouvidos.
+  image: /img/clave-sol.jpg
+  release: 2017-12-31
+  tags:
+    - Música
+  nav:
+    prev:
+      path: 2017/02/rock-is-dead
+      title: parte Ⅱ

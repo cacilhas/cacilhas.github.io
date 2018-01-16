@@ -1,0 +1,37 @@
+song-can-write-itself:
+  title: O’Keefe Music Foundation
+  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
+  content: A song can write itself if you just dig deep…
+  release: 2016-05-15
+  tags:
+    - Música
+
+corrupto:
+  title: Todo político é corrupto
+  author: *cacilhas
+  content: Verdades absolutas são burras por desconsiderar a realidade factual…
+  image: /img/heim.jpg
+  release: 2016-05-20
+  tags:
+    - Política
+
+cultura-do-estupro:
+  title: A Cultura do Estupro (<em>Rape Culture</em>)
+  author: *cacilhas
+  content: >
+    Ontem ouvi que a menor de 16 anos que sofreu estupro de mais de 30 homens…
+  image: /img/estupro.jpg
+  release: 2016-05-28
+  tags:
+    - Política
+    - Educação e Cultura
+
+om-namah-shivaya:
+  title: ॐ नमः शिवाय
+  author: *cacilhas
+  content: Oṁ Namah Shivaya!
+  image: /img/shiva-back.jpg
+  release: 2016-05-31
+  tags:
+    - Religião
+    - Educação e Cultura
