@@ -1,0 +1,20 @@
+do-maior-aberto:
+  title: Afinação aberta em dó maior
+  content: No último artigo comentei sobre a afinação que pretendia fazer…
+  image: /img/schecter-c8.jpg
+  release: 2017-05-02
+  tags:
+    - Música
+  nav:
+    prev:
+      path: 2017/04/oito-cordas
+      title: Planejando
+
+guitarristas:
+  title: Guitarristas
+  content: >
+    Num canal do YouTube sobre violão e guitarra, vi uma aula sobre o Bolero…
+  image: /img/schecter-c8.jpg
+  release: 2017-05-13
+  tags:
+    - Música

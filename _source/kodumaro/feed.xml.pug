@@ -11,17 +11,20 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
         each monthDir, monthSlug in yearDir
           if monthDir && /^\d\d$/.test(monthSlug)
             each page, slug in monthDir
-              - const article = {}
-              - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-              - article.title = page.title
-              - article.release = page.release
-              - article.content = page.content
-              - articles.unshift(article)
+              -
+                const article = {
+                  url: `${public.kodumaro.blog.url}${yearSlug}/${monthSlug}`
+                     + `/${slug}.html`,
+                  title: page.title.trim(),
+                  release: moment(page.release).add(3, "hours"),
+                  content: page.content.trim(),
+                }
+                articles.unshift(article)
 
     each article in articles.slice(0, 20)
       item
         title!= article.title
         description <![CDATA[!{article.content}]]>
-        pubDate= new Date(article.release + "T12:00")
+        pubDate= article.release.hour(10).toDate()
         link #{article.url}
         guid(isPermaLink="true") #{article.url}

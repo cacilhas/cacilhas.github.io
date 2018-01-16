@@ -1,0 +1,17 @@
+shadow:
+  title: Coming through my shadow
+  content: >
+    The Shadow is an unconscious complex that is defined as the repressed and
+    suppressed aspects of the conscious self.
+  release: 2016-08-05
+  tags:
+    - Música
+    - Psicologia
+
+fim-da-democracia:
+  title: Óbito da democracia no Brasil
+  content: "Democracia: ★1985, ✝2016."
+  image: /img/fim-da-democracia.jpg
+  release: 2016-08-28
+  tags:
+    - Política

@@ -1,0 +1,29 @@
+vortaro-orig:
+  title: Konsulta Vortaro <em>on-line</em> (versão original)
+  content: &vortaro_content >
+    Como exercício de ML, decidi escrever uma versão <em>on-line</em> do
+    Konsulta Vortaro.
+  image: &vortaro_image /misc/vortaro.png
+  release: 2018-01-14
+  hidden: true
+  tags: &vortaro_tags
+    - Esperanto
+    - ECMAScript
+    - Funcional
+    - ML
+    - Pessoal
+  nav:
+    next:
+      path: 2018/01/vortaro
+      title: Versão atualizada
+
+vortaro:
+  title: Konsulta Vortaro <em>on-line</em>
+  content: *vortaro_content
+  image: *vortaro_image
+  release: 2018-01-15
+  tags: *vortaro_tags
+  nav:
+    prev:
+      path: 2018/01/vortaro-orig
+      title: Versão original

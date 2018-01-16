@@ -4,6 +4,8 @@ import * as _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
 import { spawnSync } from "child_process"
+import * as moment from "moment"
+import * as yaml from "js-yaml"
 import * as pug from "pug"
 import * as stylus from "stylus"
 
@@ -62,6 +64,9 @@ Promise<void> {
     if (stats.isFile()) {
       if (cname.endsWith(".json"))
         _(context).assign(require(file))
+
+      else if (cname.endsWith(".yaml") || cname.endsWith(".yml"))
+        _(context).assign(yaml.safeLoad(fs.readFileSync(file, "utf-8")))
 
       else if (cname.endsWith(".pug")) {
         cname = cname.replace(/\.pug$/, "")
@@ -132,7 +137,7 @@ function processPugFile(
   let render: Render =
     pug.compile(template, { filename: file, pretty: false }) as Render
 
-  context = _(_.clone(context)).extend({ public: globalContext, _ })
+  context = _(_.clone(context)).extend({ public: globalContext, moment, _ })
   let content = render(context)
 
   if (useLayout && typeof layout === "string") {

@@ -8,12 +8,15 @@ each yearDir, yearSlug in public.montegasppa
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           unless page.hidden
-            - const article = {}
-            - article.url = public.montegasppa.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-            - article.title = "Reflexões… :: " + page.title
-            - article.content = page.content
-            - article.release = new Date(page.release)
-            - montegasppaArticles.push(article)
+            -
+              const article = {
+                url: `${public.montegasppa.blog.url}${yearSlug}/${monthSlug}`
+                   + `/${slug}.html`,
+                title: `Reflexões… :: ${page.title}`,
+                content: page.content.trim(),
+                release: moment(page.release),
+              }
+              montegasppaArticles.push(article)
 - montegasppaArticles.sort((a, b) => b.release - a.release)
 
 each yearDir, yearSlug in public.kodumaro
@@ -22,12 +25,15 @@ each yearDir, yearSlug in public.kodumaro
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           unless page.hidden
-            - const article = {}
-            - article.url = public.kodumaro.blog.url + yearSlug + "/" + monthSlug + "/" + slug + ".html"
-            - article.title = public.kodumaro.blog.title + " :: " + page.title
-            - article.content = page.content
-            - article.release = new Date(page.release)
-            - kodumaroArticles.push(article)
+            -
+              const article = {
+                url: `${public.kodumaro.blog.url}${yearSlug}/${monthSlug}`
+                   + `/${slug}.html`,
+                title: `${public.kodumaro.blog.title} :: ${page.title}`,
+                content: page.content.trim(),
+                release: moment(page.release),
+              }
+              kodumaroArticles.push(article)
 - kodumaroArticles.sort((a, b) => b.release - a.release)
 
 each i in [0, 1, 2, 3, 4]
