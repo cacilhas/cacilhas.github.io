@@ -4,6 +4,7 @@ import * as _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
 import { spawnSync } from "child_process"
+import * as moment from "moment"
 import * as yaml from "js-yaml"
 import * as pug from "pug"
 import * as stylus from "stylus"
@@ -136,7 +137,7 @@ function processPugFile(
   let render: Render =
     pug.compile(template, { filename: file, pretty: false }) as Render
 
-  context = _(_.clone(context)).extend({ public: globalContext, _ })
+  context = _(_.clone(context)).extend({ public: globalContext, moment, _ })
   let content = render(context)
 
   if (useLayout && typeof layout === "string") {
