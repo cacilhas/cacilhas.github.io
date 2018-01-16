@@ -52,11 +52,11 @@ block main-container
         if nav.prev
           .pull-left: small
             a(href=`${public.kodumaro.blog.url}${nav.prev.path}.html`)
-              | Anterior: !{nav.prev.title}
+              | « Anterior: !{nav.prev.title}
         if nav.next
           .pull-right: small
             a(href=`${public.kodumaro.blog.url}${nav.next.path}.html`)
-              | Próximo: !{nav.next.title}
+              | Próximo: !{nav.next.title} »
 
   if current.source !== 'index'
     .panel.panel-default

@@ -51,11 +51,11 @@ block main-container
         if nav.prev
           .pull-left: small
             a(href=`${public.montegasppa.blog.url}${nav.prev.path}.html`)
-              | Anterior: !{nav.prev.title}
+              | « Anterior: !{nav.prev.title}
         if nav.next
           .pull-right: small
             a(href=`${public.montegasppa.blog.url}${nav.next.path}.html`)
-              | Próximo: !{nav.next.title}
+              | Próximo: !{nav.next.title} »
 
 block footer
   p.pull-left
