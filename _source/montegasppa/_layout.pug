@@ -30,9 +30,9 @@ block main-container
     .panel-heading
       h2.mg-title Reflexões… :: !{title}
       if release
-        - let release_ = new Date(release + 'T12:00')
-        - let month = release_.getMonth()
-        h6#release.pull-right #{release_.getDate()} de #{public.monthSet[month]}, #{release_.getFullYear()}
+        - release = moment(release).add(3, "hours")
+        h6#release.pull-right #{release.date()} de
+          |  #{public.monthSet[release.month()]}, #{release.year()}
       h6!= public.montegasppa.blog.subtitle
 
     .panel-body
