@@ -1,6 +1,5 @@
 golang:
   title: Sobre Golang
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: Recentemente começei a trabalhar em um projeto usando a linguagem Go…
   image: /img/golang.jpg
   release: 2017-06-12
@@ -10,7 +9,6 @@ golang:
 
 binario-texto:
   title: Diferença entre dado binário e dado textual
-  author: *cacilhas
   content: >
     Às vezes percebo que as pessoas apresentam dificuldade em entender a
     diferença entre um protocol texto e outro binário.

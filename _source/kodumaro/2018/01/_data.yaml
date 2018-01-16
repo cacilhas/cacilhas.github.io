@@ -1,6 +1,5 @@
 vortaro-orig:
   title: Konsulta Vortaro <em>on-line</em> (versão original)
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: &vortaro_content >
     Como exercício de ML, decidi escrever uma versão <em>on-line</em> do
     Konsulta Vortaro.
@@ -20,7 +19,6 @@ vortaro-orig:
 
 vortaro:
   title: Konsulta Vortaro <em>on-line</em>
-  author: *cacilhas
   content: *vortaro_content
   image: *vortaro_image
   release: 2018-01-15

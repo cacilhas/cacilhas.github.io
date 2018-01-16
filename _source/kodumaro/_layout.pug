@@ -1,6 +1,7 @@
 extends ../_layout.pug
 
 block blog-head
+  - author = author || public.main.author.split(" ").slice(1).join(" ")
   - shownTitle = (title || "").replace(/<[^>]+>/g, "")
   title !{public.kodumaro.blog.title} :: !{shownTitle}
   meta(property="og:site_name" content=public.kodumaro.blog.title)/
@@ -11,8 +12,7 @@ block blog-head
   if tags
     meta(property="og:type" content="article")/
     meta(property="article:tag" content=tags.join(", "))/
-  if author
-    meta(property="article:author" content=author)/
+  meta(property="article:author" content=author)/
   if image
     meta(property="og:image" content=`${public.main.host}${image}`)/
   link(rel="alternate" type="application/atom+xml" title=public.kodumaro.blog.title
@@ -79,10 +79,7 @@ block footer
      img(src="/img/rss.png" alt="feed")
 
   p.small
-    if author
-      | Autor: #{author} &nbsp;
-    else
-      | !{public.kodumaro.blog.title} &nbsp;
+    | Autor: #{author} &nbsp;
     a(rel="license" href=public.license.url)
       img(
         alt=`[${public.license.name}]`

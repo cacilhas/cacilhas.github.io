@@ -1,6 +1,5 @@
 brainfuck-1:
   title: Brainfuck (parte 1) – A fita
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Vamos começar a construção de nosso interpretador Brainfuck pela fita.
   image: /img/turing-machine.jpg
@@ -19,7 +18,6 @@ brainfuck-1:
 
 brainfuck-2:
   title: Brainfuck (parte 2) – A memória
-  author: *cacilhas
   content: O próximo elemento do interpretador será a memória
   image: /img/turing-machine.jpg
   release: 2017-12-13
@@ -37,7 +35,6 @@ brainfuck-2:
 
 brainfuck-3:
   title: Brainfuck (parte 3) – Cabeçote e microprograma
-  author: *cacilhas
   content: Agora falta criar a lógica de fato do interpretador…
   image: /img/turing-machine.jpg
   release: 2017-12-14
@@ -55,7 +52,6 @@ brainfuck-3:
 
 brainfuck-4:
   title: Brainfuck (parte 4) – Finalização
-  author: *cacilhas
   content: Já com todas as partes em mãos, vamos colar tudo em um executável.
   image: /img/turing-machine.jpg
   release: 2017-12-15
@@ -73,7 +69,6 @@ brainfuck-4:
 
 brainfuck-toc:
   title: Brainfuck – Sumário
-  author: *cacilhas
   content: >
     Brainfuck é uma linguagem de programação esotérica que implementa a máquina
     de Turing de forma restrita.
@@ -85,7 +80,6 @@ brainfuck-toc:
 
 julia:
   title: Julia
-  author: Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Há uns sete ou oito anos um amigo meu me recomendou dar uma olhadinha numa
     linguagem de programação nova…
@@ -100,7 +94,6 @@ julia:
 
 metodos:
   title: Funções e métodos em Julia
-  author: Arĥimedeς ℳontegasppα ℭacilhας
   content: Uma ideia bacana em Julia é a relação entre funções e métodos.
   image: /img/julia.jpg
   release: 2017-12-19

@@ -1,6 +1,5 @@
 reiteradores-em-moonscript:
   title: &reiteradores_title Reiteradores em Moonscript
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Abordarei três formas diferentes de se construir reiteradores em Moonscript.
   image: /img/moonscript.jpg
@@ -14,7 +13,6 @@ reiteradores-em-moonscript:
 
 mais-reiteradores-em-moonscript:
   title: Mais sobre reiteradores em Moonscript
-  author: *cacilhas
   content: >
     Neste artigos nos apronfundaremos na persistência de estado entre passos do
     reiterador padrão.

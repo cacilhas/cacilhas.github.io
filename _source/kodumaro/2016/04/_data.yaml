@@ -1,6 +1,5 @@
 aspectos:
   title: Aspectos – parte Ⅰ
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Orientação a Aspectos consiste em encapsular funcionalidades conforme sua
     importância.
@@ -16,7 +15,6 @@ aspectos:
 
 aspectos-2:
   title: Aspectos – parte Ⅱ
-  author: *cacilhas
   content: Uso de <em>mixins</em> na orientação a aspectos.
   image: /img/python.png
   release: 2016-04-19

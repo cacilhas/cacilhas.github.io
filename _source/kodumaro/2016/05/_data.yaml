@@ -1,6 +1,5 @@
 moonscript:
   title: MoonScript sobre LuaJIT
-  author: &cacilhas Arĥimedeς ℳontegasppα ℭacilhας
   content: >
     Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
     série de pequenos <em>hacks</em> pra funcionar.
@@ -11,7 +10,6 @@ moonscript:
 
 quebra-de-contrato:
   title: Quebra de Contrato
-  author: *cacilhas
   content: >
     É muito comum programadores inexperientes desrespeitarem contratos
     estabelecidos…
@@ -23,7 +21,6 @@ quebra-de-contrato:
 
 ascii:
   title: Código ASCII para iniciantes
-  author: *cacilhas
   content: >
     Código ASCII é a codificação de caracteres para valores numéricos de 7 bits
     mais aceita mundialmente.
@@ -34,7 +31,6 @@ ascii:
 
 monty-hall:
   title: Paradoxo de Monty Hall, parte Ⅰ
-  author: *cacilhas
   content: >
     Em se descartando algumas escolhas erradas, as desconhecidas restantes
     combinam as probabilidades das descartadas.
@@ -51,7 +47,6 @@ monty-hall:
 
 monty-hall-2:
   title: Paradoxo de Monty Hall, parte Ⅱ
-  author: *cacilhas
   content: Já temos o mestre de cerimônias, agora precisamos de um convidado…
   image: /img/erlang.png
   release: 2016-05-22
@@ -70,7 +65,6 @@ monty-hall-2:
 
 monty-hall-3:
   title: Paradoxo de Monty Hall, final
-  author: *cacilhas
   content: >
     Com o mestre de cerimônias e o convidado criados, agora podemos rodar o
     jogo!
@@ -88,7 +82,6 @@ monty-hall-3:
 
 camera-exemplo:
   title: Câmera exemplo
-  author: *cacilhas
   content: Em muitos jogos, o movimento de câmera é um recurso essencial.
   image: /img/love2d.png
   release: 2016-05-26
