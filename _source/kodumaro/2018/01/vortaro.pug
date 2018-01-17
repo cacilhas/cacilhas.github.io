@@ -104,11 +104,11 @@ p A função chama #[=""]
   | , que constrói a aplicação a partir de funções de #[em callback]:
 
 +ul
-  +li #[code init] inicialização, retorna o modelo inicial vazio e dispara um
-    |  comando (mônada) para ser executado e carregar o dicionário.
-  +li #[code view] visualização, função declarada no final do arquivo.
-  +li #[code update] atualização, declarada em sua própria camada.
-  +li #[code subscriptions] inscrições, lâmbda vazio.
+  +li #[code(title="inicialização") init] retorna o modelo inicial vazio e
+    |  dispara um comando (mônada) para ser executado e carregar o dicionário.
+  +li #[code(title="visualização") view] função declarada no final do arquivo.
+  +li #[code(title="atualização") update] declarada em sua própria camada.
+  +li #[code(title="inscrições") subscriptions] lâmbda vazio.
 
 h3 Modelo
 
@@ -116,7 +116,7 @@ p Além de definir o formato do estado da aplicação, a camada de modelo costum
   |  ser responsável pela inicialização da aplicação. Como a inicialização foi
   |  muito simples, usei #[=""]
   a(href="http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Platform-Cmd#!")
-    code Cmd.!
+    code Cmd.(!)
   |  com modelo vazio e a função #[code loadWordbook].
 
 
