@@ -10,6 +10,7 @@
 .vscode
 _build.js
 
+/img
 /misc
 /node_modules
 /package-lock.json
