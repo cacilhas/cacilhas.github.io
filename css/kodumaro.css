@@ -7,8 +7,14 @@ body {
   background-clip: initial !important;
 }
 .panel-heading {
+  color: #fff !important;
   background-image: url("/img/kodumaro-title-bg.png") !important;
-  background-repeat: repeat !important;
+  background-repeat: repeat-x !important;
+  background-position: center !important;
+  bg-size: cover !important;
+}
+.panel-heading > h2 {
+  text-shadow: #c60 2px 2px 2px;
 }
 h3 {
   color: #c60 !important;
