@@ -8,3 +8,20 @@ asperger:
   tags:
     - Autismo
     - Educação e Cultura
+
+prognose:
+  title: Prognose
+  content: >
+    O projeto Sækla esfriou temporariamente. Como tenho uma série de
+    gravações que fiz sozinho e uma série de outras, resolvi investir
+    tempo em um novo projeto.
+  image: /img/prognose-title.jpg
+  release: 2018-02-14
+  tags:
+    - Música
+    - Pessoal
+    - Prognose
+  nav:
+    prev:
+      path: 2017/11/pre-release
+      title: O Sutra [β-pre-release]
