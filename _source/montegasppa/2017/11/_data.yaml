@@ -10,6 +10,9 @@ pre-release:
     prev:
       path: 2017/10/novo-ep
       title: End Credits
+    next:
+      path: 2018/02/prognose
+      title: Prognose
 
 punisher:
   title: Resenha de Marvel’s The Punisher
