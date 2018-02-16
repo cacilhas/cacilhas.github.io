@@ -4,6 +4,12 @@
   font-weight: normal;
   font-style: normal;
 }
+body {
+  font-family: Roboto, Helvetica, sans-serif;
+}
+code {
+  font-family: "Roboto Mono", monospace;
+}
 blockquote {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
   font-size: small;
