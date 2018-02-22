@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "build": "rm _build.js && tsc -p . && node _build.js",
+    "build": "rm -f _build.js && tsc -p . && node _build.js",
     "start": "npm run build && node _app.js",
     "test": "npm start"
   },
