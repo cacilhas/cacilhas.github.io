@@ -25,3 +25,15 @@ prognose:
     prev:
       path: 2017/11/pre-release
       title: O Sutra [β-pre-release]
+
+desconforto:
+  title: Desconforto
+  content: >
+    Desde que decidi aceitar meu autismo, o maior problema que venho enfrentando
+    é entender o que me incomoda, o que me causa desconforto.
+  image: /img/lampada.jpg
+  release: 2018-02-24
+  tags:
+    - Autismo
+    - Pessoal
+    - Psicologia
