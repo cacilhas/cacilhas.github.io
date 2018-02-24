@@ -37,3 +37,15 @@ desconforto:
     - Autismo
     - Pessoal
     - Psicologia
+
+crowdfunding:
+  title: Vaquinha
+  content: >
+    Iniciei uma campanha de <em>crowd funding</em> no Kickante, que vai até dia
+    22 de abril.
+  image: /img/kickante.png
+  release: 2018-02-24
+  tags:
+    - Música
+    - Pessoal
+    - Prognose
