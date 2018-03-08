@@ -9,6 +9,9 @@ google:
   adSense: ca-pub-5741846017654057
   analyticsId: UA-99357497-1
 
+hotjar:
+  id: 807237
+
 spotify:
   uri: spotify:artist:17ztrEzLSzYOp8MySGqFHy
 
