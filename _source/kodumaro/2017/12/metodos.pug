@@ -175,7 +175,7 @@ p O próximo método tratará índice ímpar, fazendo o mesmo que o anterior, ma
   |  invertendo a palavra atual:
 
 pre.prettyprint: code.
-  odd_env(phrase::Array{String}, ::Type{Val{:odd}}, acc:String) =
+  odd_env(phrase::Array{String}, ::Type{Val{:odd}}, acc::String) =
       oddwords(phrase[2:end], :even, acc * " " * phrase[1][end:-1:1])
 
 p Já é suficiente:
