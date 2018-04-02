@@ -8,3 +8,7 @@ vacina:
   tags:
     - Autismo
     - Educação e Cultura
+  nav:
+    next:
+      path: 2018/04/dia-do-autismo
+      title: Dia do Autismo
