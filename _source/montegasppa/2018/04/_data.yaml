@@ -12,3 +12,22 @@ dia-do-autismo:
     prev:
       path: 2018/01/vacina
       title: Vacinação e autismo
+    next:
+      path: 2018/04/eugenia
+      title: Eugenia
+
+eugenia:
+  title: Eugenia e o Autismo
+  content: >
+    Recorrentemente tenho visto abordagens eugenistas por parte de pais
+    neurotípicos de crianças neurodiversas, em especial autistas.
+  image: /img/blue-heart.jpg
+  release: 2018-04-04
+  tags:
+    - Autismo
+    - Educação e Cultura
+    - Política
+  nav:
+    prev:
+      path: 2018/04/dia-do-autismo
+      title: Dia do Autismo
