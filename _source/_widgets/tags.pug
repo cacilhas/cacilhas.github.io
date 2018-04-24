@@ -8,7 +8,7 @@ each yearDir, yearSlug in public.montegasppa
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           - const url = `/montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
-          - const title = `${montegasppa} :: ${page.title}`
+          - const title = `[${yearSlug}/${monthSlug}] ${montegasppa} :: ${page.title}`
           - const current = {url, title}
           if !page.hidden
             each tag in page.tags
@@ -23,7 +23,7 @@ each yearDir, yearSlug in public.kodumaro
       if monthDir && /^\d\d$/.test(monthSlug)
         each page, slug in monthDir
           - const url = `/kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
-          - const title = `${kodumaro} :: ${page.title}`
+          - const title = `[${yearSlug}/${monthSlug}] ${kodumaro} :: ${page.title}`
           - const current = {url, title}
           if !page.hidden
             each tag in page.tags
