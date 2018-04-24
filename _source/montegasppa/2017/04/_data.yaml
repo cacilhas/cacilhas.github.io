@@ -11,6 +11,9 @@ escalas-anemitonicas:
     prev:
       path: 2017/02/escalas-anemitonicas-e-semitonicas
       title: Escalas anemitônicas e semitônicas
+    next:
+      path: 2018/04/cromatica
+      title: Relações cromáticas e temperadas
 
 oito-cordas:
   title: Oito cordas

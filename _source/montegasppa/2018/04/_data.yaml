@@ -31,3 +31,18 @@ eugenia:
     prev:
       path: 2018/04/dia-do-autismo
       title: Dia do Autismo
+
+cromatica:
+  title: Relações cromáticas e temperadas
+  content: >
+    Aprendemos que as relações entre os graus de uma escala precisam ser
+    números racionais para serem agradáveis…
+  image: /img/clave-sol.jpg
+  release: 2018-04-23
+  tags:
+    - Educação e Cultura
+    - Música
+  nav:
+    prev:
+      path: 2017/04/escalas-anemitonicas
+      title: Escalas anemitônicas
