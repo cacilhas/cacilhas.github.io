@@ -44,7 +44,8 @@ each yearDir, yearSlug in public.kodumaro
             style={width: "100%"}
           )
             option(value="/" selected=true)!= tag.name
-            each page in tag.pages.sort((a, b) => b.release - a.release)
+            option(value=`/tags/${mkSlug(tagName)}.html`) Mais…
+            each page in tag.pages.sort((a, b) => b.release - a.release).slice(0, 10)
               option(value=page.url)
                 | [
                 != moment(page.release).format('YYYY/MM')

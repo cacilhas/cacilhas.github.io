@@ -22,9 +22,119 @@ interface FileData {
   date: Date
 }
 
+interface Page {
+  title: string
+  release: Date
+  tags: string[]
+  path: string
+  current: { path: string[] }
+}
+
+type TagContent = { [slug: string]: Page }
 type Render = (ctx: Context) => string
 
 const globalContext: Context = {}
+const tags: { [name: string]: TagContent } = {}
+
+
+function mkSlug(name: string): string {
+  return name
+      .replace(/ /g, "-")
+      .toLowerCase()
+      .replace(/[^0-9a-z_-]/g, "")
+}
+
+
+function isContext(ctx?: any): ctx is Context {
+  if (!ctx
+    || Array.isArray(ctx)
+    || _.isNumber(ctx)
+    || _.isString(ctx)
+    || _.isDate(ctx)
+    || _.isFunction(ctx)
+    || _.isRegExp(ctx)
+    || _.isSymbol(ctx)
+    || (ctx.yield && !_.isString(ctx.yield))
+  )
+    return false
+
+  return _.isObject(ctx)
+}
+
+
+function isStringSet(ar?: any[]): ar is string[] {
+  if (!ar)
+    return false
+
+  for (const e of ar)
+    if (!_.isString(e))
+      return false
+  return true
+}
+
+
+function isPage(page?: { [k: string]: any }): page is Page {
+  if (_.isNull(page) || _.isUndefined(page) || !_.isObject(page))
+    return false
+
+  page = page!
+
+  if (_.isString(page.title)
+    && _.isDate(page.release)
+    && isStringSet(page.current && page.current.path)
+  ) {
+    if (!page.tags)
+      page.tags = [] as string[]
+    else if (!isStringSet(page.tags))
+      return false
+
+    return true
+  }
+  return false
+}
+
+
+async function findTags(context?: Context): Promise<void> {
+  if (!isContext(context))
+    return
+
+  if (isPage(context))
+    for (const tag of context.tags) {
+      context.path = `/${context.current.path.slice(2).join("/")}`
+      tags[tag] = tags[tag] || {}
+      tags[tag][context.path] = context
+    }
+
+  else {
+    const promises: Promise<void>[] = []
+    for (const [key, values] of _.pairs(context))
+      if (key !== "public" && isContext(context))
+        promises.push(findTags(values))
+    await Promise.all(promises)
+  }
+}
+
+
+async function buildTags(): Promise<void> {
+  rimraf.sync("./tags")
+  fs.mkdirSync("./tags")
+  console.log("building tag pages")
+  for (const [tag, content] of _.pairs(tags)) {
+    console.log("build tag page:", tag)
+    const slug = mkSlug(tag)
+    processPugFile({
+      file: "./_source/_includes/tagpage.pug",
+      counterpart: `./tags/${slug}.html`,
+      context: _.chain(globalContext).clone().extend({
+        moment, _, mkSlug,
+        public: globalContext,
+        title: tag,
+        pages: _.values(content),
+      }).value(),
+      layout: "./_source/_layout.pug",
+    })
+  }
+}
 
 
 function getCounterpart(name: string): string {
@@ -137,7 +247,7 @@ function processPugFile(
   let render: Render =
     pug.compile(template, { filename: file, pretty: false }) as Render
 
-  context = _(_.clone(context)).extend({ public: globalContext, moment, _ })
+  context = _(_.clone(context)).extend({ public: globalContext, moment, mkSlug, _ })
   let content = render(context)
 
   if (useLayout && typeof layout === "string") {
@@ -262,14 +372,16 @@ async function fixFeed(fname: string): Promise<void> {
 
   console.log("populating blogs")
   await populateBlogs(globalContext)
-
   await processDirectory({ dirname: "./_source", context: globalContext })
 
   console.log("fixing feeds’ time")
   await [
+    findTags(globalContext),
     fixFeed("./kodumaro/feed.xml"),
     fixFeed("./montegasppa/feed.xml"),
   ]
+  await buildTags()
+
 })()
   .then(() => console.log("built"))
   .catch(console.error)
