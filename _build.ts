@@ -3,10 +3,10 @@
 import * as _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
-import { spawnSync } from "child_process"
 import * as moment from "moment"
 import * as yaml from "js-yaml"
 import * as pug from "pug"
+import * as rimraf from "rimraf"
 import * as stylus from "stylus"
 
 interface Context {
@@ -42,7 +42,7 @@ function getCounterpart(name: string): string {
 
 
 function copyFile({ from, to }: { from: string, to: string }): void {
-  spawnSync("cp", [ from, to ]) // TODO: perform it without system
+  fs.writeFileSync(to, fs.readFileSync(from))
 }
 
 
@@ -211,7 +211,7 @@ async function processDirectory(
   // Clean up
   const counterpart = getCounterpart(dirname)
   if (fs.existsSync(counterpart) && counterpart !== ".")
-    spawnSync("rm", ["-rf", counterpart]) // TODO: perform it without system
+    rimraf.sync(counterpart)
 
   const check: string = _.last(counterpart.split("/"))
   if (/^[\._][^\._].*/.test(check))
