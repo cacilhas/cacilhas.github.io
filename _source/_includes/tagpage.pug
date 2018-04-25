@@ -1,0 +1,18 @@
+include ../_widgets/list-group-item.pug
+
+h3!= title
+
++ul
+  each page in pages.sort((a, b) => b.release - a.release)
+    a(href=`${page.path}.html`)
+      +li
+        small
+          | [
+          != moment(page.release).format('YYYY/MM')
+          | ] #[=""]
+          if page.path.indexOf('montegasppa') !== -1
+            img(src="/img/montegasppa.ico" alt="Reflexões…")/
+          else if page.path.indexOf('kodumaro') !== -1
+            img(src="/img/kodumaro.ico" alt="Kodumaro")/
+          |  #[=""]
+        != page.title
