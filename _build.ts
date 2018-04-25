@@ -42,7 +42,7 @@ function getCounterpart(name: string): string {
 
 
 function copyFile({ from, to }: { from: string, to: string }): void {
-  fs.writeFileSync(to, fs.readFileSync(from))
+  fs.writeFileSync(to, fs.readFileSync(from, "utf-8"), "utf-8")
 }
 
 
