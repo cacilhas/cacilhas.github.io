@@ -37,6 +37,14 @@ const globalContext: Context = {}
 const tags: { [name: string]: TagContent } = {}
 
 
+function mkSlug(name: string): string {
+  return name
+      .replace(/ /g, "-")
+      .toLowerCase()
+      .replace(/[^0-9a-z_-]/g, "")
+}
+
+
 function isContext(ctx?: any): ctx is Context {
   if (!ctx
     || Array.isArray(ctx)
@@ -113,15 +121,12 @@ async function buildTags(): Promise<void> {
   console.log("building tag pages")
   for (const [tag, content] of _.pairs(tags)) {
     console.log("build tag page:", tag)
-    const slug = tag
-      .replace(/ /g, "-")
-      .toLowerCase()
-      .replace(/[^0-9a-z]/g, "")
+    const slug = mkSlug(tag)
     processPugFile({
       file: "./_source/_includes/tagpage.pug",
       counterpart: `./tags/${slug}.html`,
       context: _.chain(globalContext).clone().extend({
-        moment, _,
+        moment, _, mkSlug,
         public: globalContext,
         title: tag,
         pages: _.values(content),
@@ -242,7 +247,7 @@ function processPugFile(
   let render: Render =
     pug.compile(template, { filename: file, pretty: false }) as Render
 
-  context = _(_.clone(context)).extend({ public: globalContext, moment, _ })
+  context = _(_.clone(context)).extend({ public: globalContext, moment, mkSlug, _ })
   let content = render(context)
 
   if (useLayout && typeof layout === "string") {
