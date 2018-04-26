@@ -46,3 +46,19 @@ cromatica:
     prev:
       path: 2017/04/escalas-anemitonicas
       title: Escalas anemitônicas
+
+bobagem-espiritual:
+  title: 10 coisas “espirituais” que são uma bobagem total
+  author: Jordan Bates
+  ref_urls:
+    author: http://highexistence.com/writer/bashfulkoala/
+    original_post: >
+      http://highexistence.com/10-spiritual-bypassing-things-people-total-bullshit/
+  content: >
+    Artigo de Jordan Bates sobre armadilhas do “caminho espiritual”.
+  image: /img/spiritual-bullshit.jpg
+  release: 2018-04-27
+  tags:
+    - Psicologia
+    - Reblog
+    - Religião
