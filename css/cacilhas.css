@@ -79,6 +79,13 @@ details[open] > summary:before {
 .collapse-expand-buttons {
   padding-left: 2pt;
 }
+.quote {
+  font-family: Kavivanar, Futura, Arial, sans-serif;
+  margin: 2em 2em 2em 2em;
+}
+.quote strong {
+  font-weight: bolder;
+}
 #footer {
   position: fixed;
   left: 0px;
