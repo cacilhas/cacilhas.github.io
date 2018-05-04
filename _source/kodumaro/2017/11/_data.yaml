@@ -28,9 +28,12 @@ lazy-racket:
     prev:
       path: 2017/11/lisp
       title: *lisp_title
+    next:
+      path: 2017/11/acumuladores
+      title: &acumuladores_title Acumuladores em programação lógica
 
 acumuladores:
-  title: Acumuladores em programação lógica
+  title: *acumuladores_title
   content: >
     Programação lógica ou declarativa é um paradigma bastante alienígena para
     os programadores imperativos.
@@ -39,3 +42,7 @@ acumuladores:
   tags:
     - Conceitual
     - Lógica
+  nav:
+    prev:
+      path: 2017/11/lazy-racket
+      title: *lazy_title
