@@ -31,7 +31,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 
           li: hr/
 
-          each partner in _.values(public.support)
+          each partner in _.values(public.partners)
             li: a(href=partner.url)
               if partner.logo
                 img(src=partner.logo)
