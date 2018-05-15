@@ -53,3 +53,9 @@ monthSet:
   - Outubro
   - Novembro
   - Dezembro
+
+support:
+  educaedu:
+    title: Educaedu Brasil
+    url: https://www.educaedu-brasil.com/
+    logo: /img/educaedu-ico.jpg

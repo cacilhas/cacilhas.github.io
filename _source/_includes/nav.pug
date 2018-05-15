@@ -10,7 +10,37 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href="/") #{public.main.title}
+      .dropdown
+        span.navbar-brand.dropdown-toggle(data-toggle="dropdown"
+                                          data-hover="dropdown")
+          != public.main.title
+
+        ul.dropdown-menu
+          li: a(href=public.main.host)
+            i.glyphicon.glyphicon-home
+            | &nbsp;
+            != public.main.title
+          li: a(href=public.montegasppa.blog.url)
+            i.glyphicon.glyphicon-menu-right
+            | &nbsp;
+            != public.montegasppa.blog.title
+          li: a(href=public.kodumaro.blog.url)
+            i.glyphicon.glyphicon-menu-right
+            | &nbsp;
+            != public.kodumaro.blog.title
+          li: a(href=public.vortaro.url)
+            i.glyphicon.glyphicon-menu-right
+            | &nbsp;
+            != public.vortaro.title
+
+          li: hr/
+
+          each partner in _.values(public.support)
+            li: a(href=partner.url)
+              if partner.logo
+                img(src=partner.logo)
+                | &nbsp;
+              != partner.title
 
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
