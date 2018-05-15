@@ -34,7 +34,7 @@ misc:
   repo: https://github.com/cacilhas/misc/blob/master
   url: http://cacilhas.info/misc
 
-vortaro:
+vortaro: &vortaro
   title: Konsulta Vortaro
   git: https://github.com/cacilhas/vortaro
   repo: https://github.com/cacilhas/vortaro/blob/master
@@ -59,3 +59,15 @@ support:
     title: Educaedu Brasil
     url: https://www.educaedu-brasil.com/
     logo: /img/educaedu-ico.jpg
+  mosaico-livre:
+    title: Mosaico Livre
+    url: https://claudiotorcato.wordpress.com/
+    logo: /img/wordpress-ico.jpg
+  prognose:
+    title: Prognose
+    url: https://www.patreon.com/cacilhas
+    logo: /img/patreon-ico.jpg
+  vortaro: *vortaro
+  walter-cruz:
+    title: Walter Cruz
+    url: https://waltercruz.com/

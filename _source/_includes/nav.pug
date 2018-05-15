@@ -28,10 +28,6 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             i.glyphicon.glyphicon-menu-right
             | &nbsp;
             != public.kodumaro.blog.title
-          li: a(href=public.vortaro.url)
-            i.glyphicon.glyphicon-menu-right
-            | &nbsp;
-            != public.vortaro.title
 
           li: hr/
 
@@ -39,6 +35,9 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             li: a(href=partner.url)
               if partner.logo
                 img(src=partner.logo)
+                | &nbsp;
+              else
+                i.glyphicon.glyphicon-link
                 | &nbsp;
               != partner.title
 
