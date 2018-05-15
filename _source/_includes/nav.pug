@@ -21,11 +21,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             | &nbsp;
             != public.main.title
           li: a(href=public.montegasppa.blog.url)
-            img(src="/img/montegasppa.ico")
+            img(src=public.montegasppa.blog.icon)
             | &nbsp;
             != public.montegasppa.blog.title
           li: a(href=public.kodumaro.blog.url)
-            img(src="/img/kodumaro.ico")
+            img(src=public.kodumaro.blog.icon)
             | &nbsp;
             != public.kodumaro.blog.title
 
@@ -33,8 +33,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top
 
           each partner in _.values(public.partners)
             li: a(href=partner.url)
-              if partner.logo
-                img(src=partner.logo)
+              if partner.icon
+                img(src=partner.icon)
                 | &nbsp;
               else
                 i.glyphicon.glyphicon-link

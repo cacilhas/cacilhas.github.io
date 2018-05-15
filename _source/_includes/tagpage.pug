@@ -11,8 +11,8 @@ h3!= title
           != moment(page.release).format('YYYY/MM')
           | ] #[=""]
           if page.path.indexOf('montegasppa') !== -1
-            img(src="/img/montegasppa.ico" alt="Reflexões…")/
+            img(src=public.montegasppa.blog.icon alt="Reflexões…")/
           else if page.path.indexOf('kodumaro') !== -1
-            img(src="/img/kodumaro.ico" alt="Kodumaro")/
+            img(src=public.kodumaro.blog.icon alt="Kodumaro")/
           |  #[=""]
         != page.title

@@ -21,6 +21,7 @@ index:
 main:
   author: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
   host: http://cacilhas.info
+  icon: /img/icons/favicon.ico
   title: ℭacilhας.INFO
 
 license:
@@ -58,15 +59,15 @@ partners:
   educaedu:
     title: Educaedu Brasil
     url: https://www.educaedu-brasil.com/
-    logo: /img/educaedu-ico.jpg
+    icon: /img/icons/educaedu.ico
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
-    logo: /img/wordpress-ico.jpg
+    icon: /img/icons/wordpress.ico
   prognose:
     title: Prognose
     url: https://www.patreon.com/cacilhas
-    logo: /img/patreon-ico.jpg
+    icon: /img/icons/patreon.ico
   vortaro: *vortaro
   walter-cruz:
     title: Walter Cruz
