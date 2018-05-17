@@ -95,3 +95,38 @@ details[open] > summary:before {
   padding: 8px 12px 0px 12px;
   text-align: right;
 }
+.licon {
+  top: 2px;
+  position: relative;
+  display: inline-block;
+}
+.icon-cacilhas {
+  background-image: url("/img/icons/favicon.ico");
+  width: 16px;
+  height: 16px;
+}
+.icon-educaedu {
+  background-image: url("/img/icons/educaedu.ico");
+  width: 16px;
+  height: 16px;
+}
+.icon-kodumaro {
+  background-image: url("/img/icons/kodumaro.ico");
+  width: 16px;
+  height: 16px;
+}
+.icon-montegasppa {
+  background-image: url("/img/icons/montegasppa.ico");
+  width: 16px;
+  height: 16px;
+}
+.icon-patreon {
+  background-image: url("/img/icons/patreon.ico");
+  width: 16px;
+  height: 16px;
+}
+.icon-wordpress {
+  background-image: url("/img/icons/wordpress.ico");
+  width: 16px;
+  height: 16px;
+}

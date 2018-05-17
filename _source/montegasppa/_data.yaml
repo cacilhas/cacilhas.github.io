@@ -6,6 +6,9 @@ blog:
   prefix: Reflexões…
   subtitle: Como um hipopótamo lida com um campo de flores.
   icon: /img/icons/montegasppa.ico
+  licon:
+    - licon
+    - icon-montegasppa
   url: http://cacilhas.info/montegasppa/
 
 feed:

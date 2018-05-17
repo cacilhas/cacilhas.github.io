@@ -11,12 +11,10 @@ h3!= title
           != moment(page.release).format('YYYY/MM')
           | ] #[=""]
           if page.path.includes('montegasppa')
-            img(src=public.montegasppa.blog.icon
-                alt=public.montegasppa.blog.prefix)/
+            i.licon.icon-montegasppa
           else if page.path.includes('kodumaro')
-            img(src=public.kodumaro.blog.icon
-                alt=public.kodumaro.blog.prefix)/
+            i.licon.icon-kodumaro
           else
             i.glyphicon.glyphicon-link
-          |  #[=""]
+          | &nbsp;
         != page.title

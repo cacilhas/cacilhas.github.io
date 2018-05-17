@@ -59,15 +59,21 @@ partners:
   educaedu:
     title: Educaedu Brasil
     url: https://www.educaedu-brasil.com/
-    icon: /img/icons/educaedu.ico
+    licon:
+      - licon
+      - icon-educaedu
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
-    icon: /img/icons/wordpress.ico
+    licon:
+      - licon
+      - icon-wordpress
   prognose:
     title: Prognose
     url: https://www.patreon.com/cacilhas
-    icon: /img/icons/patreon.ico
+    licon:
+      - licon
+      - icon-patreon
   vortaro: *vortaro
   walter-cruz:
     title: Walter Cruz
