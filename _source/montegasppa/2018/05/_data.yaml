@@ -8,6 +8,9 @@ bolsa-de-estudo:
     Vi um artigo interessante sobre sete programas de bolsa de estudo no Brasil
     no Educaedu Brasil e vou citar alguns trechos aqui.
   image: /img/educaedu-brasil.jpg
+  licon:
+    - licon
+    - icon-educaedu
   release: 2018-05-14
   tags:
     - Educação e Cultura

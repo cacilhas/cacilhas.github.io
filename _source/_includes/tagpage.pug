@@ -9,12 +9,17 @@ h3!= title
         small
           | [
           != moment(page.release).format('YYYY/MM')
-          | ] #[=""]
-          if page.path.includes('montegasppa')
-            i.licon.icon-montegasppa
-          else if page.path.includes('kodumaro')
-            i.licon.icon-kodumaro
-          else
-            i.glyphicon.glyphicon-link
+          | ]&nbsp;
+        if page.path.includes('montegasppa')
+          i.licon.icon-montegasppa
+          | &nbsp;
+        else if page.path.includes('kodumaro')
+          i.licon.icon-kodumaro
+          | &nbsp;
+        else if !page.licon
+          i.glyphicon.glyphicon-link
+          | &nbsp;
+        if page.licon
+          i(class=page.licon)
           | &nbsp;
         != page.title
