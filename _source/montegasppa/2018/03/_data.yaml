@@ -13,6 +13,9 @@ cantata-no140:
   content: >
     Cantata nº 140 (Wachet auf, ruft uns die Stimme) de Bach, por Steve Howe.
   image: /img/clave-sol.jpg
+  licon:
+    - licon
+    - icon-music
   release: 2018-03-28
   tags:
     - Música

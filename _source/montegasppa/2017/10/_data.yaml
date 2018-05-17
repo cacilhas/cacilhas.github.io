@@ -17,6 +17,9 @@ novo-ep:
   content: >
     Há poucos meses minha banda, Sækla Saklōrum, lançou seu primeiro álbum…
   image: /img/saekla.jpg
+  licon:
+    - licon
+    - icon-saekla
   release: 2017-10-22
   tags:
     - Música

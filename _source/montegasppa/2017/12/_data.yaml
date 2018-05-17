@@ -99,6 +99,9 @@ rock-is-dead:
   title: <em>Rock is dead</em> Ⅲ
   content: Mais uma lista de trabalhos interessantes a serem ouvidos.
   image: /img/clave-sol.jpg
+  licon:
+    - licon
+    - icon-rock
   release: 2017-12-31
   tags:
     - Música

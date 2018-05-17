@@ -4,6 +4,9 @@ punk:
    Recentemente respondi a um <em>quiz</em> que me reconheceu como
    <em>punk</em>.
   image: /img/punk.jpg
+  licon:
+    - licon
+    - icon-rock
   release: 2017-06-07
   tags:
     - Música

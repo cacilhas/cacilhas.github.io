@@ -1,6 +1,9 @@
 song-can-write-itself:
   title: O’Keefe Music Foundation
   content: A song can write itself if you just dig deep…
+  licon:
+    - licon
+    - icon-music
   release: 2016-05-15
   tags:
     - Música

@@ -3,6 +3,9 @@ shadow:
   content: >
     The Shadow is an unconscious complex that is defined as the repressed and
     suppressed aspects of the conscious self.
+  licon:
+    - licon
+    - icon-music
   release: 2016-08-05
   tags:
     - Música

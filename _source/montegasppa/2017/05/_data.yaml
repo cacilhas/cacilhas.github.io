@@ -2,6 +2,9 @@ do-maior-aberto:
   title: Afinação aberta em dó maior
   content: No último artigo comentei sobre a afinação que pretendia fazer…
   image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
   release: 2017-05-02
   tags:
     - Música
@@ -15,6 +18,9 @@ guitarristas:
   content: >
     Num canal do YouTube sobre violão e guitarra, vi uma aula sobre o Bolero…
   image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
   release: 2017-05-13
   tags:
     - Música

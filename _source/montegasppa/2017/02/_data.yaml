@@ -2,6 +2,9 @@ rock-is-dead:
   title: <em>Rock is dead</em> (continuação)
   content: Dando continuidade ao artigo <em>Rock is dead</em>…
   image: /img/clave-sol.jpg
+  licon:
+    - licon
+    - icon-rock
   release: 2017-02-05
   tags:
     - Música
@@ -19,6 +22,9 @@ modos-gregos-guitarra:
     Complementando o artigo sobre modos gregos, este foca em sua execução em
     violão e guitarra.
   image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
   release: 2017-02-10
   tags:
     - Música
@@ -34,6 +40,9 @@ escalas-anemitonicas-e-semitonicas:
   title: Escalas anemitônicas e semitônicas
   content: Vou dar uma pincelada sobre escalas anemitônicas e semitônicas.
   image: /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
   release: 2017-02-14
   tags:
     - Música

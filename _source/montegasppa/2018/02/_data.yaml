@@ -19,6 +19,9 @@ prognose:
     gravações que fiz sozinho e uma série de outras, resolvi investir
     tempo em um novo projeto.
   image: /img/prognose-title.jpg
+  licon: &prognose-icon
+    - licon
+    - icon-prognose
   release: 2018-02-14
   tags:
     - Música
@@ -50,6 +53,7 @@ crowdfunding:
     Iniciei uma campanha de <em>crowdfunding</em> no Kickante, que vai até dia
     22 de abril.
   image: /img/kickante.png
+  licon: *prognose-icon
   release: 2018-02-24
   tags:
     - Música

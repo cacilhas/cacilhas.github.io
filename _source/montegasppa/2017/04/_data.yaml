@@ -4,6 +4,9 @@ escalas-anemitonicas:
     Há um tempo fiz uma postagem sobre a diferença entre escanas anemitônicas e
     semitônicas…
   image: /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
   release: 2017-04-01
   tags:
     - Música
@@ -19,6 +22,9 @@ oito-cordas:
   title: Oito cordas
   content: Tenho feito há alguns meses dois experimentos em paralelo…
   image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
   release: 2017-04-09
   tags:
     - Música

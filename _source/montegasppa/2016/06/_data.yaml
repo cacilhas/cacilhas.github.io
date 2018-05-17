@@ -4,6 +4,9 @@ dad-gad:
     Há algumas semanas tomei uma decisão muito séria quanto a meu crescimento
     musical.
   image: &schecter /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
   release: 2016-06-12
   tags:
     - Música
@@ -18,6 +21,9 @@ modos-gregos:
     Ouve-se muito falar em escalas <em>Ionian</em>, <em>Dorian</em>,
     <em>Phrygian</em>…
   image: *schecter
+  licon:
+    - glyphicon
+    - glyphicon-music
   release: 2016-06-16
   tags:
     - Música
@@ -30,6 +36,9 @@ escalas-exoticas:
   title: Escalas exóticas
   content: Versão original do artigo sobre escalas exóticas.
   image: &clave_sol /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
   release: 2016-06-16
   tags:
     - Música
@@ -45,6 +54,9 @@ escalas-exoticas-c:
      No último artigo falei sobre os modos gregos. Dando continuidade, falarei
      de algumas escalas exóticas.
   image: *clave_sol
+  licon:
+    - glyphicon
+    - glyphicon-music
   release: 2016-06-24
   tags:
     - Música
