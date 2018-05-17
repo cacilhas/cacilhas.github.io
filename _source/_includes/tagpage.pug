@@ -16,5 +16,7 @@ h3!= title
           else if page.path.includes('kodumaro')
             img(src=public.kodumaro.blog.icon
                 alt=public.kodumaro.blog.prefix)/
+          else
+            i.glyphicon.glyphicon-link
           |  #[=""]
         != page.title
