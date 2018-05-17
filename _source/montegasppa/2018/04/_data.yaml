@@ -4,6 +4,9 @@ dia-do-autismo:
     Hoje é o Dia Mundial da Conscientização do Autismo, e pergunto: o que temos
     em mãos?
   image: /img/tea.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-04-02
   tags:
     - Autismo
@@ -22,6 +25,9 @@ eugenia:
     Recorrentemente tenho visto abordagens eugenistas por parte de pais
     neurotípicos de crianças neurodiversas, em especial autistas.
   image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-04-04
   tags:
     - Autismo

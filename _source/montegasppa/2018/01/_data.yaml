@@ -4,6 +4,9 @@ vacina:
     Já uns três ou quatro amigos meus vieram me questionar, preocupados com a
     relação entre vacinação e autismo.
   image: /img/tea.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-01-11
   tags:
     - Autismo

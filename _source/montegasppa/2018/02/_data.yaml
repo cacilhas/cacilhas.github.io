@@ -4,6 +4,9 @@ asperger:
     Tem uma turma reclamando que agora, com o CID-11, Asperger vai virar
     autista.
   image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-02-02
   tags:
     - Autismo
@@ -32,6 +35,9 @@ desconforto:
     Desde que decidi aceitar meu autismo, o maior problema que venho enfrentando
     é entender o que me incomoda, o que me causa desconforto.
   image: /img/lampada.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-02-24
   tags:
     - Autismo

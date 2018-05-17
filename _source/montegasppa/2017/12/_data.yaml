@@ -4,6 +4,9 @@ entre-lobos:
     Ontem finalmente recebi o resultado de uma avaliação que estou fazendo há
     algumas sessões…
   image: /img/tea.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-12-03
   tags:
     - Autismo
@@ -34,6 +37,9 @@ culpa:
     Com meu recentíssimo diagnóstico, sinto-me compelido a escrever uma série
     de desabafos…
   image: /img/lampada.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-12-05
   tags:
     - Autismo
@@ -46,6 +52,9 @@ literalmente:
   content: >
     As pessoas acham que ser literal significa não entender sentido figurado…
   image: /img/tea.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-12-10
   tags:
     - Autismo
@@ -65,6 +74,9 @@ nos-autistas:
     Participando de alguns grupos de pais de autistas, tenho percebido uma
     tentiva de padronizar o autista…
   image: /img/tea.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-12-14
   tags:
     - Autismo

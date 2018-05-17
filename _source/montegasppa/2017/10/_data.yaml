@@ -2,6 +2,9 @@ normalidade:
   title: A Normalidade
   content: É preciso extirpar o conceito de normalidade da sociedade…
   image: /img/lampada.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-10-06
   tags:
     - Autismo
@@ -27,6 +30,9 @@ tea:
   content: >
     Em função da condição de meu filho, tenho pesquisado bastante sobre TEA…
   image: /img/lampada.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2017-10-25
   tags:
     - Autismo
