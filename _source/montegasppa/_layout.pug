@@ -3,7 +3,7 @@ extends ../_layout.pug
 block blog-head
   - author = author || public.main.author.split(" ").slice(1).join(" ")
   - shownTitle = (title || "").replace(/<[^>]+>/g, "")
-  title Reflexões… :: !{shownTitle}
+  title !{public.montegasppa.blog.prefix} :: !{shownTitle}
   meta(property="og:site_name" content=public.montegasppa.blog.title)/
   meta(property="og:title" content=shownTitle)/
   if current && current.path
@@ -23,12 +23,12 @@ block blog-head
 block append nav-bar
   li(class={active: home}): a(href=public.montegasppa.blog.url) Prólogo
   unless home
-    li.active: a(href=".") Reflexões… :: !{title}
+    li.active: a(href=".") !{public.montegasppa.blog.prefix} :: !{title}
 
 block main-container
   .panel.panel-default
     .panel-heading
-      h2.mg-title Reflexões… :: !{title}
+      h2.mg-title !{public.montegasppa.blog.prefix} :: !{title}
       if release
         - release = moment(release).add(3, "hours")
         h6#release.pull-right #{release.date()} de

@@ -1,5 +1,6 @@
 blog:
-  title: Kodumaro
+  title: &title Kodumaro
+  prefix: *title
   subtitle: As sombras da programação.
   icon: /img/icons/kodumaro.ico
   url: http://cacilhas.info/kodumaro/
