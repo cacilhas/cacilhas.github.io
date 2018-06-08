@@ -18,8 +18,74 @@ spotify:
 index:
   homeActive: true
 
+author: &author
+  name: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
+  contacts:
+    - name: Twitter
+      title: Arĥimedeς ℳontegasppα
+      url: https://twitter.com/Montegasppa
+      image:
+        source: /img/twitter.png
+        style:
+          width: 24px
+          height: 24px
+    - name: Patreon
+      title: &prognose_title Prognose
+      url: &prognose_url https://www.patreon.com/cacilhas
+      image:
+        source: /img/patreon.png
+        style:
+          width: 24px
+          height: 24px
+    - name: Google+
+      title: Arĥimedeς Montegasppα Cacilhας
+      url: https://plus.google.com/+RodrigoCacilhas
+      image:
+        source: /img/gplus.png
+        style:
+          width: 24px
+          height: 10px
+    - name: Bitbucket
+      url: https://bitbucket.org/cacilhas/
+      image:
+        source: /img/bitbucket.png
+        style:
+          width: 24px
+          height: 24px
+    - name: Github
+      url: https://github.com/cacilhas/
+      image:
+        source: /img/github.png
+        style:
+          width: 24px
+          height: 20px
+    - name: Facebook
+      title: Archimedes Montegasppa
+      url: https://www.facebook.com/rodrigo.cacilhas
+      image:
+        source: /img/facebook.png
+        style:
+          width: 24px
+          height: 24px
+    - name: LinkedIn
+      title: Rodrigo Cacilhas
+      url: https://br.linkedin.com/in/rodrigocacilhas
+      image:
+        source: /img/linkedin.png
+        style:
+          width: 24px
+          height: 24px
+    - name: SoundCloud
+      title: Arĥimedeς ℳontegasppα
+      url: https://soundcloud.com/rodrigo-cacilhas
+      image:
+        source: /img/soundcloud.png
+        style:
+          width: 24px
+          height: 10px
+
 main:
-  author: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
+  author: *author
   host: http://cacilhas.info
   icon: /img/icons/favicon.ico
   title: ℭacilhας.INFO
@@ -69,8 +135,8 @@ partners:
       - licon
       - icon-wordpress
   prognose:
-    title: Prognose
-    url: https://www.patreon.com/cacilhas
+    title: *prognose_title
+    url: *prognose_url
     licon:
       - licon
       - icon-patreon
