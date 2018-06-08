@@ -1,7 +1,7 @@
 extends ../_layout.pug
 
 block blog-head
-  - author = author || public.main.author.split(" ").slice(1).join(" ")
+  - author = author || public.author.name.split(" ").slice(1).join(" ")
   - shownTitle = (title || "").replace(/<[^>]+>/g, "")
   title !{public.montegasppa.blog.prefix} :: !{shownTitle}
   meta(property="og:site_name" content=public.montegasppa.blog.title)/
