@@ -26,5 +26,5 @@ rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
         title!= article.title
         description <![CDATA[!{article.content}]]>
         pubDate= article.release.hour(10).toDate()
-        link #{article.url}
-        guid(isPermaLink="true") #{article.url}
+        link!= article.url
+        guid(isPermaLink="true")!= article.url
