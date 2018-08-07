@@ -1,0 +1,8 @@
+homo-sapiens:
+  title: Homo sapiens
+  content: >
+    Este primeiro (artigo) será sobre o <em>Homo sapiens</em>.
+  image: /img/neanderthal.png
+  release: 2018-08-07
+  tags:
+    - Educação e Cultura
