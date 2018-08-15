@@ -1,0 +1,13 @@
+concern:
+  title: <em>Concern</em> em Python em 15 minutos
+  content: >
+    Um recurso bacana em Ruby é <em>concern</em>…
+  image: /img/python.png
+  release: 2018-08-15
+  tags:
+    - Conceitual
+    - Python
+  nav:
+    prev:
+      path: 2016/04/aspectos-2
+      title: Aspectos

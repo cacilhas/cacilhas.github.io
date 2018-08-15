@@ -25,4 +25,7 @@ aspectos-2:
     prev:
       path: 2016/04/aspectos
       title: Aspectos
+    next:
+      path: 2018/08/concern
+      title: <em>Concern</em> em Python em 15 minutos
   hidden: true
