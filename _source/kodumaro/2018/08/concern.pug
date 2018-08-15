@@ -66,8 +66,8 @@ pre.prettyprint: code.
   import inspect
 
   def concern(aspect: type) -&gt; None:
-    context: dict = inspect.currentframe().f_back.f_locals
-    context.update(aspect.__dict__)
+      context: dict = inspect.currentframe().f_back.f_locals
+      context.update(aspect.__dict__)
 
 p Só isso já é suficiente! Porém não temos garantias de que funcione, precisamos
   |  de testes.
@@ -88,12 +88,12 @@ pre.prettyprint: code.
 
   class SerialMixin:
 
-    def serialize(self) -&gt; str:
-      return json.dumps(self._asdict(), sort_keys=True)
+      def serialize(self) -&gt; str:
+          return json.dumps(self._asdict(), sort_keys=True)
 
-    @classmethod
-    def deserialize(cls, data: str):
-      return cls(**json.loads(data))
+      @classmethod
+      def deserialize(cls, data: str):
+          return cls(**json.loads(data))
 
 p A classe pessoa será uma #[=""]
   a(href="https://docs.python.org/3/library/typing.html#typing.NamedTuple")
@@ -111,11 +111,11 @@ pre.prettyprint: code.
   from .serial import SerialMixin
 
   class PersonBase(NamedTuple):
-    name: str
-    surname: str
+      name: str
+      surname: str
 
   class Person(PersonBase):
-    concern(SerialMixin)
+      concern(SerialMixin)
 
 p Já temos a classe com uso de #[em mixin]. Vamos criar agora o teste, que
   |  verifica se instâncias de pessoa podem ser serializadas e desserializadas:
@@ -127,18 +127,18 @@ pre.prettyprint: code.
 
   class TestConcern(TestCase):
 
-    def test_serialize(self):
-      p = Person(name='John', surname='Doe')
-      self.assertEqual(
-        p.serialize(),
-        '{"name": "John", "surname": "Doe"}',
-      )
+      def test_serialize(self):
+          p = Person(name='John', surname='Doe')
+          self.assertEqual(
+              p.serialize(),
+              '{"name": "John", "surname": "Doe"}',
+          )
 
-    def test_deserialize(self):
-      p = Person.deserialize('{"name": "J", "surname": "Quest"}')
-      self.assertIsInstance(p, Person)
-      self.assertEqual(p.name, "J")
-      self.assertEqual(p.surname, "Quest")
+      def test_deserialize(self):
+          p = Person.deserialize('{"name": "J", "surname": "Quest"}')
+          self.assertIsInstance(p, Person)
+          self.assertEqual(p.name, "J")
+          self.assertEqual(p.surname, "Quest")
 
 p Rodando os testes:
 
@@ -165,9 +165,9 @@ p Usando nossa #[em factory], seu cabeçalho ficaria assim:
 
 pre.prettyprint: code.
   class Grades:
-    concern(SerialisableGradeMixin)
-    concern(PersistenceMixin)
-    concern(GradesMixin)
+      concern(SerialisableGradeMixin)
+      concern(PersistenceMixin)
+      concern(GradesMixin)
 
 p Perceba que, nessa abordagem, a adição de novos #[em mixins] não suja a
   |  assintura da classe.

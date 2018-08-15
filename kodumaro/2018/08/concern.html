@@ -21,19 +21,19 @@ Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://caci
 import inspect
 
 def concern(aspect: type) -&gt; None:
-  context: dict = inspect.currentframe().f_back.f_locals
-  context.update(aspect.__dict__)
+    context: dict = inspect.currentframe().f_back.f_locals
+    context.update(aspect.__dict__)
 </code></pre><p>Só isso já é suficiente! Porém não temos garantias de que funcione, precisamos de testes.</p><h3>Teste unitário</h3><p>Para testar, vamos criar um <em>mixin</em> de serialização e usá-lo num classe muito simples de pessoa.</p><p>O <em>mixin</em> terá dois métodos: um método de serialização e outro de classe de desserialização. Vamos usar <a href="https://www.json.org/">JSON</a> para a serialização, ordenando as chaves para facilitar os testes.</p><pre class="prettyprint"><code># file: serial.py
 import json
 
 class SerialMixin:
 
-  def serialize(self) -&gt; str:
-    return json.dumps(self._asdict(), sort_keys=True)
+    def serialize(self) -&gt; str:
+        return json.dumps(self._asdict(), sort_keys=True)
 
-  @classmethod
-  def deserialize(cls, data: str):
-    return cls(**json.loads(data))
+    @classmethod
+    def deserialize(cls, data: str):
+        return cls(**json.loads(data))
 </code></pre><p>A classe pessoa será uma <a href="https://docs.python.org/3/library/typing.html#typing.NamedTuple"><tupla>nomeada</tupla></a> – porém tuplas em Python são primitivas e não suportam acesso à seu
  dicionário de atributos.</p><p>Podemos contornar isso facilmente criando uma classe base, que será a tupla em si, e uma classe herdeira, que permite acesso ao dicionário de atributos:</p><pre class="prettyprint"><code># file: person.py
 from typing import NamedTuple
@@ -41,33 +41,33 @@ from concerns import concern
 from .serial import SerialMixin
 
 class PersonBase(NamedTuple):
-  name: str
-  surname: str
+    name: str
+    surname: str
 
 class Person(PersonBase):
-  concern(SerialMixin)
+    concern(SerialMixin)
 </code></pre><p>Já temos a classe com uso de <em>mixin</em>. Vamos criar agora o teste, que verifica se instâncias de pessoa podem ser serializadas e desserializadas:</p><pre class="prettyprint"><code># file: test_concern.py
 from unittest import TestCase
 from .person import Person
 
 class TestConcern(TestCase):
 
-  def test_serialize(self):
-    p = Person(name='John', surname='Doe')
-    self.assertEqual(
-      p.serialize(),
-      '{"name": "John", "surname": "Doe"}',
-    )
+    def test_serialize(self):
+        p = Person(name='John', surname='Doe')
+        self.assertEqual(
+            p.serialize(),
+            '{"name": "John", "surname": "Doe"}',
+        )
 
-  def test_deserialize(self):
-    p = Person.deserialize('{"name": "J", "surname": "Quest"}')
-    self.assertIsInstance(p, Person)
-    self.assertEqual(p.name, "J")
-    self.assertEqual(p.surname, "Quest")
+    def test_deserialize(self):
+        p = Person.deserialize('{"name": "J", "surname": "Quest"}')
+        self.assertIsInstance(p, Person)
+        self.assertEqual(p.name, "J")
+        self.assertEqual(p.surname, "Quest")
 </code></pre><p>Rodando os testes:</p><pre><code><p><em>sh&gt; </em><strong>python3 -munittest test_concern.py</strong><br/><em>..</em><br/><em>----------------------------------------------------------------------</em><br/><em>Ran 2 tests in 0.000s</em><br/><br/><em>OK</em></p></code></pre><h3>Voltando ao exemplo inicial</h3><p>E a classe <code>Grades</code> do <a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">exemplo anterior</a>?</p><p>Usando nossa <em>factory</em>, seu cabeçalho ficaria assim:</p><pre class="prettyprint"><code>class Grades:
-  concern(SerialisableGradeMixin)
-  concern(PersistenceMixin)
-  concern(GradesMixin)
+    concern(SerialisableGradeMixin)
+    concern(PersistenceMixin)
+    concern(GradesMixin)
 </code></pre><p>Perceba que, nessa abordagem, a adição de novos <em>mixins</em> não suja a assintura da classe.</p></div></div><p class="text-right"><small class="tag"><a href="/tags/conceitual.html">Conceitual</a></small> | <small class="tag"><a href="/tags/python.html">Python</a></small></p><div class="panel panel-default"><div class="panel-body"><div class="pull-left"><small><a href="http://cacilhas.info/kodumaro/2016/04/aspectos-2.html">« Anterior: Aspectos</a></small></div></div></div><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = `http://cacilhas.info/kodumaro/2018/08/concern.html`
   this.page.identifier = `kodumaro.2018.08.concern`
