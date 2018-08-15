@@ -21,7 +21,7 @@ Início</a></li><li><a href="/about.html">Sobre</a></li><li><a href="http://caci
 import inspect
 
 def concern(aspect: type) -&gt; None:
-  context = inspect.currentframe().f_back.f_locals
+  context: dict = inspect.currentframe().f_back.f_locals
   context.update(aspect.__dict__)
 </code></pre><p>Só isso já é suficiente! Porém não temos garantias de que funcione, precisamos de testes.</p><h3>Teste unitário</h3><p>Para testar, vamos criar um <em>mixin</em> de serialização e usá-lo num classe muito simples de pessoa.</p><p>O <em>mixin</em> terá dois métodos: um método de serialização e outro de classe de desserialização. Vamos usar <a href="https://www.json.org/">JSON</a> para a serialização, ordenando as chaves para facilitar os testes.</p><pre class="prettyprint"><code># file: serial.py
 import json
