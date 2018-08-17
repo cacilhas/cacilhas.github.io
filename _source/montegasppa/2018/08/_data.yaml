@@ -1,8 +1,27 @@
 homo-sapiens:
-  title: Homo sapiens
+  title: &homo-sapiens-title Homo sapiens
   content: >
     Este primeiro (artigo) será sobre o <em>Homo sapiens</em>.
   image: /img/neanderthal.png
   release: 2018-08-07
   tags:
     - Educação e Cultura
+  nav:
+    next:
+      path: 2018/08/aborto
+      title: &aborto-title Criminalização do aborto
+
+aborto:
+  title: *aborto-title
+  content: >
+    O segundo assunto que vem me incomodando é o desrespeito com a vida que
+    representa a criminalização do aborto.
+  image: /img/aborto.jpg
+  release: 2018-08-17
+  tags:
+    - Educação e Cultura
+    - Política
+  nav:
+    prev:
+      path: 2018/08/homo-sapiens
+      title: *homo-sapiens-title
