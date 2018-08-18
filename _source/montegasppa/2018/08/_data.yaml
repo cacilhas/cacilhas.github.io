@@ -25,3 +25,21 @@ aborto:
     prev:
       path: 2018/08/homo-sapiens
       title: *homo-sapiens-title
+    next:
+      path: 2018/08/espiritismo
+      title: &espiritismo-title Espiritismo e aborto
+
+espiritismo:
+  title: *espiritismo-title
+  content: >
+    Entre os maiores opositores da legalização do aborto estão os espíritas, mas
+    seus argumentos estão saturados de contradições.
+  image: /img/kardec.jpg
+  release: 2018-08-18
+  tags:
+    - Educação e Cultura
+    - Religião
+  nav:
+    prev:
+      path: 2018/08/aborto
+      title: *aborto-title
