@@ -43,3 +43,15 @@ espiritismo:
     prev:
       path: 2018/08/aborto
       title: *aborto-title
+
+transfobia:
+  title: Transfobia e a misoginia
+  content: >
+    A transfobia está relacionada a uma variação da misogina de modo pouco
+    óbvio, porém muito poderoso.
+  image: /img/lgbt.jpg
+  release: 2018-08-20
+  tags:
+    - Educação e Cultura
+    - Política
+    - Religião
