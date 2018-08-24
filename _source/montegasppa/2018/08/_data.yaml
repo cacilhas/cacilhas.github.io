@@ -55,3 +55,22 @@ transfobia:
     - Educação e Cultura
     - Política
     - Religião
+  nav:
+    prev:
+      path: 2018/04/eugenia
+      title: Eugenia e o Autismo
+
+amo-meu-filho:
+  title: Amo meu filho, não o autismo (⁉️)
+  content: >
+    Há uma página em “defesa” dos autistas no Facebook (…) cujo autor repete à
+    exaustão que “ama seu filho, não o autismo nele”.
+  image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
+  release: 2018-08-24
+  tags:
+    - Autismo
+    - Educação e Cultura
+    - Política
