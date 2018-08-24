@@ -45,8 +45,9 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
         block nav-bar
-          li(class={active: homeActive}): a(href="/")
+          li(class={active: homeActive}): a(href=`${public.main.host}/`)
             i.glyphicon.glyphicon-home
             | &nbsp;
             | Início
-          li(class={active: aboutActive}): a(href="/about.html") Sobre
+          li(class={active: aboutActive})
+            a(href=`${public.main.host}/about.html`) Sobre
