@@ -20,6 +20,7 @@
   "homepage": "https://cacilhas.info/",
   "dependencies": {
     "@types/node": "^8.0.10",
+    "coffeescript": "^2.3.1",
     "express": "^4.14.0",
     "js-yaml": "^3.10.0",
     "moment": "^2.20.1",
