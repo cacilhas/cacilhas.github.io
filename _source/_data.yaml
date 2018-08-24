@@ -100,13 +100,13 @@ misc:
   title: Repositório
   git: https://github.com/cacilhas/misc
   repo: https://github.com/cacilhas/misc/blob/master
-  url: http://cacilhas.info/misc
+  url: //cacilhas.info/misc
 
 vortaro: &vortaro
   title: Konsulta Vortaro
   git: https://github.com/cacilhas/vortaro
   repo: https://github.com/cacilhas/vortaro/blob/master
-  url: http://vortaro.cacilhas.info/
+  url: //vortaro.cacilhas.info/
 
 monthSet:
   - Janeiro
