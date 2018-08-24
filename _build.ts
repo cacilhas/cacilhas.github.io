@@ -6,6 +6,7 @@ import * as path from "path"
 import * as moment from "moment"
 import * as yaml from "js-yaml"
 import * as pug from "pug"
+import * as CoffeeScript from "coffeescript"
 import * as rimraf from "rimraf"
 import * as stylus from "stylus"
 
@@ -146,6 +147,8 @@ function getCounterpart(name: string): string {
       counterpart += ".html"
   } else if (counterpart.endsWith(".styl"))
     counterpart = counterpart.replace(/\.styl$/, ".css")
+  else if (counterpart.endsWith(".coffee"))
+    counterpart = counterpart.replace(/\.coffee$/, ".js")
 
   return counterpart
 }
@@ -180,7 +183,7 @@ Promise<void> {
 
       else if (cname.endsWith(".pug")) {
         cname = cname.replace(/\.pug$/, "")
-        context[cname] = context[cname] === undefined ? {} : context[cname]
+        context[cname] = _.isUndefined(context[cname]) ? {} : context[cname]
 
         // Add current
         context[cname].current = {
@@ -262,12 +265,12 @@ function processPugFile(
 }
 
 
-interface processStylusFileParameter {
+interface processCodeFileParameter {
   file: string
   counterpart: string
 }
 
-function processStylusFile({ file, counterpart }: processStylusFileParameter) {
+function processStylusFile({ file, counterpart }: processCodeFileParameter) {
   const template = fs.readFileSync(file, "utf-8")
   stylus(template)
   .set("filename", counterpart)
@@ -278,6 +281,12 @@ function processStylusFile({ file, counterpart }: processStylusFileParameter) {
     else
       fs.writeFileSync(counterpart, css, "utf-8")
   })
+}
+
+function processCoffeeFile({ file, counterpart }: processCodeFileParameter) {
+  const template = fs.readFileSync(file, "utf-8")
+  const output = CoffeeScript.compile(template)
+  fs.writeFileSync(counterpart, output, "utf-8")
 }
 
 
@@ -302,6 +311,9 @@ Promise<void> {
 
   } else if (file.endsWith(".styl"))
     processStylusFile({ file, counterpart })
+
+  else if (file.endsWith(".coffee"))
+    processCoffeeFile({ file, counterpart })
 
   else
     copyFile({ from: file, to: counterpart })

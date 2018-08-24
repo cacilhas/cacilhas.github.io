@@ -1,9 +1,12 @@
-function expandAll() {
-  $('details').attr('open', 'open');
-  return true;
-}
+(function() {
+  window.expandAll = function() {
+    $('details').attr('open', 'open');
+    return true;
+  };
 
-function collapseAll() {
-  $('details').removeAttr('open');
-  return true;
-}
+  window.collapseAll = function() {
+    $('details').removeAttr('open');
+    return true;
+  };
+
+}).call(this);

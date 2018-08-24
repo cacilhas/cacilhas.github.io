@@ -1,11 +1,10 @@
-"use strict"
+(function() {
+  var oldPath;
 
-function handleOldURL() {
-  var oldPath = window.location.search;
-  if (oldPath.indexOf("?t=/") == 0) {
-    var url = decodeURIComponent(oldPath.substr(3)) + ".html";
-    window.location = url;
+  oldPath = window.location.search;
+
+  if ((oldPath.indexOf('?t=/')) === 0) {
+    window.location = `${decodeURIComponent(oldPath.substr(3))}.html`;
   }
-}
 
-handleOldURL();
+}).call(this);
