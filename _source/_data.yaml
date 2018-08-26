@@ -20,7 +20,7 @@ index:
 
 author: &author
   name: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
-  url: //montegasppa.cacilhas.info/author.html
+  url: https:////montegasppa.cacilhas.info/author.html
   contacts:
     - name: Twitter
       title: Arĥimedeς ℳontegasppα
@@ -87,7 +87,7 @@ author: &author
 
 main:
   author: *author
-  host: http://cacilhas.info
+  host: https://cacilhas.info
   icon: /img/icons/favicon.ico
   title: ℭacilhας.INFO
 

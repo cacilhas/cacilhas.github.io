@@ -6,7 +6,7 @@ blog:
   licon:
     - licon
     - icon-kodumaro
-  url: http://kodumaro.cacilhas.info/
+  url: https://kodumaro.cacilhas.info/
 
 feed:
   layout: false

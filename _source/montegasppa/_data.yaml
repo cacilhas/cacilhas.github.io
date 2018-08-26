@@ -9,7 +9,7 @@ blog:
   licon:
     - licon
     - icon-montegasppa
-  url: //montegasppa.cacilhas.info/
+  url: https://montegasppa.cacilhas.info/
 
 feed:
   layout: false
