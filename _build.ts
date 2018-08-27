@@ -3,6 +3,7 @@
 import * as _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
+import * as URL from "url"
 import * as moment from "moment"
 import * as yaml from "js-yaml"
 import * as pug from "pug"
@@ -37,6 +38,12 @@ type Render = (ctx: Context) => string
 const globalContext: Context = {}
 const tags: { [name: string]: TagContent } = {}
 
+const refContext = {
+  cacilhas: yaml.safeLoad(fs.readFileSync("./_source/_data.yaml", "utf8")),
+  montegasppa: yaml.safeLoad(fs.readFileSync("./_source/montegasppa/_data.yaml", "utf8")),
+  kodumaro: yaml.safeLoad(fs.readFileSync("./_source/kodumaro/_data.yaml", "utf8")),
+}
+
 
 function mkSlug(name: string): string {
   return name
@@ -60,6 +67,28 @@ function isContext(ctx?: any): ctx is Context {
     return false
 
   return _.isObject(ctx)
+}
+
+
+function processURL(url: string): string {
+  const resource: URL.Url = URL.parse(url)
+  resource.protocol = "https" // force HTTPS
+  resource.path = resource.path || "/"
+
+  if (resource.pathname!.startsWith("/montegasppa")) {
+    resource.pathname = resource.pathname!.slice(12)
+    resource.host = URL.parse(refContext.montegasppa.blog.url).host
+
+  } else if (resource.pathname!.startsWith("/kodumaro")) {
+    resource.pathname = resource.pathname!.slice(9)
+    resource.host = URL.parse(refContext.kodumaro.blog.url).host
+
+  } else if (!resource.host)
+    resource.host = URL.parse(refContext.cacilhas.main.host).host
+
+  resource.path = `${resource.pathname}${resource.search || ""}`
+  resource.href = `${resource.path}${resource.hash || ""}`
+  return URL.format(resource)
 }
 
 
@@ -184,12 +213,13 @@ Promise<void> {
       else if (cname.endsWith(".pug")) {
         cname = cname.replace(/\.pug$/, "")
         context[cname] = _.isUndefined(context[cname]) ? {} : context[cname]
+        const base = dirname.replace(/^.\/_source/, '')
 
         // Add current
         context[cname].current = {
           source: cname,
           path: `${dirname}/${cname}`.split("/"),
-          url: `${cname}.html`,
+          url: processURL(`${base}/${cname}.html`),
         }
       }
 
