@@ -19,6 +19,7 @@ aborto:
   image: /img/aborto.jpg
   release: 2018-08-17
   tags:
+    - Aborto
     - Educação e Cultura
     - Política
   nav:
@@ -37,6 +38,7 @@ espiritismo:
   image: /img/kardec.jpg
   release: 2018-08-18
   tags:
+    - Aborto
     - Educação e Cultura
     - Religião
   nav:

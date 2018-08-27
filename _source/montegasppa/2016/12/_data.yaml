@@ -6,6 +6,7 @@ aborto:
   image: /img/aborto.jpg
   release: 2016-12-02
   tags:
+    - Aborto
     - Educação e Cultura
     - Política
     - Religião
@@ -16,5 +17,6 @@ manes:
   image: /img/manes.jpg
   release: 2016-12-02
   tags:
+    - Aborto
     - Educação e Cultura
     - Religião
