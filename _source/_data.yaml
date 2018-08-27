@@ -1,3 +1,15 @@
+_prognose: &prognose
+  title: Prognose
+  url: https://www.patreon.com/cacilhas
+
+_vortaro: &vortaro
+  title: Konsulta Vortaro
+  url: //vortaro.cacilhas.info/
+
+
+#-------------------------------------------------------------------------------
+# Pages
+
 "404":
   title: ":: NOT FOUND"
 
@@ -5,6 +17,10 @@ about:
   aboutActive: true
   title: ":: Sobre"
 
+index:
+  homeActive: true
+
+#-------------------------------------------------------------------------------
 google:
   adSense: ca-pub-5741846017654057
   analyticsId: UA-99357497-1
@@ -14,9 +30,6 @@ hotjar:
 
 spotify:
   uri: spotify:artist:17ztrEzLSzYOp8MySGqFHy
-
-index:
-  homeActive: true
 
 author: &author
   name: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
@@ -30,9 +43,8 @@ author: &author
         style:
           width: 24px
           height: 24px
-    - name: Patreon
-      title: &prognose_title Prognose
-      url: &prognose_url https://www.patreon.com/cacilhas
+    - <<: *prognose
+      name: Patreon
       image:
         source: /img/patreon.png
         style:
@@ -102,25 +114,10 @@ misc:
   repo: https://github.com/cacilhas/misc/blob/master
   url: //cacilhas.info/misc
 
-vortaro: &vortaro
-  title: Konsulta Vortaro
+vortaro:
+  <<: *vortaro
   git: https://github.com/cacilhas/vortaro
   repo: https://github.com/cacilhas/vortaro/blob/master
-  url: //vortaro.cacilhas.info/
-
-monthSet:
-  - Janeiro
-  - Fevereiro
-  - Março
-  - Abril
-  - Maio
-  - Junho
-  - Julho
-  - Agosto
-  - Setembro
-  - Outubro
-  - Novembro
-  - Dezembro
 
 partners:
   educaedu:
@@ -136,8 +133,7 @@ partners:
       - licon
       - icon-wordpress
   prognose:
-    title: *prognose_title
-    url: *prognose_url
+    <<: *prognose
     licon:
       - licon
       - icon-patreon
@@ -145,3 +141,18 @@ partners:
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
+
+#-------------------------------------------------------------------------------
+monthSet:
+  - Janeiro
+  - Fevereiro
+  - Março
+  - Abril
+  - Maio
+  - Junho
+  - Julho
+  - Agosto
+  - Setembro
+  - Outubro
+  - Novembro
+  - Dezembro
