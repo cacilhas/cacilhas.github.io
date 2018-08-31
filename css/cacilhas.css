@@ -56,7 +56,6 @@ details[open] > summary:before {
   overflow: hidden;
 }
 .showcase .mg-highlighted {
-  width: calc(100% / 2 - 5px);
   min-width: 360px !important;
   float: left;
   flex-grow: 1;
