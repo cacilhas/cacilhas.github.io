@@ -62,13 +62,34 @@ details[open] > summary:before
     margin-right 8px
 
 
-.mg-highlighted
-  &:hover
-    text-decoration none
+.showcase
+  display -webkit-flex
+  display -ms-flexbox
+  display flex
+  -webkit-flex-wrap wrap
+  -ms-flex-wrap wrap
+  flex-wrap wrap
+  overflow hidden
 
-  p.lead
-    min-height 5em !important
+  .mg-highlighted
+    width calc(100% / 2 - 5px)
+    min-width 360px !important
+    float left
+    flex-grow 1
+    display -webkit-flex
+    display -ms-flexbox
+    display flex
 
+    &:hover
+      text-decoration none
+
+    p.lead
+      min-height 5em !important
+      text-align justify
+
+
+.panel-body p
+      text-align justify
 
 .mg-alert
   color $alert_color
@@ -132,6 +153,7 @@ details[open] > summary:before
   height 35px !important
   padding 8px 12px 0px 12px
   text-align right
+
 
 .licon
   top 2px

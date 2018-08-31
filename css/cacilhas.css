@@ -46,11 +46,33 @@ details[open] > summary:before {
   float: left;
   margin-right: 8px;
 }
-.mg-highlighted:hover {
+.showcase {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.showcase .mg-highlighted {
+  width: calc(100% / 2 - 5px);
+  min-width: 360px !important;
+  float: left;
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.showcase .mg-highlighted:hover {
   text-decoration: none;
 }
-.mg-highlighted p.lead {
+.showcase .mg-highlighted p.lead {
   min-height: 5em !important;
+  text-align: justify;
+}
+.panel-body p {
+  text-align: justify;
 }
 .mg-alert {
   color: #bb5;
