@@ -67,6 +67,9 @@ details[open] > summary:before {
 .showcase .mg-highlighted:hover {
   text-decoration: none;
 }
+.showcase .mg-highlighted .panel-default:hover {
+  background-color: #f5f5f5;
+}
 .showcase .mg-highlighted p.lead {
   min-height: 5em !important;
   text-align: justify;
