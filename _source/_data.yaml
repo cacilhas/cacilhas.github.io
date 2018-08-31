@@ -126,12 +126,6 @@ partners:
     licon:
       - licon
       - icon-educaedu
-  educaedu:
-    title: Todas Fridas
-    url: https://www.todasfridas.com.br/
-    licon:
-      - licon
-      - icon-fridas
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
@@ -143,6 +137,12 @@ partners:
     licon:
       - licon
       - icon-patreon
+  todas-fridas:
+    title: Todas Fridas
+    url: https://www.todasfridas.com.br/
+    licon:
+      - licon
+      - icon-fridas
   vortaro: *vortaro
   walter-cruz:
     title: Walter Cruz
