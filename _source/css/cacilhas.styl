@@ -10,6 +10,7 @@
 $alert_color = #bbbb55
 $link_color = #337ab7
 $grid_color = #dddddd
+$hover_bg_color = #f5f5f5
 
 
 body
@@ -84,7 +85,7 @@ details[open] > summary:before
       text-decoration none
 
     .panel-default:hover
-      background-color #f5f5f5
+      background-color $hover_bg_color
 
     p.lead
       min-height 5em !important
@@ -96,7 +97,7 @@ details[open] > summary:before
 
 .tags-map
   select:hover
-    background-color #f5f5f5
+    background-color $hover_bg_color
 
 .text-center
   text-align center !important
