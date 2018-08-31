@@ -74,6 +74,12 @@ details[open] > summary:before {
 .panel-body p {
   text-align: justify;
 }
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
 .mg-alert {
   color: #bb5;
 }
