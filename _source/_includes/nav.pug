@@ -32,7 +32,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
           li: hr/
 
           each partner in _.values(public.partners)
-            li: a(href=partner.url)
+            li: a(href=partner.url target="_blank")
               if partner.licon
                 i(class=partner.licon)
               else if partner.icon
