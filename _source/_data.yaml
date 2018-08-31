@@ -33,7 +33,7 @@ spotify:
 
 author: &author
   name: ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας
-  url: https:////montegasppa.cacilhas.info/author.html
+  url: https://montegasppa.cacilhas.info/author.html
   contacts:
     - name: Twitter
       title: Arĥimedeς ℳontegasppα
@@ -126,6 +126,12 @@ partners:
     licon:
       - licon
       - icon-educaedu
+  educaedu:
+    title: Todas Fridas
+    url: https://www.todasfridas.com.br/
+    licon:
+      - licon
+      - icon-fridas
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
