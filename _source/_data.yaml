@@ -4,7 +4,11 @@ _prognose: &prognose
 
 _vortaro: &vortaro
   title: Konsulta Vortaro
-  url: //vortaro.cacilhas.info/
+  url: https://vortaro.cacilhas.info/
+
+_hondaj: &hondaj
+  title: Ĥondaj’
+  url: https://hondaj.cacilhas.info/
 
 
 #-------------------------------------------------------------------------------
@@ -119,6 +123,11 @@ vortaro:
   git: https://github.com/cacilhas/vortaro
   repo: https://github.com/cacilhas/vortaro/blob/master
 
+hondaj:
+  <<: *hondaj
+  git: https://github.com/cacilhas/hondaj
+  repo: https://github.com/cacilhas/hondaj
+
 partners:
   educaedu:
     title: Educaedu Brasil
@@ -126,6 +135,8 @@ partners:
     licon:
       - licon
       - icon-educaedu
+  hondaj: *hondaj
+  vortaro: *vortaro
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
@@ -143,7 +154,6 @@ partners:
     licon:
       - licon
       - icon-fridas
-  vortaro: *vortaro
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
