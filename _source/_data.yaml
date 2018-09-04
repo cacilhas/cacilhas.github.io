@@ -135,7 +135,11 @@ partners:
     licon:
       - licon
       - icon-educaedu
-  hondaj: *hondaj
+  hondaj:
+    <<: *hondaj
+    licon:
+      - licon
+      - icon-hondaj
   vortaro: *vortaro
   mosaico-livre:
     title: Mosaico Livre
