@@ -20,3 +20,18 @@ hondaj:
   tags:
     - Jogos
     - Pessoal
+
+neurotipico:
+  title: Síndrome Neurotípica
+  content: >
+    A Síndrome Neurotípica é um distúrbio (…) caracterizado por (…) delírios de
+    superioridade e obsessão por conformidade.
+  image: /img/tea.jpg
+  release: 2018-09-05
+  tags:
+    - Autismo
+    - Humor
+  nav:
+    prev:
+      path: 2018/08/amo-meu-filho
+      title: Amo meu filho, não o autismo (⁉️)
