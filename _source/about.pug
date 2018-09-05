@@ -1,6 +1,6 @@
 include ./_widgets/list-group-item.pug
 
-div(class=["panel", "panel-default"])
+div.panel.panel-default
   .panel-heading
     h2.mg-title Apresentação
 
@@ -33,3 +33,13 @@ div(class=["panel", "panel-default"])
         +li!= public.montegasppa.blog.title
       a(href=public.kodumaro.blog.url)
         +li!= public.kodumaro.blog.title
+
+    p Ainda espaços agregados:
+
+    +ul
+      a(href=public.hondaj.url target="_blank")
+        +li!= public.hondaj.title
+      a(href=public.vortaro.url target="_blank")
+        +li!= public.vortaro.title
+      a(href=public.misc.url target="_blank")
+        +li!= public.misc.title
