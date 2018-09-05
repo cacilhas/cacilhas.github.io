@@ -76,6 +76,10 @@ amo-meu-filho:
     - Autismo
     - Educação e Cultura
     - Política
+  nav:
+    next:
+      path: 2018/09/neurotipico
+      title: Síndrome Neurotípica
 
 ghoughphtheightteeau:
   title: Ghoughphtheightteeau
