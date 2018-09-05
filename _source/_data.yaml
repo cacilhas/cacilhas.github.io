@@ -163,7 +163,7 @@ partners:
     url: https://waltercruz.com/
 
 #-------------------------------------------------------------------------------
-monthSet:
+monthnames:
   - Janeiro
   - Fevereiro
   - Março

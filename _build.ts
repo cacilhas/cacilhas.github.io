@@ -245,7 +245,7 @@ async function populateBlog(context: Context): Promise<void> {
           const index = parseInt(monthSlug) - 1
           months.push({
             slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
-            title: `${globalContext.monthSet[index]} de ${yearSlug}`,
+            title: `${globalContext.monthnames[index]} de ${yearSlug}`,
             dir: monthDir,
             date: new Date(`${yearSlug}-${monthSlug}-01T12:00:00.000Z`)
           })

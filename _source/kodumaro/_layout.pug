@@ -33,7 +33,7 @@ block main-container
       if release
         - release = moment(release).add(3, "hours")
         h6.pull-right Publicado em #{release.date()} de
-          |  #{public.monthSet[release.month()]}, #{release.year()}
+          |  #{public.monthnames[release.month()]}, #{release.year()}
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
