@@ -10,6 +10,9 @@ body {
 code {
   font-family: "Roboto Mono", monospace;
 }
+tt {
+  font-family: "Roboto Mono", monospace;
+}
 blockquote {
   font-family: Kavivanar, Futura, Arial, sans-serif;
   font-size: small;
