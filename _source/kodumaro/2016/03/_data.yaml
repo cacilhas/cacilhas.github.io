@@ -21,4 +21,7 @@ sml-2:
     prev:
       path: 2016/03/sml
       title: *sml_title
+    next:
+      path: 2018/09/palindromo
+      title: Palíndromo
   hidden: true

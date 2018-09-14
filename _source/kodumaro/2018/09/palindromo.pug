@@ -1,0 +1,202 @@
+p.mg-first Estive pensando em uma forma de explicar #[em functor] de #[=""]
+  a(href="https://pt.wikipedia.org/wiki/ML_(linguagem_de_programação)") ML
+  | , cheguei ao algoritmo de determinação de #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Palíndromo") palíndromo
+  | .
+
+blockquote: p Para programar em Standard ML, eu sugiro #[=""]
+  a(href="http://mlton.org/") MLton
+  |  para a compilação e #[=""]
+  a(href="http://www.smlnj.org/") Standard ML of New Jersey
+  |  como console interativo.
+
+p É possível fazer um paralelo entre classes da orientação a objetos e
+  |  #[em functor] de ML. O construtor de um #[em functor] recebe uma estrutura
+  |  (#[code structure]), que é seu parâmetro, e retorna outra estrutura, que
+  |  pode ser entendida como sua instância.
+
+p Vamos ao palíndromo então.
+
+h3 Assinaturas
+
+p O parâmetro de nosso #[em functor] é algo reversível, ou seja, que pode ser
+  |  “dito” de trás pra frente.
+
+p No arquivo de assinaturas (#[code palindrome.sig]) vamos criar a seguinte
+  |  assinatura:
+
+pre.prettyprint: code.language-ml.
+  signature REVERSIBLE =
+  sig
+    eqtype t
+    val reverse : t -> t
+  end
+
+p Isso define uma assinatura #[code REVERSIBLE] que referencia um tipo #[code t]
+  |  e contém uma função #[code reverse] (para reverter o objeto).
+
+p Agora precisamos de uma assinatura para definir a interface da estrutura
+  |  instanciada a partir do #[em functor]. Essa estrutura precisa referenciar
+  |  o mesmo tipo #[code t] de #[code REVERSIBLE] e conter uma função para
+  |  verificar se o objeto reversível é um palíndromo.
+
+p Ainda em #[code palindrome.sig]:
+
+pre.prettyprint: code.language-ml.
+  signature PALINDROME =
+  sig
+    eqtype t
+    val check : t -> bool
+  end
+
+p Então #[code check] verificará se o objeto do tipo #[code t] é um palíndromo,
+  |  retornando verdadeiro ou falso (#[code bool]).
+
+h3 Implementação
+
+p No arquivo de implementação (#[code palindrome.sml]) vamos começar criando o
+  |  #[em functor], que recebe um #[code REVERSIBLE] e retorna um
+  |  #[code PALINDROME].
+
+p No corpo do #[em functor] (pense em classe), o tipo #[code t] será definido
+  |  como o mesmo #[code t] do parâmetro, e a função #[code check] verificará
+  |  se o resultado de #[code reverse] do objeto é igual a ele próprio:
+
+pre.prettyprint: code.language-ml.
+  functor Palindrome (R : REVERSIBLE) : PALINDROME =
+  struct
+    type t = R.t
+    fun check pal = (pal = R.reverse pal)
+  end
+
+p Agora vamos definir o que são os tipos reversíveis (#[code Reversible]). Vamos
+  |  lidar com dois: inteiro (#[code Int 0], por exemplo) e #[em string]
+  |  (#[code String ""], por exemplo):
+
+pre.prettyprint: code.language-ml.
+  datatype Reversible = Int of int
+                      | String of string
+
+p Finalmente vamos definir a função #[code palindrome], que recebe um
+  |  reversível, que acabamos de definir acima, e retorna verdadeiro ou falso
+  |  de acordo se o reversível recebido for ou não um palíndromo.
+
+p Para isso instanciaremos duas estruturas de #[code Palindrome]:
+  |  #[code StringPalindrome] e #[code IntPalindrome].
+
+pre.prettyprint: code.language-ml.
+  local
+    structure StringPalindrome = Palindrome (struct
+      type t = string
+      val reverse = implode o rev o explode
+    end)
+
+    structure IntPalindrome = Palindrome (struct
+      type t = int
+
+      val reverse =
+        let
+          fun reverse' (acc:t) 0     : t = acc
+            | reverse' (act:t) (n:t) : t =
+                reverse' ((acc * 10) + (n mod 10)) (n div 10)
+        in
+          reverse' 0
+        end
+    end)
+
+  in
+    fun palindrome (Int d)    = IntPalindrome.check d
+      | palindrome (String s) = StringPalindrome.check s
+  end
+
+p Assim a função #[code palindrome] escolherá #[code IntPalindrome.check] ou
+  |  #[code StringPalindrome.check] de acordo com o tipo interno do parâmetro.
+
+p #[code IntPalidrome.check] tem a especialização para inverter inteiros,
+  |  enquanto #[code StringPalindrome.check] para inverter #[em strings].
+
+h3 Experimentando
+
+p Vamos testar:
+
+pre.code
+  | Standard ML of New Jersey v110.78 [built: Thu Jul 23 11:21:58 2015]
+  br/
+  em - #[=""]
+  strong use "palindrome.sig";
+  br/
+  em [opening palindrome.sig]
+  br/
+  em signature PALINDROME =
+  br/
+  em   sig
+  br/
+  em     eqtype t
+  br/
+  em     val check : t -> bool
+  br/
+  em   end
+  br/
+  em signature REVERSIBLE =
+  br/
+  em   sig
+  br/
+  em     eqtype t
+  br/
+  em     val reverse : t -> t
+  br/
+  em   end
+  br/
+  em val it = () : unit
+  br/
+  em - #[=""]
+  strong use "palindrome.sml";
+  br/
+  em [opening palindrome.sml]
+  br/
+  em palindrome.sml:4.24 Warning: calling polyEqual
+  br/
+  em functor Palindrome(R: sig
+  br/
+  em                         eqtype t
+  br/
+  em                         val reverse : t -> t
+  br/
+  em                       end) :
+  br/
+  em                   sig
+  br/
+  em                     eqtype t
+  br/
+  em                     val check : t -> bool
+  br/
+  em                   end
+  br/
+  em datatype Reversible = Int of int | String of string
+  br/
+  em val palindrome = fn : Reversible -> bool
+  br/
+  em val it = () : unit
+  br/
+  em - #[=""]
+  strong palindrome (Int 12);
+  br/
+  em val it = false : bool
+  br/
+  em - #[=""]
+  strong palindrome (Int 121);
+  br/
+  em val it = true : bool
+  br/
+  em - #[=""]
+  strong palindrome (String "test");
+  br/
+  em val it = false : bool
+  br/
+  em - #[=""]
+  strong palindrome (String "rotor");
+  br/
+  em val it = true : bool
+
+p E é isso aí! Espero que tenha ficado claro, quaisquer dúvidas ou se achar que
+  |  alguma coisa ficou obscura, deixe um comentário.
