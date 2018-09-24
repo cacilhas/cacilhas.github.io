@@ -46,6 +46,10 @@ desconforto:
     - Autismo
     - Pessoal
     - Psicologia
+  nav:
+    next:
+      path: 2018/09/estabanado
+      title: Estabanado
 
 crowdfunding:
   title: Vaquinha
