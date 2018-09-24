@@ -42,6 +42,9 @@ estabanado:
     Sempre fui “estabanado”. Nunca me dei bem em esporte algum, por mais que
     praticasse.
   image: /img/iwa.jpg
+  licon:
+    - licon
+    - icon-asd
   release: 2018-09-24
   tags:
     - Autismo
