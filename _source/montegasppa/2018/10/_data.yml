@@ -7,3 +7,21 @@ totalitarista:
   tags:
     - Pessoal
     - Política
+
+composto:
+  title: Compassos compostos
+  content: >
+    Aprendemos que compassos são formas de organizar metricamente as frases
+    musicais (…), porém são muito mais que isso.
+  image: /img/2-4-bar.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2018-10-20
+  tags:
+    - Educação e Cultura
+    - Música
+  nav:
+    prev:
+      path: 2018/04/cromatica
+      title: Relações cromáticas e temperadas
