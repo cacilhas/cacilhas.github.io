@@ -58,6 +58,9 @@ cromatica:
     prev:
       path: 2017/04/escalas-anemitonicas
       title: Escalas anemitônicas
+    next:
+      path: 2018/10/composto
+      title: Compassos compostos
 
 bobagem-espiritual:
   title: Dez coisas “espirituais” que são uma bobagem total
