@@ -36,6 +36,9 @@ prognose:
     prev:
       path: 2017/11/pre-release
       title: O Sutra [β-pre-release]
+    next:
+      path: 2018/10/end-credits
+      title: End Credits
 
 desconforto:
   title: Desconforto
