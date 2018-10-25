@@ -1,5 +1,5 @@
 composto:
-  title: Compassos compostos
+  title: &composto_title Compassos compostos
   content: >
     Aprendemos que compassos são formas de organizar metricamente as frases
     musicais (…), porém são muito mais que isso.
@@ -15,6 +15,9 @@ composto:
     prev:
       path: 2018/04/cromatica
       title: Relações cromáticas e temperadas
+    next:
+      path: 2018/10/amalgama
+      title: &amalgama_title Amálgamas
 
 end-credits:
   title: End Credits
@@ -43,3 +46,20 @@ eleicoes:
   tags:
     - Educação e Cultura
     - Política
+
+amalgama:
+  title: *amalgama_title
+  content: >
+    Não é obrigatório em ritmo repetir sempre o mesmo compasso.
+  image: /img/2-4-bar.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2018-10-25
+  tags:
+    - Educação e Cultura
+    - Música
+  nav:
+    prev:
+      path: 2018/10/composto
+      title: *composto_title
