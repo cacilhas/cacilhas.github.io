@@ -38,7 +38,7 @@ end-credits:
       title: Prognose
 
 eleicoes:
-  title: Eleições brasileiras inseridas no contexto político mundial
+  title: &eleicoes_title Eleições brasileiras inseridas no contexto político mundial
   content: >
     O Canal do Slow é um canal sério sobre ciência e história, sempre fortemente
     embasado em fontes respeitadas…
@@ -46,6 +46,10 @@ eleicoes:
   tags:
     - Educação e Cultura
     - Política
+  nav:
+    next:
+      path: 2018/10/isento
+      title: &isento_title O Isentão
 
 amalgama:
   title: *amalgama_title
@@ -63,3 +67,19 @@ amalgama:
     prev:
       path: 2018/10/composto
       title: *composto_title
+
+isento:
+  title: *isento_title
+  content: >
+    Algumas pessoas se recusam a posicionar-se em situações que requerem uma
+    análise mais cuidadosa.
+  image: /img/heim.jpg
+  release: 2018-10-26
+  tags:
+    - Educação e Cultura
+    - Pessoal
+    - Política
+  nav:
+    prev:
+      path: 2018/10/eleicoes
+      title: *eleicoes_title
