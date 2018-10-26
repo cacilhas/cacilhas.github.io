@@ -1,0 +1,9 @@
+smackage:
+  title: Smackage
+  content: >
+    Há uns meses descobri um projeto muito bacana para gerenciamento de pacotes
+    Standard ML.
+  release: 2018-10-26
+  tags:
+    - Funcional
+    - ML
