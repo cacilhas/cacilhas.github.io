@@ -7,9 +7,7 @@ p.mg-first Há uns meses descobri um projeto muito bacana para gerenciamento de
 
 h3 Instalação
 
-p Em seu #[=""]
-  a(href="file://~/.bash_profile"): code .bash_profile
-  |  configure o diretório do projeto:
+p Em seu #[code .bash_profile] configure o diretório do projeto:
 
 pre.prettyprint: code.language-sh.
   export SMACKAGE_HOME="$HOME/.smackage"
@@ -46,9 +44,8 @@ h3 Configurando MLton
 
 p Para fazer o #[=""]
   a(href="http://mlton.org/") MLton
-  |  (compilador Standard ML) reconhecer o Smackage, crie o arquivo #[=""]
-  a(href="file://~/.ml-path-map"): code ~/.mlb-path-map
-  |  com o seguinte conteúdo:
+  |  (compilador Standard ML) reconhecer o Smackage, crie o arquivo
+  |  #[code ~/.mlb-path-map] com o seguinte conteúdo:
 
 pre: code.
   SMACKAGE #[em /home/user]/.smackage/lib
