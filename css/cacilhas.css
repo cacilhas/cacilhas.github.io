@@ -141,6 +141,15 @@ details[open] > summary:before {
   padding: 8px 12px 0px 12px;
   text-align: right;
 }
+.hoverable .hover {
+  display: none;
+}
+.hoverable:hover .normal {
+  display: none;
+}
+.hoverable:hover .hover {
+  display: inline;
+}
 .licon {
   top: 2px;
   padding: 2px 2px 2px 2px;
