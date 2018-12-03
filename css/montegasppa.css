@@ -1,6 +1,18 @@
 body {
   background-color: #97b3c9 !important;
 }
+hr {
+  display: block;
+  border: none;
+  height: 10px;
+  -webkit-background-size: cover auto;
+  -moz-background-size: cover auto;
+  -o-background-size: cover auto;
+  background-size: cover auto;
+  background-image: url("/img/divider.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .panel-heading {
   color: #fff !important;
   background-image: url("/img/montegasppa-title-bg.jpg") !important;
