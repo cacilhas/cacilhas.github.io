@@ -21,6 +21,15 @@ blockquote {
 blockquote strong {
   font-weight: bolder;
 }
+hr {
+  display: block;
+  border: none;
+  height: 10px;
+  bg-size: cover auto;
+  background-image: url("/img/divider.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
 summary {
   padding-bottom: 8pt;
 }
