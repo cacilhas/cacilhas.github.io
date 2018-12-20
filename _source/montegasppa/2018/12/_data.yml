@@ -7,3 +7,14 @@ tudo-pertence:
   release: 2018-12-02
   tags:
     - Política
+
+igualdade:
+  title: Igualdade de direitos
+  content: >
+    A escola ofereceu bolo sem leite e sem trigo para as crianças outro dia.
+  image: /img/heim.jpg
+  release: 2018-12-20
+  tags:
+    - Educação
+    - Pessoal
+    - Política
