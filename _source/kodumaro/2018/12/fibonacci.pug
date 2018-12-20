@@ -1,0 +1,40 @@
+img.pull-right(src=image alt="Python")
+
+p.mg-first Esta foi uma publicação de #[=""]
+  a(href="http://kodumaro.blogspot.com/2015/04/brincadeira-rapida.html")
+    | abril de 2015
+  | , atualizada em novembro do mesmo ano, que resolvi trazer de volta.
+
+p Um jeito divertido de calcular #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci")
+    | Fibonacci
+  |  usando #[=""]
+  a(href="http://www.numpy.org/") NumPy
+  | :
+
+pre.prettyprint: code.python.
+  from numpy import matrix, long
+
+  m = matrix('1, 1; 1, 0', dtype=long)
+
+  def fib(n: int) -&gt; long:
+      return (m ** n)[0, 0]
+
+h3 Cython
+
+p Mesma ideia em #[=""]
+  a(href="https://cython.org/") Cython
+  | :
+
+pre.prettyprint: code.python.
+  from libc.stdint cimport int64_t
+  from numpy cimport ndarray
+  from numpy import matrix, long
+
+
+  cdef:
+      ndarray m = matrix('1, 1; 1, 0', dtype=long)
+
+
+  cpdef int64_t fib(int n):
+      return (m ** n)[0, 0]
