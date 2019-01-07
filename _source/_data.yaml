@@ -62,13 +62,6 @@ author: &author
         style:
           width: 24px
           height: 10px
-    - name: Bitbucket
-      url: https://bitbucket.org/cacilhas/
-      image:
-        source: /img/bitbucket.png
-        style:
-          width: 24px
-          height: 24px
     - name: Github
       url: https://github.com/cacilhas/
       image:
