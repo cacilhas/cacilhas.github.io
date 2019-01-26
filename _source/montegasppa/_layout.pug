@@ -31,8 +31,7 @@ block main-container
       h2.mg-title !{public.montegasppa.blog.prefix} :: !{title}
       if release
         - release = moment(release).add(3, "hours")
-        h6#release.pull-right #{release.date()}
-          |  #{public.monthnames[release.month()]}, #{release.year()}
+        h6#release.pull-right!= release.format("MMMM Do, YYYY")
       h6!= public.montegasppa.blog.subtitle
 
     .panel-body

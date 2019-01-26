@@ -32,8 +32,7 @@ block main-container
       h2.mg-title !{public.kodumaro.blog.title} :: !{title}
       if release
         - release = moment(release).add(3, "hours")
-        h6.pull-right Released on #{release.date()}
-          |  #{public.monthnames[release.month()]} #{release.year()}
+        h6.pull-right Released on #{release.format("MMMM Do, YYYY")}
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
