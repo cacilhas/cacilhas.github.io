@@ -156,7 +156,7 @@ async function buildTags(): Promise<void> {
       file: "./_source/_includes/tagpage.pug",
       counterpart: `./tags/${slug}.html`,
       context: _.chain(globalContext).clone().extend({
-        moment, _, mkSlug,
+        _, moment, mkSlug,
         public: globalContext,
         title: tag,
         pages: _.values(content),
@@ -242,12 +242,12 @@ async function populateBlog(context: Context): Promise<void> {
     if (/^\d{4}$/.test(yearSlug))
       for (const [ monthSlug, monthDir ] of _.pairs(yearDir))
         if (/^\d\d$/.test(monthSlug)) {
-          const index = parseInt(monthSlug) - 1
+          const date = new Date(`${yearSlug}-${monthSlug}-01T12:00:00.000Z`)
           months.push({
             slug: `${context.blog.url}${yearSlug}/${monthSlug}`,
-            title: `${globalContext.monthnames[index]} de ${yearSlug}`,
+            title: moment(date).format("MMMM YYYY"),
             dir: monthDir,
-            date: new Date(`${yearSlug}-${monthSlug}-01T12:00:00.000Z`)
+            date,
           })
         }
 
@@ -305,7 +305,7 @@ function processStylusFile({ file, counterpart }: processCodeFileParameter) {
   stylus(template)
   .set("filename", counterpart)
   .set("paths", [ path.dirname(file) ])
-  .render((err, css) => {
+  .render((err: Error, css: string) => {
     if (err)
       console.error(err)
     else
