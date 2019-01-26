@@ -5,7 +5,7 @@ homo-sapiens:
   image: /img/neanderthal.png
   release: 2018-08-07
   tags:
-    - Educação e Cultura
+    - Education and Culture
   nav:
     next:
       path: 2018/08/aborto
@@ -19,9 +19,9 @@ aborto:
   image: /img/aborto.jpg
   release: 2018-08-17
   tags:
-    - Aborto
-    - Educação e Cultura
-    - Política
+    - Abortion
+    - Education and Culture
+    - Politics
   nav:
     prev:
       path: 2018/08/homo-sapiens
@@ -38,9 +38,9 @@ espiritismo:
   image: /img/kardec.jpg
   release: 2018-08-18
   tags:
-    - Aborto
-    - Educação e Cultura
-    - Religião
+    - Abortion
+    - Education and Culture
+    - Religion
   nav:
     prev:
       path: 2018/08/aborto
@@ -54,9 +54,9 @@ transfobia:
   image: /img/lgbt.jpg
   release: 2018-08-20
   tags:
-    - Educação e Cultura
-    - Política
-    - Religião
+    - Education and Culture
+    - Politics
+    - Religion
   nav:
     prev:
       path: 2018/04/eugenia
@@ -73,9 +73,9 @@ amo-meu-filho:
     - icon-asd
   release: 2018-08-24
   tags:
-    - Autismo
-    - Educação e Cultura
-    - Política
+    - Autism
+    - Education and Culture
+    - Politics
   nav:
     next:
       path: 2018/09/neurotipico
@@ -90,9 +90,9 @@ ghoughphtheightteeau:
   image: /img/eoflag.jpg
   release: 2018-08-31
   tags:
-    - Educação e Cultura
+    - Comedy
+    - Education and Culture
     - Esperanto
-    - Humor
     - Reblog
 
 feminismo:
@@ -103,5 +103,5 @@ feminismo:
   image: /img/feminismo.jpg
   release: 2018-08-31
   tags:
-    - Educação e Cultura
-    - Política
+    - Education and Culture
+    - Politics

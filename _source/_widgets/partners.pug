@@ -1,5 +1,5 @@
 .col-md-4
   .list-group
-    h3.mg-title.list-group-item.active Camaradas
+    h3.mg-title.list-group-item.active Fellows
     each partner in _.chain(public.partners).values().sortBy(p => p.title).value()
       a.list-group-item.small(href=partner.url target="_blank")!= partner.title

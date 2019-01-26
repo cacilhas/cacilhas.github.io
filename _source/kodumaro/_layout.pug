@@ -32,8 +32,8 @@ block main-container
       h2.mg-title !{public.kodumaro.blog.title} :: !{title}
       if release
         - release = moment(release).add(3, "hours")
-        h6.pull-right Publicado em #{release.date()} de
-          |  #{public.monthnames[release.month()]}, #{release.year()}
+        h6.pull-right Released on #{release.date()}
+          |  #{public.monthnames[release.month()]} #{release.year()}
       h6!= public.kodumaro.blog.subtitle
 
     .panel-body
@@ -52,11 +52,11 @@ block main-container
         if nav.prev
           .pull-left: small
             a(href=`${public.kodumaro.blog.url}${nav.prev.path}.html`)
-              | « Anterior: !{nav.prev.title}
+              | « Previous: !{nav.prev.title}
         if nav.next
           .pull-right: small
             a(href=`${public.kodumaro.blog.url}${nav.next.path}.html`)
-              | Próximo: !{nav.next.title} »
+              | Next: !{nav.next.title} »
 
   if current.source !== 'index'
     .panel.panel-default
@@ -68,9 +68,9 @@ block main-container
             this.page.identifier = `!{current.path.slice(2).join(".")}`
             this.page.title = '!{title}'
           }
-        noscript Por favor habilite o JavaScript para ver os #[=""]
+        noscript Please enable JavaScript to view the comments #[=""]
           a(href="https://disqus.com/?ref_noscript")
-            | comentários do Disqus
+            | powered by Disqus
           | .
 
 block footer
@@ -79,7 +79,7 @@ block footer
      img(src="/img/rss.png" alt="feed")
 
   p.small
-    | Autor: #{author} &nbsp;
+    | Author: #{author} &nbsp;
     a(rel="license" href=public.license.url)
       img(
         alt=`[${public.license.name}]`

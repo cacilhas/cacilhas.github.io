@@ -6,8 +6,8 @@ hondaj:
   image: http://hondaj.cacilhas.info/assets/images/hondaj.png
   release: 2018-09-04
   tags:
-    - Jogos
-    - Pessoal
+    - Games
+    - Personal
 
 neurotipico:
   title: Transtorno Neurotípico
@@ -17,8 +17,8 @@ neurotipico:
   image: /img/tea.jpg
   release: 2018-09-05
   tags:
-    - Autismo
-    - Humor
+    - Autism
+    - Comedy
   nav:
     prev:
       path: 2018/08/amo-meu-filho
@@ -35,8 +35,8 @@ estabanado:
     - icon-asd
   release: 2018-09-24
   tags:
-    - Autismo
-    - Pessoal
+    - Autism
+    - Personal
   nav:
     prev:
       path: 2018/02/desconforto

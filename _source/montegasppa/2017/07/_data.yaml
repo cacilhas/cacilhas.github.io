@@ -7,8 +7,8 @@ prog:
     - icon-rock
   release: 2017-07-20
   tags:
-    - Música
-    - Pessoal
+    - Music
+    - Personal
   nav:
     prev:
       path: 2017/06/punk

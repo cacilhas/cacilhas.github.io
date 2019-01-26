@@ -5,6 +5,6 @@ fibonacci:
     Um jeito divertido de calcular Fibonacci usando NumPy.
   release: 2018-12-20
   tags:
-    - Funcional
+    - Functional
     - Python
     - Reblog

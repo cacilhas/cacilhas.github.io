@@ -5,8 +5,8 @@ brainfuck-1:
   image: /img/turing-machine.jpg
   release: 2017-12-11
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
   nav:
     prev:
       path: 2017/12/brainfuck-toc
@@ -22,8 +22,8 @@ brainfuck-2:
   image: /img/turing-machine.jpg
   release: 2017-12-13
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
   nav:
     prev:
       path: 2017/12/brainfuck-1
@@ -39,8 +39,8 @@ brainfuck-3:
   image: /img/turing-machine.jpg
   release: 2017-12-14
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
   nav:
     prev:
       path: 2017/12/brainfuck-2
@@ -56,8 +56,8 @@ brainfuck-4:
   image: /img/turing-machine.jpg
   release: 2017-12-15
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
   nav:
     prev:
       path: 2017/12/brainfuck-3
@@ -75,8 +75,8 @@ brainfuck-toc:
   image: /img/turing-machine.jpg
   release: 2017-12-15
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
 
 julia:
   title: Julia
@@ -86,7 +86,7 @@ julia:
   image: /img/julia.jpg
   release: 2017-12-17
   tags:
-    - Funcional
+    - Functional
   nav:
     next:
       path: 2017/12/metodos
@@ -98,7 +98,7 @@ metodos:
   image: /img/julia.jpg
   release: 2017-12-19
   tags:
-    - Funcional
+    - Functional
   nav:
     prev:
       path: 2017/12/julia

@@ -7,7 +7,7 @@ do-maior-aberto:
     - icon-guitar
   release: 2017-05-02
   tags:
-    - Música
+    - Music
   nav:
     prev:
       path: 2017/04/oito-cordas
@@ -23,4 +23,4 @@ guitarristas:
     - icon-guitar
   release: 2017-05-13
   tags:
-    - Música
+    - Music

@@ -3,7 +3,7 @@ sml:
   content: Standard ML é a definição padrão da família de linguagens ML.
   release: 2016-03-15
   tags:
-    - Funcional
+    - Functional
     - ML
   nav:
     next:
@@ -15,7 +15,7 @@ sml-2:
   content: Veja como podemos estender a criação de sequências.
   release: 2016-03-17
   tags:
-    - Funcional
+    - Functional
     - ML
   nav:
     prev:

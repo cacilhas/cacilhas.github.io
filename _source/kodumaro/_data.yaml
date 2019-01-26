@@ -1,7 +1,7 @@
 blog:
   title: &title Kodumaro
   prefix: *title
-  subtitle: As sombras da programação.
+  subtitle: The shadows behind the code.
   icon: /img/icons/kodumaro.ico
   licon:
     - licon

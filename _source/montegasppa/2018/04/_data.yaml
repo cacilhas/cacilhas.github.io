@@ -9,8 +9,8 @@ dia-do-autismo:
     - icon-asd
   release: 2018-04-02
   tags:
-    - Autismo
-    - Educação e Cultura
+    - Autism
+    - Education and Culture
   nav:
     prev:
       path: 2018/01/vacina
@@ -30,9 +30,9 @@ eugenia:
     - icon-asd
   release: 2018-04-04
   tags:
-    - Autismo
-    - Educação e Cultura
-    - Política
+    - Autism
+    - Education and Culture
+    - Politics
   nav:
     prev:
       path: 2018/04/dia-do-autismo
@@ -52,8 +52,8 @@ cromatica:
     - glyphicon-music
   release: 2018-04-23
   tags:
-    - Educação e Cultura
-    - Música
+    - Education and Culture
+    - Music
   nav:
     prev:
       path: 2017/04/escalas-anemitonicas
@@ -77,7 +77,7 @@ bobagem-espiritual:
     - icon-he
   release: 2018-04-26
   tags:
-    - Humor
-    - Psicologia
+    - Comedy
+    - Psychology
     - Reblog
-    - Religião
+    - Religion

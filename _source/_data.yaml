@@ -106,7 +106,7 @@ license:
   image: https://i.creativecommons.org/l/by/4.0/80x15.png
 
 misc:
-  title: Repositório
+  title: Repo
   git: https://github.com/cacilhas/misc
   repo: https://github.com/cacilhas/misc/blob/master
   url: //cacilhas.info/misc
@@ -157,15 +157,15 @@ partners:
 
 #-------------------------------------------------------------------------------
 monthnames:
-  - Janeiro
-  - Fevereiro
-  - Março
-  - Abril
-  - Maio
-  - Junho
-  - Julho
-  - Agosto
-  - Setembro
-  - Outubro
-  - Novembro
-  - Dezembro
+  - January
+  - February
+  - March
+  - April
+  - May
+  - June
+  - July
+  - August
+  - September
+  - Octuber
+  - November
+  - December

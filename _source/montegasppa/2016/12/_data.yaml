@@ -6,10 +6,10 @@ aborto:
   image: /img/aborto.jpg
   release: 2016-12-02
   tags:
-    - Aborto
-    - Educação e Cultura
-    - Política
-    - Religião
+    - Abortion
+    - Education and Culture
+    - Politics
+    - Religion
 
 manes:
   title: Sobre o maniqueísmo
@@ -17,6 +17,6 @@ manes:
   image: /img/manes.jpg
   release: 2016-12-02
   tags:
-    - Aborto
-    - Educação e Cultura
-    - Religião
+    - Abortion
+    - Education and Culture
+    - Religion

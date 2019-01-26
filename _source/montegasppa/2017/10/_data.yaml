@@ -7,10 +7,10 @@ normalidade:
     - icon-asd
   release: 2017-10-06
   tags:
-    - Autismo
-    - Educação e Cultura
-    - Pessoal
-    - Psicologia
+    - Autism
+    - Education and Culture
+    - Personal
+    - Psychology
 
 novo-ep:
   title: Novo EP Sækla Saklōrum (O Sutra)
@@ -22,7 +22,7 @@ novo-ep:
     - icon-saekla
   release: 2017-10-22
   tags:
-    - Música
+    - Music
   nav:
     next:
       path: 2017/11/pre-release
@@ -38,8 +38,8 @@ tea:
     - icon-asd
   release: 2017-10-25
   tags:
-    - Autismo
-    - Psicologia
+    - Autism
+    - Psychology
 
 autoridade:
   title: Autoridade
@@ -49,5 +49,5 @@ autoridade:
   image: /img/manes.jpg
   release: 2017-10-26
   tags:
-    - Educação e Cultura
-    - Pessoal
+    - Education and Culture
+    - Personal

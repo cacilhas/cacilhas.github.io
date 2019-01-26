@@ -4,6 +4,6 @@ naturais-em-prolog:
   image: /img/swi.jpg
   release: 2016-08-28
   tags:
-    - Lógica
-    - Funcional
-    - Conceitual
+    - Concept
+    - Functional
+    - Logical

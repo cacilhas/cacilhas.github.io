@@ -6,7 +6,7 @@ lula-monstro:
   image: /img/lula-raivoso.jpg
   release: 2018-03-26
   tags:
-    - Política
+    - Politics
 
 cantata-no140:
   title: "[Bach] Cantata nº 140 (Wachet auf)"
@@ -18,4 +18,4 @@ cantata-no140:
     - icon-music
   release: 2018-03-28
   tags:
-    - Música
+    - Music

@@ -2,31 +2,28 @@ include ./_widgets/list-group-item.pug
 
 div.panel.panel-default
   .panel-heading
-    h2.mg-title Apresentação
+    h2.mg-title Introduction
 
   .panel-body
-    p.mg-first Meu nome é #[=""]
+    p.mg-first My name is #[=""]
       a(href=public.author.url) #{public.author.name}
-      |  e este é meu #[em site] pessoal.
+      | , and this is my personal website.
 
-    p A intenção deste espaço é concentrar coisas de minha extinta página, como
-      |  Konsulta Vortaro, e trazer meu #[em blog] #[=""]
+    p This space aims to center my extinct old page, like |  Konsulta Vortaro,
+      |  and bring my blog, #[=""]
       a(href="http://montegasppa.blogspot.com.br/")
         | Reflexões de Monte Gasppa e Giulia C.
-      |  para #[=""]
-      a(href=public.montegasppa.blog.url) cá
+      |  #[=""]
+      a(href=public.montegasppa.blog.url) here
       | .
 
-    p Também pretendia #[em reblogar] as publicações do #[=""]
+    p It would also aim to reblog #[=""]
       a(href="http://kodumaro.blogspot.com.br/")!= public.kodumaro.blog.title
-      |  aqui, sem desativar o #[em blog] original, mas limitações na interface
-      |  do #[=""]
+      | ’s post, keeping the original one, but #[=""]
       a(href="https://www.blogger.com/") Blogger.com
-      |  me obrigaram a transferi-lo também pra #[=""]
-      a(href=public.kodumaro.blog.url) cá
-      | .
+      | ’s interface restrictions have forced me to bring it here too.
 
-    p Os espaços disponíveis aqui são:
+    p The areas available here are:
 
     +ul
       a(href=public.montegasppa.blog.url)
@@ -34,7 +31,7 @@ div.panel.panel-default
       a(href=public.kodumaro.blog.url)
         +li!= public.kodumaro.blog.title
 
-    p Ainda espaços agregados:
+    p Other extra areas:
 
     +ul
       a(href=public.hondaj.url target="_blank")
