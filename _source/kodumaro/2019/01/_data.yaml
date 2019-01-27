@@ -1,0 +1,10 @@
+lombok:
+  title: Why Lombok is a waste of time
+  content: >
+    The Lombok’s goal is to add facilities and syntax sugar to (…)
+    Java.
+  image: /img/java.png
+  release: 2019-01-23
+  tags:
+    - Career
+    - Java
