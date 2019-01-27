@@ -19,7 +19,7 @@ _hondaj: &hondaj
 
 about:
   aboutActive: true
-  title: ":: Sobre"
+  title: ":: About"
 
 index:
   homeActive: true
