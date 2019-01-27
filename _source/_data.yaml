@@ -19,7 +19,7 @@ _hondaj: &hondaj
 
 about:
   aboutActive: true
-  title: ":: Sobre"
+  title: ":: About"
 
 index:
   homeActive: true
@@ -69,6 +69,13 @@ author: &author
         style:
           width: 24px
           height: 20px
+    - name: Medium
+      url: https://medium.com/@cacilhas
+      image:
+        source: /img/medium.png
+        style:
+          width: 24px
+          height: 24px
     - name: Facebook
       title: Archimedes Montegasppa
       url: https://www.facebook.com/archimedes.montegasppa.3
@@ -106,7 +113,7 @@ license:
   image: https://i.creativecommons.org/l/by/4.0/80x15.png
 
 misc:
-  title: Repositório
+  title: Repo
   git: https://github.com/cacilhas/misc
   repo: https://github.com/cacilhas/misc/blob/master
   url: //cacilhas.info/misc
@@ -154,18 +161,3 @@ partners:
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
-
-#-------------------------------------------------------------------------------
-monthnames:
-  - Janeiro
-  - Fevereiro
-  - Março
-  - Abril
-  - Maio
-  - Junho
-  - Julho
-  - Agosto
-  - Setembro
-  - Outubro
-  - Novembro
-  - Dezembro

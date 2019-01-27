@@ -9,7 +9,7 @@ dad-gad:
     - icon-guitar
   release: 2016-06-12
   tags:
-    - Música
+    - Music
   nav:
     next:
       path: 2017/04/oito-cordas
@@ -26,7 +26,7 @@ modos-gregos:
     - glyphicon-music
   release: 2016-06-16
   tags:
-    - Música
+    - Music
   nav:
     next:
       path: 2016/06/escalas-exoticas-c
@@ -41,7 +41,7 @@ escalas-exoticas:
     - glyphicon-music
   release: 2016-06-16
   tags:
-    - Música
+    - Music
   nav:
     next:
       path: 2016/06/escalas-exoticas-c
@@ -59,7 +59,7 @@ escalas-exoticas-c:
     - glyphicon-music
   release: 2016-06-24
   tags:
-    - Música
+    - Music
   nav:
     prev:
       path: 2016/06/modos-gregos

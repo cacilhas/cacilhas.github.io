@@ -6,7 +6,7 @@ song-can-write-itself:
     - icon-music
   release: 2016-05-15
   tags:
-    - Música
+    - Music
 
 corrupto:
   title: Todo político é corrupto
@@ -14,7 +14,7 @@ corrupto:
   image: /img/heim.jpg
   release: 2016-05-20
   tags:
-    - Política
+    - Politics
 
 cultura-do-estupro:
   title: A Cultura do Estupro (<em>Rape Culture</em>)
@@ -23,8 +23,8 @@ cultura-do-estupro:
   image: /img/estupro.jpg
   release: 2016-05-28
   tags:
-    - Política
-    - Educação e Cultura
+    - Education and Culture
+    - Politics
 
 om-namah-shivaya:
   title: ॐ नमः शिवाय
@@ -32,5 +32,5 @@ om-namah-shivaya:
   image: /img/shiva-back.jpg
   release: 2016-05-31
   tags:
-    - Religião
-    - Educação e Cultura
+    - Education and Culture
+    - Religion

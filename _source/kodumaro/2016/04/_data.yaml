@@ -6,7 +6,7 @@ aspectos:
   image: /img/python.png
   release: 2016-04-19
   tags:
-    - Conceitual
+    - Concept
     - Python
   nav:
     next:
@@ -19,7 +19,7 @@ aspectos-2:
   image: /img/python.png
   release: 2016-04-19
   tags:
-    - Conceitual
+    - Concept
     - Python
   nav:
     prev:

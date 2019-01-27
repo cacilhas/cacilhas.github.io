@@ -4,37 +4,37 @@ include ../_widgets/list-group-item.pug
 
 img.pull-right(src="/img/kodumaro.jpg" alt="Logo")
 
-p.mg-first Olá gente!
+p.mg-first Hi there!
 
-p !{blogtitle} é um trabalho em conjunto de três amigos programadores: #[=""]
+p !{blogtitle} is a colaboration between three friend programmers: #[=""]
   a(href="https://claudiotorcato.wordpress.com/") Cláudio Torcato
   | , #[=""]
   a(href=public.montegasppa.blog.url) Rodrigo Cacilhas
-  |  e #[=""]
+  | , e #[=""]
   a(href="http://waltercruz.com/") Walter Cruz
-  | , num esforço para trazer algumas dicas interessantes sobre programação.
+  | , in an effort to offer you some interesting tips about programming.
 
-p Os temas irão de iniciante a avançado, desde conceitos de programação até
-  |  códigos em diversas linguagens, com uma redação leve e acessível.
+p The topics vary from beginner to pro, from basic programming concepts to
+  |  severial different language samples, in a light and easy wording.
 
-p Esperamos que os artigos sejam úteis e elucidativos, e aguardamos retorno de
-  |  nossos leitores para que !{blogtitle} se aperfeiçoe dia a dia.
+p We hope the posts could be useful and enlightening, and we’re waiting for your
+  |  return, in order to improve !{blogtitle} everyday.
 
-p Sem mais delongas, está apresentada nossa mídia: #[=""]
+p Without further ado, be presented your medium: #[=""]
   a(href=public.kodumaro.blog.url)!= blogtitle
   | !
 
 p: small
-  | Publicação original #[=""]
-  a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") aqui
+  | Original post #[=""]
+  a(href="http://kodumaro.blogspot.com.br/2007/03/saluton.html") here
   | .
 
 script(src="/js/collapse-expand.js")
 
 .collapse-expand-buttons
-  a.label.label-default(onClick="expandAll()") Abrir todos
+  a.label.label-default(onClick="expandAll()") Open all
   | &nbsp;
-  a.label.label-default(onClick="collapseAll()") Fechar todos
+  a.label.label-default(onClick="collapseAll()") Close all
 
 
 -
@@ -72,8 +72,8 @@ script(src="/js/collapse-expand.js")
   a(href="http://kodumaro.blogspot.com.br/")
     li.list-group-item
       img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
-      |  Publicações anteriores
+      |  Previous posts
   a(href="https://twitter.com/kodumaro")
     li.list-group-item
       img(src="/img/twitter.png" alt="" style={width: "24px", height: "24px"})
-      |  Kodumaro no Twitter
+      |  Kodumaro on Twitter

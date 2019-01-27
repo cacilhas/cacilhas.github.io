@@ -1,10 +1,10 @@
 author:
-  title: Sobre o autor
+  title: About the author
 
 blog:
-  title: Reflexões de ℳontegasppα e Giulia C.
-  prefix: Reflexões…
-  subtitle: Um hipopótamo num campo de flores.
+  title: ℳontegasppα and Giulia C.’s thoughts
+  prefix: Thoughts
+  subtitle: A hippo among flowers in the field.
   icon: /img/icons/montegasppa.ico
   licon:
     - licon
@@ -15,5 +15,5 @@ feed:
   layout: false
 
 index:
-  title: Prólogo
+  title: Prologue
   home: true

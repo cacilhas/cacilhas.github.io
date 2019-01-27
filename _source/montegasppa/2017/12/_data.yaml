@@ -9,8 +9,8 @@ entre-lobos:
     - icon-asd
   release: 2017-12-03
   tags:
-    - Autismo
-    - Pessoal
+    - Autism
+    - Personal
   nav:
     next:
       path: 2017/12/literalmente
@@ -32,7 +32,7 @@ capitalismo:
     - icon-he
   release: 2017-12-05
   tags:
-    - Política
+    - Politics
     - Reblog
 
 culpa:
@@ -46,10 +46,10 @@ culpa:
     - icon-asd
   release: 2017-12-05
   tags:
-    - Autismo
-    - Educação e Cultura
-    - Pessoal
-    - Psicologia
+    - Autism
+    - Education and Culture
+    - Personal
+    - Psychology
 
 literalmente:
   title: Literalmente
@@ -61,8 +61,8 @@ literalmente:
     - icon-asd
   release: 2017-12-10
   tags:
-    - Autismo
-    - Pessoal
+    - Autism
+    - Personal
   nav:
     prev:
       path: 2017/12/entre-lobos
@@ -83,8 +83,8 @@ nos-autistas:
     - icon-asd
   release: 2017-12-14
   tags:
-    - Autismo
-    - Pessoal
+    - Autism
+    - Personal
   nav:
     prev:
       path: 2017/12/literalmente
@@ -96,8 +96,8 @@ iwa:
   image: /img/iwa.jpg
   release: 2017-12-30
   tags:
-    - Educação e Cultura
-    - Psicologia
+    - Education and Culture
+    - Psychology
 
 rock-is-dead:
   title: <em>Rock is dead</em> Ⅲ
@@ -108,7 +108,7 @@ rock-is-dead:
     - icon-rock
   release: 2017-12-31
   tags:
-    - Música
+    - Music
   nav:
     prev:
       path: 2017/02/rock-is-dead

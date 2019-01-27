@@ -1,33 +1,31 @@
 include ../_widgets/list-group-item.pug
 
-p.mg-first Sempre que conversava com algum amigo #[em blogueiro], ele me sugeria
-  |  criar um #[em blog] meu. Não pensei a sério até #[=""]
-  a(href="http://montegasppa.blogspot.in/2006/07/prlogo.html") julho de 2006
-  | , quando criei a primeira encarnação das #[=""]
-  strong Reflexões de Monte Gasppa e Giulia C.
-  | .
+p.mg-first Everytime I was talking to a friend blogger, he proposed me to write
+  |  a blog. I never thought seriously until #[=""]
+  a(href="http://montegasppa.blogspot.in/2006/07/prlogo.html") July 2006
+  | , when I wrote the first #[strong #{public.montegasppa.blog.title}] post.
 
-p O #[em blog] era sobre Informática, Software Livre e programação, mas acabou
-  |  se tornando um #[em blog] político, muito em função da parte de programação
-  |  ter se tornado responsabilidade do #[=""]
+p That blog was about Computing, Free Software and programming, but eventually
+  |  became a political blog, strongly because I have moved the programming’s
+  |  responsability to #[=""]
   a(href=public.kodumaro.blog.url)!= public.kodumaro.blog.title
   | .
 
-p Mais tarde Reflexões acabou virando de fato meu #[em blog] pessoal, onde
-  |  vomito tudo o que me afeta nesse mundo, de religião a música, de Computação
-  | a política.
+p Later #{public.montegasppa.prefix} turned into my personal blog, where I throw
+  |  up everything affects me, from religion to music, from Computing to
+  |  Politics.
 
-p Renasce então sob minha #[=""]
-  a(href=`${public.main.host}/`) página pessoal
-  | , com um nome ligeiramente diferente, já que resolvi mudar “Monte Gasppa”
-  |  para “ℳontegasppα”, mas cada vez mais meu #[em blog] #[strong pessoal].
+p It was reborn under my #[=""]
+  a(href=`${public.main.host}/`) personal website
+  | , slightly renamed, once I’ve changed “Monte Gasppa” to “ℳontegasppα”,
+  |  but more and more my #[strong personal] blog.
 
 script(src="/js/collapse-expand.js")
 
 .collapse-expand-buttons
-  a.label.label-default(onClick="expandAll()") Abrir todos
+  a.label.label-default(onClick="expandAll()") Open all
   | &nbsp;
-  a.label.label-default(onClick="collapseAll()") Fechar todos
+  a.label.label-default(onClick="collapseAll()") Close all
 
 -
   let years = _(public.montegasppa.months).groupBy(
@@ -64,4 +62,4 @@ script(src="/js/collapse-expand.js")
   a(href="http://montegasppa.blogspot.in/")
     li.list-group-item
       img(src="/img/blogger.png" alt="" style={width: "24px", height: "24px"})
-      |  Publicações anteriores
+      |  Previous posts

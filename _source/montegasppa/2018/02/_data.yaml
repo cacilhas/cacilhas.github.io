@@ -9,8 +9,8 @@ asperger:
     - icon-asd
   release: 2018-02-02
   tags:
-    - Autismo
-    - Educação e Cultura
+    - Autism
+    - Education and Culture
   explanation: >
     Na verdade a abordagem de estímulo foi de um casal de pediatras judeus que
     precederam Asperger, de quem ele tomou a pesquisa. Asperger tratava as
@@ -29,8 +29,8 @@ prognose:
     - icon-prognose
   release: 2018-02-14
   tags:
-    - Música
-    - Pessoal
+    - Music
+    - Personal
     - Prognose
   nav:
     prev:
@@ -51,9 +51,9 @@ desconforto:
     - icon-asd
   release: 2018-02-24
   tags:
-    - Autismo
-    - Pessoal
-    - Psicologia
+    - Autism
+    - Personal
+    - Psychology
   nav:
     next:
       path: 2018/09/estabanado
@@ -68,6 +68,6 @@ crowdfunding:
   licon: *prognose-icon
   release: 2018-02-24
   tags:
-    - Música
-    - Pessoal
+    - Music
+    - Personal
     - Prognose

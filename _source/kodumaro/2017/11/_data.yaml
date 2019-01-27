@@ -6,8 +6,8 @@ lisp:
   image: /img/lisp.jpg
   release: 2017-11-02
   tags:
-    - Conceitual
-    - Funcional
+    - Concept
+    - Functional
     - LISP
   nav:
     next:
@@ -22,7 +22,7 @@ lazy-racket:
   image: /img/racket.jpg
   release: 2017-11-02
   tags:
-    - Funcional
+    - Functional
     - LISP
   nav:
     prev:
@@ -40,8 +40,8 @@ acumuladores:
   image: /img/glider.png
   release: 2017-11-13
   tags:
-    - Conceitual
-    - Lógica
+    - Concept
+    - Logical
   nav:
     prev:
       path: 2017/11/lazy-racket

@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Kavivanar"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto&amp;subset=latin-ext"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:i,bold&amp;subset=latin-ext"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Mono"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/animate.min.css"/><link rel="stylesheet" href="/css/bootstrap-dropdownhover.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Why Lombok is a waste of time</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Why Lombok is a waste of time"/><meta property="og:url" content="https://cacilhas.info/kodumaro/2019/01/lombok.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Career, Java"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="https://cacilhas.info/img/java.png"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="https://kodumaro.cacilhas.info/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/icons/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/bootstrap-dropdownhover.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/alt-title.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="dropdown"><span class="navbar-brand dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">ℭacilhας.INFO</span><ul class="dropdown-menu"><li><a href="https://cacilhas.info"><i class="glyphicon glyphicon-home"></i>&nbsp;ℭacilhας.INFO</a></li><li><a href="https://montegasppa.cacilhas.info/"><i class="licon icon-montegasppa"></i>&nbsp;ℳontegasppα and Giulia C.’s thoughts</a></li><li><a href="https://kodumaro.cacilhas.info/"><i class="licon icon-kodumaro"></i>&nbsp;Kodumaro</a></li><li><hr/></li><li><a href="https://www.educaedu-brasil.com/" target="_blank"><i class="licon icon-educaedu"></i>&nbsp;Educaedu Brasil</a></li><li><a href="https://hondaj.cacilhas.info/" target="_blank"><i class="licon icon-hondaj"></i>&nbsp;ĤøŅĐΔj̆₀</a></li><li><a href="https://vortaro.cacilhas.info/" target="_blank"><i class="glyphicon glyphicon-link"></i>&nbsp;Konsulta Vortaro</a></li><li><a href="https://claudiotorcato.wordpress.com/" target="_blank"><i class="licon icon-wordpress"></i>&nbsp;Mosaico Livre</a></li><li><a href="https://www.patreon.com/cacilhas" target="_blank"><i class="licon icon-patreon"></i>&nbsp;Prognose</a></li><li><a href="https://www.todasfridas.com.br/" target="_blank"><i class="licon icon-fridas"></i>&nbsp;Todas Fridas</a></li><li><a href="https://waltercruz.com/" target="_blank"><i class="glyphicon glyphicon-link"></i>&nbsp;Walter Cruz</a></li></ul></div></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="https://cacilhas.info/"><i class="glyphicon glyphicon-home"></i>&nbsp;
+Home</a></li><li><a href="https://cacilhas.info/about.html">About</a></li><li><a href="https://kodumaro.cacilhas.info/">Kodumaro</a></li><li class="active"><a href=".">Why Lombok is a waste of time</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Why Lombok is a waste of time</h2><h6 class="pull-right">Released on January 23rd, 2019</h6><h6>The shadows behind the code.</h6></div><div class="panel-body"><img class="pull-right" src="/img/java.png" alt="Java"/><p class="img-first">I’ve recently started working with <a href="https://projectlombok.org/">Lombok</a>, a really great project.</p><p>The Lombok’s goal is to add facilities and syntax sugar to a bureaucratic and painful <a href="https://www.java.com/">Java language</a>, and at first sight it seems very useful.</p><p>Let’s look at a made-easier Java code. First without Lombok (I’m suppressing the imports):</p><pre class="prettyprint"><code class="java">class Person {
+    private final String name;
+    private final String surname;
+    private final Date birth;
+    public Person(String name, String surname, Date birth) {
+        this.name = name;
+        this.surname = surname;
+        this.birth = birth;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public String getSurname() {
+        return this.surname;
+    }
+    public Date getBirth() {
+        return this.birth;
+    }
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Person)) return false;
+        final Person other = (Person) o;
+        return other.getName() == getName()
+            && other.getSurname() == getSurname()
+            && other.getBirth() == getBirth();
+    }
+    public String toString() {
+        return "Person(name=" + getName()
+            + ", surname=" + getSurname()
+            + ", birth=" + getBirth()
+            + ")";
+    }
+}
+</code></pre><p>And a lot of other methods you may want.</p><p>Now the same code using Lombok:</p><pre class="pretyprint"><code class="java">@Value
+class Person {
+    private final String name;
+    private final String surname;
+    private final Date birth;
+}
+</code></pre><p>It looks wonderful!</p><p>We can do many other things, like change:</p><pre class="prettyprint"><code class="java">final HashMap&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+</code></pre><p>By:</p><pre class="prettyprint"><code class="java">val map = new HashMap&lt;String, Integer&gt;();
+</code></pre><hr/><blockquote><p>So… what’s wrong with Lombok?</p></blockquote><p>Let’s take a look at <a href="https://www.scala-lang.org/">Scala</a>. The very same <code>Person</code> class:</p><pre class="prettyprint"><code class="scala">case class Person(name: String, surname: String, birth: Date)
+</code></pre><p>That simple, using the <strong>native</strong> language resources, no twists or juggling.</p><p>The keyword here is “native”. Lombok injects a lot of annotations and strains into Java to do what Scala already does easily. The <code>val</code> is a Scala
+ token yet, just as <code>var</code>.</p><p>For every Lombok feature, there’s a native Scala one – simpler, clearer.</p><p>Perhaps someone says that Lombok is Java yet, and Scala must be compiled to Java code before the bytecode, but even so it’s not fully honest,
+ because <strong>the Lombok code needs to be compiled to Java code too</strong>, so it doesn’t find grounds.</p><p>If you’re thinking of Lombok as solution, remember there are no excuses that justify using Lombok instead of Scala, and think twice.</p><blockquote><p>Update: I just found out that NetBeans doesn’t work well with Lombok… 😓</p><p>You’re <strong>forced</strong> to use Eclipse.</p></blockquote><hr/><p:small>Originally published on <a href="https://medium.com/@cacilhas/why-lombok-is-a-waste-of-time-5fdb7c091d41">Medium</a>.</p:small></div></div><p class="text-right"><small class="tag"><a href="/tags/career.html">Career</a></small> | <small class="tag"><a href="/tags/java.html">Java</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `https://cacilhas.info/kodumaro/2019/01/lombok.html`
+  this.page.identifier = `kodumaro.2019.01.lombok`
+  this.page.title = 'Why Lombok is a waste of time'
+}</script><noscript>Please enable JavaScript to view the comments <a href="https://disqus.com/?ref_noscript">powered by Disqus</a>.</noscript></div></div><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script><iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:17ztrEzLSzYOp8MySGqFHy&amp;size=detail&amp;theme=light" width="300" height="56" scrolling="no" frameboarder="0" style="border:none; overflow:hidden;" allowtransparency></iframe></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="https://kodumaro.cacilhas.info/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Author: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0;"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script><script language="javascript">$(document).ready(function() {
+  $('[title]').tooltip();
+})</script></body></html>

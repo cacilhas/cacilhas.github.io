@@ -27,7 +27,7 @@ ascii:
   image: /img/glider.png
   release: 2016-05-21
   tags:
-    - Conceitual
+    - Concept
 
 monty-hall:
   title: Paradoxo de Monty Hall, parte Ⅰ
@@ -38,8 +38,8 @@ monty-hall:
   release: 2016-05-22
   tags:
     - Erlang
-    - Funcional
-    - Lógica
+    - Functional
+    - Logical
   nav:
     next:
       path: 2016/05/monty-hall-2
@@ -52,8 +52,8 @@ monty-hall-2:
   release: 2016-05-22
   tags:
     - Erlang
-    - Funcional
-    - Lógica
+    - Functional
+    - Logical
   nav:
     prev:
       path: 2016/05/monty-hall
@@ -72,8 +72,8 @@ monty-hall-3:
   release: 2016-05-26
   tags:
     - Erlang
-    - Funcional
-    - Lógica
+    - Functional
+    - Logical
   nav:
     prev:
       path: 2016/05/monty-hall-2
@@ -87,4 +87,4 @@ camera-exemplo:
   release: 2016-05-26
   tags:
     - Lua
-    - Jogos
+    - Games

@@ -9,8 +9,8 @@ composto:
     - glyphicon-music
   release: 2018-10-20
   tags:
-    - Educação e Cultura
-    - Música
+    - Education and Culture
+    - Music
   nav:
     prev:
       path: 2018/04/cromatica
@@ -29,8 +29,8 @@ end-credits:
     - icon-music
   release: 2018-10-20
   tags:
-    - Música
-    - Pessoal
+    - Music
+    - Personal
     - Prognose
   nav:
     prev:
@@ -44,8 +44,8 @@ eleicoes:
     embasado em fontes respeitadas…
   release: 2018-10-25
   tags:
-    - Educação e Cultura
-    - Política
+    - Education and Culture
+    - Politics
   nav:
     next:
       path: 2018/10/isento
@@ -61,8 +61,8 @@ amalgama:
     - glyphicon-music
   release: 2018-10-25
   tags:
-    - Educação e Cultura
-    - Música
+    - Education and Culture
+    - Music
   nav:
     prev:
       path: 2018/10/composto
@@ -76,9 +76,9 @@ isento:
   image: /img/heim.jpg
   release: 2018-10-26
   tags:
-    - Educação e Cultura
-    - Pessoal
-    - Política
+    - Education and Culture
+    - Personal
+    - Politics
   nav:
     prev:
       path: 2018/10/eleicoes

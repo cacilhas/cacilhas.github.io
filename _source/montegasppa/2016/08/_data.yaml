@@ -8,8 +8,8 @@ shadow:
     - icon-music
   release: 2016-08-05
   tags:
-    - Música
-    - Psicologia
+    - Music
+    - Psychology
 
 fim-da-democracia:
   title: Óbito da democracia no Brasil
@@ -17,4 +17,4 @@ fim-da-democracia:
   image: /img/fim-da-democracia.jpg
   release: 2016-08-28
   tags:
-    - Política
+    - Politics

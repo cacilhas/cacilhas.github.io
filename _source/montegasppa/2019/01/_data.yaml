@@ -5,5 +5,86 @@ respeito:
   image: /img/heim.jpg
   release: 2019-01-01
   tags:
-    - Autismo
-    - Pessoal
+    - Autism
+    - Personal
+
+autism-social-biases:
+  title: My autism and the social biases
+  content: >
+    I’m a high-functioning autistic. I realised it when we were investigating my
+    younger son’s autism.
+  image: /img/autistic.png
+  licon:
+    - licon
+    - icon-asd
+  release: 2019-01-15
+  tags:
+    - Autism
+    - Personal
+    - Politics
+    - Reblog
+
+autistic-mind:
+  title: The autistic mind
+  content: >
+    Temple Grandin (…) talks about photo-realistic visual thinkers, pattern
+    thinkers and the verbal mind…
+  image: /img/linear.jpg
+  licon:
+    - licon
+    - icon-asd
+  release: 2019-01-16
+  tags:
+    - Autism
+    - Personal
+    - Psychology
+
+normality:
+  title: Normality
+  content: >
+    The normality idea must be uprooted from the society…
+  image: /img/normal.png
+  licon:
+    - licon
+    - icon-asd
+  release: 2019-01-17
+  tags:
+    - Autism
+    - Education and Culture
+    - Personal
+    - Psychology
+  nav:
+    prev:
+      path: 2017/10/normalidade
+      title: Portuguese version
+
+love-my-son:
+  title: Love my son, not the Autism (⁉️)
+  content: >
+    I read a curious text in a Facebook page, where the author was
+    repeating (…) “I love my son, not his autism”.
+  image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
+  release: 2019-01-21
+  tags:
+    - Autism
+    - Education and Culture
+    - Politics
+  nav:
+    prev:
+      path: 2018/08/amo-meu-filho
+      title: Portuguese version
+
+bebop-scales:
+  title: Bebop scales
+  content: >
+    The “state of art” of western musical scales are the bebop ones.
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2019-01-25
+  tags:
+    - Education and Culture
+    - Music

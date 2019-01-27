@@ -9,8 +9,8 @@ punk:
     - icon-rock
   release: 2017-06-07
   tags:
-    - Música
-    - Pessoal
+    - Music
+    - Personal
   nav:
     next:
       path: 2017/07/prog

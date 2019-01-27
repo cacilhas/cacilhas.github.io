@@ -21,7 +21,7 @@ block blog-head
   link(rel="icon" href=public.montegasppa.blog.icon)/
 
 block append nav-bar
-  li(class={active: home}): a(href=public.montegasppa.blog.url) Prólogo
+  li(class={active: home}): a(href=public.montegasppa.blog.url) Prologue
   unless home
     li.active: a(href=".") !{public.montegasppa.blog.prefix} :: !{title}
 
@@ -31,8 +31,7 @@ block main-container
       h2.mg-title !{public.montegasppa.blog.prefix} :: !{title}
       if release
         - release = moment(release).add(3, "hours")
-        h6#release.pull-right #{release.date()} de
-          |  #{public.monthnames[release.month()]}, #{release.year()}
+        h6#release.pull-right!= release.format("MMMM Do, YYYY")
       h6!= public.montegasppa.blog.subtitle
 
     .panel-body
@@ -51,11 +50,11 @@ block main-container
         if nav.prev
           .pull-left: small
             a(href=`${public.montegasppa.blog.url}${nav.prev.path}.html`)
-              | « Anterior: !{nav.prev.title}
+              | « Previous: !{nav.prev.title}
         if nav.next
           .pull-right: small
             a(href=`${public.montegasppa.blog.url}${nav.next.path}.html`)
-              | Próximo: !{nav.next.title} »
+              | Next: !{nav.next.title} »
 
 block footer
   p.pull-left
