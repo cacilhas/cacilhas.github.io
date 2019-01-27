@@ -69,6 +69,13 @@ author: &author
         style:
           width: 24px
           height: 20px
+    - name: Medium
+      url: https://medium.com/@cacilhas
+      image:
+        source: /img/medium.png
+        style:
+          width: 24px
+          height: 24px
     - name: Facebook
       title: Archimedes Montegasppa
       url: https://www.facebook.com/archimedes.montegasppa.3
