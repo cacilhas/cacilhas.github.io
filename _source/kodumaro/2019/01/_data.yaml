@@ -8,3 +8,13 @@ lombok:
   tags:
     - Career
     - Java
+
+now-we-have-two:
+  title: Now we have two…
+  content: >
+    We had some problems to solve. The technical management decided we should
+    use Ruby. Now we have bigger ones.
+  image: /img/ruby.png
+  release: 2019-01-24
+  tags:
+    - Career
