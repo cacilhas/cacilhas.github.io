@@ -9,7 +9,7 @@ respeito:
     - Personal
 
 autism-social-biases:
-  title: My Autism and the Social Biases
+  title: My autism and the social biases
   content: >
     I’m a high-functioning autistic. I realised it when we were investigating my
     younger son’s autism.
@@ -17,6 +17,18 @@ autism-social-biases:
   release: 2019-01-15
   tags:
     - Autism
-    - Education and Culture
+    - Personal
     - Politics
     - Reblog
+
+autistic-mind:
+  title: The autistic mind
+  content: >
+    Temple Grandin (…) talks about photo-realistic visual thinkers, pattern
+    thinkers and the verbal mind…
+  image: /img/linear.jpg
+  release: 2019-01-16
+  tags:
+    - Autism
+    - Personal
+    - Psychology
