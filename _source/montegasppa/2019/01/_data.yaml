@@ -76,3 +76,15 @@ love-my-son:
     prev:
       path: 2018/08/amo-meu-filho
       title: Portuguese version
+
+bebop-scales:
+  title: Bebop scales
+  content: >
+    The “state of art” of western musical scales are the bebop ones.
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2019-01-25
+  tags:
+    - Education and Culture
+    - Music
