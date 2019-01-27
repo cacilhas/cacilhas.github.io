@@ -1,5 +1,5 @@
 _medium: &medium
-  title: Cacilhas@Medium
+  title: Medium.com/@cacilhas
   url: https://medium.com/@cacilhas
 
 _prognose: &prognose
@@ -165,4 +165,8 @@ partners:
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
-  medium: *medium
+  medium:
+    <<: *medium
+    licon:
+      - licon
+      - icon-medium
