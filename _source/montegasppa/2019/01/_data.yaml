@@ -32,3 +32,19 @@ autistic-mind:
     - Autism
     - Personal
     - Psychology
+
+normality:
+  title: Normality
+  content: >
+    The normality idea must be uprooted from the society…
+  image: /img/normal.png
+  release: 2019-01-17
+  tags:
+    - Autism
+    - Education and Culture
+    - Personal
+    - Psychology
+  nav:
+    prev:
+      path: 2017/10/normalidade
+      title: Portuguese version

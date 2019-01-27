@@ -11,6 +11,10 @@ normalidade:
     - Education and Culture
     - Personal
     - Psychology
+  nav:
+    next:
+      path: 2019/01/normality
+      title: Versão em inglês (English translation)
 
 novo-ep:
   title: Novo EP Sækla Saklōrum (O Sutra)
