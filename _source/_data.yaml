@@ -1,3 +1,7 @@
+_medium: &medium
+  title: Cacilhas@Medium
+  url: https://medium.com/@cacilhas
+
 _prognose: &prognose
   title: Prognose
   url: https://www.patreon.com/cacilhas
@@ -69,8 +73,8 @@ author: &author
         style:
           width: 24px
           height: 20px
-    - name: Medium
-      url: https://medium.com/@cacilhas
+    - <<: *medium
+      name: Medium
       image:
         source: /img/medium.png
         style:
@@ -161,3 +165,4 @@ partners:
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
+  medium: *medium
