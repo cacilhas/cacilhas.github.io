@@ -88,6 +88,10 @@ bebop-scales:
   tags:
     - Education and Culture
     - Music
+  nav:
+    next:
+      path: 2019/02/pentatonic
+      title: The pentatonic’s undeserved stigma
 
 surrendered:
   title: Why I stopped publishing in Portuguese
