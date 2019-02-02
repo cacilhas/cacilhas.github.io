@@ -1,0 +1,17 @@
+pentatonic:
+  title: The pentatonic’s undeserved stigma
+  content: >
+    Every so-called guitar player has some nasty words about the pentatonic
+    scales, but they’re often bullshit.
+  image: /img/schecter-c8.jpg
+  licon:
+    - glyphicon
+    - icon-guitar
+  release: 2019-02-01
+  tags:
+    - Education and Culture
+    - Music
+  nav:
+    prev:
+      path: 2019/01/bebop-scales
+      title: Bebop scales
