@@ -15,3 +15,14 @@ pentatonic:
     prev:
       path: 2019/01/bebop-scales
       title: Bebop scales
+
+taking-god-away:
+  title: How taking God away of the math made me a better person
+  content: >
+    As an autistic, I have a lot of side issues to deal.
+  image: /img/god.jpg
+  release: 2019-02-10
+  tags:
+    - Autism
+    - Personal
+    - Religion
