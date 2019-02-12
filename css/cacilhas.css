@@ -4,6 +4,19 @@
   font-weight: normal;
   font-style: normal;
 }
+@media only screen and (min-width: 1024px) {
+  img:not(.pull-right) {
+    margin: 2px 5px 5px 5px !important;
+  }
+  img.pull-right {
+    margin: 2px 0px 5px 5px !important;
+  }
+}
+@media screen and (max-width: 800px) {
+  img {
+    margin: 0px 1px 0px 1px;
+  }
+}
 body {
   font-family: Roboto, Helvetica, sans-serif;
 }
