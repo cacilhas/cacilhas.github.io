@@ -33,6 +33,9 @@ defective-interface:
     A few days ago, my son’s speech therapist was interviewing me (…). Then she
     told me I get Childhood AOS.
   image: /img/cortex.png
+  licon:
+    - licon
+    - icon-asd
   release: 2019-02-18
   medium_url: https://medium.com/@cacilhas/defective-interface-8b40745eb9a1
   tags:
