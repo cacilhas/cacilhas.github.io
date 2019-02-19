@@ -1,0 +1,7 @@
+mixin ext(href)
+  a(href=href target="_blank")
+    block
+
+mixin medium-link
+  hr/
+  p: small Also in #[+ext(medium_url) Medium].
