@@ -1,12 +1,6 @@
-*.swo
-*.swp
-*.komodoproject
-*.map
 *~
-
 .*
-_build.js
-
+/_build.js
 /img
 /misc
 /node_modules
