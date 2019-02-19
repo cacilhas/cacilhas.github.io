@@ -8,6 +8,7 @@ pentatonic:
     - glyphicon
     - icon-guitar
   release: 2019-02-02
+  medium_url: https://medium.com/@cacilhas/the-pentatonics-undeserved-stigma-c4b23966f405
   tags:
     - Education and Culture
     - Music
@@ -22,6 +23,7 @@ taking-god-away:
     As an autistic, I have a lot of side issues to deal.
   image: /img/god.jpg
   release: 2019-02-10
+  medium_url: https://medium.com/@cacilhas/how-taking-god-away-of-the-math-made-me-a-better-person-ea7efcc14807
   tags:
     - Autism
     - Personal

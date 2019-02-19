@@ -5,6 +5,7 @@ lombok:
     Java.
   image: /img/java.png
   release: 2019-01-23
+  medium_url: https://medium.com/@cacilhas/why-lombok-is-a-waste-of-time-5fdb7c091d41
   tags:
     - Career
     - Java
@@ -16,5 +17,6 @@ now-we-have-two:
     use Ruby. Now we have bigger ones.
   image: /img/ruby.png
   release: 2019-01-24
+  medium_url: https://medium.com/@cacilhas/now-we-have-two-748c013875b8
   tags:
     - Career

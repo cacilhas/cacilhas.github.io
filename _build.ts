@@ -44,6 +44,20 @@ const refContext = {
   kodumaro: yaml.safeLoad(fs.readFileSync("./_source/kodumaro/_data.yaml", "utf8")),
 }
 
+const mixins: string[] = fs.readdirSync(`./_source/_mixins`)
+                           .filter(e => !e.startsWith("."))
+                           .map(e => `_mixins/${e}`)
+
+
+function findDirPath(filename: string): string {
+  const steps = path.dirname(filename).split("/")
+  const index = steps.indexOf("_source") + 1
+  if (index === 0)
+    return "."
+  else
+    return path.join(... _(steps.length - index).times(() => ".."))
+}
+
 
 function mkSlug(name: string): string {
   return name
@@ -278,8 +292,7 @@ function processPugFile({ file, counterpart, context, layout }: processPugFilePa
   const useLayout = _useLayout === undefined ? true : !!_useLayout
 
   let template = fs.readFileSync(file, "utf-8")
-  let render: Render =
-    pug.compile(template, { filename: file, pretty: false }) as Render
+  let render  = compilePug(template, file)
 
   context = _(_.clone(context)).extend({ public: globalContext, moment, mkSlug, _ })
   let content = render(context)
@@ -287,12 +300,22 @@ function processPugFile({ file, counterpart, context, layout }: processPugFilePa
   if (useLayout && typeof layout === "string") {
     context.yield = content
     template = fs.readFileSync(layout, "utf-8")
-    render =
-      pug.compile(template, { filename: layout, pretty: false }) as Render
+    render = compilePug(template, layout)
     content = render(context)
   }
 
   fs.writeFileSync(counterpart, content, "utf-8")
+}
+
+
+function compilePug(template: string, filename: string): Render {
+  const dir = findDirPath(filename)
+  const mixinsInclude = mixins.map(cur => `include ${dir}/${cur}\n`)
+                              .reduce((acc, cur) => acc + cur)
+  const content = template.startsWith("extends ")
+    ? template
+    : mixinsInclude + template
+  return pug.compile(content, { filename, pretty: false })
 }
 
 
