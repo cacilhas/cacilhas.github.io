@@ -193,8 +193,9 @@ interface loadContextParameter {
   context: Context
 }
 
-async function loadContext({ dirname, context }: loadContextParameter):
-Promise<void> {
+async function loadContext({ dirname, context }: loadContextParameter)
+    : Promise<void> {
+
   const files = fs.readdirSync(dirname)
                   .filter(e => !e.startsWith("."))
   const children: Promise<void>[] = []
@@ -270,9 +271,9 @@ interface processPugFileParameter {
   layout?: string
 }
 
-function processPugFile(
-  { file, counterpart, context, layout }: processPugFileParameter
-): void {
+function processPugFile({ file, counterpart, context, layout }: processPugFileParameter)
+    : void {
+
   const _useLayout = context.layout
   const useLayout = _useLayout === undefined ? true : !!_useLayout
 
@@ -326,8 +327,9 @@ interface processFileParameter {
   layout?: string
 }
 
-async function processFile({ file, context, layout }: processFileParameter):
-Promise<void> {
+async function processFile({ file, context, layout }: processFileParameter)
+    :Promise<void> {
+
   // Clean up
   const counterpart = getCounterpart(file)
 
@@ -356,9 +358,9 @@ interface processDirectoryParameter {
   layout?: string
 }
 
-async function processDirectory(
-  { dirname, context, layout }: processDirectoryParameter
-): Promise<void> {
+async function processDirectory({ dirname, context, layout }: processDirectoryParameter)
+    : Promise<void> {
+
   console.log("processing directory:", dirname)
   // Clean up
   const counterpart = getCounterpart(dirname)
