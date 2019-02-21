@@ -10,3 +10,16 @@ actions-sake:
     - Career
     - Education and Culture
     - Politics
+
+engine-missing:
+  title: Testing the steering wheel in a engine missing car
+  content: >
+    Our motor vehicle assembler is designing a new car concept. Everything works
+    in slightly different ways than the usual.
+  image: /img/java.png
+  release: 2019-02-21
+  medium_url: https://medium.com/@cacilhas/testing-the-steering-wheel-in-a-engine-missing-car-1b134cfc2780
+  tags:
+    - Concept
+    - Functional
+    - TDD
