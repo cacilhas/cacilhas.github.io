@@ -3,10 +3,10 @@ img.pull-right(src=image)
 p.mg-first Let’s take a hypothetical situation: #[=""]
   != _(content).uncapitalize()
 
-p We perform the steering wheel unit test, and everything works fine. Now we
-  |  have to test how it integrates with the whole car. So we’re gonna design an
-  |  acceptance test, using a real car to see whether the wheel can turn the car
-  |  left and right properly or not.
+p We’ve performed the steering wheel unit test, and everything works fine. Now
+  |  we have to test how it integrates with the whole car. So we’re gonna design
+  |  an acceptance test, using a real car to see whether the wheel can turn the
+  |  car left and right properly or not.
 
 p But we want to test #[strong only] the steering wheel behaviour, so we decided
   |  to use a #[em partial] car for testing it. The partial car may have no
@@ -15,7 +15,7 @@ p But we want to test #[strong only] the steering wheel behaviour, so we decided
 
 p What a humongous mistake! The partial car’s behaviour is far different from
   |  the real one’s. So the mistaken acceptance test runs fine, but the steering
-  |  wheel may not be able to turn the real car in time or at the right turn.
+  |  wheel may not be able to turn a real car in time or at the right turn.
 
 p This weird example is an analogy for how I’ve seen people writing acceptance
   |  tests (and calling them “integration tests”).
@@ -25,7 +25,7 @@ p Because of a misunderstanding of the #[=""]
     | FSM
   | , software designers think there can be allowed to create inconsistent-state
   |  models in order to change that state little by little through a procedure
-  |  chain, #[strong hoping] they’ll get a consistent state at the end.
+  |  chain, #[strong hoping] they get into a consistent state at the end.
 
 p This approach allows testing code actors by faking the environment with
   |  inconsistent models, which does #[strong not] represent the production
