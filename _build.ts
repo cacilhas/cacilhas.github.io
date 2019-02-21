@@ -49,6 +49,12 @@ const mixins: string[] = fs.readdirSync(`./_source/_mixins`)
                            .map(e => `_mixins/${e}`)
 
 
+_.mixin({
+  capitalize: (s: string) => s.charAt(0).toUpperCase() + s.slice(1),
+  uncapitalize: (s: string) => s.charAt(0).toLowerCase() + s.slice(1),
+})
+
+
 function findDirPath(filename: string): string {
   const steps = path.dirname(filename).split("/")
   const index = steps.indexOf("_source") + 1
