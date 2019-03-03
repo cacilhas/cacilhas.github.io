@@ -1,0 +1,10 @@
+oop-fish:
+  title: Implementing OOP on Fish (just for fun)
+  content: >
+    Fish is a great command-line shell targeted on programmers.
+  image: /img/fish.jpg
+  release: 2019-03-03
+  medium_url: https://medium.com/@cacilhas/implementing-oop-on-fish-just-for-fun-c34aa2896cd9
+  tags:
+    - Concept
+    - Shell
