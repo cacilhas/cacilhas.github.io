@@ -1,0 +1,101 @@
+img.pull-right(src=image)
+
+p.mg-first There’s a well accepted idea that the best multiplatform development
+  |  approach can be no other than #[strong virtual machine]. If you disagree,
+  |  you’re probably out of your mind. But the truth may be quite different.
+
+p Back in the 90’s, the #[=""]
+  a(href="https://web.archive.org/web/19961228001227/http://www.sun.com/")
+    | Sun Microsystems
+  |  was spending a lot of marketing on its technologies in order to convince
+  |  people it had taken the right path, while everyone else would be on the
+  |  wrong one – of course. Its marketing has been betting in the assumed VM
+  |  approach advantage ever since.
+
+p Thus, according to the Sun evangelism, programming for VM would take the need
+  |  to deal with different platform nuances away from developers, and they
+  |  could hence focus on the business. They also could deploy their application
+  |  to the most different targets painlessly.
+
+p Obviously the only viable VM supplying all those features was the JVM (
+  a(href="https://www.java.com/download/") Java Virtual Machine
+  | ).
+
+p Aiming at endorsing that #[em vision], the Sun Microsystems was releasing its
+  |  JVM for every coeval platform it could.
+
+p That created a false sense of verity, which has lived up to this days.
+
+p But the facts are much worse than the Sun’s fiction.
+
+h3 There can be only one
+
+p Everything looked great while only one company was ruling the market – which
+  |  #[em per se] should sound creepy #[strong for you], development company, if
+  |  you were thinking clearly: all your business code infrastructure relying on
+  |  another company, possibly a rival.
+
+blockquote
+  p Think about it: all the codes of every single development company relying on
+    |  #[=""]
+    u(title="Redundant on purpose, just for emphasis.") only one company alone
+    | . Does it sound familiar?
+
+p Well… let’s set that aside for another day’s talk…
+
+h3 One, Two, and Many More JVMs
+
+p Then came other JVMs (and the chaos).
+
+p First an IBM’ JVM, yet in 90’s, thereafter lots of them from many different
+  |  companies, remarkably the #[=""]
+  a(href="https://openjdk.java.net/") OpenJDK
+  | .
+
+p But the shit hit the fan when the Google released its first #[=""]
+  a(href="https://sites.google.com/site/io/dalvik-vm-internals") Dalvik VM
+  |  for Android KitKat in 2013.
+
+p The Android programming language remained Java (until #[=""]
+  a(href="https://kotlinlang.org/") Kotlin
+  |  arrived leastwise), #[strong but] the VM has no longer being JVM, but the
+  |  Dalvik, something quite else.
+
+p It revealed defenceless the VM approach’s jugular.
+
+p The today’s deed has been that the developers must deal with platform issues
+  |  while developing the business code.
+
+p: u(title="I’m talking about language core packages, not third-party modules.")
+  | You #[strong cannot] use #[em this] package, ’cause it’s not supported by
+  |  the Dalvik; you #[strong cannot] use #[em that] package, ’cause it’s not
+  |  supported by the Oracle JVM; and so on. Your #[em multiplatform] code must
+  |  take care of platform concerns.
+
+h3 That’s not a C/C++ trouble!!
+
+p When you’re developing on a truly compiled development platform, like #[=""]
+  a(href="http://www.cplusplus.com/") C/C++
+  | , #[=""]
+  a(href="https://golang.org/") Go
+  | , #[=""]
+  a(href="https://www.rust-lang.org/") Rust
+  | , #[=""]
+  a(href="https://www.haskell.org/") Haskell
+  | , and #[=""]
+  a(href="https://ocaml.org/") OCaml
+  | , for example, you have to deal with platform issues only on #[=""]
+  a(href="https://en.wikipedia.org/wiki/Compile_time") compile-time
+  |  (probably cross-compiling). However coding, you must take care of business
+  |  issues #[strong alone]. You’re able to focus on business on truly compiled
+  |  platforms.
+
+p This is what VM promises, but doesn’t supply. In fact, the dead horse Sun has
+  |  beaten is just who does.
+
+h3 Aftermath
+
+p If you’re thinking of JVM for multiplatform, think twice and consider
+  |  cross-compiling.
+
++medium-link
