@@ -15,7 +15,7 @@ vm-misconception:
     approach can be no other than virtual machine.
   image: /img/java.png
   release: 2019-03-17
-  medium: https://medium.com/@cacilhas/the-great-vm-misconception-9d5f6ace8d41
+  medium_url: https://medium.com/@cacilhas/the-great-vm-misconception-9d5f6ace8d41
   tags:
     - Career
     - Concept
