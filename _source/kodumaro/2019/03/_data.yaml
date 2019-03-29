@@ -20,3 +20,15 @@ vm-misconception:
     - Career
     - Concept
     - Java
+ruby-toy-language:
+  title: Ruby is a toy language
+  content: >
+    Yesterday I was having lunch with some developers, and one of them (a Ruby
+    one) began to bash some bad attributes of that technology.
+  image: /img/ruby.png
+  release: 2019-03-29
+  medium_url: https://medium.com/@cacilhas/ruby-is-a-toy-language-cfb3dbfcb5c0
+  tags:
+    - Career
+    - Concept
+    - Education and Culture
