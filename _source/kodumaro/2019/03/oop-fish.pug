@@ -57,7 +57,7 @@ p The reference should be a dunder class name followed by the instance id. The
 pre.prettyprint: code.
   function Person -d'Person class'
     set -l id (uuidgen)
-    set -l self __Person_(sed 's!-!!g' (echo $id | psub))
+    set -l self __Person_(echo $id | sed 's!-!!g')
     argparse n/name= s/surname= b/birth= -- $argv
 
 p OK, now the parameters can be retrieved from #[code _flag_name],

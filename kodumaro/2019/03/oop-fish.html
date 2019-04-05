@@ -15,7 +15,7 @@ Home</a></li><li><a href="https://cacilhas.info/about.html">About</a></li><li><a
  by environment variables). The arguments can be <code>--name</code>,
  <code>--surname</code>, and <code>--birth</code>. Let’s make it work:</p><pre class="prettyprint"><code>function Person -d'Person class'
   set -l id (uuidgen)
-  set -l self __Person_(sed 's!-!!g' (echo $id | psub))
+  set -l self __Person_(echo $id | sed 's!-!!g')
   argparse n/name= s/surname= b/birth= -- $argv
 </code></pre><p>OK, now the parameters can be retrieved from <code>_flag_name</code>, <code>_flag_surname</code>, and <code>_flag_birth</code>.</p><h4>Accessor methods</h4><p>We can create three getters (read accessor methods) called <code>id</code>, <code>fullname</code>, and <code>birth</code>. For that we use alias:</p><pre class="prettyprint"><code>&nbsp; alias $self.id="echo -n $id"
 &nbsp; alias $self.fullname="echo -n $_flag_name $_flag_surname"
