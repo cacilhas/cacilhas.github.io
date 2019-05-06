@@ -1,0 +1,15 @@
+fans-are-killing-rock:
+  title: Fans are killing Rock
+  content: The Rock fans are killing the Rock’n’Roll.
+  image: /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - icon-rock
+  release: 2019-05-01
+  medium_url: https://medium.com/@cacilhas/fans-are-killing-rockn-roll-7dfbe341ae94
+  tags:
+    - Education and Culture
+    - Music
+  nav:
+    prev: 2017/12/rock-is-dead
+    title: Rock is dead Ⅲ
