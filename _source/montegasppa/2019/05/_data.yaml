@@ -11,5 +11,6 @@ fans-are-killing-rock:
     - Education and Culture
     - Music
   nav:
-    prev: 2017/12/rock-is-dead
-    title: Rock is dead Ⅲ
+    prev:
+      path: 2017/12/rock-is-dead
+      title: Rock is dead Ⅲ
