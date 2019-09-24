@@ -14,7 +14,7 @@ definidas pelo usuário.</p><p>Duas funções que são chamadas recorrentemente 
  <code>fish_title</code>:</p><p><code>fish_prompt</code> é chamada sempre imediatamente antes do <em>prompt</em> ser oferecido ao usuário e tem a função de construir a mensagem do
  <em>prompt</em>.</p><p><code>fish_title</code> é chamada a cada vez que algum outro <em>software</em> – como <code>xterm</code> – solicita o título.</p><h3 id="scripting"><em>Scripting</em></h3><p>Vamos a um <em>script</em> de exemplo: criaremos uma função <code>rmpyc</code> que limpa os arquivos <code>.pyc</code> do diretório informado. Crie um arquivo
  <code>~/.config/fish/functions/rmpyc.fish</code>:</p><pre class="prettyprint"><code class="language-sh">function rmpyc
-  let -l pathes
+  set -l pathes
   if test (count $argv) = 0
     set pathes .
   else

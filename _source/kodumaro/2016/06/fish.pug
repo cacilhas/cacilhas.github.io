@@ -75,7 +75,7 @@ p Vamos a um #[em script] de exemplo: criaremos uma função #[code rmpyc] que
 
 pre.prettyprint: code.language-sh.
   function rmpyc
-    let -l pathes
+    set -l pathes
     if test (count $argv) = 0
       set pathes .
     else
