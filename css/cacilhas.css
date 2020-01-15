@@ -228,6 +228,9 @@ details[open] > summary:before {
 .icon-hondaj {
   background-image: url("/img/icons/hondaj.ico");
 }
+.icon-le-obscur-essentes {
+  background-image: url("/img/icons/le-obscur-essentes.ico");
+}
 .icon-medium {
   background-image: url("/img/icons/medium.ico");
 }

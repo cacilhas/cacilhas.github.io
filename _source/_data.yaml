@@ -3,7 +3,7 @@ _medium: &medium
   url: https://medium.com/@cacilhas
 
 _prognose: &prognose
-  title: Prognose
+  title: ℳontegasppα
   url: https://www.patreon.com/cacilhas
 
 _vortaro: &vortaro
@@ -13,6 +13,10 @@ _vortaro: &vortaro
 _hondaj: &hondaj
   title: ĤøŅĐΔj̆₀
   url: https://hondaj.cacilhas.info/
+
+_bandcamp: &bandcamp
+  title: Le Obscur Essenteς
+  url: https://montegasppa.bandcamp.com/releases
 
 
 #-------------------------------------------------------------------------------
@@ -55,6 +59,13 @@ author: &author
       name: Patreon
       image:
         source: /img/patreon.png
+        style:
+          width: 24px
+          height: 24px
+    - <<: *bandcamp
+      name: Bandcamp
+      image:
+        source: /img/le-obscur-essentes.jpg
         style:
           width: 24px
           height: 24px
@@ -156,6 +167,11 @@ partners:
     licon:
       - licon
       - icon-patreon
+  bandcamp:
+    <<: *bandcamp
+    licon:
+      - licon
+      - icon-le-obscur-essentes
   todas-fridas:
     title: Todas Fridas
     url: https://www.todasfridas.com.br/
