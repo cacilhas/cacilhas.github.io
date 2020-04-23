@@ -50,4 +50,5 @@ each article in articles
       .panel-heading
         h3.mg-title!= article.title
       .panel-body
-        p.lead!= article.content
+        p.lead #[!= article.content]
+        p.pull-right(style="font-size: xx-small;")!= article.release.format('MMM, YYYY')
