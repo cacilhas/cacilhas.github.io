@@ -1,0 +1,15 @@
+pride:
+  title: The Pride
+  content: >
+    In 2012 my first wife was dying of cancer, and I tried every treatment I
+    could find…
+  image: /img/lampada.jpg
+  licon:
+    - licon
+    - icon-he
+  release: 2020-06-12
+  tags:
+    - Education and Culture
+    - Personal
+    - Politics
+    - Religion
