@@ -1,7 +1,7 @@
 normalidade:
   title: A Normalidade
   content: É preciso extirpar o conceito de normalidade da sociedade…
-  image: /img/lampada.jpg
+  image: /img/lamp.png
   licon:
     - licon
     - icon-asd
@@ -36,7 +36,7 @@ tea:
   title: Apanhado geral sobre síndromes do espectro autista
   content: >
     Em função da condição de meu filho, tenho pesquisado bastante sobre TEA…
-  image: /img/lampada.jpg
+  image: /img/lamp.png
   licon:
     - licon
     - icon-asd
