@@ -14,3 +14,14 @@ pride:
     - Personal
     - Politics
     - Religion
+
+music-industry:
+  title: Music industry addiction
+  content: >
+    Why may you pay a hundred dollars for a famous band’s show, but just some
+    quarters for a local band’s?
+  image: /img/clave-sol.jpg
+  release: 2020-06-14
+  tags:
+    - Education and Culture
+    - Music
