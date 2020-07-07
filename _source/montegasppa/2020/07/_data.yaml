@@ -5,6 +5,7 @@ covid-19:
     WHO’s official statements.
   image: /img/lamp.png
   release: 2020-07-07
+  medium_url: https://medium.com/@cacilhas/covid-19-so-far-729c357a4c12
   tags:
     - Health
     - Politics
