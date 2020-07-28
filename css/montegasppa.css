@@ -29,6 +29,9 @@ body {
 .badge {
   background-color: #97b3c9 !important;
 }
+.hidden {
+  display: none !important;
+}
 .label-default {
   background-color: #97b3c9 !important;
 }
