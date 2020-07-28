@@ -19,6 +19,7 @@ block blog-head
        href=`${public.montegasppa.blog.url}feed.xml`)/
   link(rel="stylesheet" href="/css/montegasppa.css")/
   link(rel="icon" href=public.montegasppa.blog.icon)/
+  include ../_widgets/openid.pug
 
 block append nav-bar
   li(class={active: home}): a(href=public.montegasppa.blog.url) Prologue
