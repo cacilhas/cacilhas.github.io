@@ -26,7 +26,7 @@ val producerContract: Producer[Dog] = new Producer[Shepherd]
 implicitly[Shepherd &lt;:&lt; Dog]
 // Then
 implicitly[Producer[Shepherd] &lt;:&lt; Producer[Dog]]
-</code></pre><p>(<small>Yet every <code>Producer&#91;Shepherd&#93;</code> is a <code>Producer&#91;Dog&#93;</code> too – he produces only dogs.</small>)</p><p>In Scala we use <code>+</code> to represent covariance.</p></div></div><p class="text-right"><small class="tag"><a href="/tags/concept.html">Concept</a></small> | <small class="tag"><a href="/tags/functional.html">Functional</a></small> | <small class="tag"><a href="/tags/scala.html">Scala</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+</code></pre><p>(<small>Yet every <code>Producer&#91;Shepherd&#93;</code> is a <code>Producer&#91;Dog&#93;</code> too – he produces only dogs.</small>)</p><p>In Scala we use <code>+</code> to represent covariance.</p><hr/><p><small>Also in <a href="https://dev.to/cacilhas/variance-analogy-2deb" target="_blank">DEV Community 👩‍💻👨‍💻</a>.</small></p></div></div><p class="text-right"><small class="tag"><a href="/tags/concept.html">Concept</a></small> | <small class="tag"><a href="/tags/functional.html">Functional</a></small> | <small class="tag"><a href="/tags/scala.html">Scala</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = `https://cacilhas.info/kodumaro/2020/08/variance.html`
   this.page.identifier = `kodumaro.2020.08.variance`
   this.page.title = '*Variance analogy'
