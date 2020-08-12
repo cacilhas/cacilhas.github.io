@@ -1,0 +1,12 @@
+variance:
+  title: "*Variance analogy"
+  content: >
+    The other day, talking to some coworkers, I realised developers
+    unacquainted to functional programming feel hard to understand
+    type covariance and contravariance concepts.
+  image: /img/german-shepherd.png
+  release: 2020-08-12
+  tags:
+    - Concept
+    - Functional
+    - Scala
