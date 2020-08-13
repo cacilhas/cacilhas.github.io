@@ -58,14 +58,14 @@ p Now imagine that we need to hire a dog producer. We’re not interested in
 p So a Shepherd producer could apply for the service, ’cause Shepherd dogs
   |  are so good as any other.
 
-pre.prettyprint: code.
+pre.prettyprint: code.scala.
   class Producer[+A]
 
   val producerContract: Producer[Dog] = new Producer[Shepherd]
 
 p It’s called #[strong covariance]:
 
-pre.prettyprint: code.
+pre.prettyprint: code.scala.
   // If
   implicitly[Shepherd &lt;:&lt; Dog]
   // Then

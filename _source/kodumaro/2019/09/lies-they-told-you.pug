@@ -19,7 +19,7 @@ p Functional programming (and λ-calculus) is #[strong not] about using
   | .
 
 p λ-calculus is about first-class and higher-order functions, and everything as
-  |  a function. Of course “everything as a function” is a bit radical for the
+  |  a function. Of course “everything as a function” is a bit dramatic for the
   |  programming context (but not impossible), however every other lambda
   |  feature is reasonable to be called functional programming.
 
@@ -60,19 +60,26 @@ p Now that we’ve made those definitions clear, let’s talk about the
   |  misconceptions spread through the programmer’s communities – mostly by
   |  their very gurus.
 
-h3 (Ruby|Python|Scala|Julia) is a functional programming (⁉️)
+h3 (Ruby|Python|Julia) is a functional programming (⁉️)
 
 p You’ve probably heard it.
 
 p
   a(href="https://www.ruby-lang.org/") Ruby
   |  #[strong isn’t] a functional programming, just as #[=""]
-  a(href="https://www.python.org/") Python
-  |  and #[=""]
-  a(href="https://www.scala-lang.org/") Scala
-  |  are not. Those are object-oriented #[strong imperative] languages with
+  a(href="https://www.python.org/") Python #[=""]
+  strike  and #[=""]
+    a(href="https://scala-lang.org/") Scala
+    |  are
+  |  is not. Those are object-oriented #[strong imperative] languages with
   |  #[strong one or another] functional feature, but not enough to be
   |  considered even impure functional.
+
+blockquote
+  p: tt [update 2020-08-12]
+  p My bad: I’ve said Scala is imperative, but it’s not. Scala is
+    |  object-oriented indeed, but it’s functional too, not imperative.
+  p: tt [/update]
 
 p
   a(href="https://julialang.org/") Julia
@@ -108,10 +115,10 @@ p Examples of logic programming languages are #[=""]
     | SQL
   | .
 
-p Erlang’s syntax is strongly inspired on Prolog’s, but yet functional. Erlang
-  |  sticks to all functional constraints and uses some logic features to
-  |  provide typing, which is a functional feature too – typed lambda, you saw
-  |  it just above.
+p Erlang’s syntax is strongly inspired on Prolog’s, but even yet functional.
+  |  Erlang sticks to all functional constraints and uses some logic features to
+  |  provide some typing, which is a functional feature too – typed lambda, you
+  |  saw it just above.
 
 p Furthermore, Erlang uses the same Prolog’s syntax of defining facts to declare
   |  function signatures – not to define facts.

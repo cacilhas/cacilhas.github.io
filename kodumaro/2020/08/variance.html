@@ -19,10 +19,10 @@ implicitly[Shepherd &lt;:&lt; Dog]
 // Then:
 implicitly[Trainer[Dog] &lt;:&lt; Trainer[Shepherd]]
 </code></pre><p>(<small><code>&lt;:&lt;</code> means “is subclass of,” or: every <code>Shepherd</code> is a <code>Dog</code> too, so every <code>Trainer&#91;Dog&#93;</code> is a
- <code>Trainer&#91;Shepherd&#93;</code> too.</small>)</p><p>In Scala we use <code>-</code> to represent contravariance.</p><h3>Type covariance</h3><p>Now imagine that we need to hire a dog producer. We’re not interested in what kind of dog he’ll supply, any kind is great.</p><p>So a Shepherd producer could apply for the service, ’cause Shepherd dogs are so good as any other.</p><pre class="prettyprint"><code>class Producer[+A]
+ <code>Trainer&#91;Shepherd&#93;</code> too.</small>)</p><p>In Scala we use <code>-</code> to represent contravariance.</p><h3>Type covariance</h3><p>Now imagine that we need to hire a dog producer. We’re not interested in what kind of dog he’ll supply, any kind is great.</p><p>So a Shepherd producer could apply for the service, ’cause Shepherd dogs are so good as any other.</p><pre class="prettyprint"><code class="scala">class Producer[+A]
 
 val producerContract: Producer[Dog] = new Producer[Shepherd]
-</code></pre><p>It’s called <strong>covariance</strong>:</p><pre class="prettyprint"><code>// If
+</code></pre><p>It’s called <strong>covariance</strong>:</p><pre class="prettyprint"><code class="scala">// If
 implicitly[Shepherd &lt;:&lt; Dog]
 // Then
 implicitly[Producer[Shepherd] &lt;:&lt; Producer[Dog]]
