@@ -43,6 +43,11 @@ hotjar:
 bandcamp:
   id: 2598801931
 
+dev_to: &dev_to
+  image: https://d2fltix0v2e0sb.cloudfront.net/dev-badge.svg
+  title: DEV Profile 👩‍💻👨‍💻
+  url: https://dev.to/cacilhas
+
 spotify:
   uri: spotify:artist:4yEwtTIiUmWGP62xLzlhCe
 
@@ -184,6 +189,11 @@ partners:
   walter-cruz:
     title: Walter Cruz
     url: https://waltercruz.com/
+  dev-to:
+    <<: *dev_to
+    licon:
+      - licon
+      - icon-dev-to
   medium:
     <<: *medium
     licon:

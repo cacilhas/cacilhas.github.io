@@ -225,6 +225,9 @@ details[open] > summary:before {
 .icon-music:before {
   content: "\1F3B6";
 }
+.icon-dev-to {
+  background-image: url("/img/icons/dev-badge.ico");
+}
 .icon-hondaj {
   background-image: url("/img/icons/hondaj.ico");
 }
