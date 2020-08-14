@@ -20,34 +20,41 @@ p Functional programming (and λ-calculus) is #[strong not] about using
 
 p λ-calculus is about first-class and higher-order functions, and everything as
   |  a function. Of course “everything as a function” is a bit dramatic for the
-  |  programming context (but not impossible), however every other lambda
+  |  programming context (but not impossible), however every other #[em lambda]
   |  feature is reasonable to be called functional programming.
 
 p First-class function is the one which can be used as parameter or set to a
   |  slot. First-class as in “first-class citizen”, with all rights.
 
-p Higher-order function is that which takes another one as parameter.
+p Higher-order function is that which takes another as parameter, or may return
+  |  one.
 
 p Besides, there are some constraints that define the functional paradigm:
 
 +ul
   +li Pure functions: functions #[strong cannot] have side effects.
+  +li Recursion: a function might call itself, loading a new stack.
   +li Tail-call optimisation: the last function call inside a function must
-    |  replace the current stack. It prevents stack overflow when doing
+    |  replace the current stack. It prevents stack overflow when going into
     |  recursions.
-  +li Recursion: a function can call itself, loading a new stack.
   +li Determinism: the functions must be #[strong idempotent], that means, given
     |  the same params, you shall get the same return, no matter how many times
     |  it’s called.
   +li Immutability: no value can be changed. Once set it’s for good.
+  +li
+    a(href="https://encyclopediaofmath.org/index.php?title=Monoid") Monoid
+      |  abstraction
+    | : support for type wrappers that manage a binary operation over the
+    |  wrapped type.
 
 p And there are some optional features:
 
 +ul
   +li Non-strictness: a function can be strict or lazily evaluated. On lazy
-    |  evaluation, functions are called “non-strict”.
-  +li Typed lambda: functions (and values) can be typed by their structure or
-    |  signature.
+    |  evaluation, functions are named “non-strict” and performed on demand only
+    |  the strictly necessary parts.
+  +li Typed #[em lambda]: functions (and values) can be typed by their structure
+    |  or signature.
   +li Free and bound variables: traditionally functions may contain bound
     |  (existent only inside the stack) and free variables (got from parent
     |  context). Alternatively a functional system may forbid free variables,
@@ -55,6 +62,10 @@ p And there are some optional features:
     a(href="https://en.wikipedia.org/wiki/Fixed-point_combinator")
       | fixpoint combinator
     |  for recursion.
+  +li
+    a(href="https://wiki.haskell.org/All_About_Monads") Monads
+    | : structures to build up computation sequences by combining sequential
+    |  building blocks.
 
 p Now that we’ve made those definitions clear, let’s talk about the
   |  misconceptions spread through the programmer’s communities – mostly by
@@ -117,10 +128,10 @@ p Examples of logic programming languages are #[=""]
 
 p Erlang’s syntax is strongly inspired on Prolog’s, but even yet functional.
   |  Erlang sticks to all functional constraints and uses some logic features to
-  |  provide some typing, which is a functional feature too – typed lambda, you
-  |  saw it just above.
+  |  provide some typing, which is a functional feature too – typed
+  |  #[em lambda], you saw it just above.
 
-p Furthermore, Erlang uses the same Prolog’s syntax of defining facts to declare
+p Furthermore, Erlang uses the same Prolog’s syntax for defining facts to declare
   |  function signatures – not to define facts.
 
 p So Erlang isn’t a logic programming language, but a #[strong fully] functional
@@ -133,10 +144,23 @@ p There’s so much more about functional programming, and you should get
   a(href="https://www.haskell.org/") Haskell
   |  for fully funcional programming (install #[=""]
   a(href="https://www.haskell.org/ghc/") GHC
-  | ), and #[=""]
+  | ), #[=""]
   a(href="http://sml-family.org/") Standard ML
   |  for impure funcional programming (install #[=""]
   a(href="http://mlton.org/") MLton
+  | ), #[=""]
+  a(href="https://elm-lang.org/") Elm
+  |  for front-end functional applet, and #[=""]
+  a(href="https://www.scala-lang.org/") Scala
+  |  for functional #[=""]
+  a(href="https://www.webopedia.com/TERM/O/object_oriented_programming_OOP.html")
+    | object orientation
+  |  over #[=""]
+  a(href="https://www.java.com/") JVM
+  |  (or #[=""]
+  a(href="https://www.scala-lang.org/old/node/10299") .NET
+  |, or #[=""]
+  a(href="https://www.scala-js.org/") Node.js
   | ).
 
 +medium-link
