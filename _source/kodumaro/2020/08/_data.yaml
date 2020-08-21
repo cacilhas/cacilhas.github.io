@@ -19,6 +19,7 @@ software-plants:
     sector… Nothing could be futher from reality.
   image: /img/building.png
   release: 2020-08-20
+  dev_url: https://dev.to/cacilhas/software-plants-kdc
   tags:
     - Career
     - Education and Culture
