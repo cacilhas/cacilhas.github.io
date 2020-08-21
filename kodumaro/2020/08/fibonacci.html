@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="pt"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatibile" content="IE=edge"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Cache-Control" content="no-cache"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content=""/><meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Kavivanar"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto&amp;subset=latin-ext"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:i,bold&amp;subset=latin-ext"/><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Mono"/><link rel="stylesheet" href="/css/bootstrap.min.css"/><link rel="stylesheet" href="/css/animate.min.css"/><link rel="stylesheet" href="/css/bootstrap-dropdownhover.min.css"/><link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"/><link rel="stylesheet" href="/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="/css/theme.css"/><link rel="stylesheet" href="/css/cacilhas.css"/><title>Kodumaro :: Yet another Fibonacci</title><meta property="og:site_name" content="Kodumaro"/><meta property="og:title" content="Yet another Fibonacci"/><meta property="og:url" content="https://cacilhas.info/kodumaro/2020/08/fibonacci.html"/><meta property="og:type" content="article"/><meta property="article:tag" content="Functional, Logical, Python"/><meta property="article:author" content="Arĥimedeς ℳontegasppα ℭacilhας"/><meta property="og:image" content="https://cacilhas.info/img/python.png"/><link rel="alternate" type="application/atom+xml" title="Kodumaro" href="https://kodumaro.cacilhas.info/feed.xml"/><link rel="stylesheet" href="/css/kodumaro.css"/><link rel="icon" href="/img/icons/kodumaro.ico"/><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><script src="/js/ie-emulation-modes-warning.js"></script><script src="/js/jquery.min.js"></script><script src="/js/bootstrap-dropdownhover.min.js"></script><script src="/js/handle-old-url.js"></script><script src="/js/alt-title.js"></script><script src="/js/anchors.js"></script><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-5741846017654057",
+  enable_page_level_ads: true,
+})
+</script><script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date;a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,"script","https://www.google-analytics.com/analytics.js","ga")
+ga("create", "UA-99357497-1", "auto")
+ga("send", "pageview")</script></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" type="button" data-togge="collapse" data-target="#navbar" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="dropdown"><span class="navbar-brand dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">ℭacilhας.INFO</span><ul class="dropdown-menu"><li><a href="https://cacilhas.info"><i class="glyphicon glyphicon-home"></i>&nbsp;ℭacilhας.INFO</a></li><li><a href="https://montegasppa.cacilhas.info/"><i class="licon icon-montegasppa"></i>&nbsp;ℳontegasppα and Giulia C.’s Thoughts</a></li><li><a href="https://kodumaro.cacilhas.info/"><i class="licon icon-kodumaro"></i>&nbsp;Kodumaro</a></li><li><hr/></li><li><a href="https://www.educaedu-brasil.com/" target="_blank"><i class="licon icon-educaedu"></i>&nbsp;Educaedu Brasil</a></li><li><a href="https://hondaj.cacilhas.info/" target="_blank"><i class="licon icon-hondaj"></i>&nbsp;ĤøŅĐΔj̆₀</a></li><li><a href="https://vortaro.cacilhas.info/" target="_blank"><i class="glyphicon glyphicon-link"></i>&nbsp;Konsulta Vortaro</a></li><li><a href="https://claudiotorcato.wordpress.com/" target="_blank"><i class="licon icon-wordpress"></i>&nbsp;Mosaico Livre</a></li><li><a href="https://www.patreon.com/cacilhas" target="_blank"><i class="licon icon-patreon"></i>&nbsp;ℳontegasppα</a></li><li><a href="https://montegasppa.bandcamp.com/releases" target="_blank"><i class="licon icon-le-obscur-essentes"></i>&nbsp;Le Obscur Essenteς</a></li><li><a href="https://www.todasfridas.com.br/" target="_blank"><i class="licon icon-fridas"></i>&nbsp;Todas Fridas</a></li><li><a href="https://waltercruz.com/" target="_blank"><i class="glyphicon glyphicon-link"></i>&nbsp;Walter Cruz</a></li><li><a href="https://dev.to/cacilhas" target="_blank"><i class="licon icon-dev-to"></i>&nbsp;DEV Profile 👩‍💻👨‍💻</a></li><li><a href="https://medium.com/@cacilhas" target="_blank"><i class="licon icon-medium"></i>&nbsp;Medium.com/@cacilhas</a></li></ul></div></div><div class="collapse navbar-collapse" id="navbar"><ul class="nav navbar-nav"><li><a href="https://cacilhas.info/"><i class="glyphicon glyphicon-home"></i>&nbsp;
+Home</a></li><li><a href="https://cacilhas.info/about.html">About</a></li><li><a href="https://kodumaro.cacilhas.info/">Kodumaro</a></li><li class="active"><a href=".">Yet another Fibonacci</a></li></ul></div></div></nav><div class="container"><div class="panel panel-default"><div class="panel-heading"><h2 class="mg-title">Kodumaro :: Yet another Fibonacci</h2><h6 class="pull-right">Released on August 21st, 2020</h6><h6>The shadows behind the code.</h6></div><div class="panel-body"><img class="pull-right" src="/img/python.png" alt="Python"/><p class="mg-first">One of the most interesting algorithms is the <a href="https://www.cs.utexas.edu/users/EWD/ewd06xx/EWD654.PDF">Fibonacci numbers</a>. It’s pretty tricky ’cause it might leads to a binary tree recursion if
+ coded carelessly.</p><p>There’s a lot of ways to go around that issue, and I’d like to approach two of them using <a href="https://cython.org/">Cython</a>.</p><h3>Accumulators and tail-call optimisation</h3><p><a href="https://www.swi-prolog.org/">Prolog</a> is a declarative logic programming language, consisting of describing
+ the factual domain and then querying it.</p><p>The simpliest (and <strong>wrong</strong>) way to code Fibonacci in Prolog is:</p><pre class="prettyprint"><code class="prolog">% vim: filetype=prolog
+:- module(fib, [fib/2]).
+
+fib(N, R) :- % step
+  N &gt; 0,
+  N1 is N - 1,
+  N2 is N - 2,
+  fib(N1, R1),
+  fib(N2, R2),
+  R is R1 + R2.
+
+fib(0, 1). % stop
+</code></pre><p>This describes Fibonacci number precisely, but <strong>don’t do it</strong>. It dives into a binary tree, doubling the stack every step.</p><p>The way to fix it is using two accumulators, <code>A</code> and <code>B</code>:</p><pre class="prettyprint"><code class="prolog">% vim: filetype=prolog
+:- module(fib, [fib/2]).
+
+fib(N, R) :- N &gt;= 0, fib(N, 0, 1, R).
+
+fib(N, A, B, R) :- % step
+  N &gt; 0,
+  N1 is N - 1,
+  AB is A + B,
+  fib(N1, B, AB, R).
+
+fib(0, A, R, R). % stop
+</code></pre><p>Now it accumulates the values lineraly until the stop condition, when the last <code>B</code> is bound to <code>R</code>.</p><p>Try it:</p><pre class="prettyprint"><code>?- [fib].
+true.
+
+?- findall(X, (between(0, 5, I), fib(I, X)), R).
+R = [1, 1, 2, 3, 5, 8].
+
+?-
+</code></pre><p>It was used as basis for another programming language called <a href="http://datalog.sourceforge.net/">Datalog</a>, focused on database query.</p><p>The whole thing becomes simplier when Datalog comes into play. Let’s see the same domain coded in Datalog:</p><pre class="prettyprint"><code class="datalog">fib(0, A, B, R) :- B = R.
+fib(N, A, B, R) :- N &gt; 0, fib(N-1, B, A+B, R).
+fib(N, R) :- N &gt;= 0, fib(N, 0, 1, R).
+</code></pre><p>And then:</p><pre class="prettyprint"><code>&gt; between(0, 5, I), fib(I, X)?
+fib(0, 1).
+fib(1, 1).
+fib(2, 2).
+fib(3, 3).
+fib(4, 5).
+fib(5, 8).
+&gt;
+</code></pre><h3>Enter pyDatalog</h3><p>Python has a Datalog bind egg called <a href="https://pypi.org/project/pyDatalog/">pyDatalog</a>, installed by a simple <code>pip</code>:</p><pre class="prettyprint"><code>$ python3.8 -mpip install pyDatalog
+</code></pre><p>You can use a <a href="https://docs.python.org/3/library/venv.html">virtual environment</a>, or install directly into your system as root – your choice.</p><p>We’re gonna use Cython too:</p><pre class="prettyprint"><code>$ python3.8 -mpip install cython
+</code></pre><p>In order to do some Datalog inside Python/Cython code, we need to declare the Datalog terms we’re using.</p><p>This below is the very same Datalog code, using a <code>cpdef</code> to expose the <code>fib/2</code>:</p><pre class="prettyprint"><code class="cython">#cython: language_level=3
+from libc.stdint cimport uint64_t
+from pyDatalog.pyParser import Term
+
+cdef:
+    object _fib = Term()
+    object A = Term()
+    object B = Term()
+    object R = Term()
+    object N = Term()
+    object X = Term()
+
+_fib(0, A, B, R) &lt;= (R == B)
+_fib(N, A, B, R) &lt;= (N &gt; 0) &amp; _fib(N-1, B, A+B, R)
+
+cpdef uint64_t fib(size_t n) except -1:
+    _fib(n, 0, 1, X)
+    return X.v()
+</code></pre><p>Now let’s compile it. Save it as <code>fib.pyx</code> and run:</p><pre class="prettyprint"><code>cythonize fib.pyx
+clang `python3.8-config --cflags` -fPIC -c fib.c
+clang -o fib.so `python3.8-config --libs` -shared fib.o
+</code></pre><p>(Or use <code>gcc</code>.)</p><p>It’s time to see it working. Open the <a href="https://www.bpython-interpreter.org/"><code>bpython</code></a>:</p><pre class="prettyprint"><code>&gt;&gt;&gt; from fib import fib
+&gt;&gt;&gt; [fib(i) for i in range(5)]
+[1, 1, 2, 3, 5, 8]
+&gt;&gt;&gt;
+</code></pre><h3>Using matrices</h3><p>The Fibonacci numbers can also be represented as a <a href="https://math.stackexchange.com/questions/61997/proof-of-this-result-related-to-fibonacci-numbers-beginpmatrix11-10-end">matrix power</a>:</p><pre><code>│1 1│ⁿ
+│1 0│
+</code></pre><p>That’s a very elegant approach. We can do it by using <a href="https://numpy.org/">NumPy</a>. First let’s install the egg just like before:</p><pre class="prettyprint"><code>$ python3.8 -mpip install numpy
+</code></pre><p>Now let’s recode Fibonacci using matrices:</p><pre class="prettyprint"><code class="cython">#cython: language_level=3
+from libc.stdint cimport uint64_t
+from numpy cimport ndarray
+from numpy import matrix, uint64
+
+cdef:
+    ndarray m = matrix('1, 1; 1, 0', dtype=uint64)
+
+cpdef uint64_t fib(size_t n) except -1:
+    return (m ** n)[0, 0]
+</code></pre><p>NumPy represents the Fibonacci matrix as <code>'1, 1; 1, 0'</code>. You can compile the code exactly the same way you did before, with the same
+ results.</p></div></div><p class="text-right"><small class="tag"><a href="/tags/functional.html">Functional</a></small> | <small class="tag"><a href="/tags/logical.html">Logical</a></small> | <small class="tag"><a href="/tags/python.html">Python</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+  this.page.url = `https://cacilhas.info/kodumaro/2020/08/fibonacci.html`
+  this.page.identifier = `kodumaro.2020.08.fibonacci`
+  this.page.title = 'Yet another Fibonacci'
+}</script><noscript>Please enable JavaScript to view the comments <a href="https://disqus.com/?ref_noscript">powered by Disqus</a>.</noscript></div></div><div><div class="pull-left"><script async="async" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;" data-ad-client="ca-pub-5741846017654057" data-ad-slot="7936078120"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({})</script></div><div class="pull-left"><iframe src="https://bandcamp.com/band_follow_button_deluxe/2598801931" width="300" height="56" scrolling="no" frameboarder="0" style="border: none; width: 100%; overflow: hidden;" allowtransparency></iframe></div><div class="pull-left"><a href="https://dev.to/cacilhas"><img src="https://d2fltix0v2e0sb.cloudfront.net/dev-badge.svg" alt="DEV Profile 👩‍💻👨‍💻" height="30" width="30"></a></div></div></div><div class="panel-footer" id="footer"><p class="pull-left"><a href="https://kodumaro.cacilhas.info/feed.xml" target="_blank" type="application/atom+xml"><img src="/img/rss.png" alt="feed"></a></p><p class="small">Author: Arĥimedeς ℳontegasppα ℭacilhας &nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.pt"><img alt="[CC-BY 4.0]" src="https://i.creativecommons.org/l/by/4.0/80x15.png" style="border-width:0;"></a></p></div><script src="/js/bootstrap.min.js"></script><script src="/js/ie10-viewport-bug-workaround.js"></script><script src="/js/kodumaro.disqus.js"></script><script id="dsq-count-scr" src="//kodumaro.disqus.com/count.js" async></script><script language="javascript">$(document).ready(function() {
+  $('[title]').tooltip();
+})</script></body></html>

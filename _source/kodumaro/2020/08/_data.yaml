@@ -23,3 +23,15 @@ software-plants:
   tags:
     - Career
     - Education and Culture
+
+fibonacci:
+  title: Yet another Fibonacci
+  content: >
+    One of the most interesting algorithms is the Fibonacci numbers. It’s pretty
+    tricky ’cause it might leads to a binary tree recursion…
+  image: /img/python.png
+  release: 2020-08-21
+  tags:
+    - Functional
+    - Logical
+    - Python
