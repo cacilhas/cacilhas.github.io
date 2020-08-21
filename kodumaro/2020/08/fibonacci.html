@@ -41,7 +41,7 @@ true.
 R = [1, 1, 2, 3, 5, 8].
 
 ?-
-</code></pre><p>It was used as basis for another programming language called <a href="http://datalog.sourceforge.net/">Datalog</a>, focused on database query.</p><p>The whole thing becomes simplier when Datalog comes into play. Let’s see the same domain coded in Datalog:</p><pre class="prettyprint"><code class="datalog">fib(0, A, B, R) :- B = R.
+</code></pre><p>Prolog was used as basis for another programming language called <a href="http://datalog.sourceforge.net/">Datalog</a>, focused on database query.</p><p>The whole thing becomes simplier when Datalog comes into play. Let’s see the same domain coded in Datalog:</p><pre class="prettyprint"><code class="datalog">fib(0, A, B, R) :- B = R.
 fib(N, A, B, R) :- N &gt; 0, fib(N-1, B, A+B, R).
 fib(N, R) :- N &gt;= 0, fib(N, 0, 1, R).
 </code></pre><p>And then:</p><pre class="prettyprint"><code>&gt; between(0, 5, I), fib(I, X)?
@@ -52,8 +52,8 @@ fib(3, 3).
 fib(4, 5).
 fib(5, 8).
 &gt;
-</code></pre><h3>Enter pyDatalog</h3><p>Python has a Datalog bind egg called <a href="https://pypi.org/project/pyDatalog/">pyDatalog</a>, installed by a simple <code>pip</code>:</p><pre class="prettyprint"><code>$ python3.8 -mpip install pyDatalog
-</code></pre><p>You can use a <a href="https://docs.python.org/3/library/venv.html">virtual environment</a>, or install directly into your system as root – your choice.</p><p>We’re gonna use Cython too:</p><pre class="prettyprint"><code>$ python3.8 -mpip install cython
+</code></pre><h3>Enter pyDatalog</h3><p>Python has a Datalog bind egg called <a href="https://pypi.org/project/pyDatalog/">pyDatalog</a>, installed by a simple <code>pip</code>:</p><pre class="prettyprint"><code>python3.8 -mpip install pyDatalog
+</code></pre><p>You can use a <a href="https://docs.python.org/3/library/venv.html">virtual environment</a>, or install directly into your system as root – your choice.</p><p>We’re gonna need Cython too:</p><pre class="prettyprint"><code>python3.8 -mpip install cython
 </code></pre><p>In order to do some Datalog inside Python/Cython code, we need to declare the Datalog terms we’re using.</p><p>This below is the very same Datalog code, using a <code>cpdef</code> to expose the <code>fib/2</code>:</p><pre class="prettyprint"><code class="cython">#cython: language_level=3
 from libc.stdint cimport uint64_t
 from pyDatalog.pyParser import Term
@@ -72,7 +72,7 @@ _fib(N, A, B, R) &lt;= (N &gt; 0) &amp; _fib(N-1, B, A+B, R)
 cpdef uint64_t fib(size_t n) except -1:
     _fib(n, 0, 1, X)
     return X.v()
-</code></pre><p>Now let’s compile it. Save it as <code>fib.pyx</code> and run:</p><pre class="prettyprint"><code>cythonize fib.pyx
+</code></pre><p>Now we need to compile it. Save it as <code>fib.pyx</code> and run:</p><pre class="prettyprint"><code>cythonize fib.pyx
 clang `python3.8-config --cflags` -fPIC -c fib.c
 clang -o fib.so `python3.8-config --libs` -shared fib.o
 </code></pre><p>(Or use <code>gcc</code>.)</p><p>It’s time to see it working. Open the <a href="https://www.bpython-interpreter.org/"><code>bpython</code></a>:</p><pre class="prettyprint"><code>&gt;&gt;&gt; from fib import fib
@@ -81,7 +81,7 @@ clang -o fib.so `python3.8-config --libs` -shared fib.o
 &gt;&gt;&gt;
 </code></pre><h3>Using matrices</h3><p>The Fibonacci numbers can also be represented as a <a href="https://math.stackexchange.com/questions/61997/proof-of-this-result-related-to-fibonacci-numbers-beginpmatrix11-10-end">matrix power</a>:</p><pre><code>│1 1│ⁿ
 │1 0│
-</code></pre><p>That’s a very elegant approach. We can do it by using <a href="https://numpy.org/">NumPy</a>. First let’s install the egg just like before:</p><pre class="prettyprint"><code>$ python3.8 -mpip install numpy
+</code></pre><p>That’s a very elegant approach. We can do it by using <a href="https://numpy.org/">NumPy</a>. First let’s install the egg just like before:</p><pre class="prettyprint"><code>python3.8 -mpip install numpy
 </code></pre><p>Now let’s recode Fibonacci using matrices:</p><pre class="prettyprint"><code class="cython">#cython: language_level=3
 from libc.stdint cimport uint64_t
 from numpy cimport ndarray
@@ -93,7 +93,7 @@ cdef:
 cpdef uint64_t fib(size_t n) except -1:
     return (m ** n)[0, 0]
 </code></pre><p>NumPy represents the Fibonacci matrix as <code>'1, 1; 1, 0'</code>. You can compile the code exactly the same way you did before, with the same
- results.</p></div></div><p class="text-right"><small class="tag"><a href="/tags/functional.html">Functional</a></small> | <small class="tag"><a href="/tags/logical.html">Logical</a></small> | <small class="tag"><a href="/tags/python.html">Python</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
+ results.</p><hr/><p><small>Translated from the <a href="https://kodumaro.blogspot.com/2015/04/brincadeira-rapida.html">Portuguese post</a>.</small></p><hr/><p><small>Also in <a href="https://dev.to/cacilhas/yet-another-fibonacci-37o9" target="_blank">DEV Community 👩‍💻👨‍💻</a>.</small></p></div></div><p class="text-right"><small class="tag"><a href="/tags/functional.html">Functional</a></small> | <small class="tag"><a href="/tags/logical.html">Logical</a></small> | <small class="tag"><a href="/tags/python.html">Python</a></small></p><div class="panel panel-default"><div class="panel-body"><div id="disqus_thread"></div><script language="javascript">var disqus_config = function() {
   this.page.url = `https://cacilhas.info/kodumaro/2020/08/fibonacci.html`
   this.page.identifier = `kodumaro.2020.08.fibonacci`
   this.page.title = 'Yet another Fibonacci'
