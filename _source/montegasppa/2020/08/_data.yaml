@@ -8,3 +8,13 @@ reverse-racism:
   tags:
     - Education and Culture
     - Politics
+
+about-names:
+  title: About names
+  content: >
+    There’s a name in my ID, but that means nothing.Never did. I had two names
+    when I was born.
+  image: /img/lamp.png
+  release: 2020-08-27
+  tags:
+    - Personal
