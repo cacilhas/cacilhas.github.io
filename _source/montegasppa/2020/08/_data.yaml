@@ -16,5 +16,6 @@ about-names:
     when I was born.
   image: /img/lamp.png
   release: 2020-08-27
+  medium_url: https://medium.com/@cacilhas/about-names-79314480716a
   tags:
     - Personal
