@@ -215,6 +215,9 @@ details[open] > summary:before {
 .icon-kodumaro {
   background-image: url("/img/icons/kodumaro.ico");
 }
+.icon-maven {
+  background-image: url("/img/icons/maven.ico");
+}
 .icon-montegasppa {
   background-image: url("/img/icons/montegasppa.ico");
 }

@@ -164,6 +164,12 @@ partners:
       - licon
       - icon-hondaj
   vortaro: *vortaro
+  maven:
+    title: Kodumaro Maven Repository
+    url: https://cacilhas.info/maven
+    licon:
+      - licon
+      - icon-maven
   mosaico-livre:
     title: Mosaico Livre
     url: https://claudiotorcato.wordpress.com/
