@@ -3,7 +3,7 @@ dia-do-autismo:
   content: >
     Hoje é o Dia Mundial da Conscientização do Autismo, e pergunto: o que temos
     em mãos?
-  image: /img/tea.jpg
+  image: //cacilhas.info/img/tea.jpg
   licon:
     - licon
     - icon-asd
@@ -24,7 +24,7 @@ eugenia:
   content: >
     Recorrentemente tenho visto abordagens eugenistas por parte de pais
     neurotípicos de crianças neurodiversas, em especial autistas.
-  image: /img/blue-heart.jpg
+  image: //cacilhas.info/img/blue-heart.jpg
   licon:
     - licon
     - icon-asd
@@ -46,7 +46,7 @@ cromatica:
   content: >
     Aprendemos que as relações entre os graus de uma escala precisam ser
     números racionais para serem agradáveis…
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   licon:
     - glyphicon
     - glyphicon-music
@@ -71,7 +71,7 @@ bobagem-espiritual:
       http://highexistence.com/10-spiritual-bypassing-things-people-total-bullshit/
   content: >
     Artigo de Jordan Bates sobre armadilhas do “caminho espiritual”.
-  image: /img/spiritual-bullshit.jpg
+  image: //cacilhas.info/img/spiritual-bullshit.jpg
   licon:
     - licon
     - icon-he

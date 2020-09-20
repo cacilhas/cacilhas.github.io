@@ -3,7 +3,7 @@ lisp:
   content: >
     LISP é um conceito de programação funcional especificado em 1958 por John
     McCarthy…
-  image: /img/lisp.jpg
+  image: //cacilhas.info/img/lisp.jpg
   release: 2017-11-02
   tags:
     - Concept
@@ -19,7 +19,7 @@ lazy-racket:
   content: >
     Dando continuidade ao artigo anterior, podemos abordar dois
     <em>patterns</em> interessantes: acumuladores e <em>promises</em>.
-  image: /img/racket.jpg
+  image: //cacilhas.info/img/racket.jpg
   release: 2017-11-02
   tags:
     - Functional
@@ -37,7 +37,7 @@ acumuladores:
   content: >
     Programação lógica ou declarativa é um paradigma bastante alienígena para
     os programadores imperativos.
-  image: /img/glider.png
+  image: //cacilhas.info/img/glider.png
   release: 2017-11-13
   tags:
     - Concept

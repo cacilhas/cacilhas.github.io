@@ -3,7 +3,7 @@ fish:
   content: >
     Já há mais de um ano não uso mais Bash. Agora resolvi dar uma chance ao
     Fish.
-  image: /img/fish.jpg
+  image: //cacilhas.info/img/fish.jpg
   release: 2016-06-15
   tags:
     - Shell

@@ -1,7 +1,7 @@
 golang:
   title: Sobre Golang
   content: Recentemente começei a trabalhar em um projeto usando a linguagem Go…
-  image: /img/golang.jpg
+  image: //cacilhas.info/img/golang.jpg
   release: 2017-06-12
   tags:
     - Golang
@@ -12,7 +12,7 @@ binario-texto:
   content: >
     Às vezes percebo que as pessoas apresentam dificuldade em entender a
     diferença entre um protocol texto e outro binário.
-  image: /img/glider.png
+  image: //cacilhas.info/img/glider.png
   release: 2017-06-15
   tags:
     - Concept

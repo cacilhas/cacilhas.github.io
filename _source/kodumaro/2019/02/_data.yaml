@@ -3,7 +3,7 @@ actions-sake:
   content: >
     In I.T. we’re living an odd age, when people worship the
     entrepreneurship for itself.
-  image: /img/pink.jpg
+  image: //cacilhas.info/img/pink.jpg
   release: 2019-02-11
   medium_url: https://medium.com/@cacilhas/back-to-the-cult-of-action-for-actions-sake-34756ff5f618
   tags:
@@ -16,7 +16,7 @@ engine-missing:
   content: >
     Our motor vehicle assembler is designing a new car concept. Everything works
     in slightly different ways than the usual.
-  image: /img/java.png
+  image: //cacilhas.info/img/java.png
   release: 2019-02-21
   medium_url: https://medium.com/@cacilhas/testing-the-steering-wheel-in-a-engine-missing-car-1b134cfc2780
   tags:

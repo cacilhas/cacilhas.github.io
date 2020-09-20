@@ -3,7 +3,7 @@ lombok:
   content: >
     The Lombok’s goal is to add facilities and syntax sugar to (…)
     Java.
-  image: /img/java.png
+  image: //cacilhas.info/img/java.png
   release: 2019-01-23
   medium_url: https://medium.com/@cacilhas/why-lombok-is-a-waste-of-time-5fdb7c091d41
   tags:
@@ -15,7 +15,7 @@ now-we-have-two:
   content: >
     We had some problems to solve. The technical management decided we should
     use Ruby. Now we have bigger ones.
-  image: /img/ruby.png
+  image: //cacilhas.info/img/ruby.png
   release: 2019-01-24
   medium_url: https://medium.com/@cacilhas/now-we-have-two-748c013875b8
   tags:

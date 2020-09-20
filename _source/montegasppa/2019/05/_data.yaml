@@ -1,7 +1,7 @@
 fans-are-killing-rock:
   title: Fans are killing Rock
   content: The Rock fans are killing the Rock’n’Roll.
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   licon:
     - glyphicon
     - icon-rock
@@ -18,7 +18,7 @@ fans-are-killing-rock:
 devil-at-crossroads:
   title: The devil at the crossroads
   content: Legend has it that Robert Johnson got to Son House…
-  image: /img/johnson.jpg
+  image: //cacilhas.info/img/johnson.jpg
   licon:
     - glyphicon
     - icon-music

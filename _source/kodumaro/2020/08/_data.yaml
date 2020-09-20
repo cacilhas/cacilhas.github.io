@@ -4,7 +4,7 @@ variance:
     The other day, talking to some coworkers, I realised developers
     unacquainted to functional programming feel hard to understand
     type covariance and contravariance concepts.
-  image: /img/german-shepherd.png
+  image: //cacilhas.info/img/german-shepherd.png
   release: 2020-08-12
   dev_url: https://dev.to/cacilhas/variance-analogy-2deb
   tags:
@@ -17,7 +17,7 @@ software-plants:
   content: >
     It’s very common the analogy between software “factory” and the civil
     sector… Nothing could be futher from reality.
-  image: /img/building.png
+  image: //cacilhas.info/img/building.png
   release: 2020-08-20
   dev_url: https://dev.to/cacilhas/software-plants-kdc
   tags:
@@ -29,7 +29,7 @@ fibonacci:
   content: >
     One of the most interesting algorithms is the Fibonacci numbers. It’s pretty
     tricky ’cause it might leads to a binary tree recursion…
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   release: 2020-08-21
   dev_url: https://dev.to/cacilhas/yet-another-fibonacci-37o9
   tags:

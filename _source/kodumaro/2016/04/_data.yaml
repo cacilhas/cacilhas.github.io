@@ -3,7 +3,7 @@ aspectos:
   content: >
     Orientação a Aspectos consiste em encapsular funcionalidades conforme sua
     importância.
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   release: 2016-04-19
   tags:
     - Concept
@@ -16,7 +16,7 @@ aspectos:
 aspectos-2:
   title: Aspectos – parte Ⅱ
   content: Uso de <em>mixins</em> na orientação a aspectos.
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   release: 2016-04-19
   tags:
     - Concept

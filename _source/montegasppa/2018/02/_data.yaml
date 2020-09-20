@@ -3,7 +3,7 @@ asperger:
   content: >
     Tem uma turma reclamando que agora, com o CID-11, Asperger vai virar
     autista.
-  image: /img/blue-heart.jpg
+  image: //cacilhas.info/img/blue-heart.jpg
   licon:
     - licon
     - icon-asd
@@ -23,7 +23,7 @@ prognose:
     O projeto Sækla esfriou temporariamente. Como tenho uma série de
     gravações que fiz sozinho e uma série de outras, resolvi investir
     tempo em um novo projeto.
-  image: /img/prognose-title.jpg
+  image: //cacilhas.info/img/prognose-title.jpg
   licon: &prognose-icon
     - licon
     - icon-prognose
@@ -45,7 +45,7 @@ desconforto:
   content: >
     Desde que decidi aceitar meu autismo, o maior problema que venho enfrentando
     é entender o que me incomoda, o que me causa desconforto.
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   licon:
     - licon
     - icon-asd
@@ -64,7 +64,7 @@ crowdfunding:
   content: >
     Iniciei uma campanha de <em>crowdfunding</em> no Kickante, que vai até dia
     22 de abril.
-  image: /img/kickante.png
+  image: //cacilhas.info/img/kickante.png
   licon: *prognose-icon
   release: 2018-02-24
   tags:

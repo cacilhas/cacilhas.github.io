@@ -3,7 +3,7 @@ pride:
   content: >
     In 2012 my first wife was dying of cancer, and I tried every treatment I
     could find…
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   licon:
     - licon
     - icon-he
@@ -20,7 +20,7 @@ music-industry:
   content: >
     Why may you pay a hundred dollars for a famous band’s show, but only some
     quarters for a local band’s?
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   release: 2020-06-14
   licon:
     - glyphicon

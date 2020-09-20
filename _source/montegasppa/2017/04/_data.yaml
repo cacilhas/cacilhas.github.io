@@ -3,7 +3,7 @@ escalas-anemitonicas:
   content: >
     Há um tempo fiz uma postagem sobre a diferença entre escanas anemitônicas e
     semitônicas…
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   licon:
     - glyphicon
     - glyphicon-music
@@ -21,7 +21,7 @@ escalas-anemitonicas:
 oito-cordas:
   title: Oito cordas
   content: Tenho feito há alguns meses dois experimentos em paralelo…
-  image: /img/schecter-c8.jpg
+  image: //cacilhas.info/img/schecter-c8.jpg
   licon:
     - licon
     - icon-guitar

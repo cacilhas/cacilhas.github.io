@@ -2,7 +2,7 @@ concern:
   title: <em>Concern</em> em Python em 15 minutos
   content: >
     Um recurso bacana em Ruby é <em>concern</em>…
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   release: 2018-08-15
   tags:
     - Concept

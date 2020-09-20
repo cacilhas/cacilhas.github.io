@@ -1,6 +1,6 @@
 fibonacci:
   title: Uma brincadeira rápida
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   content: >
     Um jeito divertido de calcular Fibonacci usando NumPy.
   release: 2018-12-20

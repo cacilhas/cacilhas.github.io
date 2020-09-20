@@ -3,7 +3,7 @@ composto:
   content: >
     Aprendemos que compassos são formas de organizar metricamente as frases
     musicais (…), porém são muito mais que isso.
-  image: /img/2-4-bar.jpg
+  image: //cacilhas.info/img/2-4-bar.jpg
   licon:
     - glyphicon
     - glyphicon-music
@@ -23,7 +23,7 @@ end-credits:
   title: End Credits
   content: >
     Uma de minhas músicas preferidas é End Credits.
-  image: /img/prognose-title.jpg
+  image: //cacilhas.info/img/prognose-title.jpg
   licon:
     - licon
     - icon-music
@@ -55,7 +55,7 @@ amalgama:
   title: *amalgama_title
   content: >
     Não é obrigatório em ritmo repetir sempre o mesmo compasso.
-  image: /img/2-4-bar.jpg
+  image: //cacilhas.info/img/2-4-bar.jpg
   licon:
     - glyphicon
     - glyphicon-music
@@ -73,7 +73,7 @@ isento:
   content: >
     Algumas pessoas se recusam a posicionar-se em situações que requerem uma
     análise mais cuidadosa.
-  image: /img/hein.png
+  image: //cacilhas.info/img/hein.png
   release: 2018-10-26
   tags:
     - Education and Culture

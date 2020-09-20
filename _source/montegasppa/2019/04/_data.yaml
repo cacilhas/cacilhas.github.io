@@ -1,7 +1,7 @@
 world-autism-awareness-day:
   title: World Autism Awareness Day
   content: I have usually posted something about Autism awareness on April 2nd.
-  image: /img/autistic.png
+  image: //cacilhas.info/img/autistic.png
   licon:
     - glyphicon
     - icon-asd
@@ -21,7 +21,7 @@ two-heavens:
   content: >
     There are two heavens. One is the <em>servees</em>’, the other is the
     servers’.
-  image: /img/heaven-hell.jpg
+  image: //cacilhas.info/img/heaven-hell.jpg
   release: 2019-04-12
   medium_url: https://medium.com/@cacilhas/the-two-heavens-7414bb8696ca
   tags:

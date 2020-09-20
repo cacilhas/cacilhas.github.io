@@ -3,7 +3,7 @@ lula-monstro:
   content: >
     A Esquerda está construindo um monstro. Não a própria pessoa ou figura
     histórica, mas sua memória.
-  image: /img/lula-raivoso.jpg
+  image: //cacilhas.info/img/lula-raivoso.jpg
   release: 2018-03-26
   tags:
     - Politics
@@ -12,7 +12,7 @@ cantata-no140:
   title: "[Bach] Cantata nº 140 (Wachet auf)"
   content: >
     Cantata nº 140 (Wachet auf, ruft uns die Stimme) de Bach, por Steve Howe.
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   licon:
     - licon
     - icon-music

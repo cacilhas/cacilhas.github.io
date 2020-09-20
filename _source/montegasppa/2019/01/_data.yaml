@@ -2,7 +2,7 @@ respeito:
   title: Perdi o respeito
   content: >
     Apenas gostaria de comunicar que perdi o respeito pelo ser humano.
-  image: /img/hein.png
+  image: //cacilhas.info/img/hein.png
   release: 2019-01-01
   tags:
     - Autism
@@ -13,7 +13,7 @@ autism-social-biases:
   content: >
     I’m a high-functioning autistic. I realised it when we were investigating my
     younger son’s autism.
-  image: /img/autistic.png
+  image: //cacilhas.info/img/autistic.png
   licon:
     - licon
     - icon-asd
@@ -30,7 +30,7 @@ autistic-mind:
   content: >
     Temple Grandin (…) talks about photo-realistic visual thinkers, pattern
     thinkers and the verbal mind…
-  image: /img/linear.jpg
+  image: //cacilhas.info/img/linear.jpg
   licon:
     - licon
     - icon-asd
@@ -45,7 +45,7 @@ normality:
   title: Normality
   content: >
     The normality idea must be uprooted from the society…
-  image: /img/normal.png
+  image: //cacilhas.info/img/normal.png
   licon:
     - licon
     - icon-asd
@@ -66,7 +66,7 @@ love-my-son:
   content: >
     I read a curious text in a Facebook page, where the author was
     repeating (…) “I love my son, not his autism”.
-  image: /img/blue-heart.jpg
+  image: //cacilhas.info/img/blue-heart.jpg
   licon:
     - licon
     - icon-asd
@@ -102,7 +102,7 @@ surrendered:
   title: Why I stopped publishing in Portuguese
   content: >
     I’ve simply surrendered.
-  image: /img/iwa.jpg
+  image: //cacilhas.info/img/iwa.jpg
   licon:
     - licon
     - icon-medium
@@ -115,7 +115,7 @@ more-time:
   title: More time
   content: >
     We spend all life long trying to get more.
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   release: 2019-01-27
   medium_url: https://medium.com/@cacilhas/more-time-f987c344a39c
   tags:

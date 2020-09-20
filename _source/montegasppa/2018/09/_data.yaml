@@ -14,7 +14,7 @@ neurotipico:
   content: >
     O Transtorno Neurotípico é um distúrbio (…) caracterizado por (…) delírios
     de superioridade e obsessão por conformidade.
-  image: /img/tea.jpg
+  image: //cacilhas.info/img/tea.jpg
   release: 2018-09-05
   tags:
     - Autism
@@ -29,7 +29,7 @@ estabanado:
   content: >
     Sempre fui “estabanado”. Nunca me dei bem em esporte algum, por mais que
     praticasse.
-  image: /img/iwa.jpg
+  image: //cacilhas.info/img/iwa.jpg
   licon:
     - licon
     - icon-asd
@@ -47,7 +47,7 @@ interlingua:
   content: >
     Interlingua es un lingua artificial basate del similaritate de radices inter
     linguas europee.
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   release: 2018-09-25
   tags:
     - Esperanto

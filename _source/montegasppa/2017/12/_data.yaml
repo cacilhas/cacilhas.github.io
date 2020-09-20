@@ -3,7 +3,7 @@ entre-lobos:
   content: >
     Ontem finalmente recebi o resultado de uma avaliação que estou fazendo há
     algumas sessões…
-  image: /img/tea.jpg
+  image: //cacilhas.info/img/tea.jpg
   licon:
     - licon
     - icon-asd
@@ -26,7 +26,7 @@ capitalismo:
   content: >
     Um dos mais fortes argumentos a favor do capitalismo utilizado por seus
     defensores é que ele seria um sistema que garante a liberdade. Será mesmo?
-  image: /img/ratos-metro-steve-cutts.jpg
+  image: //cacilhas.info/img/ratos-metro-steve-cutts.jpg
   licon:
     - licon
     - icon-he
@@ -40,7 +40,7 @@ culpa:
   content: >
     Com meu recentíssimo diagnóstico, sinto-me compelido a escrever uma série
     de desabafos…
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   licon:
     - licon
     - icon-asd
@@ -55,7 +55,7 @@ literalmente:
   title: Literalmente
   content: >
     As pessoas acham que ser literal significa não entender sentido figurado…
-  image: /img/tea.jpg
+  image: //cacilhas.info/img/tea.jpg
   licon:
     - licon
     - icon-asd
@@ -77,7 +77,7 @@ nos-autistas:
   content: >
     Participando de alguns grupos de pais de autistas, tenho percebido uma
     tentiva de padronizar o autista…
-  image: /img/tea.jpg
+  image: //cacilhas.info/img/tea.jpg
   licon:
     - licon
     - icon-asd
@@ -93,7 +93,7 @@ nos-autistas:
 iwa:
   title: A história de Iwa
   content: Conheci uma história indígena muito interessante…
-  image: /img/iwa.jpg
+  image: //cacilhas.info/img/iwa.jpg
   release: 2017-12-30
   tags:
     - Education and Culture
@@ -102,7 +102,7 @@ iwa:
 rock-is-dead:
   title: <em>Rock is dead</em> Ⅲ
   content: Mais uma lista de trabalhos interessantes a serem ouvidos.
-  image: /img/clave-sol.jpg
+  image: //cacilhas.info/img/clave-sol.jpg
   licon:
     - licon
     - icon-rock

@@ -3,7 +3,7 @@ moonscript:
   content: >
     Colocar MoonScript para trabalhar com LuaJIT não é trivial. É preciso uma
     série de pequenos <em>hacks</em> pra funcionar.
-  image: /img/moonscript.jpg
+  image: //cacilhas.info/img/moonscript.jpg
   release: 2016-05-12
   tags:
     - Lua
@@ -13,7 +13,7 @@ quebra-de-contrato:
   content: >
     É muito comum programadores inexperientes desrespeitarem contratos
     estabelecidos…
-  image: /img/python.png
+  image: //cacilhas.info/img/python.png
   release: 2016-05-13
   tags:
     - Python
@@ -24,7 +24,7 @@ ascii:
   content: >
     Código ASCII é a codificação de caracteres para valores numéricos de 7 bits
     mais aceita mundialmente.
-  image: /img/glider.png
+  image: //cacilhas.info/img/glider.png
   release: 2016-05-21
   tags:
     - Concept
@@ -34,7 +34,7 @@ monty-hall:
   content: >
     Em se descartando algumas escolhas erradas, as desconhecidas restantes
     combinam as probabilidades das descartadas.
-  image: /img/monty-hall.jpg
+  image: //cacilhas.info/img/monty-hall.jpg
   release: 2016-05-22
   tags:
     - Erlang
@@ -48,7 +48,7 @@ monty-hall:
 monty-hall-2:
   title: Paradoxo de Monty Hall, parte Ⅱ
   content: Já temos o mestre de cerimônias, agora precisamos de um convidado…
-  image: /img/erlang.png
+  image: //cacilhas.info/img/erlang.png
   release: 2016-05-22
   tags:
     - Erlang
@@ -68,7 +68,7 @@ monty-hall-3:
   content: >
     Com o mestre de cerimônias e o convidado criados, agora podemos rodar o
     jogo!
-  image: /img/erlang.png
+  image: //cacilhas.info/img/erlang.png
   release: 2016-05-26
   tags:
     - Erlang
@@ -83,7 +83,7 @@ monty-hall-3:
 camera-exemplo:
   title: Câmera exemplo
   content: Em muitos jogos, o movimento de câmera é um recurso essencial.
-  image: /img/love2d.png
+  image: //cacilhas.info/img/love2d.png
   release: 2016-05-26
   tags:
     - Lua

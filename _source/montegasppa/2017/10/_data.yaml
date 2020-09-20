@@ -1,7 +1,7 @@
 normalidade:
   title: A Normalidade
   content: É preciso extirpar o conceito de normalidade da sociedade…
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   licon:
     - licon
     - icon-asd
@@ -20,7 +20,7 @@ novo-ep:
   title: Novo EP Sækla Saklōrum (O Sutra)
   content: >
     Há poucos meses minha banda, Sækla Saklōrum, lançou seu primeiro álbum…
-  image: /img/saekla.jpg
+  image: //cacilhas.info/img/saekla.jpg
   licon:
     - licon
     - icon-saekla
@@ -36,7 +36,7 @@ tea:
   title: Apanhado geral sobre síndromes do espectro autista
   content: >
     Em função da condição de meu filho, tenho pesquisado bastante sobre TEA…
-  image: /img/lamp.png
+  image: //cacilhas.info/img/lamp.png
   licon:
     - licon
     - icon-asd
@@ -50,7 +50,7 @@ autoridade:
   content: >
     Nossa cultura patriarcal nos ensina a respeitar incondicionalmente a
     autoridade.
-  image: /img/manes.jpg
+  image: //cacilhas.info/img/manes.jpg
   release: 2017-10-26
   tags:
     - Education and Culture
