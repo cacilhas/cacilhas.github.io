@@ -1,0 +1,289 @@
+img.pull-right(src=image alt="LÖVE")
+
+p.mg-first Em muitos jogos, o movimento de câmera é um recurso essencial.
+  |  Diversos #[em frameworks] o implementam nativamente.
+
+p
+  a(href="https://love2d.org/") LÖVE ou Love2D
+  |  é a plataforma de desenvolvimento de jogos em #[=""]
+  a(href="http://www.lua.org/") Lua
+  | , com suporte a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Interface_de_função_externa") FFI
+  |  e #[=""]
+  a(href="http://blogs.love2d.org/content/beginners-guide-shaders")
+    em shaders
+  |   nativo, porém exige um pouco de verborragia para lidar com outros recursos
+  |  básicos, como câmera e temporização.
+
+p Mas não ficamos órfãos de recursos ao programar em LÖVE. A comunidade tem
+  |  desenvolvido #[=""]
+  a(href="https://love2d.org/wiki/Category:Libraries") inúmeras bibliotecas
+  | , resolvendo os recursos faltantes.
+
+p De todas, um biblioteca da qual não se pode abrir mão é #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/") HUMP
+  | , que agrega recursos de #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/gamestate.html")
+    | controle de estado
+  | , #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/timer.html") temporização
+  | , #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/vector-light.html")
+    | gerência de vetores
+  | , #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/signal.html") sinais
+  | , #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/camera.html") câmera
+  |  e até mesmo adiciona #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/class.html") suporte a classes
+  |  a Lua.
+
+p Vamos escrever um exemplo muito trivial de gerência de câmera usando HUMP em
+  =" "
+  a(href="http://moonscript.org/") MoonScript
+  | . #[strong Esteja atento], pois será necessário compilar os arquivo
+  |  #[code .moon] para #[code .lua] com #[code moonc] a cada alteração.
+
+h3#baixando-hump Baixando HUMP
+
+p No diretório onde o código ficará execute (você precisa do #[=""]
+  a(href="https://git-scm.com/"): code git
+  | ):
+
+pre: code sh$ #[strong git clone git@github.com:vrld/hump.git]
+
+h3#arquivo-de0configuracao Arquivo de configuração
+
+p LÖVE usa um #[=""]
+  a(href="https://www.love2d.org/wiki/Config_Files")
+    | arquivo de configuração inicial
+  | , #[code conf.lua], com informações sobre tamanho e tipo da janela, e quais
+  |  recursos ativar ou não.
+
+p Vamos criar então um #[code conf.moon] com a versão de LÖVE que estamos
+  |  usando, a identidade da aplicação – uma  #[em string] de uso interno – e
+  |  as informações da janela – título, tamanho e se será #[em fullscreen] ou
+  |  não:
+
+pre.prettyprint: code.
+  love.conf = (t) -&gt;
+      with t
+          .version = "0.10.1"
+          .identity = "cameraexample"
+
+      with t.window
+          .title = "CameraExample"
+          .width = 600
+          .height = 600
+          .fullscreen = false
+
+p Nossa aplicação se chama #[code cameraexample], tem título
+  |  “#[em CameraExample]”, não é #[em fullscreen] e tem dimensões 600x600.
+
+p Para compilar para Lua:
+
+pre: code
+  | sh$ #[strong moonc conf.moon]#[br/]
+  em Built conf.moon#[br/]
+  | sh$
+
+p Isso gera o arquivo #[code conf.lua], que é o que LÖVE usará.
+
+h3#cabelho-arquivo-principal Cabeçalho do arquivo principal
+
+p LÖVE lê os #[em callbacks] do arquivo #[code main.lua]. Criaremos então um
+  |  arquivo #[code main.moon] para nosso teste. Esse arquivo deve conter a
+  |  importação do(s) módulo(s) HUMP, a aplicação em si e os #[em callbacks]
+  |  que LÖVE espera.
+
+p Para a aplicação, vamos criar uma classe #[code CameraExample]. Podemos
+  |  começar o arquivo então:
+
+pre.prettyprint: code.
+  local *
+
+  Camera = assert require "hump.camera"
+  app = nil
+
+  class CameraExample
+      new: =&gt;
+          @camera = Camera 0, 0
+          @shapes = {
+              -&gt; love.graphics.circle "fill", 0, 0, 50
+          }
+
+p Importamos #[code hump.camera] – padronizado como #[code Camera] –, reservamos
+  |  uma variável para a instância de aplicação e criamos a classe, apenas com o
+  |  construtor.
+
+p No construtor da classe, instanciamos uma câmera olhando para a posição
+  |  (0, 0), e criamos uma lista de formas (#[code shapes]) contendo uma função
+  |  anônima que desenha um círculo de 50 #[em pixels] na posição (0, 0).
+
+p Nossa classe ainda precisa de um método para chamar as funções que desenham
+  |  as formas. Acrescente à classe o método:
+
+pre.prettyprint: code
+  |     draw: =&gt;
+  |         love.graphics.setColor 0x00, 0x00, 0x00
+  |         shape! for shape in *@shapes
+
+p Agora precisamos registrar a instanciação da #[em callback] no carregamento de
+  |  LÖVE (#[code love.load]) e o desenho na de desenho (#[code love.draw]).
+  |  Abaixo, fora da classe, crie as seguintes funções:
+
+pre.prettyprint: code.
+  love.load = -&gt;
+      app = CameraExample!
+      love.graphics.setBackgroundColor 0x00, 0x50, 0x90
+
+  love.draw = -&gt;
+      app\draw!
+
+p Isso já deve funcionar! Compile e rode:
+
+pre: code
+  | sh$ #[strong moonc main.moon]#[br/]
+  em Built main.moon#[br/]
+  | sh$ #[strong love .]
+
+p O resultado esperado é abrir uma janela azul com um círculo preto no canto.
+  |  Pode fechá-la, ela ainda não faz mais nada.
+
+p(style={"text-align": "center"})
+  img(src="/img/camera-example/shot-1.jpg" alt="")
+
+h3#ativando-camera Ativando a câmera
+
+p Vamos usar a câmera visualizar o “mundo” exibido. Altere o método #[code draw]
+  |  da classe para usar a câmera:
+
+pre.prettyprint: code
+  |     draw: =&gt;
+  |         love.graphics.setColor 0x00, 0x00, 0x00
+  |         @camera\draw -&gt;
+  |             shape! for shape in *@shapes
+
+p Com o contexto gerado pela chamada do método #[code @camera\draw] agora, ao
+  |  ao rodar a aplicação (não se esqueça de recompilar #[code main.moon]!),
+  |  o círculo aparecerá no centro da janela.
+
+p(style={"text-align": "center"})
+  img(src="/img/camera-example/shot-2.jpg" alt="")
+
+p Entenda o que aconteceu: agora a câmera está olhando para a posição onde está
+  |  o círculo, (0, 0) – antes a posição (0, 0) era o canto superior esquerdo.
+
+h3#movendo-camera Movendo a câmera
+
+p Há diversos métodos para mover a câmera – veja a #[=""]
+  a(href="http://hump.readthedocs.io/en/latest/camera.html#function-reference")
+    | documentação
+  | . Vamos usar o método que movimenta a câmera de acordo com um #[em delta].
+
+p Precisaremos de um método para atualizar o estado da câmera. Tradicionalmente
+  |  esse método é chamado #[code update] e recebe um #[em delta] de tempo.
+  |  Vamos criar um #[em delta] de movimento a partir do #[em delta] de tempo e
+  |  adicioná-lo a #[em deltas] separados para os eixos x e y de acordo com que
+  |  teclas forem pressionadas. Depois passamos os #[em deltas] separados para a
+  |  função que move a câmera:
+
+pre.prettyprint: code
+  |     update: (dt) =&gt;
+  |         ds = dt * 200  -- fator 200 funcionou bem pra mim
+  |         dx, dy = 0, 0
+  |         with love.keyboard
+  |             dx -= ds if .isDown"left"
+  |             dx += ds if .isDown"right"
+  |             dy -= ds if .isDown"left"
+  |             dy += ds if .isDown"left"
+  |         @camera\move dx, dy
+
+p Agora precisamos avisar LÖVE para chamar esse método a cada vez que o sistema
+  |  atualizar seu estado. Isso é feito através do #[em callback]
+  |  #[love.update]:
+
+pre.prettyprint: code.
+  love.update = (dt) -&gt;
+      app\update dt
+
+p Então é possível mover a câmera usando as setas do teclado.
+
+h3#mais-objectos Adicionando mais objetos
+
+p Parece estranho… aperta para a esquerda, o círculo vai para a direita, aperta
+  |  para baixo, vai para cima…
+
+p Isso porque o que está sendo movido é a câmera. Para deixar mais claro, basta
+  |  acrescentar mais formas.
+
+p Altere o construtor da classe para receber a lista de formas:
+
+pre.prettyprint: code
+  |    new: (...) =&gt;
+  |        @camera = Camera 0, 0
+  |        @shapes = {...}
+
+p E na instanciação coloque mais formas:
+
+pre.prettyprint: code.
+  love.load = -&gt;
+      app = CameraExample (-&gt; love.graphics.circle "fill", 0, 0, 50),
+                          (-&gt; love.graphics.rectangle "fill", 100, 80, 10, 10),
+                          (-&gt; love.graphics.circle "fill", -80, 150, 20)
+      love.graphics.setBackgroundColor 0x00, 0x50, 0x90
+
+p Compile e rode novamente.
+
+h3#tweening Brincando com #[em tweening]
+
+p Para ficar mais interessante, vamos acrescentar um #[=""]
+  a(href="https://en.wikipedia.org/wiki/Inbetweening"): em tweening
+  | .
+
+p No cabeçalho, logo abaixo da imporação do módulo de câmera acrescente:
+
+pre.prettyprint: code.
+  Timer = assert require "hump.timer"
+
+p Mude agora o construtor da classe para reter a cor dos objetos:
+
+pre.prettyprint: code
+  |     new: (...) =&gt;
+  |         @color = 0x00
+  |         @camera = Camera 0, 0
+  |         @shapes = {...}
+
+p Adicione um método #[code start] para iniciar o #[em tweening], que mudará a
+  |  cor entre branco e preto a cada 2s:
+
+pre.prettyprint: code
+  |     start: =&gt;
+  |         guard = -&gt;
+  |             color = if @color &lt; 0x80 then 0xff else 0x00
+  |             Timer.tween 2, @, {:color}, "in-sine", guard
+  |         guard!
+
+p Esse método precisa ser chamado no carregamento de LÖVE:
+
+pre.prettyprint: code.
+  love.load = -&gt;
+      app = CameraExample (-&gt; love.graphics.circle "fill", 0, 0, 50),
+                          (-&gt; love.graphics.rectangle "fill", 100, 80, 10, 10),
+                          (-&gt; love.graphics.circle "fill", -80, 150, 20)
+      love.graphics.setBackgroundColor 0x00, 0x50, 0x90
+      app\start!
+
+p O módulo de #[em tweening] precisa ser atualizado no #[em callback]. Mude o
+  |  código também:
+
+pre.prettyprint: code.
+  love.update = (dt) -&gt;
+      Timer.update dt
+      app\update dt
+
+p Ao compilar e rodar a aplicação você verá os objetos piscando, enquanto a
+  |  câmera pode ser movida para mudar o ponto de visão.
+
+p(style={"text-align": "center"})
+  img(src="/img/camera-example/shot-3.jpg" alt="")

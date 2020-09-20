@@ -1,0 +1,77 @@
+img.pull-right(src=image)
+
+p.mg-first Let’s take a hypothetical situation: #[=""]
+  != _(content).uncapitalize()
+
+p We’ve performed the steering wheel unit test, and everything works fine. Now
+  |  we have to test how it integrates with the whole car. So we’re gonna design
+  |  an acceptance test, using a real car to see whether the wheel can turn the
+  |  car left and right properly or not.
+
+p But we want to test #[strong only] the steering wheel behaviour, so we decided
+  |  to use a #[em partial] car for testing it. The partial car may have no
+  |  gear, or even no engine. We don’t need’em, we just wanna see whether the
+  |  steering wheel does its job.
+
+p What a humongous mistake! The partial car’s behaviour is far different from
+  |  the real one’s. So the mistaken acceptance test runs fine, but the steering
+  |  wheel may not be able to turn a real car in time or at the right turn.
+
+p This weird example is an analogy for how I’ve seen people writing acceptance
+  |  tests (and calling them “integration tests”).
+
+p Because of a misunderstanding of the #[=""]
+  a(href="https://blogs.itemis.com/en/a-brief-overview-of-state-machine-types")
+    | FSM
+  | , software designers think there can be allowed to create inconsistent-state
+  |  models in order to change that state little by little through a procedure
+  |  chain, #[strong hoping] they get into a consistent state at the end.
+
+p This approach allows testing code actors by faking the environment with
+  |  inconsistent models, which does #[strong not] represent the production
+  |  behaviour anyhow.
+
+p The ungeared or nonengined car is the outre sample of an inconsistent-state
+  |  model. No acceptance test like it can reflect the real one’s behaviour,
+  |  thus it’s not reliable.
+
+p The fix is the functional approach of the #[=""]
+  a(href="https://www.quora.com/Why-is-immutability-important-in-functional-programming")
+    | Immutability Constraint
+  | . Absolutely #[strong no model] can exist in an inconsistent state, even
+  |  from its very first creation.
+
+p You’re #[strong not obliged] to use a functional language, like #[=""]
+  a(href="https://www.erlang.org/") Erlang
+  | , #[=""]
+  a(href="https://schemers.org/") Scheme
+  | , #[=""]
+  a(href="https://ocaml.org/") OCaml
+  | , or #[=""]
+  a(href="https://www.haskell.org/") Haskell
+  | , to stick to the functional constraints. You just need to stick. It’s a
+  |  #[strong mindset].
+
+p You can be functional in #[=""]
+  a(href="https://nodejs.org/") Javascript
+  | , #[=""]
+  a(href="https://python.org/") Python
+  | , #[=""]
+  a(href="https://www.ruby-lang.org/en/") Ruby
+  |  (hardly), even #[=""]
+  a(href="https://www.java.com/") Java
+  |  and #[=""]
+  a(href="https://www.cprogramming.com/") C
+  | . Of course some resources are not available, but you’re gonna need to make
+  |  some concessions. Be reasonable.
+
+p Being immutable, you cannot allow inconsistent models anywhere at all. Every
+  |  just-born model must be consistent, if it’s not, an exception should be
+  |  raised right at once, breaking the flow up. Since it’s immutable, it’ll be
+  |  always consistent.
+
+p This approach fully avoids “no-gear” and “engine-missing cars” in the code,
+  |  forcing the acceptance tests to depict the real world as closely as
+  |  possible and making them reliable.
+
++medium-link

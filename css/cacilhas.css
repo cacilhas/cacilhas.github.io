@@ -1,0 +1,261 @@
+@font-face {
+  font-family: "Default Fancy";
+  src: url("/misc/fonts/default-fancy.ttf") format("truetype"), url("/misc/fonts/default-fancy.woff") format("woff"), url("/misc/fonts/default-fancy.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@media only screen and (min-width: 1024px) {
+  img:not(.pull-right) {
+    margin: 2px 5px 5px 5px !important;
+  }
+  img.pull-right {
+    margin: 2px 0px 5px 5px !important;
+  }
+}
+@media screen and (max-width: 800px) {
+  img {
+    margin: 0px 1px 0px 1px;
+  }
+}
+body {
+  font-family: Roboto, Helvetica, sans-serif;
+}
+code {
+  font-family: "Roboto Mono", monospace;
+}
+tt {
+  font-family: "Roboto Mono", monospace;
+}
+blockquote {
+  font-family: Kavivanar, Futura, Arial, sans-serif;
+  font-size: small;
+  font-weight: normal;
+}
+blockquote strong {
+  font-weight: bolder;
+}
+hr {
+  display: block;
+  border: none;
+  height: 10px;
+  bg-size: cover auto;
+  background-image: url("/img/divider.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+summary {
+  padding-bottom: 8pt;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+summary:before {
+  content: "+ ";
+  color: #337ab7;
+  font-family: monospace;
+  font-weight: bold;
+}
+summary .badge {
+  float: right;
+}
+details[open] > summary:before {
+  content: "- ";
+}
+.showcase .mg-title {
+  text-transform: capitalize;
+}
+.mg-title:first-letter {
+  font-family: "Default Fancy";
+}
+.mg-first:first-letter {
+  font-family: "Default Fancy";
+  font-size: 180%;
+  vertical-align: text-top;
+  float: left;
+  margin-right: 8px;
+}
+.showcase {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.showcase .mg-highlighted {
+  min-width: 360px !important;
+  float: left;
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.showcase .mg-highlighted:hover {
+  text-decoration: none;
+}
+.showcase .mg-highlighted .panel-default:hover {
+  background-color: #f5f5f5;
+}
+.showcase .mg-highlighted p.lead {
+  min-height: 5em !important;
+  text-align: justify;
+}
+.panel-body p {
+  text-align: justify;
+}
+.tags-map select:hover {
+  background-color: #f5f5f5;
+}
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.mg-alert {
+  color: #bb5;
+}
+.mg-sc {
+  font-variant: small-caps;
+}
+.mg-close {
+  letter-spacing: -1px;
+}
+.mg-box-grid td {
+  border-right: 1px solid #ddd !important;
+}
+.mg-grid td {
+  border-right: 1px solid #ddd !important;
+}
+.mg-grid td:last-child {
+  border-right: none !important;
+}
+.mg-hidden-link {
+  color: #fff;
+}
+.mg-hidden-link:hover {
+  color: #337ab7;
+}
+._404 {
+  background-image: url("/img/404.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 348px 214px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  width: 348px !important;
+  height: 214px !important;
+}
+.collapse-expand-buttons {
+  padding-left: 2pt;
+}
+.quote {
+  font-family: Kavivanar, Futura, Arial, sans-serif;
+  margin: 2em 2em 2em 2em;
+}
+.quote strong {
+  font-weight: bolder;
+}
+#footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 35px !important;
+  padding: 8px 12px 0px 12px;
+  text-align: right;
+}
+.hoverable .hover {
+  display: none;
+}
+.hoverable:hover .normal {
+  display: none;
+}
+.hoverable:hover .hover {
+  display: inline;
+}
+.licon {
+  top: 2px;
+  padding: 2px 2px 2px 2px;
+  position: relative;
+  display: inline-block;
+  font-style: normal !important;
+  font-size: 12px !important;
+  width: 16px;
+  height: 16px;
+}
+.icon-asd {
+  top: 0;
+  padding: 2px 4px 2px 0px;
+  color: #00f;
+}
+.icon-asd:before {
+  content: "\1F499";
+}
+.icon-cacilhas {
+  background-image: url("/img/icons/favicon.ico");
+}
+.icon-educaedu {
+  background-image: url("/img/icons/educaedu.ico");
+}
+.icon-fridas {
+  background-image: url("/img/icons/todas-fridas.ico");
+}
+.icon-guitar {
+  top: 0;
+  padding: 2px 4px 2px 0px;
+}
+.icon-guitar:before {
+  content: "\1F3B8";
+}
+.icon-he {
+  background-image: url("/img/icons/highexistence.ico");
+}
+.icon-kodumaro {
+  background-image: url("/img/icons/kodumaro.ico");
+}
+.icon-maven {
+  background-image: url("/img/icons/maven.ico");
+}
+.icon-montegasppa {
+  background-image: url("/img/icons/montegasppa.ico");
+}
+.icon-music {
+  top: 0;
+  padding: 2px 4px 2px 0px;
+}
+.icon-music:before {
+  content: "\1F3B6";
+}
+.icon-dev-to {
+  background-image: url("/img/icons/dev-badge.ico");
+}
+.icon-hondaj {
+  background-image: url("/img/icons/hondaj.ico");
+}
+.icon-le-obscur-essentes {
+  background-image: url("/img/icons/le-obscur-essentes.ico");
+}
+.icon-medium {
+  background-image: url("/img/icons/medium.ico");
+}
+.icon-patreon {
+  background-image: url("/img/icons/patreon.ico");
+}
+.icon-prognose {
+  background-image: url("/img/icons/patreon.ico");
+}
+.icon-rock {
+  top: 0;
+  padding: 2px 4px 2px 0px;
+}
+.icon-rock:before {
+  content: "\1F918";
+}
+.icon-saekla {
+  background-image: url("/img/icons/saekla.ico");
+}
+.icon-wordpress {
+  background-image: url("/img/icons/wordpress.ico");
+}

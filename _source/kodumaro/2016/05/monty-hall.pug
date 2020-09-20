@@ -1,0 +1,369 @@
+
+img.pull-right(src=image alt="Monty Hall")
+
+p.mg-first O #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Problema_de_Monty_Hall")
+    | Paradoxo de Monty Hall
+  |  diz que, em se descartando algumas escolhas erradas, as desconhecidas
+  |  restantes combinam as probabilidades daquelas descartadas.
+
+p O exemplo clássico desse paradoxo são três portas fechadas, uma com um carro
+  | zero e as outras duas com bodes. O convidado precisa escolher uma porta, e
+  | receberá como prêmio o que estiver atrás dela.
+
+p Então o convidado escolhe uma porta. O mestre de cerimônia em vez de abrir
+  | a porta escolhida, abre uma das outras duas portas, mostrando um bode atrás
+  | dela. Então ele pergunta se o convidado quer continuar com a porta escolhida
+  | ou se prefere trocar para a outra porta ainda fechada.
+
+p Segundo o Paradoxo de Monty Hall, o convidado tem 33% (uma chance em três)
+  | de ganhar o carro se mantiver a escolha inicial, mas 67% (duas em três) se
+  | trocar para a outra porta. Isso porque se a possibilidade dele ganhar era
+  | 33%, ela não se altera, portanto a possibilidade do carro estar em uma das
+  | outras duas portas – agora apenas uma – é de 67%.
+
+p Nesta sequência de artigos escreveremos um código para colocar à prova esse
+  |  paradoxo. No processo aprenderemos um pouco sobre #[=""]
+  a(href="https://github.com/erlang/otp") OTP
+  | , o #[em framework] de serviços de #[=""]
+  a(href="http://erlang.org/") Erlang
+  | . Neste primeiro artigo, faremos funcionar o primeiro ator: o mestre de
+  | cerimônias.
+
+h3#boilerplate: em Boilerplate
+
+p Vamos começar com um #[em boilerplate] OTP para o mestre de cerimônia. Será
+  |  um arquivo chamado #[code mh_mc.erl]. Usaremos o #[=""]
+  a(href="http://erlang.org/doc/man/gen_server.html"): code gen_server
+  | :
+
+pre.prettyprint: code.language-erlang.
+  -module(mh_mc).
+  -behavior(gen_server).
+
+  -export([start_link/0, stop/0]).
+  -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2,
+           code_change/3]).
+
+
+  %% API
+
+  -spec start_link() -&gt; {ok, Pid} when Pid :: pid().
+  -spec stop() -&gt; ok.
+
+  start_link() -&gt; gen_server:start_link({local, ?MODULE}, ?MODULE, null, []).
+
+  stop() -&gt; gen_server:cast(?MODULE, stop).
+
+
+  %% Behavior
+
+  init(null) -&gt; {ok, []}.
+
+  code_change(_OldVsn, State, _Extra) -&gt; {ok, State}.
+
+  handle_call(_Request, _From, State) -&gt; {reply, ok, State}.
+
+  handle_cast(stop, State) -&gt; {stop, normal, State};
+
+  handle_cast(_Request, State) -&gt; {noreply, State}.
+
+  handle_info(_Info, _State) -&gt; ok.
+
+  terminate(_Reason, _State) -&gt; ok.
+
+p Nosso código é dividido em duas partes: API (interface com outros atores) e
+  | comportamento (interface com OTP).
+
+p A API por enquanto tem apenas duas funções, descritas nas declarações
+  |  #[code -spec]: #[code start_link/0], que inicia o mestre de cerimônias, e
+  |  #[code stop/0], que encerra o processo.
+
+p Já podemos testá-o, aliás:
+
+pre: code
+  | sh$ #[strong erlc mh_mc.erl]#[br/]
+  | sh$ #[strong erl]#[br/]
+  em
+    | Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
+    |  [hipe] [kernel-poll:false] [dtrace]#[br/]
+  br/
+  em Eshell V7.3  (abort with ^G)#[br/]
+  | 1&gt; #[strong mh_mc:start_link().]#[br/]
+  em {ok, &lt;0.35.0&gt;#[br/]
+  | 2&gt; #[strong processes().]#[br/]
+  em [<0.0.0>,<0.3.0>,<0.6.0>,<0.7.0>,<0.9.0>,<0.10.0>,<0.11.0>,#[br/]
+  em  <0.12.0>,<0.14.0>,<0.15.0>,<0.16.0>,<0.17.0>,<0.18.0>,#[br/]
+  em  <0.19.0>,<0.20.0>,<0.21.0>,<0.22.0>,<0.23.0>,<0.24.0>,#[br/]
+  em  <0.25.0>,<0.26.0>,<0.27.0>,<0.28.0>,<0.29.0>,<0.33.0>,#[br/]
+  em  <0.35.0>]#[br/]
+  | 3&gt; #[strong mh_mc:stop().]#[br/]
+  em ok#[br/]
+  | 4&gt; #[strong processes().]#[br/]
+  em [<0.0.0>,<0.3.0>,<0.6.0>,<0.7.0>,<0.9.0>,<0.10.0>,<0.11.0>,#[br/]
+  em  <0.12.0>,<0.14.0>,<0.15.0>,<0.16.0>,<0.17.0>,<0.18.0>,#[br/]
+  em  <0.19.0>,<0.20.0>,<0.21.0>,<0.22.0>,<0.23.0>,<0.24.0>,#[br/]
+  em  <0.25.0>,<0.26.0>,<0.27.0>,<0.28.0>,<0.29.0>,<0.33.0>]#[br/]
+  | 5&gt;
+
+p As funções de comportamento são:
+
++ul
+  +li #[code init/1]: função chamada pelo OTP para inicializar o processo,
+    |  configurando o estado inicial.
+
+  +li #[code code_change/3]: diz ao OTP o que fazer quando o módulo é
+    |  atualizado. No caso, apenas continua rodando o código novo com o mesmo
+    | estado.
+
+  +li #[code handle_call/3]: diz ao OTP o que fazer quando outro processo faz
+    |  uma chamada, aguardando retorno. Em nosso #[em boilerplate], apenas
+    |  responde #[code ok].
+
+  +li #[code handle_cast/2]: diz ao OTP o que fazer quando outro processo lança
+    |  uma chamada assíncrona. Se o requisição for #[code stop], usada pela
+    |  função #[code stop/0], encerra o processo normalmente, caso contrário,
+    |  não responde nada e continua com o estado atual.
+
+  +li #[code handle_info/2]: diz ao OTP o que fazer em caso de #[em timeout].
+
+  +li #[code terminate/2]: função chamada pelo OTP quando o processo encerra.
+
+h3#iniciando-sistema Iniciando o sistema
+
+p A primeira coisa a se fazer é inicializar o sistema criando as portas e
+  |  colocando os bodes e o carro atrás de cada uma #[=""]
+  a(href="http://erlang.org/doc/man/random.html") aleatoriamente.
+
+p O método que inicializa o processo é #[code init/1]. Ele pode continuar
+  |  recebendo #[code null]. O processo deve cuidar pessoalmente de configurar
+  |  as portas.
+
+p Vamos representar as portas usando uma lista de possibilidades. Podemos
+  |  chamar as possibilidades de #[code prize()]:
+
+pre.prettyprint: code.language-erlang.
+  -type prize() :: car | goat.
+
+p Podemos também definir que as portas são #[code a], #[code b] e #[code c]:
+
+pre.prettyprint: code.language-erlang.
+  -type door() :: a | b | c.
+
+blockquote
+  tt [update 2016-05-23]
+  p Colocamos as declarações de tipo no arquivo #[code mh.hrl], que deve ser
+    |  importando usando:
+  pre.prettyprint: code.language-erlang.
+    -include("mh.hrl").
+  tt [/update]
+
+p A primeira coisa que precisamos fazer é #[em resetar] o sistema de
+  |  aleatoriedade:
+
+pre.prettyprint: code.language-erlang.
+  init(null) -&gt;
+    random:seed(now()),
+    {ok, []}.
+
+p Vamos agora colocar bodes atrás de todas as portas:
+
+pre.prettyprint: code.language-erlang.
+  init(null) -&gt;
+    random:seed(now()),
+    Doors = [{a, goat}, {b, goat}, {c, goat}],
+    {ok, Doors}.
+
+p Agora precisamos escolher uma porta para coloca o carro:
+
+pre.prettyprint: code.language-erlang.
+  init(null) -&gt;
+    random:seed(now()),                                         % inicializa o gerador de números aleatórios
+    Doors = [{a, goat}, {b, goat}, {c, goat}],                  % inicializa as três portas com bodes
+    CarDoor = lists:nth(random:uniform(3), [a, b, c]),          % escolhe uma porta pra colocar o carro: a, b ou c
+    {ok, lists:keyreplace(CarDoor, 1, Doors, {CarDoor, car})}.  % inicia o processo com as portas configuradas
+
+p O estado inicial do mestre de cerimônias consiste em uma lista de três
+  |  portas, #[code a], #[code b] e #[code c], cada uma com um bode
+  |  (#[code goat]) ou o carro (#[code car]) atrás. Nós não conhecemos essa
+  |  formação, mas processo conhece.
+
+p Merece atenção especial a última linha:
+
++ul
+  +li #[code ok] informa ao OTP que tudo correu bem.
+
+  +li O segundo elemento da tupla é a lista de portas.
+    |  #[code lists:keyreplace/4] faz a substituição de um elemento de uma lista
+    |  de tuplas baseada em uma posição das tuplas:
+    ul
+      li #[code CarDoor] é a porta escolhida;
+      li #[code 1] indica que a substituição é feita pelo primeiro elemento de
+        |  cada tupla;
+      li #[code Doors] é a list original (apenas bodes);
+      li #[code {CarDoor, car}] é o novo elemento carro na porta
+        |  #[code CarDoor].
+
+h3#valor-das-portas Obtendo o valor das portas
+
+p Não faz sentido termos as portas se não pudermos obter seus valores ao final.
+  | Para obter o prêmio atrás de um porta, precisamos configurar o método de
+  |  comportamento #[code handle_call/3].
+
+p No momento, a função é:
+
+pre.prettyprint: code.language-erlang.
+  handle_call(_Request, _From, State) -&gt; {reply, ok, State}.
+
+p #[strong Imediatamente] antes, acrescente outra assinatura:
+
+pre.prettyprint: code.language-erlang.
+  handle_call({door, Door}, _From, State) -&gt;
+      case lists:keyfind(Door, 1, State) of
+          {_, Prize} -&gt; {reply, {prize, Prize}, State};
+          false -&gt; {reply, null, State}
+      end;
+
+p Agora, se o processo receber uma chamada síncrona no formato
+  |  #[code {door, Door}], retornará o conteúdo daquela porta. Precisamos apenas
+  |  de uma interface. Primeiro vamos exportá-la e definir sua especificação:
+
+pre.prettyprint: code.language-erlang.
+  -export([start_link/0, stop/0, get_prize/1]).
+
+  ...
+
+  -spec get_prize(Door :: door()) -&gt; {ok, Prize} when Prize :: prize() | {error, _}.
+
+p Podemos implementar a função #[code get_prize/1], que apenas faz a chamada para
+  |  OTP:
+
+pre.prettyprint: code.language-erlang.
+  get_prize(Door) -&gt;
+      case gen_server:call(?MODULE, {door, Door}) of
+          {prize, Prize} -&gt; {ok, Prize};
+          Other -&gt; {error, Other}
+      end.
+
+h3#outra-porta A outra porta
+
+p A última coisa é oferecer a outra porta para abertura. Esse processo tem dois
+  | fluxos:
+
+ol
+  li O convidado escolheu a porta com o carro, então o mestre de cerimônias deve
+    | escolher uma das outras duas portas, aleatoriamente;
+  li O convidado escolheu uma porta com bode, então o mestre de cerimônias deve
+    | abrir a outra com bode.
+
+p Imediatamente acima da implementação de falha de #[code handle_call/3], crie
+  | uma nova implementação tratando do pedido de outra porta para troca:
+
+pre.prettyprint: code.language-erlang.
+  handle_call({other, Door}, _From, State) -&gt;
+      case lists:keyfind(Door, 1, State) of
+          {_, goat} -&gt;
+              % convidado escolheu um bode (67%)
+              {OtherDoor, _} = lists:keyfind(car, 2,
+                                             lists:keydelete(Door, 1, State));
+          {_, car} -&gt;
+              % convidado escolheu o carro (33%)
+              {OtherDoor, _} = lists:nth(random:uniform(2),
+                                         lists:keydelete(Door, 1, State));
+          false -&gt; OtherDoor = null
+      end,
+      {reply, OtherDoor, State};
+
+blockquote
+  tt [update 2016-05-23]
+  p A linha que encontra a porta com o carro merece uma explicação mais
+    | profunda.
+
+  pre.prettyprint: code.language-erlang.
+    {OtherDoor, _} = lists:keyfind(car, 2,
+                                   lists:keydelete(Door, 1, State));
+
+  p A primeira função avaliada é:
+
+  pre.prettyprint: code.language-erlang.
+    lists:keydelete(Door, 1, State)
+
+  p Ela retorna uma nova lista a partir de #[code State], removendo a tupla
+    |  cujo primeiro elemento é #[code Door], ou seja, a porta escolhida pelo
+    |  convidado. Assim, restam duas portas, uma com um bode, outra com o carro.
+    | É preciso retornar a porta com o carro.
+
+  p Então entra o outro #[code lists:keyfind/3], cujo primeiro parâmetro é
+    |  #[code car] e o segundo #[code 2]. Ele retorna a tupla cujo
+    |  #[strong segundo] elemento é #[code car].
+
+  p Finalmente o #[em partern matching] seleciona apenas a letra da porta,
+    |  armazenando-a em #[code OtherDoor].
+
+  tt [/update]
+
+p Também precisamos aqui criar uma interface, da mesma forma:
+
+pre.prettyprint: code.language-erlang.
+  -export([start_link/0, stop/0, get_prize/1, suggest_another_door/1]).
+
+  ...
+
+  -spec suggest_another_door(Door :: door()) -> {ok, OtherDoor} when OtherDoor :: door() | {error, _}.
+
+  ...
+
+  suggest_another_door(Door) -&gt;
+      case gen_server:call(?MODULE, {other, Door}) of
+          null -&gt; {error, null};
+          OtherDoor -&gt; {ok, OtherDoor}
+      end.
+
+h3#testando Testando
+
+p Precisamos testar agora pra ver se funciona!
+
+pre: code
+  | sh$ #[strong erlc mh_mc.erl]#[br/]
+  | sh$ #[strong erl]#[br/]
+  em
+    | Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
+    |  [hipe] [kernel-poll:false] [dtrace]#[br/]
+  br/
+  em Eshell V7.3  (abort with ^G)#[br/]
+  | 1&gt; #[strong mh_mc:start_link().]#[br/]
+  em {ok,&lt;0.35.0&gt;}#[br/]
+  | 2&gt; #[strong mh_mc:get_prize(a).]#[br/]
+  em {ok,goat}#[br/]
+  | 3&gt; #[strong mh_mc:get_prize(b).]#[br/]
+  em {ok,goat}#[br/]
+  | 4&gt; #[strong mh_mc:get_prize(c).]#[br/]
+  em {ok,car}#[br/]
+  | 5&gt; #[strong mh_mc:suggest_another_door(a).]#[br/]
+  em {ok,c}#[br/]
+  | 6&gt; #[strong mh_mc:suggest_another_door(b).]#[br/]
+  em {ok,c}#[br/]
+  | 7&gt; #[strong mh_mc:suggest_another_door(c).]#[br/]
+  em {ok,b}#[br/]
+  | 8&gt; #[strong mh_mc:suggest_another_door(a).]#[br/]
+  em {ok,c}#[br/]
+  | 9&gt; #[strong mh_mc:suggest_another_door(b).]#[br/]
+  em {ok,c}#[br/]
+  | 10&gt; #[strong mh_mc:suggest_another_door(c).]#[br/]
+  em {ok,a}#[br/]
+  | 11&gt; #[strong mh_mc:stop()]#[br/]
+  em ok#[br/]
+  | 12&gt;
+
+h3#para-baixar Arquivos para baixar
+
++ul
+  +li: a(href=`${public.misc.repo}/monty-hall/mh.hrl`): code mh.hrl
+  +li: a(href=`${public.misc.repo}/monty-hall/mh_mc.erl`): code mh_mc.erl
+
+h3#proximos-passos Próximos passos
+
+p No #[=""]
+  a(href=public.kodumaro.blog.url+"2016/05/monty-hall-2.html") próximo artigo
+  |  criaremos o segundo ator, o convidado, que deve escolher uma das três
+  | portas e depois decidir se troca de porta ou não.

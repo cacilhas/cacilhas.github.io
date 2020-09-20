@@ -1,0 +1,74 @@
+extends ../_layout.pug
+
+block blog-head
+  - author = author || public.author.name.split(" ").slice(1).join(" ")
+  - shownTitle = (title || "").replace(/<[^>]+>/g, "")
+  title !{public.montegasppa.blog.prefix} :: !{shownTitle}
+  meta(property="og:site_name" content=public.montegasppa.blog.title)/
+  meta(property="og:title" content=shownTitle)/
+  if current && current.path
+    meta(property="og:url"
+         content=`${public.main.host}/${current.path.slice(2).join("/")}.html`)/
+  if tags
+    meta(property="og:type" content="article")/
+    meta(property="article:tag" content=tags.join(", "))/
+  meta(property="article:author" content=author)/
+  if image
+    meta(property="og:image" content=`${public.main.host}${image}`)/
+  link(rel="alternate" type="application/atom+xml" title=public.montegasppa.blog.title
+       href=`${public.montegasppa.blog.url}feed.xml`)/
+  link(rel="stylesheet" href="/css/montegasppa.css")/
+  link(rel="icon" href=public.montegasppa.blog.icon)/
+  include ../_widgets/openid.pug
+
+block append nav-bar
+  li(class={active: home}): a(href=public.montegasppa.blog.url) Prologue
+  unless home
+    li.active: a(href=".") !{public.montegasppa.blog.prefix} :: !{title}
+
+block main-container
+  .panel.panel-default
+    .panel-heading
+      h2.mg-title !{public.montegasppa.blog.prefix} :: !{title}
+      if release
+        - release = moment(release).add(3, "hours")
+        h6#release.pull-right!= release.format("MMMM Do, YYYY")
+      h6!= public.montegasppa.blog.subtitle
+
+    .panel-body
+      != yield
+
+  if tags
+    p.text-right
+      each tag, index in tags
+        unless index === 0
+          |  | #[=""]
+        small.tag: a(href=`/tags/${mkSlug(tag)}.html`) !{tag}
+
+  if nav
+    .panel.panel-default
+      .panel-body
+        if nav.prev
+          .pull-left: small
+            a(href=`${public.montegasppa.blog.url}${nav.prev.path}.html`)
+              | « Previous: !{nav.prev.title}
+        if nav.next
+          .pull-right: small
+            a(href=`${public.montegasppa.blog.url}${nav.next.path}.html`)
+              | Next: !{nav.next.title} »
+
+block footer
+  p.pull-left
+    a(href=`${public.montegasppa.blog.url}feed.xml` target="_blank" type="application/atom+xml")
+     img(src="/img/rss.png" alt="feed")
+
+  p.small
+    a(href=public.author.url)
+      | !{public.montegasppa.blog.title} &nbsp;
+    a(rel="license" href=public.license.url)
+      img(
+        alt=`[${public.license.name}]`
+        src=public.license.image
+        style={"border-width" :"0"})
+
+  include ../_widgets/authmechs.pug

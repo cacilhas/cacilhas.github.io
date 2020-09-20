@@ -1,0 +1,37 @@
+escalas-anemitonicas:
+  title: Escalas anemitônicas
+  content: >
+    Há um tempo fiz uma postagem sobre a diferença entre escanas anemitônicas e
+    semitônicas…
+  image: /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2017-04-01
+  tags:
+    - Music
+  nav:
+    prev:
+      path: 2017/02/escalas-anemitonicas-e-semitonicas
+      title: Escalas anemitônicas e semitônicas
+    next:
+      path: 2018/04/cromatica
+      title: Relações cromáticas e temperadas
+
+oito-cordas:
+  title: Oito cordas
+  content: Tenho feito há alguns meses dois experimentos em paralelo…
+  image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
+  release: 2017-04-09
+  tags:
+    - Music
+  nav:
+    prev:
+      path: 2016/06/dad-gad
+      title: DAD-GAD
+    next:
+      path: 2017/05/do-maior-aberto
+      title: Consolidando

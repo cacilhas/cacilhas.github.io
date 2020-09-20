@@ -1,0 +1,185 @@
+img.pull-right(src=image alt="𝄞")
+
+p.mg-first Aprendemos que as relações entre os graus de uma escala precisam ser
+  |  números racionais para serem agradáveis, mas isso não é bem uma verdade.
+
+p Um exemplo de como isso causa erros é a sobreposição de quintas: sobrepondo as
+  |  frequências de 3/2 – c, g, d, a… até fazer a volta e cair de volta no c:
+  |  quando chegamos ao c sete oitavas acima não temos uma frequência 128
+  |  (2#[sup 7]) vezes maior, mas 129,75 vezes maior.
+
+p Algo similar acontece para os intervalos de quarta: em vez de chegarmos a 32
+  |  (2#[sup 5]) vezes, chegamos a 31,57.
+
+p Outros problemas de distorção de frequência acontecem simplesmente modulando
+  |  o tom de uma música. Por exemplo, a segunda do d (9/8 × 9/8) é e, cuja
+  |  relação com c deveria ser 5/4, mas o resultado é 81/64.
+
+p Além dessas inconsistências, ainda temos as diferenças cromáticas entre notas
+  |  similares, como as (a#[sup ♭]) e gis (g#[sup ♯]), que diferem em uma #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Coma_pitagórica") coma pitagórica
+  |  (81/80).
+
+p Todos esses problemas ocorrem nas escalas cromáticas, que são aquelas que se
+  |  baseiam em intervalos racionais simples.
+
+h3 Intervalos temperados
+
+p Para resolver isso, a escala de intervalos temperados usa relações irracionais
+  |  entre os graus. Todos os intervalos são representados na forma de
+  |  2#[sup n/12], sendo n um número inteiro entre 0 e 11, inclusive, exatamente
+  |  os códigos usados para os graus no #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Serialismo") Serialismo Dodecafônico
+  | .
+
+p Essas relações irraciais fazem com que as frequências dos graus
+  |  #[strong nunca] divirjam.
+
+p Assim a sobreposição de quintas por sete oitavas chega exatamente a 128
+  |  (2#[sup 7] ou 2#[sup 84/12]); a sobreposição de quartas por cinco oitavas
+  |  chega exatamente a 32 (2#[sup 5] ou 2#[sup 60/12]); a segunda da segunda
+  |  (2#[sup 2/12] × 2#[sup 2/12]) é exatamente a terça (2#[sup 4/12]); e assim
+  |  por diante.
+
+p As relações são todas irracionais, porém próximas o bastante de relações
+  |  racionais simples para soarem agradáveis:
+
+table(border=1)
+  thead
+    tr
+      th(colspan=2 style="width: 10em; text-align: center;") Grau
+      th(colspan=2 style="width: 10em; text-align: center;") Cromática
+      th(colspan=3 style="width: 10em; text-align: center;") Temperada
+      th(style="width: 10em; text-align: center;")
+        a(href="https://www.iso.org/standard/3601.html") ISO 16:1975
+
+  tbody
+    tr(style="text-align: center;")
+      td 0
+      td c
+      td 1
+      td 1,0000
+      td 2#[sup 0/12]
+      td 2#[sup 0]
+      td 1,0000
+      td 261,626Hz
+
+    tr(style="text-align: center;")
+      td 1
+      td des / cis
+      td -
+      td -
+      td 2#[sup 1/12]
+      td 2#[sup 1/12]
+      td 1,0595
+      td 277,183Hz
+
+    tr(style="text-align: center;")
+      td 2
+      td d
+      td 9/8
+      td 1,1250
+      td 2#[sup 2/12]
+      td 2#[sup 1/6]
+      td 1,1225
+      td 293,665Hz
+
+    tr(style="text-align: center;")
+      td 3
+      td es / dis
+      td -
+      td -
+      td 2#[sup 3/12]
+      td 2#[sup 1/4]
+      td 1,1892
+      td 311,127Hz
+
+    tr(style="text-align: center;")
+      td 4
+      td e
+      td 5/4
+      td 1,2500
+      td 2#[sup 4/12]
+      td 2#[sup 1/3]
+      td 1,2599
+      td 329,628Hz
+
+    tr(style="text-align: center;")
+      td 5
+      td f
+      td 4/3
+      td 1,3333
+      td 2#[sup 5/12]
+      td 2#[sup 5/12]
+      td 1,3348
+      td 349,228Hz
+
+    tr(style="text-align: center;")
+      td 6
+      td ges / fis
+      td -
+      td -
+      td 2#[sup 6/12]
+      td 2#[sup 1/2]
+      td 1,4142
+      td 369,994Hz
+
+    tr(style="text-align: center;")
+      td 7
+      td g
+      td 3/2
+      td 1,5000
+      td 2#[sup 7/12]
+      td 2#[sup 7/12]
+      td 1,4983
+      td 391,995Hz
+
+    tr(style="text-align: center;")
+      td 8
+      td as / gis
+      td -
+      td -
+      td 2#[sup 8/12]
+      td 2#[sup 2/3]
+      td 1,5874
+      td 415,305Hz
+
+    tr(style="text-align: center;")
+      td 9
+      td a
+      td 5/3
+      td 1,6667
+      td 2#[sup 9/12]
+      td 2#[sup 3/4]
+      td 1,6818
+      td 440,000Hz
+
+    tr(style="text-align: center;")
+      td 10
+      td b / ais
+      td -
+      td -
+      td 2#[sup 10/12]
+      td 2#[sup 5/6]
+      td 1,7818
+      td 466,168Hz
+
+    tr(style="text-align: center;")
+      td 11
+      td h
+      td 15/8
+      td 1,8750
+      td 2#[sup 11/12]
+      td 2#[sup 11/12]
+      td 1,8877
+      td 493,883Hz
+
+    tr(style="text-align: center;")
+      td 0
+      td c
+      td 2
+      td 2,0000
+      td 2#[sup 12/12]
+      td 2#[sup 1]
+      td 2,0000
+      td 523,251Hz

@@ -1,0 +1,85 @@
+composto:
+  title: &composto_title Compassos compostos
+  content: >
+    Aprendemos que compassos são formas de organizar metricamente as frases
+    musicais (…), porém são muito mais que isso.
+  image: /img/2-4-bar.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2018-10-20
+  tags:
+    - Education and Culture
+    - Music
+  nav:
+    prev:
+      path: 2018/04/cromatica
+      title: Relações cromáticas e temperadas
+    next:
+      path: 2018/10/amalgama
+      title: &amalgama_title Amálgamas
+
+end-credits:
+  title: End Credits
+  content: >
+    Uma de minhas músicas preferidas é End Credits.
+  image: /img/prognose-title.jpg
+  licon:
+    - licon
+    - icon-music
+  release: 2018-10-20
+  tags:
+    - Music
+    - Personal
+    - Prognose
+  nav:
+    prev:
+      path: 2018/02/prognose
+      title: Prognose
+
+eleicoes:
+  title: &eleicoes_title Eleições brasileiras inseridas no contexto político mundial
+  content: >
+    O Canal do Slow é um canal sério sobre ciência e história, sempre fortemente
+    embasado em fontes respeitadas…
+  release: 2018-10-25
+  tags:
+    - Education and Culture
+    - Politics
+  nav:
+    next:
+      path: 2018/10/isento
+      title: &isento_title O Isentão
+
+amalgama:
+  title: *amalgama_title
+  content: >
+    Não é obrigatório em ritmo repetir sempre o mesmo compasso.
+  image: /img/2-4-bar.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2018-10-25
+  tags:
+    - Education and Culture
+    - Music
+  nav:
+    prev:
+      path: 2018/10/composto
+      title: *composto_title
+
+isento:
+  title: *isento_title
+  content: >
+    Algumas pessoas se recusam a posicionar-se em situações que requerem uma
+    análise mais cuidadosa.
+  image: /img/hein.png
+  release: 2018-10-26
+  tags:
+    - Education and Culture
+    - Personal
+    - Politics
+  nav:
+    prev:
+      path: 2018/10/eleicoes
+      title: *eleicoes_title

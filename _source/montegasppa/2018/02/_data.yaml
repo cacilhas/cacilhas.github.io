@@ -1,0 +1,73 @@
+asperger:
+  title: <em>Aspie</em> virou autista?
+  content: >
+    Tem uma turma reclamando que agora, com o CID-11, Asperger vai virar
+    autista.
+  image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
+  release: 2018-02-02
+  tags:
+    - Autism
+    - Education and Culture
+  explanation: >
+    Na verdade a abordagem de estímulo foi de um casal de pediatras judeus que
+    precederam Asperger, de quem ele tomou a pesquisa. Asperger tratava as
+    crianças como animais. Não comentei isso antes porque não consigo encontrar
+    o nome dos pediatras judeus.
+
+prognose:
+  title: Prognose
+  content: >
+    O projeto Sækla esfriou temporariamente. Como tenho uma série de
+    gravações que fiz sozinho e uma série de outras, resolvi investir
+    tempo em um novo projeto.
+  image: /img/prognose-title.jpg
+  licon: &prognose-icon
+    - licon
+    - icon-prognose
+  release: 2018-02-14
+  tags:
+    - Music
+    - Personal
+    - Prognose
+  nav:
+    prev:
+      path: 2017/11/pre-release
+      title: O Sutra [β-pre-release]
+    next:
+      path: 2018/10/end-credits
+      title: End Credits
+
+desconforto:
+  title: Desconforto
+  content: >
+    Desde que decidi aceitar meu autismo, o maior problema que venho enfrentando
+    é entender o que me incomoda, o que me causa desconforto.
+  image: /img/lamp.png
+  licon:
+    - licon
+    - icon-asd
+  release: 2018-02-24
+  tags:
+    - Autism
+    - Personal
+    - Psychology
+  nav:
+    next:
+      path: 2018/09/estabanado
+      title: Estabanado
+
+crowdfunding:
+  title: Vaquinha
+  content: >
+    Iniciei uma campanha de <em>crowdfunding</em> no Kickante, que vai até dia
+    22 de abril.
+  image: /img/kickante.png
+  licon: *prognose-icon
+  release: 2018-02-24
+  tags:
+    - Music
+    - Personal
+    - Prognose

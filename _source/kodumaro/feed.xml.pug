@@ -1,0 +1,30 @@
+doctype xml
+rss(version="2.0" xmlns:atom="http://www.w3.org/2005/Atom")
+  channel
+    title= public.kodumaro.blog.title
+    link= public.kodumaro.blog.url
+    description= public.kodumaro.blog.subtitle
+
+    - const articles = []
+    each yearDir, yearSlug in public.kodumaro
+      if yearDir && /^\d{4}$/.test(yearSlug)
+        each monthDir, monthSlug in yearDir
+          if monthDir && /^\d\d$/.test(monthSlug)
+            each page, slug in monthDir
+              -
+                const article = {
+                  url: `${public.kodumaro.blog.url}${yearSlug}/${monthSlug}`
+                     + `/${slug}.html`,
+                  title: page.title.trim(),
+                  release: moment(page.release).add(3, "hours"),
+                  content: page.content.trim(),
+                }
+                articles.unshift(article)
+
+    each article in articles.slice(0, 20)
+      item
+        title!= article.title
+        description <![CDATA[!{article.content}]]>
+        pubDate= article.release.hour(10).toDate()
+        link!= article.url
+        guid(isPermaLink="true")!= article.url

@@ -1,0 +1,12 @@
+include ./nav.pug
+
+.container
+  block main-container
+    != yield
+  div
+    .pull-left
+      include ./ads.pug
+    .pull-left
+      include ./bandcamp.pug
+    .pull-left
+      include ./dev-to.pug

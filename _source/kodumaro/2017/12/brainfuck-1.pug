@@ -1,0 +1,251 @@
+img.pull-right(src=image alt="Máquina de Turing")
+
+p.mg-first Vamos começar a construção de nosso interpretador Brainfuck pela
+  |  fita.
+
+p A máquina de Turing é um conceito matemático teórico criado por #[=""]
+  a(href="https://www.ebiografia.com/alan_turing/") Alan Turing
+  |  que consiste em um modelo abstrato de uma máquina de estado capaz de
+  |  executar tarefas genéricas.
+
+p A máquina de Turing é formada por quatro partes:
+
+ol
+  li Uma fita dividida em células, cada uma representando uma instrução a ser
+    |  executada. O tamanho da fita é o suficiente para representar a tarefa
+    |  pretendida.
+  li Um registro de estados de tamanho suficiente para executar a tarefa
+    |  pretendida.
+  li Um cabeçote que lê as instruções da fita e as executa de acordo com um
+    |  alfabeto conhecido.
+  li Um alfabeto conhecido com instruções que define ações como mover a fita ou
+    |  alterar estados do registro.
+
+p Podemos traçar um paralelo com o computador moderno: a fita são as instruções
+  |  dadas ao processador, o registro de estados é a memória, o cabeçote é o
+  |  processador e o alfabeto é o microprograma do processador.
+
+p Brainfuck é uma #[=""]
+  a(href="https://esolangs.org/wiki/Main_Page")
+    | linguagem de programação esotérica
+  |  que implementa a máquina de Turing de forma extrema.
+
+p Recomendo o #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Brainfuck") artigo na Wikipédia
+  | , que explica muito bem.
+
+p Vamos usar #[=""]
+  a(href="http://www.swi-prolog.org/") Prolog
+  |  pra implementar o interpretador.
+
+h3 Criando a fita
+
+p Criaremos um arquivo chamado #[code tape.pl] para construir nossa fita. O
+  |  cabeçalho de nosso arquivo será:
+
+pre.prettyprint: code.
+  % -*- Prolog -*-
+  :- module(tape, []).
+
+p Por enquanto nada é exportado. Nosso primeiro predicado criará a fita a partir
+  |  de um arquivo texto e terá a assinatura #[=""]
+  code create_tape(+Filename, -Tape)
+  | , sendo o primeiro objeto o nome do arquivo e o segundo o #[em stream] para
+  |  sua leitura – a fita.
+
+p Para tanto vamos usar o predicado #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=open/4")
+    code open/4
+  | , que abre um arquivo para #[em streaming]. Assim poderemos usar predicados
+  |  padrão da linguagem para lidar com a fita, como #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=close/1")
+    code close/1
+  | , #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=get_char/2")
+    code get_char/2
+  |  e #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=seek/4")
+    code seek/4
+  | .
+
+p Vamos também criar um predicado #[code start_of_tape/1] que verifica se a fita
+  |  está no começo para podermos testar nossa fita.
+
+p Podemos escrever o teste no final do arquivo:
+
+pre.prettyprint: code.
+  :- begin_tests(tape).
+
+  test(create_tape, [setup(create_tape('test.tape', Tape)),
+                     cleanup(close(Tape)) ]) :-
+    start_of_tape(Tape).
+
+  :- end_tests(tape).
+
+p Precisamos também de uma fita teste. No terminal execute:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong echo 12345 &gt; test.tape
+
+p Então #[code create_tape/2] terá a seguinte definição (coloque antes dos
+  |  testes):
+
+pre.prettyprint: code.
+  create_tape(Filename, Tape) :-
+      open(Filename, read, Tape,
+           [buffer(false), lock(read), wait(false)]).
+
+p Estamos abrindo o arquivo #[code Filename] sem #[em buffering]
+  |  (#[code buffer(false)]), travado para leitura (#[code lock(read)], não
+  |  queremos modificar a fita) e retornando um erro caso o arquivo não exista
+  |  (#[code wait(false)]).
+
+p E #[code start_of_tape/1] será:
+
+pre.prettyprint: code.
+  start_of_tape(Tape) :- seek(Tape, 0, current, 0).
+
+p Essa foi uma trapaça: usamos #[code seed/4] para mover o ponteiro para mesma
+  |  posição em que ele já se encontrava e verificamos se a posição é zero.
+
+p Agora já podemos testar. No terminal rode:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
+  | .
+
+p Sucesso! Agora é possível exportar o predicato. Vamos mudar a declaração do
+  |  módulo para:
+
+pre.prettyprint: code.
+  :- module(tape, [create_tape/1]).
+
+h3 Lendo a fita
+
+p Para ler a fita vamos usar #[code get_char/2], e vamos criar um predicato
+  |  #[code end_of_tape/1] para testar se a fita chegou ao fim.
+
+p Como a fita é um #[em stream], podemos usar #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/doc_for?object=at_end_of_stream/1")
+    code at_end_of_stream/1
+  |  para tanto:
+
+pre.prettyprint: code.
+  end_of_tape(Tape) :- at_end_of_stream(Tape).
+
+p Na seção de testes (entre #[code begin_tests/1] e #[code end_tests/1]) vamos
+  |  escrever o teste para ver se #[code read_tape/2] se comporta de acordo:
+
+pre.prettyprint: code.
+  test(read_tape, [setup(create_tape('test.tape', Tape)),
+                   cleanup(close(Tape)) ]) :-
+      start_of_tape(Tape),
+      forall(
+          member(X, [49, 50, 51, 52, 53, 10]),
+          (
+              read_tape(Tape, R),
+              char_code(R, X)
+          )
+      ),
+      end_of_tape(Tape).
+
+p Para cada elemento da fita #[code test.tape], convertemos de #[em atom]
+  |  para carácter (portanto tem de ser um #[em atom]) e verificamos se bate
+  |  com o esperado.
+
+p Antes da leitura fazemos a verificação se está no começo da fita, ao final
+  |  verificamos se chegou ao final.
+
+p Agora vamos à definição de #[code read_tape/2].
+
+p Sua assinatura é #[=""]
+  code read_tape(+Tape, -Statement)
+  | , e podemos defini-lo como:
+
+pre.prettyprint: code.
+  read_tape(Tape, Statement) :- get_char(Tape, Statement).
+
+p Voltemos ao teste:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
+  | ..
+
+p Sétimo andar e tudo bem até aqui…
+
+p Expondo o novo predicado:
+
+pre.prettyprint: code.
+  :- module(tape, [create_tape/1, read_tape/1]).
+
+h3 Recuando a fita
+
+p Ao ler a fita, ela já anda para a próxima célula, mas precisamos poder recuar
+  |  a fita.
+
+p Para tanto vamos criar o predicado #[code tape_backward/2]. Para facilitar os
+  |  testes, podemos criar também um predicado #[code tape_foward/2].
+
+p Na seção de testes, podemos escrever nosso novo teste:
+
+pre.prettyprint: code.
+  test(tape_backward, [setup(create_tape('test.tape', Tape)),
+                       cleanup(close(Tape))]) :-
+      start_of_tape(Tape),
+      tape_forward(Tape, 3),
+      tape_backward(Tape, 1),
+      read_tape(Tape, '3').
+
+p Assim avançamos três células a partir do começo e recuamos uma, precisa
+  |  retornar o #[em atom] #[code '3'].
+
+p Podemos começar com nosso predicado auxiliar:
+
+pre.prettyprint: code.
+  tape_forward(Tape, Steps) :- seek(Tape, Steps, current, _).
+
+p Usamos #[code seek/4] para avançar a fita #[code Steps] passos a partir da
+  |  posição atual (#[code current]).
+
+p O predicado principal pode tirar proveito desse:
+
+pre.prettyprint: code.
+  tape_backward(Tape, Steps) :- BackwardSteps is -1 * Steps,
+                                tape_forward(Tape, BackwardSteps).
+
+p Simplesmente recuar é avançar passos negativos! Os testes agora:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong swipl -q -t run_tests. tape.pl
+  br/
+  | ...
+
+p O uso mais frequente de de #[code tape_backward/2] será com dois passos para
+  |  trás, então podemos criar um predicado facilitador:
+
+pre.prettyprint: code.
+  tape_backward(Tape) :- tape_backward(Tape, 2).
+
+h3 Finalizando
+
+p Vamos precisar também exportar os predicador #[code start_of_tape/1] e
+  |  #[code end_of_tape/1], serão úteis. Assim o cabeçalho de nosso módulo
+  |  termina assim:
+
+pre.prettyprint: code.
+  % -*- Prolog -*-
+  :- module(tape, [create_tape/2, read_tape/2, tape_backward/1, end_of_tape/1,
+            start_of_tape/1]).
+
+p #[em Download] do arquivo:
+
+.text-center: a(href=`${public.misc.repo}/brainfuck/tape.pl`)
+  code tape.pl
+
+p No próximo artigo vamos ver o registro de estados.

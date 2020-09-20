@@ -1,0 +1,301 @@
+img.pull-right(src=image alt="Julia Lang")
+
+p.mg-first Há uns sete ou oito anos um amigo meu me recomendou dar uma
+  |  olhadinha numa linguagem de programação nova que estaria sendo amplamente
+  |  usada em #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Aprendizado_de_máquina")
+    em machine learning
+  |  e seria uma “
+  a(href="https://www.python.org/") Python
+  |  melhorada”. Essa linguagem era #[=""]
+  a(href="https://julialang.org/") Julia
+  | .
+
+p Na época olhei e não achei nada de mais. Este ano resolvi dar outra olhada
+  |  e me supreendi com o que aprendi.
+
+p
+  a(href="https://julialang.org/") Julia
+  |  é linguagem de programação funcional impura, como #[=""]
+  a(href="http://www.smlnj.org/") Standard-ML
+  | , #[=""]
+  a(href="https://ocaml.org/") OCaml
+  |  e #[=""]
+  a(href="http://fsharp.org/") F♯
+  | , mas com suporte ao paradigma imperativa, de sintaxe fortemente inspirada
+  |  em #[=""]
+  a(href="https://www.python.org/") Python
+  | , com foco em análise numérica e computação científica, e otimizada para
+  |  paralelismo e computação distribuída. Foi descrita como tendo a elegância
+  |  de Python e a performance de C.
+
+p Só por essa introdução, já dá pra ver que não é possível abordar a linguagem
+  |  profundamente em alguns poucos artigos, mas posso adiantar que há um certo
+  |  exagero nos elogios a Julia.
+
+h3 Nem tudo são flores
+
+p Pra começar, a performance de Julia não é nada excepcional: ela faz compilação
+  |  #[=""]
+  a(href="https://pt.wikipedia.org/wiki/JIT") JIT
+  | , mas o desempenho deixa a desejar mesmo entre plataformas JIT. Seu
+  |  desempenho é bastante impressionante se comparado a plataformas
+  |  interpretadas.
+
+p Quanto à elegância, seria um ponto a favor da linguagem, com suas estruturas
+  |  funcionais realmente elegantes, porém a linguagem só demonstra eficiência
+  |  se o código for escrito de modo quase procedimental, anulando essa
+  |  vantagem. Além disso, não é difícil conseguir uma #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Falha_de_segmentação")
+    |  falha de segmentação
+  |  ou um #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Core_dump"): em core dump
+  | .
+
+p Outra coisa que demonstra certo amadorismo é a postura dos desenvolvedores.
+  |  Darei um exemplo.
+
+p Há algumas semanas quando saiu a #[=""]
+  a(href="https://github.com/JuliaLang/julia/releases/download/v0.6.0/julia-0.6.0-full.tar.gz")
+    | versão 0.6.0
+  | , muitos códigos que funcionavam perfeitamente na #[=""]
+  a(href="https://julialang.org/downloads/oldreleases.html") versão 0.5
+  |  simplesmente pararam de funcionar, e a linguagem não se comportava como
+  |  a #[=""]
+  a(href="https://docs.julialang.org/en/stable/") documentação
+  |  dizia que deveria. Procurando em fóruns na Web, percebi que não era um
+  |  problema exclusivo meu, e que toda a comunidade reclamava das mesmas
+  |  coisas. Diante do problema, a solução dos desenvolvedores foi #[=""]
+  strong tirar a documentação do ar
+  | .
+
+p Foi um banho de água fria e o suficiente para me fazer #[strong desistir] da
+  |  plataforma.
+
+p Mais recentemente, quando lançaram a #[=""]
+  a(href="https://julialang.org/downloads/") versão 0.6.1
+  |  e voltaram com a documentação, resolvi tentar de novo e descobri que meus
+  |  códigos antigos voltaram a funcionar com pouquíssimas alterações.
+
+blockquote
+  p: code [update 2017-12-18]
+  p No dia seguinte à publicação deste artigo, foi lançada a versão
+    |  0.6.2.
+  p: code [/update]
+
+h3 Uma nova chance
+
+p Voltei então a experimentar Julia. Apesar das frustrações causadas pelos
+  |  elogios exagerados e falta de profissionalismo da equipe envolvida, a
+  |  plataforma é realmente boa. A sintaxe é sim elegante, a performance
+  |  razoável e o ecossistema interessante.
+
+p A instalação de pacotes é muito simplificada. Por exemplo, para instalar o
+  |  pacote de suporte #[=""]
+  a(href="https://pt.wikipedia.org/wiki/REST") REST#[em ful]
+  |  o comando é:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong julia -e 'Pkg.add("Resftful")'
+
+p E Julia faz todo o resto pra você.
+
+h3 Collatz
+
+p Como um exemplo de um módulo Julia, vamos implementar a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Conjectura_de_Collatz")
+    | conjectura de Collatz
+  | . Não veremos paralelismo, mas veremos criação de #[=""]
+  a(href="https://docs.julialang.org/en/stable/manual/modules/") módulo
+  | , #[=""]
+  a(href="https://docs.julialang.org/en/stable/manual/interfaces/#man-interface-iteration-1")
+    | interface de reiteradores
+  | , #[=""]
+  a(href="https://docs.julialang.org/en/stable/manual/documentation/#Types-1")
+    em struct
+  |  e #[=""]
+  a(href="https://docs.julialang.org/en/stable/stdlib/test/") testes unitários
+  | .
+
+p Podemos começar com o arquivo #[code Collatz.jl], que definirá o módulo
+  | #[code Collatz]. O arquivo pode começar assim:
+
+pre.prettyprint: code.
+  module Collatz
+
+      #=
+       = O código vai aqui.
+       =#
+
+  end
+
+p Para representar o reiterador (e os passos da reiteração) usaremos um
+  |  #[em struct] imutável que embrulha um inteiro sem sinal. Criaremos dois
+  |  construtores para fazer a conversão de número para o reiterador:
+
+pre.prettyprint: code.
+  struct Iter
+      value::UInt
+      Iter(value::UInt) = (value ≡ zero(value)) ?
+          throw(InexactError()) : new(value)
+      Iter(value::Integer) = value |&gt; UInt |&gt; Iter
+  end
+
+p O primeiro construtor recebe um inteiro sem sinal, se for igual a zero,
+  |  levanta um erro do tipo #[code InexactError], se não repassa para o
+  |  construtor padrão, que envelopará o inteiro. O segundo construtor recebe
+  |  um inteiro qualquer, converte para sem sinal e repassa para o construtor
+  |  cabível (o anterior).
+
+p Para expor nosso reiterador, vamos criar um método que retorne o reiterador.
+  |  No cabeçalho do arquivo, dentro do módulo, exporte:
+
+pre.prettyprint: code.
+  export collatz
+
+p E após a definição do #[em struct]:
+
+pre.prettyprint: code.
+  collatz(value::Integer) = Iter(value)
+
+p Isso diz que a função #[code collatz], quando recebe um parâmetro inteiro,
+  |  retorna um reiterador embrulhando o valor.
+
+p Podemos escrever um teste: crie o arquivo #[code test.jl]:
+
+pre.prettyprint: code.
+  #!/usr/bin/env julia
+
+  include("Collatz.jl")
+
+  module CollatzTest
+
+      import Base.Test
+      import Collatz
+      using Collatz: collatz
+
+      @testset "Collatz.Iter" begin
+          @testset "should return iterator" begin
+              iter = @inferred collatz(4)
+              @test isa(iter, Collatz.Iter)
+              @test iter.value == 4
+          end
+      end
+  end
+
+p Já pode rodar o teste:
+
+pre: code: p
+  em sh&gt; #[=""]
+  strong chmod +x test.jl
+  br/
+  em sh&gt; #[=""]
+  strong ./test.jl
+  br/
+  em Test Summary:            | Pass  Total
+  br/
+  em Collatz.Iter             |    1      1
+  br/
+  em   should return iterator |    1      1
+
+p O #[em macro] #[code @testset] define um grupo de testes, #[code @test] define
+  |  um teste e #[code @inferred] forçar a inferência de tipo para permitir
+  |  testes com #[code isa].
+
+p Podemos testar também os casos de erro:
+
+pre.prettyprint: code.
+  @testset "collatz tests" begin
+      @testset "should fail on zero" begin
+          @test_throws InexactError collatz(0)
+      end
+
+      @testset "should fail on negative integer" begin
+          @test_throws InexactError collatz(-1)
+      end
+
+      @testset "should fail on non integer" begin
+          @test_throws MethodError collatz(1.0)
+      end
+  end
+
+p Voltando ao módulo #[code Collatz], para permitir a reiteração, precisamos
+  |  importar algumas funções e criar métodos para elas:
+
+pre.prettyprint: code.
+  import Base.SizeUnknown,
+         Base.done,
+         Base.iteratorsize,
+         Base.next,
+         Base.start
+
+p Essas funções são usadas internamente pelo #[em data model] de Julia para
+  |  gerenciar reiteração.
+
+p Bem, nesse tipo de sequência não se sabe o tamanho da reiteração, portanto
+  |  precisamos definir um método para #[code iteratorsize] que retorne tamanho
+  |  desconhecido:
+
+pre.prettyprint: code.
+  iteratorsize(::Iter) = SizeUnknown()
+
+p E podemos começar a reiteração com nenhum valor:
+
+pre.prettyprint: code.
+  start(::Iter) = nothing
+
+p Passo seguinte é o próprio valor envolvido pelo reiterador:
+
+pre.prettyprint: code.
+  next(iter::Iter, ::Void) = (iter.value, iter.value)
+
+p Os passos seguintes serão definidos pelo método #[code nextstep]:
+
+pre.prettyprint: code.
+  next(::Iter, state::UInt) = state |&gt; nextstep |&gt; v -&gt; (v, v)
+
+p Enquanto #[code nextstep] implementa o cálculo do passo da conjectura:
+
+pre.prettyprint: code.
+  nextstep(value::UInt) = (value % 2) ≡ zero(value) ? value ÷ 2 : 3value + 1
+
+p Para a parada, se nada foi retornado ainda, não terminou:
+
+pre.prettyprint: code.
+  done(::Iter, ::Void) = false
+
+p E termina quando chega a um:
+
+pre.prettyprint: code.
+  done(::Iter, state::UInt) = state ≡ one(state)
+
+p Resta apenas testar. Na #[em suite] de testes #[code collatz tests] acrescente
+  |  o seguinte teste:
+
+pre.prettyprint: code.
+  @testset "should be iterable" begin
+      @test [n for n in collatz(5)] == [5, 16, 8, 4, 2, 1]
+  end
+
+p Temos aqui uma #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Compreensão_de_lista")
+    em list comprehension
+  |  para transformar a sequência em uma lista testável. Poderíamos fazer
+  |  diferente:
+
+pre.prettyprint: code.
+  @testset "should be iterable" begin
+      @test collect(collatz(5)) == [5, 16, 8, 4, 2, 1]
+  end
+
+h3 Arquivos
+
+- const prefix = `${public.misc.repo}/julia`
+
++ul
+  a(href=`${prefix}/test.jl`):    +li: code test.jl
+  a(href=`${prefix}/Collatz.jl`): +li: code Collatz.jl
+
+p No próximo artigo explicarei melhor alguns detalhes da sintaxe e a relação
+  |  entre função e métodos.

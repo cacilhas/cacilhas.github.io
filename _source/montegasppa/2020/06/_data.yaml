@@ -1,0 +1,31 @@
+pride:
+  title: The Pride
+  content: >
+    In 2012 my first wife was dying of cancer, and I tried every treatment I
+    could find…
+  image: /img/lamp.png
+  licon:
+    - licon
+    - icon-he
+  release: 2020-06-12
+  medium_url: https://medium.com/@cacilhas/the-pride-11c184afd73c
+  tags:
+    - Education and Culture
+    - Personal
+    - Politics
+    - Religion
+
+music-industry:
+  title: Music industry addiction
+  content: >
+    Why may you pay a hundred dollars for a famous band’s show, but only some
+    quarters for a local band’s?
+  image: /img/clave-sol.jpg
+  release: 2020-06-14
+  licon:
+    - glyphicon
+    - icon-music
+  medium_url: https://medium.com/@cacilhas/music-industry-addiction-313c87e9ac09
+  tags:
+    - Education and Culture
+    - Music

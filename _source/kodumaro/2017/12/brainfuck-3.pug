@@ -1,0 +1,245 @@
+img.pull-right(src=image alt="Máquina de Turing")
+
+p.mg-first Agora falta criar a lógica de fato do interpretador, criando o
+  |  cabeçote de leitura e o microprograma. O cabeçalho do arquivo
+  |  #[code parser.pl] será:
+
+pre.prettyprint: code.
+  % -*- Prolog -*-
+  :- module(parser, []).
+  :- [tape, memory,  utils].
+
+p Pois usaremos a fita e a memória, e precisaremos do predicado
+  |  #[code finally/2] do submódulo #[=""]
+  a(href=`${public.misc.repo}/brainfuck/utils.pl`): code utils.pl
+  | .
+
+p O ponto de entrada será o predicado #[code parse/1], que receberá o nome do
+  |  arquivo da fita, criará a fita e executará os comandos do microprograma
+  |  para os símbolos do alfabeto contidos na fita. Usaremos #[code finally/2]
+  |  porque, ao final, independente do que acontecer, a fita deverá ser fechada.
+
+pre.prettyprint: code.
+  parse(Filename) :- create_tape(Filename, Tape),
+                     finally(parse_tape(Tape),
+                             close(Tape)).
+
+p Para exportar o predicado, alteramos o cabeçalho:
+
+pre.prettyprint: code.
+  :- module(parser, [parse/1]).
+
+h3 Analizando a fita
+
+p Para analisar a fita, #[code parse_tape/1] precisa ler a fita, executar a ação
+|  e passar para a próxima ação:
+
+pre.prettyprint: code.
+  parse_tape(Tape) :- read_tape(Tape, Statement),
+                      perform(Tape, Statement),
+                      parse_tape(Tape).
+
+p Mas #[strong antes] disso, é preciso verificar se a fita já acabou! Se acabou,
+  |  não há mais nada o que fazer, apenas encerrar:
+
+pre.prettyprint: code.
+  parse_tape(Tape) :- end_of_tape(Tape), !.
+
+p Repare que #[code preform/2] recebe a fita e a isntrução.
+
+h3 Manipulando a memória
+
+p As quatro primeiras instruções de #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Brainfuck") Brainfuck
+  |  (#[code &gt;], #[code &lt;], #[code +] e #[code -]) já estão prontas, foram
+  |  implementadas no #[=""]
+  a(href=`${public.kodumaro.blog.url}${nav.prev.path}.html`) módulo de memória
+  | , é só repassar para os predicados corretos:
+
+pre.prettyprint: code.
+  perform(_, >) :- !, next_slot(brainfuck).
+
+  perform(_, <) :- !, prev_slot(brainfuck).
+
+  perform(_, +) :- !, incr_slot(brainfuck).
+
+  perform(_, -) :- !, decr_slot(brainfuck).
+
+p Como não lida com a fita, nem precisamos nos preocupar com o primeiro
+  |  parâmetro.
+
+h3 Entrada e saída (I/O)
+
+p As próximas duas instruções são as instruções de I/O. Para fazer a saída do
+  |  valor da célula atual basta transformarmos o valor em um #[em atom]
+  |  usando #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/man?predicate=char_code/2")
+    code char_code/2
+  |  e realizarmos a saída usando #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/man?predicate=write/1")
+    code write/1
+  | , porém, como a saída pode não apresentar mudança de linha, precisamos
+  |  forçar o #[em flush] da saída com #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/man?predicate=flush_output/0")
+    code flush_output/0
+  | .
+
+pre.prettyprint: code.
+  perform(_, .) :- !, get_slot(brainfuck, Value),
+                   char_code(Show, Value),
+                   write(Show),
+                   flush_output.
+
+p E #[em vois là]! Já temos nossa saída.
+
+p Para a entrada de dados o processo também será tão simples quanto, lendo um
+  |  #[em atom] de carácter da entrada padrão com #[=""]
+  a(href="http://www.swi-prolog.org/pldoc/man?predicate=get_char/1")
+    code get_char/1
+  | , convertendo para numérico também com #[code char_code/2] e ajustando o
+  |  #[em slot] da memória com #[code set_lot/2].
+
+p No entanto há uma #[strong pegadinha]! #[code get_char/1] pode retornar
+  |  #[code end_of_file], e precisamos tratar isso. Apesar de o código ASCII
+  |  mais coerente com #[code end_of_file] ser #[=""]
+  a(href="http://www.theasciicode.com.ar/ascii-control-characters/eot-end-of-transmission-diamonds-card-suit-ascii-code-4.html")
+    span.mg-sc eot
+  | , ele não apresenta o comportamento desejado de encerramento de #[em loops]
+  |  como costuma ser usado, então, em seu lugar, usaremos #[=""]
+  a(href="http://www.theasciicode.com.ar/ascii-control-characters/null-character-ascii-code-0.html")
+    span.mg-sc null
+  | .
+
+p Então o predicado principal chamará #[code get_char/1] e repassará a
+  |  responsabilidade para #[code process_read/1]:
+
+pre.prettyprint: code.
+  perform(_, ',') :- !, get_char(Value),
+                     process_read(Value).
+
+p Agora #[code process_read/1] receberá um #[em atom], que pode ser
+  |  #[code end_of_file] ou a representação de um carácter. Tratando o primeiro
+  |  caso:
+
+pre.prettyprint: code.
+  process_read(end_of_file) :- !, set_slot(brainfuck, 0). % use NULL as EOF
+
+p No segundo caso precisamos converter o #[em atom] para código ASCII antes de
+  |  chamar #[code set_slot/2]:
+
+pre.prettyprint: code.
+  process_read(Value) :- char_code(Value, Num),
+                         set_slot(brainfuck, Num).
+
+h3 #[em Loops] e condicionais
+
+p Agora vem a parte mais complicado. Ao abrir um bloco condicional, é preciso
+  |  verificar se a célula (#[em slot]) atual é zero. Se for, o bloco será
+  |  ignorado e é preciso procurar o fechamento #[strong deste] bloco. Para
+  |  tanto, usaremos um contador de blocos abertos:
+
+pre.prettyprint: code.
+  perform(Tape, '[') :- get_slot(brainfuck, 0), !,
+                        goto_close(Tape, 1).
+
+p Se não for zero – ou seja, esta verdade falhou – continua normalmente:
+
+pre.prettyprint: code.
+  perform(_, '[') :- !.
+
+p Quanto ao fechamento de bloco condicional, como ele se comporta como um #[=""]
+  a(href="https://en.wikipedia.org/wiki/While_loop"): code while
+  | , se a célula atual for zero, passa normalmente:
+
+pre.prettyprint: code.
+  perform(_, ']') :- get_slot(brainfuck, 0), !.
+
+p Se não for, volta a fita até encontrar a abertura #[strong deste] bloco,
+  |  usando também um contador de blocos:
+
+pre.prettyprint: code.
+  perform(Tape, ']') :- !, goto_open(Tape, 1).
+
+h4 Procurando o fechamento
+
+p O predicado #[code goto_close/2] tem como efeito colateral correr pra frente
+  |  a fita até o fechamento do bloco, o que ocorre quando o contador zera ou
+  |  quando chega ao fim da fita:
+
+pre.prettyprint: code.
+  goto_close(_, 0) :- !.
+
+  goto_close(Tape, _) :- end_of_tape(Tape), !.
+
+p Caso isso não ocorra, ele precisa ler a posição atual da fita e verificar se
+  |  isso indica uma abertura ou fechamento de bloco:
+
+pre.prettyprint: code.
+  goto_close(Tape, N) :- read_tape(Tape, Value),
+                         check_close(Tape, N, Value).
+
+p Se for uma nova abertura de bloco, é preciso incrementar o contador e
+  |  continuar da próxima posição da fita:
+
+pre.prettyprint: code.
+  check_close(Tape, N, '[') :- !, succ(N, N1),
+                               goto_close(Tape, N1).
+
+p Se for um fechamento de bloco, é preciso decrementar o contador e continuar:
+
+pre.prettyprint: code.
+  check_close(Tape, N, ']') :- !, succ(N1, N),
+                               goto_close(Tape, N1).
+
+p Se for qualquer outro carácter, continua como o mesmo contador:
+
+pre.prettyprint: code.
+  check_close(Tape, N, _) :- goto_close(Tape, N).
+
+h4 Procurando a abertura
+
+p O predicado #[code goto_open/2] tem como efeito colateral rebobinar a fita até
+  |  a abertura do bloco, o que ocorre quando o contador zera ou quando chega
+  |  ao início da fita:
+
+pre.prettyprint: code.
+  goto_open(_, 0) :- !.
+
+  goto_open(Tape, _) :- start_of_tape(Tape), !.
+
+p Caso contrário, precisa rebobinar a fita e ler a posição atual, verificando
+  |  abertura ou fechamento de bloco:
+
+pre.prettyprint: code.
+  goto_open(Tape, N) :- tape_backward(Tape),
+                        read_tape(Tape, Value),
+                        check_open(Tape, N, Value).
+
+p A verificação de bloco ocorre quase da mesma forma que a anterior, apenas
+  |  incrementando o contador quando encontra novo fechamento e decremento nas
+  |  aberturas:
+
+pre.prettyprint: code.
+  check_open(Tape, N, '[') :- !, succ(N1, N),
+                              goto_open(Tape, N1).
+
+  check_open(Tape, N, ']') :- !, succ(N, N1),
+                              goto_open(Tape, N1).
+
+  check_open(Tape, N, _) :- goto_open(Tape, N).
+
+h3 Comentários
+
+p Para Brainfuck, todo carácter desconhecido é um comentário, sendo ignorado:
+
+pre.prettyprint: code.
+  perform(_, _). % ignore unknown characters
+
+h3 Arquivos
+
+.text-center
+  a(href=`${public.misc.repo}/brainfuck/utils.pl`)
+    code utils.pl
+  br/
+  a(href=`${public.misc.repo}/brainfuck/parser.pl`)
+    code parser.pl

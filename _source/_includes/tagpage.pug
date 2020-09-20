@@ -1,0 +1,23 @@
+h3!= title
+
++ul
+  each page in pages.sort((a, b) => b.release - a.release)
+    a(href=`${page.path}.html`)
+      +li
+        small
+          | [
+          != moment(page.release).format('YYYY/MM')
+          | ]&nbsp;
+        if page.path.includes('montegasppa')
+          i.licon.icon-montegasppa
+          | &nbsp;
+        else if page.path.includes('kodumaro')
+          i.licon.icon-kodumaro
+          | &nbsp;
+        else if !page.licon
+          i.glyphicon.glyphicon-link
+          | &nbsp;
+        if page.licon
+          i(class=page.licon)
+          | &nbsp;
+        != page.title

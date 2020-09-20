@@ -1,0 +1,11 @@
+covid-19:
+  title: Covid-19 so far
+  content: >
+    I’ve read conflicting news about COVID-19 protocols, mostly contradicting
+    WHO’s official statements.
+  image: /img/lamp.png
+  release: 2020-07-07
+  medium_url: https://medium.com/@cacilhas/covid-19-so-far-729c357a4c12
+  tags:
+    - Health
+    - Politics

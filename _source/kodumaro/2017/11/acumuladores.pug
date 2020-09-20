@@ -1,0 +1,234 @@
+img.pull-right(src=image alt="Programação lógica")
+
+p.mg-first
+  a(href="https://pt.wikipedia.org/wiki/Programação_lógica")
+    | Programação lógica ou declarativa
+  |  é um paradigma bastante alienígena para #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Programação_imperativa")
+    | programadores imperativos
+  | .
+
+p O paradigma de programação mais popular, programação imperativa, consiste em
+  |  dar ordens ao computador que alteram o estado geral do sistema. É o mais
+  |  popular por ser mais fácil e próximo do microprograma, que funciona de
+  |  forma imperativa.
+
+p Porém nem de longe é o mais eficiente do ponto de vista da criação e da
+  |  manutenilibidade, tendendo a gerar códigos de difícil manutenção e com
+  |  maior densidade de #[em bugs] por linha de código.
+
+p Um concorrente do paradigma imperativo é a #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Programação_funcional")
+    | programação funcional
+  | , baseada no #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Cálculo_lambda") cálculo-λ
+  | , que resolve os problemas de integridade encontrados na programação
+  |  imperativa com #[=""]
+  a(href="http://www.dictionary.com/browse/constraint"): em constraints
+  | .
+
+p Mas ainda há outro paradigma que difere da abordagem dos dois citados:
+  |  a #[strong programação lógica], também chamada programação declarativa.
+
+p Enquanto na programação imperativa ordens alteram o estado da máquina e na
+  |  programação funcional valores são passados através de cadeias de funções,
+  |  na programação lógica é declarado um domínio de verdades, enquanto a
+  |  execução em si consiste em “perguntas” (#[em queries]) feitas a esse
+  |  domínio.
+
+p Ao contrário da programação imperativa, nenhuma ordem é dada ao sistema,
+  |  apenas perguntas, e, ao contrário da programação funcional, efeitos
+  |  colaterais são amplamente tolerados.
+
+p Esses efeitos colaterais vão desde comuncação I/O a até alterações no domínio
+  |  de verdades – ou seja: o sistema pode aprender novas verdades.
+
+p O domínio de verdade consiste em um conjunto de predicados, e há duas formas
+  |  de definir um predicado: dizendo se ele é verdadeiro ou falso, ou definindo
+  |  o predicado como uma cadeia de outros predicados.
+
+p Como exemplo vamos determinar os valores da #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Sequência_de_Fibonacci")
+    | sequência de Fibonacci
+  |  em programação lógica usando acumuladores, assim como fizemos no #[=""]
+  a(href=`${public.kodumaro.blog.url}2017/11/lazy-racket.html`)
+    | artigo sobre acumuladores
+  |  em programação funcional.
+
+
+h3 Fibonacci
+
+p Vamos primeiro definir a sequência como um conjunto de verdades.
+
+p Como se trata de uma árvore binária, temos duas paradas, que são definidas
+  |  como os dois primeiros valores da sequência sendo 1.
+
+p Em #[=""]
+  a(href="http://www.swi-prolog.org/") Prolog
+  |  dizemos que é verdade que o elemento na posição 0 é igual a 1:
+
+pre.prettyprint: code.
+  fibonacci(0, 1).
+
+p E que o elemento na posição 1 é igual 1:
+
+pre.prettyprint: code.
+  fibonacci(1, 1).
+
+p Em seguinda, podemos definir o passo: cada elemento é a soma dos dois
+  |  anteriores. Então, dado o elemento #[code N], sendo #[code N1] o anterior
+  |  a ele e #[code N2] o anterior a este segundo, podemos determinar os
+  |  elementos nestas posições (#[code R1] e #[code R2]), para então dizer que
+  |  o resultado da posição #[code N] é a soma de #[code R1] e #[code R2]:
+
+pre.prettyprint: code.
+  fibonacci(N, R) :- succ(N1, N),
+                     succ(N2, N1),
+                     fibonacci(N1, R1),
+                     fibonacci(N2, R2),
+                     plus(R1, R2, R).
+
+p Já temos a definição lógica da sequência de Fibonacci! Porém de forma muito
+  |  ineficiente, construindo uma árvore binária, empilheirando #[em stacks] de
+  |  funções uns sobre os outros.
+
+p Para resolver o problema, precisamos fazer uma solução linear tirando proveito
+  |  de #[=""]
+  a(href="http://wiki.c2.com/?TailCallOptimization") TCO
+  | . Para tanto, usaremos dois acumuladores.
+
+p Acumuladores
+
+p Vamos descartar tudo o que fizemos até agora. Precisamos redefinir o cálculo
+  |  como uma chamada para a função com acumuladores, passando os valores
+  |  iniciais para os acumuladores. Como usaremos o segundo acumulador como
+  |  resultado, o primeiro (descartado) conterá 0.
+
+p Também adicionaremos uma verificação de valor, para evitar a passagem de
+  |  valores negativos:
+
+pre.prettyprint: code.
+  fibonacci(N, R) :- N &gt;= 0,
+                     fibonacci(N, 0, 1, R).
+
+p Assim, o elemento na posição #[code N] é #[code R] #[strong se] #[code N] for
+  |  maior ou igual a zero e a última pergunta (#[code fibonacci(N, 0, 1, R)])
+  |  for verdadeira.
+
+p Agora vamos definir este último predicado. A parada pode ser definida como:
+
+pre.prettyprint: code.
+  fibonacci(0, _, R, R) :- !.
+
+p Significa que, chegando a #[code N] valendo 0, ignora-se o primeiro acumulador
+  |  e a resposta é igual ao segundo acumulador. o Sinal #[code !] indica que,
+  |  se o caso bater com esta definição, ignorar qualquer outra; o símbolo
+  |  #[code _] indica que o parâmetro deve ser ignorado.
+
+p O passo pode ser definido como: #[code N1] é o antecessor de #[code N] – ou
+  |  melhor, #[code N] é o sucessor de #[code N1], #[code AB] é a soma dos
+  |  acumuladores #[code A] e #[code B], e para o índice #[code N1] o primeiro
+  |  acumulador é #[code B] e o segundo #[code AB]:
+
+pre.prettyprint: code.
+  fibonacci(N, A, B, R) :- succ(N1, N),
+                           plus(A, B, AB),
+                           fibonacci(N1, B, AB, R).
+
+p Já temos a sequência e podemos testá-la:
+
+pre: code.
+  #[em sh$] #[strong swipl -q]
+  #[em ?-] <strong>[fibonacci].</strong>
+  #[em true.]
+
+  #[em ?-] #[strong fibonacci(5, X).]
+  #[em X = 8.]
+
+
+h3 Cadeia de predicados
+
+p Também podemos definir a função como uma #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Gramática_de_cláusulas_definidas")
+    | cadeia de predicados
+  | , usando a sintaxe #[code --&gt;].
+
+p Precisaremos instalar o pacote #[code lambda]:
+
+pre: code.
+  #[em ?-] #[strong pack_install(lambda).]
+
+p E no código #[code fibonacci.pl]:
+
+pre.prettyprint: code.
+  :- [library(lambda)].
+
+p Reescrevendo a parada:
+
+pre.prettyprint: code.
+  fibonacci(0, _) --&gt; '='.
+
+p A sintaxe #[code --&gt;] entende que o predicado recebe dois parâmetros extra:
+  |  o resultado do predicado anterior da cadeia e o valor a ser passado para
+  |  o próximo predicado.
+
+p Por exemplo:
+
+pre.prettyprint: code.
+  d --&gt; a(1), b, c(test).
+
+p é o mesmp que:
+
+pre.prettyprint: code.
+  d(P1, R) :- a(1, P1, R1),
+              b(R1, R2),
+              c(test, R2, R).
+
+p #[code '='] é o mesmo que garantir igualdade: #[code '='(P1,R)], ou
+  |  #[code P1 = R].
+
+p Precisamos abordar cada predicado da cadeia e convertê-lo nesse formato.
+
+p Aqui temos dois problemas (solucionáveis): o primeiro predicado define o valor
+  |  de #[code N1] sem alterar a cadeira. Para isso usamos #[code {}]:
+
+pre.prettyprint: code.
+  { succ(N1, N1) },
+
+p Segundo precisamos guardar o valor do segundo acumulador em um #[em slot]
+  |  qualquer, por isso precisamos da biblioteca #[code lambda]: pegar #[code B]
+  |  e repassá-lo para o próximo predicado da cadeia:
+
+pre.prettyprint: code.
+  call(\B^B^B^(true), B),
+
+p Isso equivale ao lambda #[code λbbb.TRUE] atribuindo o valor dos parâmetros
+  |  (idênticos) a #[code B]. Os dois últimos predicados (#[code plus/3] e
+  |  #[code fibonacci/4]) já estão organizados para receber e repassar ao
+  |  cumulador:
+
+pre.prettyprint: code.
+  fibonacci(N, A) --&gt; { succ(N1, N) },
+                      call(\B^B^B^(true), B),
+                      plus(A),
+                      fibonacci(N1, B).
+
+p Testando:
+
+pre: code.
+  #[em ?-] <strong>[fibonacci].</strong>
+  #[em true.]
+
+  #[em ?-] #[strong forall(between(0, 10, X), (fibonacci(X, F), writeln({X, F}))).]
+  #[em {0,1}]
+  #[em {1,1}]
+  #[em {2,2}]
+  #[em {3,3}]
+  #[em {4,5}]
+  #[em {5,8}]
+  #[em {6,13}]
+  #[em {7,21}]
+  #[em {8,34}]
+  #[em {9,55}]
+  #[em {10,89}]
+  #[em true.]

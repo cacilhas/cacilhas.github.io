@@ -1,0 +1,107 @@
+homo-sapiens:
+  title: &homo-sapiens-title Homo sapiens
+  content: >
+    Este primeiro (artigo) será sobre o <em>Homo sapiens</em>.
+  image: /img/neanderthal.png
+  release: 2018-08-07
+  tags:
+    - Education and Culture
+  nav:
+    next:
+      path: 2018/08/aborto
+      title: &aborto-title Criminalização do aborto
+
+aborto:
+  title: *aborto-title
+  content: >
+    O segundo assunto que vem me incomodando é o desrespeito com a vida que
+    representa a criminalização do aborto.
+  image: /img/aborto.jpg
+  release: 2018-08-17
+  tags:
+    - Abortion
+    - Education and Culture
+    - Politics
+  nav:
+    prev:
+      path: 2018/08/homo-sapiens
+      title: *homo-sapiens-title
+    next:
+      path: 2018/08/espiritismo
+      title: &espiritismo-title Espiritismo e aborto
+
+espiritismo:
+  title: *espiritismo-title
+  content: >
+    Entre os maiores opositores da legalização do aborto estão os espíritas, mas
+    seus argumentos estão saturados de contradições.
+  image: /img/kardec.jpg
+  release: 2018-08-18
+  tags:
+    - Abortion
+    - Education and Culture
+    - Religion
+  nav:
+    prev:
+      path: 2018/08/aborto
+      title: *aborto-title
+
+transfobia:
+  title: Transfobia e a misoginia
+  content: >
+    A transfobia está relacionada a uma variação da misogina de modo pouco
+    óbvio, porém muito poderoso.
+  image: /img/lgbt.jpg
+  release: 2018-08-20
+  tags:
+    - Education and Culture
+    - Politics
+    - Religion
+  nav:
+    prev:
+      path: 2018/04/eugenia
+      title: Eugenia e o Autismo
+
+amo-meu-filho:
+  title: Amo meu filho, não o autismo (⁉️)
+  content: >
+    Há uma página em “defesa” dos autistas no Facebook (…) cujo autor repete à
+    exaustão que “ama seu filho, não o autismo nele”.
+  image: /img/blue-heart.jpg
+  licon:
+    - licon
+    - icon-asd
+  release: 2018-08-24
+  tags:
+    - Autism
+    - Education and Culture
+    - Politics
+  nav:
+    next:
+      path: 2018/09/neurotipico
+      title: Transtorno Neurotípico
+
+ghoughphtheightteeau:
+  title: Ghoughphtheightteeau
+  content: >
+    O Inglês atualmente é usado como língua internacional por pura dominação
+    cultural, assim como foi o Latim, pois o Inglês é uma língua totalmente
+    ineficiente como ferramenta de comunicação intercultural.
+  image: /img/eoflag.jpg
+  release: 2018-08-31
+  tags:
+    - Comedy
+    - Education and Culture
+    - Esperanto
+    - Reblog
+
+feminismo:
+  title: Feminismo
+  content: >
+    Gostaria de começar afastando um fantasma deste debate: homem
+    <strong>não</strong> pode protagonizar o Movimento Feminista.
+  image: /img/feminismo.jpg
+  release: 2018-08-31
+  tags:
+    - Education and Culture
+    - Politics

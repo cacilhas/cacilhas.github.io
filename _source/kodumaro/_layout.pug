@@ -1,0 +1,91 @@
+extends ../_layout.pug
+
+block blog-head
+  - author = author || public.author.name.split(" ").slice(1).join(" ")
+  - shownTitle = (title || "").replace(/<[^>]+>/g, "")
+  title !{public.kodumaro.blog.title} :: !{shownTitle}
+  meta(property="og:site_name" content=public.kodumaro.blog.title)/
+  meta(property="og:title" content=shownTitle)/
+  if current && current.path
+    meta(property="og:url"
+         content=`${public.main.host}/${current.path.slice(2).join("/")}.html`)/
+  if tags
+    meta(property="og:type" content="article")/
+    meta(property="article:tag" content=tags.join(", "))/
+  meta(property="article:author" content=author)/
+  if image
+    meta(property="og:image" content=`${public.main.host}${image}`)/
+  link(rel="alternate" type="application/atom+xml" title=public.kodumaro.blog.title
+       href=`${public.kodumaro.blog.url}feed.xml`)/
+  link(rel="stylesheet" href="/css/kodumaro.css")/
+  link(rel="icon" href=public.kodumaro.blog.icon)/
+  script(src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js")
+
+block append nav-bar
+  li(class={active: home}): a(href=public.kodumaro.blog.url)!= public.kodumaro.blog.title
+  unless home
+    li.active: a(href=".") !{title}
+
+block main-container
+  .panel.panel-default
+    .panel-heading
+      h2.mg-title !{public.kodumaro.blog.title} :: !{title}
+      if release
+        - release = moment(release).add(3, "hours")
+        h6.pull-right Released on #{release.format("MMMM Do, YYYY")}
+      h6!= public.kodumaro.blog.subtitle
+
+    .panel-body
+      != yield
+
+  if tags
+    p.text-right
+      each tag, index in tags
+        unless index === 0
+          |  | #[=""]
+        small.tag: a(href=`/tags/${mkSlug(tag)}.html`) !{tag}
+
+  if nav
+    .panel.panel-default
+      .panel-body
+        if nav.prev
+          .pull-left: small
+            a(href=`${public.kodumaro.blog.url}${nav.prev.path}.html`)
+              | « Previous: !{nav.prev.title}
+        if nav.next
+          .pull-right: small
+            a(href=`${public.kodumaro.blog.url}${nav.next.path}.html`)
+              | Next: !{nav.next.title} »
+
+  if current.source !== 'index'
+    .panel.panel-default
+      .panel-body
+        #disqus_thread
+        script(language="javascript").
+          var disqus_config = function() {
+            this.page.url = `!{public.main.host}/!{current.path.slice(2).join("/")}.html`
+            this.page.identifier = `!{current.path.slice(2).join(".")}`
+            this.page.title = '!{title}'
+          }
+        noscript Please enable JavaScript to view the comments #[=""]
+          a(href="https://disqus.com/?ref_noscript")
+            | powered by Disqus
+          | .
+
+block footer
+  p.pull-left
+    a(href=`${public.kodumaro.blog.url}feed.xml` target="_blank" type="application/atom+xml")
+     img(src="/img/rss.png" alt="feed")
+
+  p.small
+    | Author: #{author} &nbsp;
+    a(rel="license" href=public.license.url)
+      img(
+        alt=`[${public.license.name}]`
+        src=public.license.image
+        style={"border-width" :"0"})
+
+block append final-scripts
+  if current.source !== 'index'
+    script(src="//cacilhas.info/js/kodumaro.disqus.js")
+  script#dsq-count-scr(src="//kodumaro.disqus.com/count.js" async=true)

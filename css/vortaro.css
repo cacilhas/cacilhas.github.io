@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "Default Fancy";
+  src: url("//cacilhas.info/misc/fonts/default-fancy.ttf") format("truetype"), url("//cacilhas.info/misc/fonts/default-fancy.woff") format("woff"), url("//cacilhas.info/misc/fonts/default-fancy.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-size: 10pt;
+  font-weight: normal;
+  background-color: #97b3c9;
+  color: #fff;
+  text-shadow: #4b5964 1pt 1pt 1pt;
+}
+.title {
+  width: 100%;
+  height: 64pt;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url("/misc/vortaro.png");
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.vortaro {
+  text-align: center;
+  padding: 0% 20% 0% 20%;
+  width: 60%;
+  height: 30em;
+}
+.vortaro iframe {
+  border: none;
+  width: 100%;
+  height: 30em;
+}
+.readme {
+  margin: 20pt 10% 0% 10%;
+  padding: 0em 2em 0em 2em;
+  width: 80%;
+  border-style: outset;
+  border-width: 2px;
+}
+.readme h1:first-letter,
+.readme h2:first-letter {
+  font-family: "Default Fancy";
+}
+.readme h1 {
+  color: #0f0f6a;
+  text-align: center;
+  text-shadow: #fff 1pt 1pt 1pt;
+}
+.readme a {
+  text-decoration: none;
+  text-shadow: #0ff 1pt 1pt 1pt;
+  color: #009;
+}
+.readme a:hover {
+  text-decoration: underline;
+}

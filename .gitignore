@@ -1,0 +1,7 @@
+*~
+.*
+/_build.js
+/node_modules
+/tmp
+!.gitignore
+!.nojekyll

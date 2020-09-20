@@ -1,0 +1,169 @@
+
+img.pull-right(src=image alt="")
+
+p.mg-first Há há mais de um ano não uso mais #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Bash") Bash
+  |  – tenho usado #[=""]
+  a(href="http://zshwiki.org/home/") Zsh
+  | . Agora resolvi dar uma change ao #[=""]
+  a(href="http://fishshell.com/") Fish Shell
+  | .
+
+p Fish Shell – Friendly Interactive Shell – é um #[em shell] para sistemas
+  =" "
+  a(href="https://pt.wikipedia.org/wiki/POSIX") Posix
+  |  com uma pegada mais amigável (#[em user friendly]) que os demais
+  |  #[em shells].
+
+p É considerado um #[=""]
+  a(href="https://en.wikipedia.org/wiki/Unix_shell#Exotic_shells")
+    | #[em shell] exótico
+  |  por sua sintaxe não derivar nem do #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Bourne_shell") Bourne Shell
+  | , nem do #[=""]
+  a(href="http://docs.freebsd.org/44doc/usd/04.csh/paper.html") CShell
+  | . Sua sintaxe é muito mais parecida com #[=""]
+  a(href="http://tcl.tk/") Tcl/Tk
+  |   e #[=""]
+  a(href="https://www.lua.org/") Lua
+  | .
+
+p Você pode encontrar a documentação #[=""]
+  a(href="http://fishshell.com/docs/current/") aqui
+  | .
+
+p suas principais características são:
+
++ul
+  +li Autossugestão conforme a digitação;
+  +li Facilmente #[em escriptável];
+  +li #[em Autocomplete] para páginas de manual;
+  +li Cores VGA em 24 #[em bits];
+  +li Comando de ajuda chama páginas de hipertexto;
+  +li Funcionalidades “fora da caixa”, segundo os autores.
+
+p A princípio, usando Fish, parece ser apenas um #[em shell] cheio de firulas,
+  |  mas as diferenças vão surgindo com o tempo.
+
+p Ao contrário de outros #[em shells], o arquivo de carga inicial de
+  |  #[em login shell] #[strong não] segue o padrão #[=""]
+  code ~/.#[em nomedosh]rc
+  | , mas se encontra em #[code ~/.config/fish/config.fish].
+
+p Outra característica muito importante é que, sempre que você executa um
+  |  comando, o Fish procura um arquivo
+  code ~/.config/fish/functions/#[em comando].fish
+  |  e, encontrando, o executa. O objetivo é carregar sob demanda funções
+  | definidas pelo usuário.
+
+p Duas funções que são chamadas recorrentemente – e podem ser definidas em
+  |  #[code ~/.config/fish/functions/] – são #[code fish_prompt] e
+  |  #[code fish_title]:
+
+p #[code fish_prompt] é chamada sempre imediatamente antes do #[em prompt] ser
+  |  oferecido ao usuário e tem a função de construir a mensagem do
+  |  #[em prompt].
+
+p #[code fish_title] é chamada a cada vez que algum outro #[em software] – como
+  |  #[code xterm] – solicita o título.
+
+h3#scripting: em Scripting
+
+p Vamos a um #[em script] de exemplo: criaremos uma função #[code rmpyc] que
+  |  limpa os arquivos #[code .pyc] do diretório informado. Crie um arquivo
+  |  #[code ~/.config/fish/functions/rmpyc.fish]:
+
+pre.prettyprint: code.language-sh.
+  function rmpyc
+    set -l pathes
+    if test (count $argv) = 0
+      set pathes .
+    else
+      set pathes $argv
+    end
+
+    for dir in $pathes
+      find "$dir" -type d -name __pycache__ -exec -rf {} &#92;;
+      find "$dir" -name "*.pyc" -delete
+    end
+  end
+
+p O programa verifica se há mais de um argumento, em não havendo, usa o
+  |  diretório atual (#[code .]).
+
+p Para cada diretório passado, são executados dois comando de #[code find]: um
+  |  para arquivos de Python 3.x, outro para Python 2.7. Repare na clareza dos
+  |  comandos #[code if] e #[code for], no uso da palavra chave #[code end].
+
+h3#lidando-com-listas Lidando com listas
+
+p Fish Shell tem um suporte muito bom e intuitivo a listas. Por exemplo, para
+  |  adicionar um novo #[em path] à variável #[=""]
+  a(href="https://en.wikipedia.org/wiki/PATH_(variable)"): code PATH
+  | :
+
+pre.prettyprint: code.language-sh set -x PATH $PATH $HOME/bin
+
+p Você pode usar #[code for] para reiterar listas:
+
+pre.prettyprint: code.language-sh.
+  for path in $PATH
+    echo "$path está em PATH"
+  end
+
+p É também possível usar listas literais:
+
+pre.prettyprint: code.language-sh.
+  for letter in A E I O U
+    echo "Vogal: $letter"
+  end
+
+p Um dos recursos mais poderosos de Fish é o produto cartesiano de listas. Por
+  |  exemplo: uma forma de construir a variável #[code LUA_PATH] é usando
+  |  produto cartesiano:
+
+pre.prettyprint: code.language-sh.
+  set -l directories
+  set -l suffixes ?.lua ?.lc ?/init.lua ?/init.lc
+
+  for dir in /usr/share/lua/5.1 /usr/share/lua/scilua /usr/local/share/lua/5.1 /usr/local/share/lua/scilua
+    if test -e $dir
+      set directories $directories $dir
+    end
+  end
+
+  set -l lua_path $directories/$suffixes
+  set -x LUA_PATH (string join ';' -- $lua_path)
+
+h3#lidando-com-strings Lidando com #[em strings]
+
+p Outro recurso de Fish é a ferramenta #[code string]: basicamente ela traz
+  |  suporte a contar o tamanho de uma #[em string], pegar #[em substrings],
+  |  quebrar em listas, juntar uma lista em uma #[em string], etc.
+
+p Por exemplo, para converter o #[em path] para o formato Mac OS:
+
+pre.prettyprint: code.language-sh.
+  function to-mac-os-path -a original_path
+    set -l path (string split / -- "$original_path")
+    string join : -- $path[2..(count $path)]
+  end
+
+p Outra alternativa para fazer a mesma coisa:
+
+pre.prettyprint: code.language-sh.
+  function to-mac-os-path -a path
+    string replace -a / : -- (string trim -l -c/ -- "$path")
+  end
+
+h3#ajuda Buscando ajuda
+
+p Os manuais de ajuda podem ser obtidos #[=""]
+  a(href="http://fishshell.com/docs/current/commands.html"): em on-line
+  | , ou digitando o comando #[code help], que direcionará o usuário para o
+  |  navegador, apontando para o arquivo de ajuda que vem junto com a instalação
+  | de Fish.
+
+pre: code
+  | fish&gt; #[strong help string]#[br/]
+  | fish&gt;

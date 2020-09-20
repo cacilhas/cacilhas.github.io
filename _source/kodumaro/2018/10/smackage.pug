@@ -1,0 +1,97 @@
+p.mg-first Há uns meses descobri um projeto muito bacana para gerenciamento de
+  |  pacotes #[=""]
+  a(href="http://sml-family.org/") Standard ML
+  | , chamado #[=""]
+  a(href="https://github.com/standardml/smackage") Smackage
+  | .
+
+h3 Instalação
+
+p Em seu #[code .bash_profile] configure o diretório do projeto:
+
+pre.prettyprint: code.language-sh.
+  export SMACKAGE_HOME="$HOME/.smackage"
+
+p Agora baixe e instale o projeto:
+
+pre: code
+  em sh$
+  strong  git clone git://github.com/standardml/smackage.git
+  br/
+  em sh$
+  strong  make mlton
+  br/
+  em sh$
+  strong  bin/smackage
+  br/
+  em sh$
+  strong  DESTDIR=$SMACKAGE_HOME make install
+
+p Agora adicione #[code $SMACKAGE_HOME/bin] a seu #[code PATH] e atualize o
+  |  sistema, de volta ao diretório do projeto:
+
+pre: code
+  em sh$
+  strong  ./bin/smackage refresh
+  br/
+  em sh$
+  strong  ./bin/smackage make smackage mlton
+  br/
+  em sh$
+  strong  ./bin/smackage make smackage install
+
+h3 Configurando MLton
+
+p Para fazer o #[=""]
+  a(href="http://mlton.org/") MLton
+  |  (compilador Standard ML) reconhecer o Smackage, crie o arquivo
+  |  #[code ~/.mlb-path-map] com o seguinte conteúdo:
+
+pre: code.
+  SMACKAGE #[em /home/user]/.smackage/lib
+
+p Onde #[code: em /home/user] é seu #[em homedir].
+
+p Crie um #[em alias] para o executável:
+
+pre: code.language-sh.
+  alias mlton='/usr/bin/mlton -mlb-path-map /home/user/.mlb-path-map'
+
+p Substituindo #[code: em /home/user] por seu #[em homedir], como acima.
+
+h3 Instalando um pacote
+
+p Criei um pacote de #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Teste_de_unidade") teste unitário
+  |  para MLton chamado #[=""]
+  a(href="https://github.com/cacilhas/UnitTestML") UnitTestML
+  | .
+
+p Para instalá-lo, você deve primeiro adicionar a fonte ao Smackage:
+
+pre: code
+  em sh$
+  strong  smackage source UnitTestML git https://github.com/cacilhas/UnitTestML.git
+
+p Agora você deve atualizar a base do Smackage:
+
+pre: code
+  em sh$
+  strong  smackage refresh
+
+p E já pode instalar o pacote:
+
+pre: code
+  em sh$
+  strong  smackage get UnitTestML
+
+p E é isso! Para usá-lo em sua aplicação, adicione a seu arquivo
+  |  #[code test.mlb]:
+
+pre: code.language-ml.
+  $(SMACKAGE)/UnitTestML/v1/unittest.mlb
+
+hr/
+
+p No próximo artigo irei falar como fiz para criar o projeto UnitTestML e como
+  |  utilizá-lo em seu projeto.

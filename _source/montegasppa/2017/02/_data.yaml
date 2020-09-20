@@ -1,0 +1,55 @@
+rock-is-dead:
+  title: <em>Rock is dead</em> (continuação)
+  content: Dando continuidade ao artigo <em>Rock is dead</em>…
+  image: /img/clave-sol.jpg
+  licon:
+    - licon
+    - icon-rock
+  release: 2017-02-05
+  tags:
+    - Music
+  nav:
+    prev:
+      path: 2016/07/rock-is-dead
+      title: parte Ⅰ
+    next:
+      path: 2017/12/rock-is-dead
+      title: parte Ⅲ
+
+modos-gregos-guitarra:
+  title: &mgg_title Modos gregos na guitarra
+  content: >
+    Complementando o artigo sobre modos gregos, este foca em sua execução em
+    violão e guitarra.
+  image: /img/schecter-c8.jpg
+  licon:
+    - licon
+    - icon-guitar
+  release: 2017-02-10
+  tags:
+    - Music
+  nav:
+    prev:
+      path: 2016/06/escalas-exoticas-c
+      title: Escalas exóticas
+    next:
+      path: 2017/02/escalas-anemitonicas-e-semitonicas
+      title: Escalas anemitônicas e semitônicas
+
+escalas-anemitonicas-e-semitonicas:
+  title: Escalas anemitônicas e semitônicas
+  content: Vou dar uma pincelada sobre escalas anemitônicas e semitônicas.
+  image: /img/clave-sol.jpg
+  licon:
+    - glyphicon
+    - glyphicon-music
+  release: 2017-02-14
+  tags:
+    - Music
+  nav:
+    prev:
+      path: 2017/02/modos-gregos-guitarra
+      title: *mgg_title
+    next:
+      path: 2017/04/escalas-anemitonicas
+      title: Escalas anemitônicas

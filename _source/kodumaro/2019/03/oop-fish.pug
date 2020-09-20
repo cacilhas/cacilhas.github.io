@@ -1,0 +1,177 @@
+img.pull-right(src=image)
+
+p.mg-first
+  a(href="https://fishshell.com/") Fish
+  |  is a great command-line shell targeted on programmers. It has some cool
+  |  programming-like features hereat.
+
+p But, despite it’s not a merely batch prompt, it’s still only a shell, not a
+  |  programming language, and lacks some basic resources, like #[=""]
+  a(href="http://www.wikiwand.com/en/Closure_%28computer_programming%29")
+    | closures
+  |  and #[=""]
+  a(href="http://www.wikiwand.com/en/Object-oriented_programming")
+    | object-oriented programming
+  | .
+
+p We can emulate those behaviours with some smart workarounds.
+
+p For OOP, we can mimic the #[=""]
+  a(href="https://fsharp.org/") F♯
+  |  approach: the class is in fact a function, which body is, at the same time,
+  |  the class’ and the constructor’s one.
+
+p Thus the methods are defined inside the constructor body.
+
+p But we have another problem yet: Fish has no closures, and the local variables
+  |  are collected as soon as the function ends.
+
+p The way to work around it is creating global variables (and functions) with
+  |  the name bound to the instance identity.
+
+p On Fish, dunder-started functions and variables are weakly private, similar
+  |  to #[=""]
+  a(href="https://linux.die.net/diveintopython/html/object_oriented_framework/private_functions.html")
+    | Python private methods
+  | . So we can prefix the instance attributes (and methods) with dunder
+  |  (#[code __]) and the instance id.
+
+p We’re gonna use the #[=""]
+  a(href="http://man7.org/linux/man-pages/man1/uuidgen.1.html")
+    | #[code uuidgen] tool
+  | . to generate the id.
+
+p The following example is the classic #[code Person] class. It has a
+  |  #[code name] and a #[code birth].
+
+h3 The constructor
+
+p The #[code Person] function should create the instance reference and pass the
+  |  parameters to it.
+
+p The reference should be a dunder class name followed by the instance id. The
+  |  #[code sed] call is for removing the dashes from global id (not supported
+  |  by environment variables). The arguments can be #[code --name],
+  |  #[code --surname], and #[code --birth]. Let’s make it work:
+
+pre.prettyprint: code.
+  function Person -d'Person class'
+    set -l id (uuidgen)
+    set -l self __Person_(echo $id | sed 's!-!!g')
+    argparse n/name= s/surname= b/birth= -- $argv
+
+p OK, now the parameters can be retrieved from #[code _flag_name],
+  |  #[code _flag_surname], and #[code _flag_birth].
+
+h4 Accessor methods
+
+p We can create three getters (read accessor methods) called #[code id],
+  |  #[code fullname], and #[code birth]. For that we use alias:
+
+pre.prettyprint: code.
+  &nbsp; alias $self.id="echo -n $id"
+  &nbsp; alias $self.fullname="echo -n $_flag_name $_flag_surname"
+  &nbsp; alias $self.birth="echo -n $_flag_birth"
+
+h4 Instance methods
+
+p For sample purpose, we can create a method for serialisation. As Fish doesn’t
+  |  support closures, all private info must use the Fish approach for weakly
+  |  private data, and the method must be built by #[code eval] tool:
+
+pre.prettyprint: code.
+  &nbsp; eval "function $self.string
+  &nbsp;   printf '%s (%s): %s' ($self.fullname) ($self.id) ($self.birth)
+  &nbsp; end"
+
+p The #[code $self] variable is expanded on the method creation. Every other
+  |  variable (which is #[strong not] right expanded) must be protected by a
+  |  backslash (#[code &#92;$…]).
+
+h4 Mutable attributes
+
+p Again Fish doesn’t support closures, thereat it’s necessary to use global
+  |  variables. For example, a person can have metadata:
+
+pre.prettyprint: code.
+  &nbsp; set -g "$self"_metadata
+
+p Its access method is a bit more complicated. As explained above, it must deal
+  |  with non-expanded variables:
+
+pre.prettyprint: code.
+  &nbsp; eval "function $self.metadata -a metadata
+  &nbsp;   test -n &#92;"&#92;$metadata&#92;"
+  &nbsp;   and set $self""_metadata &#92;"&#92;$metadata&#92;"
+  &nbsp;   echo -n &#92;$$self""_metadata
+  &nbsp; end"
+
+h4 Returning the instance
+
+p At the constructor block’s end, it’s necessary to return the instance global
+  |  id. The #[code return] statement returns the #[strong status code], so it’s
+  |  #[strong not] what we want.
+
+p To return string values, we need to #[strong echo] them:
+
+pre.prettyprint: code.
+  &nbsp; echo -n $self
+  end
+
+h3 The destructor
+
+p The Fish garbage collector cannot clean up global variables, not even weakly
+  |  private when their references die. So we need to do it explicitly.
+  |  Therefore we created a destructor block.
+
+p For the destructor, outside the class, we create a #[code delete] function.
+  |  Inside it, we have to erase all functions related to the supplied instance
+  |  ids – and the variables too, if we got some.
+
+p Let’s iterate over the supplied instance global ids and search for their
+  |  methods:
+
+pre.prettyprint: code.
+  function delete -d'garbage collector for class instances'
+    for instance in $argv
+      for funcname in (functions --all)
+        string match "$instance.*" -- "$funcname" &gt;/dev/null
+        and functions --erase "$funcname"
+      end
+
+p It also must erase the attributes stored in environment variables:
+
+pre.prettyprint: code.
+  &nbsp;   set | awk '{ print $1; }' | while read envvar
+  &nbsp;     string match "$instance&#92;_*" -- "$envvar" &gt;/dev/null
+  &nbsp;     and set --erase "$envvar"
+  &nbsp;   end
+  &nbsp; end
+  end
+
+p This is the end!
+
+h3 Using the class
+
+p Now an example of using the class:
+
+pre.prettyprint: code.
+  begin
+    set -l person_a (Person -nJohn  -sDoe      -b1970-01-01)
+    set -l person_b (Person -nPedro -sde&#92; Lara -b1925-02-25)
+    $person_a.metadata nobody &gt;/dev/null
+    $person_b.metadata showman &gt;/dev/null
+    printf '%64s, %s&#92;n' ($person_a.string) ($person_a.metadata)
+    printf '%64s, %s&#92;n' ($person_b.string) ($person_b.metadata)
+    delete $person_a $person_b
+  end
+
+p The output must be something like:
+
+pre: code.
+  &nbsp;    John Doe (DE93A63C-8F1D-454F-BD01-C9EF0E1683AF): 1970-01-01, nobody
+  Pedro de Lara (B3169DFE-DD8F-49B1-9601-4E05F2CE40F9): 1925-02-25, showman
+
+p See yah!
+
++medium-link

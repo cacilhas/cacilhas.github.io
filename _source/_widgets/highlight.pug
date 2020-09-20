@@ -1,0 +1,54 @@
+- const montegasppaArticles = []
+- const kodumaroArticles = []
+- const articles = []
+
+each yearDir, yearSlug in public.montegasppa
+  if yearDir && /^\d{4}$/.test(yearSlug)
+    each monthDir, monthSlug in yearDir
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
+          unless page.hidden
+            -
+              const article = {
+                url: `${public.montegasppa.blog.url}${yearSlug}/${monthSlug}`
+                   + `/${slug}.html`,
+                title: `${public.montegasppa.blog.prefix} :: ${page.title}`,
+                content: page.content.trim(),
+                release: moment(page.release),
+              }
+              montegasppaArticles.push(article)
+- montegasppaArticles.sort((a, b) => b.release - a.release)
+
+each yearDir, yearSlug in public.kodumaro
+  if yearDir && /^\d{4}$/.test(yearSlug)
+    each monthDir, monthSlug in yearDir
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
+          unless page.hidden
+            -
+              const article = {
+                url: `${public.kodumaro.blog.url}${yearSlug}/${monthSlug}`
+                   + `/${slug}.html`,
+                title: `${public.kodumaro.blog.prefix} :: ${page.title}`,
+                content: page.content.trim(),
+                release: moment(page.release),
+              }
+              kodumaroArticles.push(article)
+- kodumaroArticles.sort((a, b) => b.release - a.release)
+
+- let i = 0
+while i < 5
+  if montegasppaArticles[i]
+    - articles.push(montegasppaArticles[i])
+  if kodumaroArticles[i]
+    - articles.push(kodumaroArticles[i])
+  - ++i
+
+each article in articles
+  a.col-md-4.mg-highlighted(href=article.url role="button")
+    .panel.panel-default
+      .panel-heading
+        h3.mg-title!= article.title
+      .panel-body
+        p.lead #[!= article.content]
+        p.pull-right(style="font-size: xx-small;")!= article.release.format('MMM, YYYY')

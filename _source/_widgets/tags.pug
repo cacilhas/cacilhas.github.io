@@ -1,0 +1,60 @@
+- const tags = {}
+- const montegasppa = public.montegasppa.blog.prefix
+- const kodumaro = public.kodumaro.blog.prefix
+
+each yearDir, yearSlug in public.montegasppa
+  if yearDir && /^\d{4}$/.test(yearSlug)
+    each monthDir, monthSlug in yearDir
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
+          - const url = `/montegasppa/${yearSlug}/${monthSlug}/${slug}.html`
+          - const title = `${montegasppa} :: ${page.title}`
+          - const current = {url, title, release: page.release}
+          if !page.hidden
+            each tag in page.tags
+              if tags[tag]
+                - tags[tag].pages.push(current)
+              else
+                - tags[tag] = {name: tag, pages: [current]}
+
+each yearDir, yearSlug in public.kodumaro
+  if yearDir && /^\d{4}$/.test(yearSlug)
+    each monthDir, monthSlug in yearDir
+      if monthDir && /^\d\d$/.test(monthSlug)
+        each page, slug in monthDir
+          - const url = `/kodumaro/${yearSlug}/${monthSlug}/${slug}.html`
+          - const title = `${kodumaro} :: ${page.title}`
+          - const current = {url, title, release: page.release}
+          if !page.hidden
+            each tag in page.tags
+              if tags[tag]
+                - tags[tag].pages.push(current)
+              else
+                - tags[tag] = {name: tag, pages: [current]}
+
+.col-md-4
+  .list-group
+    h3.mg-title.list-group-item.active: em Tags
+    ul.list-group.tags-map
+      each tagName in Object.keys(tags).sort()
+        - const tag = tags[tagName]
+        li.list-group-item
+          select.list-group-item(
+            onchange="if (this.value !== '/') window.location = this.value; return true;"
+            style={width: "100%"}
+          )
+            option(value="/" selected=true)!= tag.name
+            each page in tag.pages.sort((a, b) => b.release - a.release).slice(0, 10)
+              option(value=page.url)
+                | [
+                != moment(page.release).format('YYYY/MM')
+                | ] #[=""]
+                != page.title
+            option(value=`/tags/${mkSlug(tagName)}.html`) More…
+
+script.
+  $(document).ready(function() {
+    var tags = $(".tags-map").children();
+    for (var index = 0; index < tags.length; ++index)
+      tags[index].firstChild.selectedIndex = 0;
+  });

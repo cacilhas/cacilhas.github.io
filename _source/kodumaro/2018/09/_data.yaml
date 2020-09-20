@@ -1,0 +1,14 @@
+palindromo:
+  title: Palíndromo em Standard ML
+  content: >
+    Estive pensando em uma forma de explicar <em>functor</em> de ML, cheguei
+    ao algoritmo de determinação de palíndromo.
+  release: 2018-09-14
+  tags:
+    - Concept
+    - Functional
+    - ML
+  nav:
+    prev:
+      path: 2016/03/sml-2
+      title: Standard ML

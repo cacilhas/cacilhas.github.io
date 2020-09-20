@@ -1,0 +1,26 @@
+pre-release:
+  title: O Sutra [β-pre-release]
+  content: Aproveito meu aniversário para fazer o pré-lançamento do novo EP…
+  image: /img/sutra-pre-release.jpg
+  licon:
+    - licon
+    - icon-saekla
+  release: 2017-11-20
+  tags:
+    - Music
+    - Personal
+  nav:
+    prev:
+      path: 2017/10/novo-ep
+      title: End Credits
+    next:
+      path: 2018/02/prognose
+      title: Prognose
+
+punisher:
+  title: Resenha de Marvel’s The Punisher
+  content: Terminei de assistir ontem a série Marvel’s The Punisher…
+  image: /img/punisher.jpg
+  release: 2017-11-27
+  tags:
+    - Movies

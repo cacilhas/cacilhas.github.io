@@ -1,0 +1,168 @@
+img.pull-right(src=image)
+
+p.mg-first
+  strong Don’t believe in programming gurus!
+  |  Said that, let’s go to some definitions, and then, take a look at the lies
+  |  they’ve been telling.
+
+p
+  strong Functional programming
+  |  aims to implement the #[=""]
+  a(href="http://www.cse.chalmers.se/research/group/logic/TypesSS05/Extra/geuvers.pdf")
+    | λ-calculus
+  |  as a programming environment.
+
+p Functional programming (and λ-calculus) is #[strong not] about using
+  |  functions, nor even about quitting #[=""]
+  a(href="https://www.webopedia.com/TERM/O/object_oriented_programming_OOP.html")
+    | object orientation
+  | .
+
+p λ-calculus is about first-class and higher-order functions, and everything as
+  |  a function. Of course “everything as a function” is a bit dramatic for the
+  |  programming context (but not impossible), however every other #[em lambda]
+  |  feature is reasonable to be called functional programming.
+
+p First-class function is the one which can be used as parameter or set to a
+  |  slot. First-class as in “first-class citizen”, with all rights.
+
+p Higher-order function is that which takes another as parameter, or may return
+  |  one.
+
+p Besides, there are some constraints that define the functional paradigm:
+
++ul
+  +li Pure functions: functions #[strong cannot] have side effects.
+  +li Recursion: a function might call itself, loading a new stack.
+  +li Tail-call optimisation: the last function call inside a function must
+    |  replace the current stack. It prevents stack overflow when going into
+    |  recursions.
+  +li Determinism: the functions must be #[strong idempotent], that means, given
+    |  the same params, you shall get the same return, no matter how many times
+    |  it’s called.
+  +li Immutability: no value can be changed. Once set it’s for good.
+  +li
+    a(href="https://encyclopediaofmath.org/index.php?title=Monoid") Monoid
+      |  abstraction
+    | : support for type wrappers that manage a binary operation over the
+    |  wrapped type.
+
+p And there are some optional features:
+
++ul
+  +li Non-strictness: a function can be strict or lazily evaluated. On lazy
+    |  evaluation, functions are named “non-strict” and performed on demand only
+    |  the strictly necessary parts.
+  +li Typed #[em lambda]: functions (and values) can be typed by their structure
+    |  or signature.
+  +li Free and bound variables: traditionally functions may contain bound
+    |  (existent only inside the stack) and free variables (got from parent
+    |  context). Alternatively a functional system may forbid free variables,
+    |  allowing only bound ones. Then you’ll need a #[=""]
+    a(href="https://en.wikipedia.org/wiki/Fixed-point_combinator")
+      | fixpoint combinator
+    |  for recursion.
+  +li
+    a(href="https://wiki.haskell.org/All_About_Monads") Monads
+    | : structures to build up computation sequences by combining sequential
+    |  building blocks.
+
+p Now that we’ve made those definitions clear, let’s talk about the
+  |  misconceptions spread through the programmer’s communities – mostly by
+  |  their very gurus.
+
+h3 (Ruby|Python|Julia) is a functional programming (⁉️)
+
+p You’ve probably heard it.
+
+p
+  a(href="https://www.ruby-lang.org/") Ruby
+  |  #[strong isn’t] a functional programming, just as #[=""]
+  a(href="https://www.python.org/") Python #[=""]
+  strike  and #[=""]
+    a(href="https://scala-lang.org/") Scala
+    |  are
+  |  is not. Those are object-oriented #[strong imperative] languages with
+  |  #[strong one or another] functional feature, but not enough to be
+  |  considered even impure functional.
+
+blockquote
+  p: tt [update 2020-08-12]
+  p My bad: I’ve said Scala is imperative, but it’s not. Scala is
+    |  object-oriented indeed, but it’s functional too, not imperative.
+  p: tt [/update]
+
+p
+  a(href="https://julialang.org/") Julia
+  |  is an impure functional language indeed, but with a lot of imperative
+  |  features that disfigure its functional trait.
+
+h3 Functional programming is about using functions (⁉️)
+
+p When a guru says that, you can be sure he’s bullshit.
+
+p We’ve seen above what functional programming is about.
+
+h3 Erlang is a logic programming language (⁉️)
+
+p
+  a(href="https://www.britannica.com/technology/logic-programming-language")
+    | Logic programming
+  |  is to #[=""]
+  a(href="https://www.fecundity.com/logic/") formal logic
+  |  as the functional programming to λ-calculus.
+
+p The logic programming concepts are quite different from functional
+  |  programming, and deserve a whole dedicated post about. Briefly, it’s about
+  |  describing the facts’ domain and querying it.
+
+p Examples of logic programming languages are #[=""]
+  a(href="https://www.swi-prolog.org/") Prolog
+  | , #[=""]
+  a(href="http://www.ccs.neu.edu/home/ramsdell/tools/datalog/datalog.html")
+    | Datalog
+  | , and #[=""]
+  a(href="https://standards.iso.org/ittf/PubliclyAvailableStandards/c053681_ISO_IEC_9075-1_2011.zip")
+    | SQL
+  | .
+
+p Erlang’s syntax is strongly inspired on Prolog’s, but even yet functional.
+  |  Erlang sticks to all functional constraints and uses some logic features to
+  |  provide some typing, which is a functional feature too – typed
+  |  #[em lambda], you saw it just above.
+
+p Furthermore, Erlang uses the same Prolog’s syntax for defining facts to declare
+  |  function signatures – not to define facts.
+
+p So Erlang isn’t a logic programming language, but a #[strong fully] functional
+  |  programming one instead.
+
+hr/
+
+p There’s so much more about functional programming, and you should get
+  |  involved. I recommend taking a look at #[=""]
+  a(href="https://www.haskell.org/") Haskell
+  |  for fully funcional programming (install #[=""]
+  a(href="https://www.haskell.org/ghc/") GHC
+  | ), #[=""]
+  a(href="http://sml-family.org/") Standard ML
+  |  for impure funcional programming (install #[=""]
+  a(href="http://mlton.org/") MLton
+  | ), #[=""]
+  a(href="https://elm-lang.org/") Elm
+  |  for front-end functional applet, and #[=""]
+  a(href="https://www.scala-lang.org/") Scala
+  |  for functional #[=""]
+  a(href="https://www.webopedia.com/TERM/O/object_oriented_programming_OOP.html")
+    | object orientation
+  |  over #[=""]
+  a(href="https://www.java.com/") JVM
+  |  (or #[=""]
+  a(href="https://www.scala-lang.org/old/node/10299") .NET
+  |, or #[=""]
+  a(href="https://www.scala-js.org/") Node.js
+  | ).
+
++dev-to
+
++medium-link

@@ -1,0 +1,36 @@
+div.panel.panel-default
+  .panel-heading
+    h2.mg-title Introduction
+
+  .panel-body
+    p.mg-first My name is #[=""]
+      a(href=public.author.url) #{public.author.name}
+      | , and this is my personal website.
+
+    p This space aims to group my extinct old pages, like Konsulta Vortaro,
+      |  and bring my blog (
+      a(href="http://montegasppa.blogspot.com.br/")
+        | Reflexões de Monte Gasppa e Giulia C.
+      | ) back to life.
+
+    p The areas available here are:
+
+    +ul
+      a(href=public.montegasppa.blog.url)
+        +li!= public.montegasppa.blog.title
+      a(href=public.kodumaro.blog.url)
+        +li!= public.kodumaro.blog.title
+
+    p Other extra areas:
+
+    +ul
+      a(href=public.hondaj.url target="_blank")
+        +li!= public.hondaj.title
+      a(href=public.vortaro.url target="_blank")
+        +li!= public.vortaro.title
+      a(href=public.misc.url target="_blank")
+        +li!= public.misc.title
+      a(href=public.partners.prognose.url target="_blank")
+        +li!= public.partners.prognose.title
+      a(href=public.partners.bandcamp.url target="_blank")
+        +li!= public.partners.bandcamp.title

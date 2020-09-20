@@ -1,0 +1,47 @@
+body {
+  background-image: url("/img/kodumaro-bg.jpg") !important;
+  background-repeat: repeat !important;
+  background-attachment: fixed !important;
+  background-position: initial !important;
+  background-origin: initial !important;
+  background-clip: initial !important;
+}
+.panel-heading {
+  color: #fff !important;
+  background-image: url("/img/kodumaro-title-bg.png") !important;
+  background-repeat: repeat-x !important;
+  background-position: center !important;
+  bg-size: cover !important;
+}
+.panel-heading > h2 {
+  text-shadow: #c60 2px 2px 2px;
+}
+h3 {
+  color: #c60 !important;
+}
+li code,
+p code,
+tr code {
+  color: #c60 !important;
+  background-color: inherit !important;
+}
+h3 code,
+a code {
+  color: inherit !important;
+  background-color: inherit !important;
+}
+.tag {
+  color: #000 !important;
+  padding: 0px 2px 0px 2px !important;
+  border: 1px solid #808080 !important;
+  border-radius: 5px !important;
+}
+.tag a {
+  color: #000;
+}
+.label-default {
+  background-color: #c60 !important;
+}
+.badge {
+  background-color: #c60 !important;
+}

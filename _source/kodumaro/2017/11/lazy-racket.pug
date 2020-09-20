@@ -1,0 +1,176 @@
+img.pull-right(src=image alt="Racket")
+
+p.mg-first Dando continuidade ao #[=""]
+  a(href=`${public.kodumaro.blog.url}2017/11/lisp.html`) artigo anterior
+  | , podemos abordar dois #[em patterns] interessantes: acumuladores e
+  |  avaliação tardia. Usaremos como plataforma #[=""]
+  a(href="http://racket-lang.org/") Racket
+  | , portanto você vai precisar #[=""]
+  a(href="https://download.racket-lang.org/") instalá-lo
+  | .
+
+
+h3 Acumuladores
+
+p Acumulador é um #[em pattern] muito comum em #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Programação_funcional")
+    | programação funcional
+  |  e #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Programação_lógica") lógica
+  | . Consistem em tirar proveito de #[=""]
+  a(href="http://wiki.c2.com/?TailCallOptimization"): em
+    | tail-call optimisation
+  |  (TCO) em recursões lineares ou binárias.
+
+p Vamos ao mesmo exemplo do artigo anterior, #[=""]
+  a(href="https://pt.wikipedia.org/wiki/Fatorial") fatorial
+  | .
+
+p O passo do fatorial é definido como o próprio número vezes o fatorial de seu
+  |  antecessor, enquanto a parada é o fatorial de zero, igual a um:
+
+pre: code.
+  n! = n × (n - 1)!
+  0! = 1
+
+p Implementando isso em Racket fica:
+
+pre.prettyprint: code.
+  (define factorial
+    (λ (n)
+      [if (zero? n)
+          1
+          (* n (factorial (- n 1)))]))
+
+p O corpo da função λ possui apenas a instrução #[code 'if], que roda
+  |  #[code 'zero?] para verificar a condição – para determinar se se trata do
+  |  passo ou da parada.
+
+p Se for a parada (0!), retorna 1, caso contrário retorna o resultado da
+  | instrução #[code '*].
+
+p Portanto, a última instrução, que tirará proveito de TCO será a multiplicação.
+  |  Porém quem efetua a recursão, promovendo o empilhamento de #[em stacks] de
+  |  função, é #[code 'factorial].
+
+p Assim, para aproveitar TCO na recursão, é necessário que a última instrução
+  |  seja a chamada da recursão.
+
+p Pra que isso seja possível, é preciso carregar o resultado acumulado através
+  |  dos #[em stacks] como parâmetro, para que seja retornado na parada. Esta
+  |  carga de valor acumulado é chamada acumulador.
+
+p Então precisamos de uma função que receba o número para o qual se deseja
+  |  calcular o fatorial #[strong e] o valor acumulado – o acumulador.
+  |  Chamaremos essa função de #[code '*factorial*].
+
+p A função “provida”, #[code 'factorial], deverá chamar #[code '*factorial*]
+  |  passando o número para o qual o fatorial deve ser calculado e, como valor
+  |  inicial do acumulador, o valor retornado na parada (1):
+
+pre.prettyprint: code.
+  (define factorial
+    (λ (n)
+      *factorial* n 1))
+
+p Todo o trabalho pesado deve ser feito em #[code '*factorial*]. O algoritmo é
+  |  quase idêntico ao da função original, apenas retornando o valor acumulado
+  |  para a parada e, para o passo, retorna a chamada recursiva. A
+  |  multiplicação será efetuada para calcular o próximo valor do acumulador,
+  |  passado como parâmetro para o próximo passo:
+
+pre.prettyprint: code.
+  (define *factorial*
+    (λ (n acc)
+      [if (zero? n)
+          acc
+          (*factorial* (- n 1) (* acc n))]))
+
+p Agora temos o cálculo fatorial tirando proveito de TCO, o que torna a função
+  |  tão eficiente quando uma função reiterativa numa linguagem imperativa, mas
+  |  usando uma abordagem recursiva, muito mais legível e inteligível.
+
+
+h3 Avaliação tardia ou preguiçosa (#[em lazy evaluation])
+
+p As estratégias mais eficientes para lidar com grandes volumes de dados
+  |  calculados – e até com quantidades infinitas – é a #[=""]
+  a(href="https://en.wikipedia.org/wiki/Lazy_evaluation")
+    | avaliação tardia
+  |  ou #[em call-by-need]. Linguagens como #[=""]
+  a(href="https://www.haskell.org/") Haskell
+  |  resolvem os valores das funções sob demanda, ou seja, se uma função é
+  |  chamada, mas seu resultado não é usado, o corpo da função #[strong não] é
+  |  executado – será apenas quando o retorno for necessário.
+
+p Isso dá ao programador recursos poderosos, como definir Fibonacci como uma
+  |  uma função que retorna uma lista infinita:
+
+pre.prettyprint: code.
+  fib :: [Integer]
+  fib = 1 : 1 : zipWith (+) fib (tail fib)
+
+p Aqui se declara #[code fib] como uma função que retorna uma lista de inteiros
+  |  (#[code Integer]) e se define o retorno como 1 seguido de 1, seguido da
+  |  soma de cada elemento retornado por #[code fib] com cada elemento
+  |  retornado por #[code fib] exceto o primeiro (#[code tail]).
+
+p Isso só é possível porque cada elemento da lista retornada por #[code fib]
+  |  só é avaliado quando necessário.
+
+p Para trazer os 10 primeiros elementos de Fibonacci, solicitamos a avaliação
+  |  dos mesmos usando #[code take]:
+
+pre: code.
+  #[em ghci&gt;] #[strong take 10 fib]
+  #[em [1,1,2,3,5,8,13,21,34,55]]
+  #[em ghci&gt;]
+
+
+h3: em Promises
+
+p O recurso de #[=""]
+  a(href="http://docs.racket-lang.org/lazy/") Lazy Racket
+  |  para fazer avaliação tardia é chamado #[em promise] (promessa), que é
+  |  totalmente diferente de #[em promise] em #[=""]
+  a(href="https://nodejs.org/en/") Node.js
+  | , mas muito similar à forma como Haskell lida com funções tardiamente.
+
+p Ao declarar um código como Lazy Racket com o #[em hash bang] #[code #!lazy],
+  |  ou importando o módulo (#[code (require lazy)]), isso sobrescreve muitas
+  |  das funções por versões preguiçosas, que retornam uma #[em promise] em vez
+  |  de avaliar imediatamente seu resultado.
+
+p Ainda introduz a função #[code '!!], que força a resolução da #[em promise].
+
+p Vamos então criar um módulo chamado #[code fact.rkt] que provê uma versão
+  |  preguiçosa do cálculo do fatorial, que pode ser usado paralelamente e sob
+  |  demanda. Repare que o corpo das funções é exatamente igual ao que fizemos
+  |  acima:
+
+pre.prettyprint: code.
+  #!lazy
+  ;; fact.rkt
+
+  (provide factorial)
+
+  (define *factorial*
+    (λ (n acc)
+      [if (zero? n)
+          acc
+          (*factorial* (- n 1) (* acc n))]))
+
+  (define factorial
+    (λ (n)
+      *factorial* n 1))
+
+p Podemos validar no #[em prompt] do #[code racket]:
+
+pre: code.
+  #[em -&gt;] #[strong (require "fact.rkt")]
+  #[em -&gt;] #[strong (require lazy)]
+  #[em -&gt;] #[strong (!! &#91;map (lambda (n) `(,n ,(factorial n))) '(0 1 2 3 4 5)&#93;)]
+  #[em '((0 1) (1 1) (2 2) (3 6) (4 24) (5 120))]
+
+p O #[code 'map] gera uma #[em promise] que valida o #[em lambda] sob demanda
+  |  para cada valor da lista #[code '(0 1 2 3 4 5)].

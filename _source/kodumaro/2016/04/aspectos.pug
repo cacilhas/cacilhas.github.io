@@ -1,0 +1,291 @@
+
+img.pull-right(src=image alt="Python")
+
+p.mg-first Este artigo havia sido publicado originalmente em 18 de fevereiro de
+  |  2014 no #[=""]
+  // a(href="http://kodumaro.blogspot.com.br/2014/02/aspectos-1.html")
+  |  #[em blog] original. Infelizmente o #[=""]
+  a(href="https://blogger.com/") Blogger.com
+  |  resolveu apagá-lo durante um #[em bug] da interface, mas o trouxemos de
+  |  volta nesta nova encarnação do !{public.kodumaro.blog.title}.
+
+p Um paradigma muito útil é a #[=""]
+  a(href="http://pt.wikipedia.org/wiki/Programação_orientada_a_aspecto")
+    | Programação Orientada a Aspectos
+  | .
+
+p Consiste em separar e encapsular as funcionalidades de um código conforme sua
+  |  #[strong importância].
+
+p Nesta primeira parte, abordaremos essa separação de forma simples, deixando o
+  |  conceito de #[=""]
+  a(href="http://en.wikipedia.org/wiki/Mixin"): em mixins
+  |  para a #[=""]
+  a(href=`${public.kodumaro.blog.url}2016/04/aspectos-2.html`) parte II
+  | .
+
+p Vamos começar com um exemplo: imagine uma #[em view] que modifica o estado de
+  |  um objeto, retornando um #[em hash] do novo estado:
+
+pre.prettyprint: code.language-python.
+  ResponseType = Tuple[str, Integral, Mapping]
+
+  @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+  def update_person(uuid: str) -&gt; ResponseType:
+      person = db.person.find({'_id': uuid}).first()
+      if not person:
+          raise Http404
+
+      try:
+          data = json.loads(request.data)
+      except ValueError:
+          return json.dumps({'error': 'invalid request'}), &#92;
+                 400, &#92;
+                 {'Content-Type': 'application/json'}
+
+      person.update(data)
+      db.person.save(person)
+
+      r = sorted(person.items())
+      s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
+
+      return json.dumps({'etag': md5(s).hexdigest()}), &#92;
+             200, &#92;
+             {'Content-Type': 'application/json'}
+
+p A solução atende, mas é de difícil manutenção. Perceba que a função chamada
+  |  #[code update_person] (atualiza pessoa) faz muito mais do que simplesmente
+  |  atualizar os dados:
+
++ul
+  +li Recupera o documento do banco, retornando 404 se não existir;
+  +li Faz #[em parsing] dos dados recebidos, retornando 400 em caso de erro;
+  +li Efetivamente atualiza o documento;
+  +li Serializa o objeto para a resposta;
+  +li Gera um hash da serialização;
+  +li Responde a requisição com formato conveniente.
+
+p Cada um desses passos é um #[strong aspecto] do processo e pode ser isolado do
+  |  restante.
+
+p Vamos então separar o primeiro aspecto: recuperação do documento.
+
+pre.prettyprint: code.language-python.
+  # Type aliases
+
+  ResponseType = Tuple[str, Integral, Mapping]
+  ViewType = Callable[[str], ResponseType]
+  ParserType = Callable[[MutableMapping], ResponseType]
+
+  # Aspect decorators
+
+  def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
+      @wraps(view)
+      def wrapper(uuid: str) -&gt; ResponseType:
+          person = db.person.find({'_id': uuid}).first()
+          if not person:
+              raise Http404
+          return view(person)
+      return wrapper
+
+  # View(s)
+
+  @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+  @retrieve_person_aspect
+  def update_person(person: MutableMapping) -&gt; ResponseType:
+      try:
+          data = json.loads(request.data)
+      except ValueError:
+          return json.dumps({'error': 'invalid request'}), &#92;
+                 400, &#92;
+                 {'Content-Type': 'application/json'}
+
+      person.update(data)
+      db.person.save(person)
+
+      r = sorted(person.items())
+      s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
+
+      return json.dumps({'etag': md5(s).hexdigest()}), &#92;
+             200, &#92;
+             {'Content-Type': 'application/json'}
+
+p Agora a recuperação do documento está isolada, podendo inclusive ser usada em
+  |  outras #[em views]. Nossa #[em view] já recebe o documento recuperado e não
+  |  precisa lidar com o fato dele existir ou não.
+
+p Porém ainda temos muita coisa misturada. Por exemplo, a obtenção e
+  |  #[em parsing] dos dados recebidos: isso caracteriza outro aspecto do
+  |  código, que não a atualização do documento.
+
+p Podemos portanto, separá-los:
+
+pre.prettyprint: code.language-python.
+  # Type aliases
+
+  ResponseType = Tuple[str, Integral, Mapping]
+  ViewType = Callable[[str], ResponseType]
+  ParserType = Callable[[MutableMapping], ResponseType]
+  ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+
+  # Aspect decorators
+
+  def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
+      @wraps(view)
+      def wrapper(person: MutableMapping) -&gt; ResponseType:
+          try:
+              data = json.loads(request.data)
+          except ValueError:
+              return json.dumps({'error': 'invalid request'}), &#92;
+                     400, &#92;
+                     {'Content-Type': 'application/json'}
+          return view(person, data)
+      return wrapper
+
+  def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
+      ...
+
+  # View(s)
+
+  @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+  @retrieve_person_aspect
+  @parse_data_aspect
+  def update_person(person: MutableMapping, data: Mapping) -&gt; ResponseType:
+      person.update(data)
+      db.person.save(person)
+
+      r = sorted(person.items())
+      s = ';'.join('{}:{!r}'.format(k, v) for k, v in r)
+
+      return json.dumps({'etag': md5(s).hexdigest()}), &#92;
+             200, &#92;
+             {'Content-Type': 'application/json'}
+
+p A função #[code update_person] já está muito mais limpa: atualiza o documento,
+  |  serializa e retorna o #[em hash], mas ainda faz coisas demais. Vamos
+  |  separar o tratamento do retorno:
+
+pre.prettyprint: code.language-python.
+  # Type aliases
+
+  ResponseType = Tuple[str, Integral, Mapping]
+  ViewType = Callable[[str], ResponseType]
+  ParserType = Callable[[MutableMapping], ResponseType]
+  ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+  PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
+
+  # Aspect decorators
+
+  def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
+      @wraps(view)
+      def wrapper(person: MutableMapping, data: Mapping) -&gt; ResponseType:
+          response = view(person, data)
+          return json.dumps({'etag': md5(response).hexdigest()}), &#92;
+                 200, &#92;
+                 {'Content-Type': 'application/json'}
+      return wrapper
+
+  def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
+      ...
+
+  def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
+      ...
+
+  # View(s)
+
+  @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+  @retrieve_person_aspect
+  @parse_data_aspect
+  @respond_etag_aspect
+  def update_person(person: MutableMapping, data: Mapping) -&gt; str:
+      person.update(data)
+      db.person.save(person)
+
+      r = sorted((str(k), repr(v)) for k, v in person.items())
+      return ';'.join('{}:{!r}'.format(k, v) for k, v in r)
+
+p As coisas estão ficando cada vez mais separadas. A única coisa que a função
+  |  #[code update_person] ainda faz além de atualizar o documento é
+  |  serializá-lo. Isso também pode ser isolado:
+
+pre.prettyprint: code.language-python.
+  # Type aliases
+
+  ResponseType = Tuple[str, Integral, Mapping]
+  ViewType = Callable[[str], ResponseType]
+  ParserType = Callable[[MutableMapping], ResponseType]
+  ETagAddType = Callable[[MutableMapping, Mapping], ResponseType]
+  PersonSerialiserType = Callable[[MutableMapping, Mapping], str]
+  PersonUpdaterType = Callable[[MutableMapping, Mapping], MutableMapping]
+
+  # Aspect decorators
+
+  def serialise_person_aspect(view: PersonUpdaterType) -&gt; PersonSerialiserType:
+      @wraps(view)
+      def wrapper(person: MutableMapping, data: Mapping) -&gt; str:
+          response = view(person, data)
+          r = sorted((str(k), repr(v)) for k, v in response.items())
+          return ';'.join('{}:{!r}'.format(k,v) for k, v in r)
+
+  def respond_etag_aspect(view: PersonSerialiserType) -&gt; ETagAddType:
+      ...
+
+  def parse_data_aspect(view: ETagAddType) -&gt; ParserType:
+      ...
+
+  def retrieve_person_aspect(view: ParserType) -&gt; ViewType:
+      ...
+
+  # View(s)
+
+  @app.route('/people/&lt;uuid&gt;/', methods=['PATCH'])
+  @retrieve_person_aspect
+  @parse_data_aspect
+  @respond_etag_aspect
+  @serialise_person_aspect
+  def update_person(person: MutableMapping, data: Mapping) -&gt; MutableMapping:
+      person.update(data)
+      db.person.save(person)
+      return person
+
+p Perceba que, com a separação dos aspectos em funções distintas, o código ficou
+  |  muito mais semântico:
+
++ul
+  +li #[code retrive_person_aspect] apenas recupera o documento do banco;
+
+  +li
+    | #[code parse_data_aspect] apenas faz o <em>parsing</em> dos dados
+    | recebidos;
+
+  +li #[code respond_etag_aspect] apenas gera o formato correto da resposta;
+
+  +li #[code serialise_person_aspect] apenas serializa o documento;
+
+  +li finalmente, #[code update_person] apenas atualiza o documento.
+
+h3 Observação
+
++ul
+  +li #[code db] é um objeto de banco de dados MongoDB, apenas para fim de
+    |  exemplo.
+
+  +li #[code app] é uma aplicação #[=""]
+    a(href="http://flask.pocoo.org/") Flask
+    | , apenas para fim de exemplo.
+
+  +li A ordem dos decoradores #[strong é importante], o retorno de cada
+    |  decorador #[strong precisa] ser do mesmo tipo do argumento do
+    |  decorador seguinte.
+
+  +li Os #[code import]s foram omitidos:
+    pre.prettyprint: code.language-python.
+        from typing import Callable, Mapping, MutableMapping, Tuple
+        from numbers import Integral
+        from functools import wraps
+        from hashlib import md5
+        import json
+
+p Na #[=""]
+  a(href=`${public.kodumaro.blog.url}2016/04/aspectos-2.html`) parte II
+  |  abordaremos #[em mixins].

@@ -1,0 +1,15 @@
+[submodule "vortaro"]
+	path = vortaro
+	url = https://github.com/cacilhas/vortaro.git
+[submodule "misc"]
+	path = misc
+	url = https://github.com/cacilhas/misc.git
+[submodule "img"]
+	path = img
+	url = https://github.com/cacilhas/img.git
+[submodule "kodumaro"]
+	path = kodumaro
+	url = https://github.com/cacilhas/kodumaro.git
+[submodule "montegasppa"]
+	path = montegasppa
+	url = https://github.com/cacilhas/montegasppa.git
