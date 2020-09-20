@@ -59,21 +59,21 @@ author: &author
       title: Arĥimedeς ℳontegasppα
       url: https://twitter.com/Montegasppa
       image:
-        source: /img/twitter.png
+        source: //cacilhas.info/img/twitter.png
         style:
           width: 24px
           height: 24px
     - <<: *prognose
       name: Patreon
       image:
-        source: /img/patreon.png
+        source: //cacilhas.info/img/patreon.png
         style:
           width: 24px
           height: 24px
     - <<: *bandcamp
       name: Bandcamp
       image:
-        source: /img/le-obscur-essentes.jpg
+        source: //cacilhas.info/img/le-obscur-essentes.jpg
         style:
           width: 24px
           height: 24px
@@ -81,21 +81,21 @@ author: &author
       title: Arĥimedeς Montegasppα Cacilhας
       url: https://plus.google.com/+RodrigoCacilhas
       image:
-        source: /img/gplus.png
+        source: //cacilhas.info/img/gplus.png
         style:
           width: 24px
           height: 10px
     - name: Github
       url: https://github.com/cacilhas/
       image:
-        source: /img/github.png
+        source: //cacilhas.info/img/github.png
         style:
           width: 24px
           height: 20px
     - <<: *medium
       name: Medium
       image:
-        source: /img/medium.png
+        source: //cacilhas.info/img/medium.png
         style:
           width: 24px
           height: 24px
@@ -103,7 +103,7 @@ author: &author
       title: Archimedes Montegasppa
       url: https://www.facebook.com/archimedes.montegasppa.3
       image:
-        source: /img/facebook.png
+        source: //cacilhas.info/img/facebook.png
         style:
           width: 24px
           height: 24px
@@ -111,7 +111,7 @@ author: &author
       title: Rodrigo Cacilhas
       url: https://br.linkedin.com/in/rodrigocacilhas
       image:
-        source: /img/linkedin.png
+        source: //cacilhas.info/img/linkedin.png
         style:
           width: 24px
           height: 24px
@@ -119,7 +119,7 @@ author: &author
       title: Arĥimedeς ℳontegasppα
       url: https://soundcloud.com/rodrigo-cacilhas
       image:
-        source: /img/soundcloud.png
+        source: //cacilhas.info/img/soundcloud.png
         style:
           width: 24px
           height: 10px
