@@ -1,6 +1,6 @@
 "use strict"
 
-import * as _ from "underscore"
+import _ from "underscore"
 import * as fs from "fs"
 import * as path from "path"
 import * as URL from "url"
@@ -9,7 +9,9 @@ import * as yaml from "js-yaml"
 import * as pug from "pug"
 import * as CoffeeScript from "coffeescript"
 import * as rimraf from "rimraf"
+import * as showdown from "showdown"
 import * as stylus from "stylus"
+import { createIndentedFilter } from "indented-filter"
 
 interface Context {
   public?: Context
@@ -37,7 +39,13 @@ type Render = (ctx: Context) => string
 
 const globalContext: Context = {}
 const tags: { [name: string]: TagContent } = {}
+const mdConverter = new showdown.Converter
 const submodules = _([".", "./img", "./kodumaro", "./misc", "./montegasppa", "./vortaro"])
+
+mdConverter.addExtension({
+  type: "lang",
+  filter: createIndentedFilter("^^pug", (s: string) => pug.render(s))
+}, "pug")
 
 const refContext = {
   cacilhas: yaml.safeLoad(fs.readFileSync("./_source/_data.yaml", "utf8")),
@@ -322,7 +330,13 @@ function compilePug(template: string, filename: string): Render {
   const content = template.startsWith("extends ")
     ? template
     : mixinsInclude + template
-  return pug.compile(content, { filename, pretty: false })
+  return pug.compile(content, {
+    filename,
+    pretty: false,
+    filters: {
+      markdown: (s: string) => mdConverter.makeHtml(s),
+    },
+  })
 }
 
 
