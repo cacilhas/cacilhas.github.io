@@ -10,6 +10,3 @@
 [submodule "kodumaro"]
 	path = kodumaro
 	url = https://github.com/cacilhas/kodumaro.git
-[submodule "montegasppa"]
-	path = montegasppa
-	url = https://github.com/cacilhas/montegasppa.git

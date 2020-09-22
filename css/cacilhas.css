@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Default Fancy";
-  src: url("/misc/fonts/default-fancy.ttf") format("truetype"), url("/misc/fonts/default-fancy.woff") format("woff"), url("/misc/fonts/default-fancy.woff2") format("woff2");
+  src: url("//cacilhas.info/misc/fonts/default-fancy.ttf") format("truetype"), url("//cacilhas.info/misc/fonts/default-fancy.woff") format("woff"), url("//cacilhas.info/misc/fonts/default-fancy.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -21,10 +21,10 @@ body {
   font-family: Roboto, Helvetica, sans-serif;
 }
 code {
-  font-family: "Roboto Mono", monospace;
+  font-family: "Roboto Mono", Monaco, monospace;
 }
 tt {
-  font-family: "Roboto Mono", monospace;
+  font-family: "Roboto Mono", Monaco, monospace;
 }
 blockquote {
   font-family: Kavivanar, Futura, Arial, sans-serif;

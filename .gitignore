@@ -1,6 +1,7 @@
 *~
 .*
 /_build.js
+/montegasppa
 /node_modules
 /tmp
 !.gitignore
