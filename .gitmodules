@@ -7,6 +7,3 @@
 [submodule "img"]
 	path = img
 	url = https://github.com/cacilhas/img.git
-[submodule "kodumaro"]
-	path = kodumaro
-	url = https://github.com/cacilhas/kodumaro.git
