@@ -38,7 +38,7 @@ hr {
   display: block;
   border: none;
   height: 10px;
-  bg-size: cover auto;
+  background-size: cover auto;
   background-image: url("//cacilhas.info/img/divider.gif");
   background-repeat: no-repeat;
   background-position: center;
