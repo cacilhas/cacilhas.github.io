@@ -1,0 +1,24 @@
+.card-main {
+  border-style: ridge;
+  border-width: 2px;
+  border-color: gray;
+  padding: 5px 5px 5px 5px;
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 700px;
+  height: 57vw;
+  max-height: 400px;
+  align: left;
+  vertical-align: center;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#photo {
+  width: 40%;
+  float: left;
+  margin-right: 5%;
+}

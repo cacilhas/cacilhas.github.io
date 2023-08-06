@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Rodrigo Cacilhas</title>
+    <meta http-equiv="X-UA-Compatibile" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="language" content="pt-br" />
+    <link rel="stylesheet" href="./fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="./css/standard.css" />
+    <script src="./fontawesome/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="card-main" id="main">
+      <img id="photo" alt="" src="//cacilhas.info/img/hub-lounge.jpg" />
+      <p class="title">Desenvolvedor de <em>Software</em></p>
+      <p><i class="fa-solid fa-phone"></i>&nbsp;+55&nbsp;21&nbsp;973074998</p>
+      <p><i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:montegasppa@cacilhas.info">montegasppa@cacilhas.info</a></p>
+      <p><i class="fa-brands fa-chrome"></i>&nbsp;<a href="https://cacilhas.info/">https://cacilhas.info/</a></p>
+      <p><i class="fa-brands fa-github"></i>&nbsp;<a href="https://github.com/cacilhas">https://github.com/cacilhas</a></p>
+    </div>
+    <script>
+      function setFontSize() {
+        let main = document.getElementById('main');
+        main.style.fontSize = main.clientWidth * 0.05;
+        // for (let e of main.getElementsByTagName('p'))
+        //   e.style.fontSize = main.clientWidth * 0.05;
+      }
+      setFontSize();
+      window.addEventListener('resize', setFontSize);
+    //</script>
+  </body>
+</html>
