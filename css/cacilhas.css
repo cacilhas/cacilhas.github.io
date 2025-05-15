@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Default Fancy";
-  src: url("//cacilhas.info/misc/fonts/default-fancy.ttf") format("truetype"), url("//cacilhas.info/misc/fonts/default-fancy.woff") format("woff"), url("//cacilhas.info/misc/fonts/default-fancy.woff2") format("woff2");
+  src: url("//cacilhas.cc/misc/fonts/default-fancy.ttf") format("truetype"), url("//cacilhas.cc/misc/fonts/default-fancy.woff") format("woff"), url("//cacilhas.cc/misc/fonts/default-fancy.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -39,7 +39,7 @@ hr {
   border: none;
   height: 10px;
   background-size: cover auto;
-  background-image: url("//cacilhas.info/img/divider.gif");
+  background-image: url("//cacilhas.cc/img/divider.gif");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -195,13 +195,13 @@ h3:hover > .mg-hidden-link {
   content: "\1F499";
 }
 .icon-cacilhas {
-  background-image: url("//cacilhas.info/img/icons/favicon.ico");
+  background-image: url("//cacilhas.cc/img/icons/favicon.ico");
 }
 .icon-educaedu {
-  background-image: url("//cacilhas.info/img/icons/educaedu.ico");
+  background-image: url("//cacilhas.cc/img/icons/educaedu.ico");
 }
 .icon-fridas {
-  background-image: url("//cacilhas.info/img/icons/todas-fridas.ico");
+  background-image: url("//cacilhas.cc/img/icons/todas-fridas.ico");
 }
 .icon-guitar {
   top: 0;
@@ -211,16 +211,16 @@ h3:hover > .mg-hidden-link {
   content: "\1F3B8";
 }
 .icon-he {
-  background-image: url("//cacilhas.info/img/icons/highexistence.ico");
+  background-image: url("//cacilhas.cc/img/icons/highexistence.ico");
 }
 .icon-kodumaro {
-  background-image: url("//cacilhas.info/img/icons/kodumaro.ico");
+  background-image: url("//cacilhas.cc/img/icons/kodumaro.ico");
 }
 .icon-maven {
-  background-image: url("//cacilhas.info/img/icons/maven.ico");
+  background-image: url("//cacilhas.cc/img/icons/maven.ico");
 }
 .icon-montegasppa {
-  background-image: url("//cacilhas.info/img/icons/montegasppa.ico");
+  background-image: url("//cacilhas.cc/img/icons/montegasppa.ico");
 }
 .icon-music {
   top: 0;
@@ -230,22 +230,22 @@ h3:hover > .mg-hidden-link {
   content: "\1F3B6";
 }
 .icon-dev-to {
-  background-image: url("//cacilhas.info/img/icons/dev-badge.ico");
+  background-image: url("//cacilhas.cc/img/icons/dev-badge.ico");
 }
 .icon-hondaj {
-  background-image: url("//cacilhas.info/img/icons/hondaj.ico");
+  background-image: url("//cacilhas.cc/img/icons/hondaj.ico");
 }
 .icon-le-obscur-essentes {
-  background-image: url("//cacilhas.info/img/icons/le-obscur-essentes.ico");
+  background-image: url("//cacilhas.cc/img/icons/le-obscur-essentes.ico");
 }
 .icon-medium {
-  background-image: url("//cacilhas.info/img/icons/medium.ico");
+  background-image: url("//cacilhas.cc/img/icons/medium.ico");
 }
 .icon-patreon {
-  background-image: url("//cacilhas.info/img/icons/patreon.ico");
+  background-image: url("//cacilhas.cc/img/icons/patreon.ico");
 }
 .icon-prognose {
-  background-image: url("//cacilhas.info/img/icons/patreon.ico");
+  background-image: url("//cacilhas.cc/img/icons/patreon.ico");
 }
 .icon-rock {
   top: 0;
@@ -255,8 +255,8 @@ h3:hover > .mg-hidden-link {
   content: "\1F918";
 }
 .icon-saekla {
-  background-image: url("//cacilhas.info/img/icons/saekla.ico");
+  background-image: url("//cacilhas.cc/img/icons/saekla.ico");
 }
 .icon-wordpress {
-  background-image: url("//cacilhas.info/img/icons/wordpress.ico");
+  background-image: url("//cacilhas.cc/img/icons/wordpress.ico");
 }
